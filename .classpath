@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="MainController"/>
+	<classpathentry kind="lib" path="classes.jar"/>
+	<classpathentry kind="lib" path="jtools.jar"/>
+	<classpathentry kind="lib" path="pccomm.jar"/>
+	<classpathentry kind="lib" path="pctools.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
