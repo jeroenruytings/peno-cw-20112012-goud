@@ -4,12 +4,14 @@
     </description>
 
   <!-- set properties for this build -->
+
   <property environment="env"/>
   <property file="../samples.properties"/>
   <property name="src" location="."/>
   <basename property="program" file="."/>
   <property name="binary" value="${program}.nxj" />
-	
+  <property name = "bin" location="../bin" />
+	<property name="proj" location="../"/>
   <!-- deletes class files -->
   <target name="clean" description="clean up all generated files">
     <delete>
@@ -22,7 +24,7 @@
   <target name="compile" depends="clean"
         description="compile the source" >
     <!-- Compile the java code from ${src}  -->
-    <javac srcdir="${src}" destdir="${src}">
+    <javac srcdir="${proj}" destdir="${bin}">
       <bootclasspath>
         <pathelement location="${nxj.classes.jar}"/>
        </bootclasspath>
@@ -36,12 +38,12 @@
       <arg value="--bootclasspath"/>
       <arg path="${nxj.classes.jar}" /> 
       <arg value="--classpath" />
-      <arg path="." /> 
+      <arg path="${bin}" /> 
       <arg value="--writeorder" />
       <arg value="LE" />
       <arg value="${program}" />
       <arg value="--output" />
-      <arg value="${src}\\${binary}" />
+      <arg value="${bin}\\${binary}" />
       <arg value="-v" />
       <classpath>
         <pathelement location="${nxj.jtools.jar}"/>
@@ -56,7 +58,7 @@
     <java classname="lejos.pc.tools.NXJUpload" fork="true">
       <jvmarg value="-Djava.library.path=${nxj.library.path}"/>
       <jvmarg value="-Dnxj.home=${nxj.home}"/>
-      <arg value="${binary}"/>
+      <arg value="${bin}\\${binary}"/>
       <classpath>
         <pathelement location="${nxj.jtools.jar}"/>
         <pathelement location="${nxj.pctools.jar}"/>
