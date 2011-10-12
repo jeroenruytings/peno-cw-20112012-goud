@@ -5,7 +5,10 @@
 
 	<target name="clean" description="clean up all generated files" >
 		<ant antfile="../samplebuild.xml" target="clean"/>
-	</target>
+	</target>	
+	<target name="init" description="initialize everyting" >
+	<ant antfile="../samplebuild.xml" target="init"/>
+</target>
 
 	<target name="compile" description="compile the source" >
 		<ant antfile="../samplebuild.xml" target="compile"/>
