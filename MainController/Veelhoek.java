@@ -5,7 +5,7 @@ import lejos.nxt.Motor;
 public class Veelhoek {
 	static ImprovedDifferentialPilot pilot;
 	static int number = 1;
-	static int length = 20000;
+	static int length = 1000;
 	/**
 	 * Makes the robot drive in a polygon
 	 * @param numberOfCorners
