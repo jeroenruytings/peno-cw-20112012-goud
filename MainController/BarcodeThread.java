@@ -8,6 +8,7 @@ import lejos.nxt.SensorPort;
 import lejos.nxt.addon.ColorSensor;
 
 public class BarcodeThread implements Runnable {
+	
 	class node {
 		color c;
 		int base;
@@ -22,8 +23,22 @@ public class BarcodeThread implements Runnable {
 	};
 
 	enum barcode {
-		zero(0, 0, 0, 0, 0, 0, 0), one(0, 0, 0, 1, 1, 1, 1), two(0, 0, 1, 0, 1,
-				1, 0), three(0, 0, 1, 1, 0, 0, 1), four(0, 1, 0, 0, 1, 0, 1), ;
+		zero(0, 0, 0, 0, 0, 0, 0), 
+		one(0, 0, 0, 1, 1, 1, 1), 
+		two(0, 0, 1, 0, 1, 1, 0),
+		three(0, 0, 1, 1, 0, 0, 1),
+		four(0, 1, 0, 0, 1, 0, 1),
+		five(0, 1, 0, 1, 0, 1, 0),
+		six(0, 1, 1, 0, 0, 1, 1),
+		seven(0, 1, 1, 1, 1, 0, 0),
+		eight(1, 0, 0, 0, 0, 1, 1),
+		nine(1, 0, 0, 1, 1, 0, 0),
+		a(1, 0, 1, 0, 1, 0, 1),
+		b(1, 0, 1, 1, 0, 1, 0),
+		c(1, 1, 0, 0, 1, 1, 0),
+		d(1, 1, 0, 1, 0, 0, 1),
+		e(1, 1, 1, 0, 0, 0, 0),
+		f(1, 1, 1, 1, 1, 1, 1);
 
 		private final int[] code;
 
@@ -80,7 +95,7 @@ public class BarcodeThread implements Runnable {
 			System.out.println(""+c.toString());
 			System.out.println(SensorPort.S4.readRawValue());
 			if (!currentcolor.equals(c)) {
-				Button.waitForPress();
+				//Button.waitForPress();
 				
 				currentcolor = c;
 				/*push(new node(c, Motor.A.getTachoCount()), buffer);
@@ -154,14 +169,12 @@ public class BarcodeThread implements Runnable {
 				return "black";
 			default:
 				return "brown";
-
 			}
 
 		}
 	}
 
 	color getcurrentcolor() {
-	
 		return getc(SensorPort.S4.readRawValue());
 	}
 }
