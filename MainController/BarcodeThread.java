@@ -47,6 +47,21 @@ public class BarcodeThread implements Runnable {
 		}
 	};
 
+	enum color {
+		white, black, brown;
+		public String toString() {
+			switch (this) {
+			case white:
+				return "white";
+			case black:
+				return "black";
+			default:
+				return "brown";
+			}
+	
+		}
+	}
+
 	node[] buffer = new node[10];
 	int elems = 0;
 
@@ -91,12 +106,11 @@ public class BarcodeThread implements Runnable {
 				Thread.sleep(samplingperiod);
 			} catch (Exception e) {
 			}
-			color c = getcurrentcolor();
+			color c = getCurrentColor();
 			System.out.println(""+c.toString());
 			System.out.println(SensorPort.S4.readRawValue());
 			if (!currentcolor.equals(c)) {
 				//Button.waitForPress();
-				
 				currentcolor = c;
 				/*push(new node(c, Motor.A.getTachoCount()), buffer);
 				if (currentcolor.equals(color.brown)) {
@@ -143,8 +157,8 @@ public class BarcodeThread implements Runnable {
 		return value <620;
 	}
 
-	static boolean isblack(int g) {
-		return (g >700);
+	static boolean isblack(int value) {
+		return value >700 ;
 	}
 
 	static boolean isbrown(int v) {
@@ -159,22 +173,7 @@ public class BarcodeThread implements Runnable {
 		return color.brown;
 	}
 
-	enum color {
-		white, black, brown;
-		public String toString() {
-			switch (this) {
-			case white:
-				return "white";
-			case black:
-				return "black";
-			default:
-				return "brown";
-			}
-
-		}
-	}
-
-	color getcurrentcolor() {
+	color getCurrentColor() {
 		return getc(SensorPort.S4.readRawValue());
 	}
 }
