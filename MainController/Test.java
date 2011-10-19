@@ -2,6 +2,7 @@ import lejos.nxt.Button;
 import lejos.nxt.LCD;
 import lejos.nxt.LightSensor;
 import lejos.nxt.SensorPort;
+import lejos.robotics.Colors.Color;
 
 public class Test {
 
@@ -12,6 +13,7 @@ public class Test {
 	 */
 	public static void main(String[] args) {
 		
+		sensor.setFloodlight(Color.WHITE);
 		calibrate();
 		
 		while(!Button.ENTER.isPressed()){
@@ -22,18 +24,18 @@ public class Test {
 	
 	public static void showColor(LightSensor sensor) {
 	
-		LCD.drawString("Colorshade: " + sensor.readValue(), 0,0);
+		LCD.drawString("Colorshade: " + sensor.getLightValue(), 0,0);
 		LCD.drawString("High: " + sensor.getHigh(),0, 1);
 		LCD.drawString("Low: " + sensor.getLow(),0, 2);
 	
 	}
 
 	public static void calibrate(){
-		sensor.calibrateHigh();
+		sensor.setHigh(sensor.readValue());
 		LCD.drawString("Press enter", 0, 0);
 		Button.ENTER.waitForPressAndRelease();
 		// roteer links
-		sensor.calibrateLow();
+		sensor.setLow(sensor.readValue());
 		LCD.drawString("Succes", 0, 1);
 		if(sensor.getHigh() < sensor.getLow()){
 			int i = sensor.getHigh();
