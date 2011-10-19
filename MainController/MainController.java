@@ -1,3 +1,5 @@
+package MainController;
+
 import lejos.nxt.Button;
 
 public class MainController {
