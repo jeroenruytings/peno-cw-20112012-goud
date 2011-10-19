@@ -100,7 +100,9 @@ public class BarcodeThread implements Runnable {
 		System.out.println("callibrate high");
 		Button.waitForPress();
 		sensor.calibrateHigh();
-		color currentcolor = color.brown;
+		color currentcolor = getCurrentColor();
+		push(new node(currentcolor, Motor.A.getTachoCount()), buffer);
+		
 		while (true) {
 			try {
 				Thread.sleep(samplingperiod);
@@ -112,17 +114,31 @@ public class BarcodeThread implements Runnable {
 			if (!currentcolor.equals(c)) {
 				//Button.waitForPress();
 				currentcolor = c;
-				/*push(new node(c, Motor.A.getTachoCount()), buffer);
+				if (currentcolor.equals(color.black)||
+						currentcolor.equals(color.white)){
+					push(new node(c, Motor.A.getTachoCount()), buffer);
+				}
+				
 				if (currentcolor.equals(color.brown)) {
-
+										
 					float dist = buffer[0].distanceto(buffer[elems - 1]);
-					if (dist > 30) {
-						int[] code = convertTocode(buffer);
-
-					} else {
-						clear(buffer);
+					if (dist < 5){
+						//Transition from black to white => do nothing
 					}
-				}*/
+					else{
+						push(new node(c, Motor.A.getTachoCount()), buffer);
+						
+						if (dist > 30) {
+							int[] code = convertTocode(buffer);
+							
+						}
+						else if (dist > 5 && dist < 30){
+							clear(buffer);
+						}
+					}
+				}
+				
+
 			}
 		}
 	}
@@ -158,7 +174,7 @@ public class BarcodeThread implements Runnable {
 	}
 
 	static boolean isblack(int value) {
-		return value >700 ;
+		return value >670 ;
 	}
 
 	static boolean isbrown(int v) {
