@@ -1,4 +1,7 @@
+package MainController;
+
 import java.util.Stack;
+
 
 import lejos.nxt.Button;
 import lejos.nxt.LightSensor;

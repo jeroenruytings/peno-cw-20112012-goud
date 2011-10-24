@@ -1,7 +1,6 @@
 package MainController;
 
 import lejos.nxt.Motor;
-import lejos.robotics.Movement;
 
 import lejos.robotics.TachoMotor;
 import lejos.robotics.proposal.DifferentialPilot;
