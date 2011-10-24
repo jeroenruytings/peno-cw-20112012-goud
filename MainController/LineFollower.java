@@ -13,10 +13,10 @@ import lejos.nxt.SensorPort;
 public class LineFollower {
 
 	int color;
-	int turn;
 	int treshold;
 	int min;
 	int max;
+	boolean darkline;
 	
 	public static LightSensor sensor = new LightSensor(SensorPort.S4, true);
 	
@@ -24,7 +24,6 @@ public class LineFollower {
 	
 	public LineFollower(){
 		color = 0;
-		turn = 0;
 		treshold = 0;
 		min = (int) Double.POSITIVE_INFINITY;
 		max = (int) Double.NEGATIVE_INFINITY;
@@ -54,10 +53,14 @@ public class LineFollower {
 		//Button.ENTER.waitForPressAndRelease();
 		LCD.clear();
 		color = sensor.getNormalizedLightValue();
-		if (color > max)
+		if (color > max){
 			max = color;
-		else if (color < min)
+			darkline = true;
+		}
+		else if (color < min){
 			min = color;
+			darkline = false;
+		}
 		
 		treshold = (min+max)/2;
 	}
@@ -69,13 +72,33 @@ public class LineFollower {
 	}
 	
 	public void followLine(){
+		int standardSpeed=720;
 		while(true){
-			color = sensor.getNormalizedLightValue();
+			color = sensor.getNormalizedLightValue();			
+			pilot.forward();
 			
-			turn = 0;
+			// 5 nog aanpassen naar procenten
+			if (color < (treshold+5) && color > (treshold-5)){
+				pilot.setStandardSpeed(standardSpeed);
+				continue;
+			}
+			if(color>(treshold+5)){
+				if (darkline = true)					//te ver naar links, naar rechts draaien
+					pilot.turnRight(20);
+				else
+					pilot.turnLeft(20);
+			}
+			else{
+				if (darkline = true)					//te ver naar links, naar rechts draaien
+					pilot.turnLeft(20);
+				else
+					pilot.turnRight(20);
+				}
 		}
 	}
 	
+
+
 	public  int getMax(){
 		return max;
 	}
