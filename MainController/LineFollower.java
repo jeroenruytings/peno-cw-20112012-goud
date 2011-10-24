@@ -12,7 +12,6 @@ import lejos.nxt.SensorPort;
 
 public class LineFollower {
 
-	int color;
 	int treshold;
 	int min;
 	int max;
@@ -23,7 +22,6 @@ public class LineFollower {
 	ImprovedDifferentialPilot pilot = new ImprovedDifferentialPilot(56f, 55.5f, 113f, Motor.A, Motor.B, false);
 	
 	public LineFollower(){
-		color = 0;
 		treshold = 0;
 		min = (int) Double.POSITIVE_INFINITY;
 		max = (int) Double.NEGATIVE_INFINITY;
@@ -44,7 +42,7 @@ public class LineFollower {
 	}
 	
 	public void calibrate() {
-		color = sensor.getNormalizedLightValue();
+		int color = sensor.getNormalizedLightValue();
 		min = color;
 		max = color;
 		
@@ -73,31 +71,43 @@ public class LineFollower {
 	
 	public void followLine(){
 		int standardSpeed=720;
-		while(true){
+		int color;
+		while(true) {
 			color = sensor.getNormalizedLightValue();			
 			pilot.forward();
 			
-			// 5 nog aanpassen naar procenten
-			if (color < (treshold+5) && color > (treshold-5)){
+			if (inRange()) {
 				pilot.setStandardSpeed(standardSpeed);
 				continue;
 			}
-			if(color>(treshold+5)){
+			// 5 nog aanpassen naar procenten
+			if(color>(treshold+5)) {
 				if (darkline = true)					//te ver naar links, naar rechts draaien
 					pilot.turnRight(20);
 				else
 					pilot.turnLeft(20);
 			}
-			else{
+			else {
 				if (darkline = true)					//te ver naar links, naar rechts draaien
 					pilot.turnLeft(20);
 				else
 					pilot.turnRight(20);
-				}
+			}
 		}
 	}
 	
-
+	public void recovery(){
+		for(int i = 0; i <= 360 && !inRange(); i+=5){
+			pilot.rotate(5);
+		}
+		//rijd in spiraal
+	}
+	
+	public boolean inRange(){
+		int color = sensor.getNormalizedLightValue();
+		// 5 nog aanpassen naar procenten
+		return color < (treshold+5) && color > (treshold-5);
+	}
 
 	public  int getMax(){
 		return max;
