@@ -45,6 +45,45 @@ public class BarcodeThread implements Runnable {
 
 		private final int[] code;
 
+		public String toString(barcode b){
+			switch(b){
+			case zero:
+				return "zero";
+			case one:
+				return "one";
+			case two:
+				return "two";
+			case three:
+				return "three";
+			case four:
+				return "four";
+			case five:
+				return "five";
+			case six:
+				return "six";
+			case seven:
+				return "seven";
+			case eight:
+				return "eight";
+			case nine:
+				return "nine";
+			case a:
+				return "a";
+			case b:
+				return "b";
+			case c:
+				return "c";
+			case d:
+				return "d";
+			case e:
+				return "e";
+			case f:
+				return "f";
+			default: 
+				return "";
+			}
+		}
+		
 		barcode(int... arg) {
 			code = arg;
 		}
@@ -96,15 +135,8 @@ public class BarcodeThread implements Runnable {
 	@Override
 	public void run() {
 		sensor.setFloodlight(true);
-		System.out.println("callibrate low");
-		Button.waitForPress();
-		sensor.calibrateLow();
-		LCD.clearDisplay();
-		System.out.println("callibrate high");
-		Button.waitForPress();
-		sensor.calibrateHigh();
-		color currentcolor = getCurrentColor();
-		push(new node(currentcolor, Motor.A.getTachoCount()), buffer);
+		
+		color currentcolor = null;
 		
 		while (true) {
 			try {
@@ -113,7 +145,6 @@ public class BarcodeThread implements Runnable {
 			}
 			color c = getCurrentColor();
 			System.out.println(""+c.toString());
-			System.out.println(SensorPort.S4.readRawValue());
 			if (!currentcolor.equals(c)) {
 				//Button.waitForPress();
 				currentcolor = c;
@@ -125,15 +156,17 @@ public class BarcodeThread implements Runnable {
 				if (currentcolor.equals(color.brown)) {
 										
 					float dist = buffer[0].distanceto(buffer[elems - 1]);
-					if (dist < 5){
-						//Transition from black to white => do nothing
+					float dist2 = buffer[elems-2].distanceto(buffer[elems-1]);
+					
+					if (dist2 < 5){
+						
 					}
 					else{
 						push(new node(c, Motor.A.getTachoCount()), buffer);
 						
 						if (dist > 30) {
 							int[] code = convertTocode(buffer);
-							
+							System.out.println(code.toString());
 						}
 						else if (dist > 5 && dist < 30){
 							clear(buffer);
