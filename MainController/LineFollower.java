@@ -10,7 +10,6 @@ public class LineFollower {
 	int color;
 	int turn;
 	int treshold;
-	int power;
 	int min;
 	int max;
 	
@@ -22,7 +21,6 @@ public class LineFollower {
 		color = 0;
 		turn = 0;
 		treshold = 0;
-		power = 90;
 		min = (int) Double.POSITIVE_INFINITY;
 		max = (int) Double.NEGATIVE_INFINITY;
 	}
@@ -40,12 +38,12 @@ public class LineFollower {
 	}
 	
 	public void calibrate() {
-		color = sensor.readNormalizedValue();
+		color = sensor.getLightValue();
 		min = color;
 		max = color;
 		
 		pilot.rotate(-45);
-		color = sensor.readNormalizedValue();
+		color = sensor.getLightValue();
 		if (color > max)
 			max = color;
 		else if (color < min)
@@ -56,13 +54,13 @@ public class LineFollower {
 	
 	public void findLineEdge(){
 		
-		while(Math.abs(sensor.readNormalizedValue() - treshold) > 0)
+		while(Math.abs(sensor.getLightValue() - treshold) > 0)
 			pilot.rotate(1);
 	}
 	
 	public void followLine(){
 		while(true){
-			color = sensor.readNormalizedValue();
+			color = sensor.getLightValue();
 			
 			turn = 0;
 		}
