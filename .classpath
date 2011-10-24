@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<classpath>
-	<classpathentry kind="src" path=""/>
-	<classpathentry kind="lib" path="C:/Program Files (x86)/leJOS NXJ/lib/classes.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files (x86)/leJOS NXJ/lib/jtools.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files (x86)/leJOS NXJ/lib/pccomm.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files (x86)/leJOS NXJ/lib/pctools.jar"/>
-	<classpathentry kind="output" path="bin"/>
-</classpath>
