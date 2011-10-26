@@ -1,21 +1,49 @@
-package MainController;
-
 import java.util.Stack;
 
-
 import lejos.nxt.Button;
+import lejos.nxt.LCD;
 import lejos.nxt.LightSensor;
 import lejos.nxt.Motor;
 import lejos.nxt.SensorPort;
 
 public class BarcodeThread implements java.lang.Runnable {
 	static LightSensor sensor = new LightSensor(SensorPort.S4);
-	static Stack passedStrips = new Stack();
-
-	static int samplingperiod = 10;
+	
+	static int samplingperiod = 2;
 	node[] buffer = new node[10];
 	int elems = 0;
-
+	static int WHITE;
+	static int BLACK;
+	static int BROWN;
+	private static void calibrateBlack()
+	{
+		System.out.println("calibrate black:");
+		Button.waitForPress();
+		BarcodeThread.BLACK = SensorPort.S4.readRawValue();
+	}
+	private static void calibrateWhite()
+	{
+		System.out.println("calibrate white:");
+		Button.waitForPress();
+		BarcodeThread.WHITE = SensorPort.S4.readRawValue();
+		
+	}
+	private static void calibrateBrown()
+	{
+		System.out.println("calibrate brown:");
+		Button.waitForPress();
+		BarcodeThread.BROWN = SensorPort.S4.readRawValue();
+		
+	}
+	public static void calibrate(){
+		calibrateBlack();
+		calibrateBrown();
+		calibrateWhite();
+		LCD.clear();
+		System.out.println("Calibrating done");
+		Button.waitForPress();
+		LCD.clear();
+	}
 	class node {
 		color c;
 		int base;
@@ -42,7 +70,8 @@ public class BarcodeThread implements java.lang.Runnable {
 		private final int[] code;
 
 		public static barcode toBarcode(int[] code) {
-			if (code.length != barcode.one.code.length)
+			return zero;
+			/*if (code.length != barcode.one.code.length)
 				return null;
 			for (barcode b : barcode.values()) {
 				if (EQual(b.code, code))
@@ -50,7 +79,7 @@ public class BarcodeThread implements java.lang.Runnable {
 
 			}
 			return null;
-		}
+*/		}
 
 		public static String toString(barcode b) {
 			switch (b) {
@@ -125,7 +154,7 @@ public class BarcodeThread implements java.lang.Runnable {
 	}
 
 	node pop(node[] stack) {
-		return stack[elems--];
+		return stack[elems---1];
 	}
 
 	void clear(node[] stack) {
@@ -143,49 +172,58 @@ public class BarcodeThread implements java.lang.Runnable {
 	@Override
 	public void run() {
 		sensor.setFloodlight(true);
-
 		color currentcolor = color.brown;
-		label1: while (true) {
+		while (true) {
 			try {
 				Thread.sleep(samplingperiod);
 			} catch (Exception e) {
 			}
 			color c = getCurrentColor();
+			System.out.println(c.toString());
 			if (!currentcolor.equals(c)) {
-				// Button.waitForPress();
-				System.out.println("" + c.toString());
-
+				System.out.println(c);
 				currentcolor = c;
-				push(new node(c, Motor.A.getTachoCount()), buffer);
-				
-				if (currentcolor.equals(color.brown)) {
-					float dist = buffer[0].distanceto(buffer[elems - 1]);
+				push(new node(c, Motor.C.getTachoCount()), buffer);
+				for(int i=0;i<elems;i++)
+					System.out.println("node:"+i+" c:"+c.toString()+":"+buffer[i].base);
+				Motor.C.stop();
+				Motor.B.stop();
+				Button.waitForPress();
+				Motor.B.forward();
+				Motor.C.forward();
 
-					if (elems > 1) {
-						float dist2 = buffer[elems - 2]
-								.distanceto(buffer[elems - 1]);
-						System.out.println("D: "+dist2);
-							if (dist2 < 5) {
-							buffer[elems - 2].base += buffer[elems - 1].base;
-							elems--;
-							currentcolor = buffer[elems-1].c;
-							continue label1;
-						}
-					} else {
-						if (dist > 30) {
-							int[] code = convertTocode(buffer);
-							System.out.println(barcode.toString(barcode
-									.toBarcode(code)));
-							Button.waitForPress();
-							clear(buffer);
-						} else {
-							clear(buffer);
-						}
-					}
+				if (noise() && !currentcolor.equals(color.brown)) {
+					node p = pop(buffer);
+					peek(buffer).base += (p.base-peek(buffer).base);
+					
+				} else if(currentcolor.equals(color.brown)){
+
+					float dist = buffer[0].distanceto(peek(buffer));
+					System.out.println("total d:" + dist);
+					if (dist > 125) {
+						int[] code = convertTocode(buffer);
+						System.out.println("WOOHOO");
+						System.out.println(barcode.toString(barcode
+								.toBarcode(code)));
+						Button.waitForPress();
+						clear(buffer);
+					} 
 				}
-			}
 
+			}
 		}
+	}
+
+	private node peek(node[] buffer2) {
+		return buffer2[elems - 1];
+
+	}
+
+	private boolean noise() {
+		if (elems <= 1)
+			return false;
+		return buffer[elems - 2].c.equals(color.brown)
+				&& buffer[elems - 2].distanceto(buffer[elems - 1]) < 24;
 	}
 
 	private int[] convertTocode(node[] buffer2) {
@@ -197,8 +235,9 @@ public class BarcodeThread implements java.lang.Runnable {
 			float dist = buffer[i - 1].distanceto(buffer2[i]);
 			color c = buffer[i - 1].c;
 			int UNITS = (int) (dist / basedist);
-			int j=filled;
-			for (; j < filled + UNITS; j++) {
+			
+			int j = filled;
+			for (; j < filled +  UNITS&&UNITS>0; j++) {
 				switch (c) {
 				case black:
 					returnvalue[j] = 0;
@@ -207,21 +246,21 @@ public class BarcodeThread implements java.lang.Runnable {
 					returnvalue[j] = 1;
 					break;
 				}
-			filled= j;
+				filled = j;
 			}
 
 		}
-		return null;
+		return returnvalue;
 	}
 
 	static int marge = 10;
 
 	static boolean iswhite(int value) {
-		return value < 620;
+		return value < WHITE+(BROWN-WHITE)/2;
 	}
 
 	static boolean isblack(int value) {
-		return value > 670;
+		return value > BLACK -(BLACK-WHITE)/2;
 	}
 
 	static boolean isbrown(int v) {
