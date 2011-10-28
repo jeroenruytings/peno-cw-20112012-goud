@@ -2,6 +2,7 @@ package MainController;
 
 import lejos.nxt.Motor;
 
+
 import lejos.robotics.TachoMotor;
 import lejos.robotics.proposal.DifferentialPilot;
 
@@ -25,20 +26,17 @@ public class ImprovedDifferentialPilot extends DifferentialPilot {
 	{
 		 super.rotate((float) (d-0.4*num));
 	}
-	public void turnRight(int i) {
-		Motor.A.setSpeed(getLeftActualSpeed()+i);
-		Motor.B.setSpeed(getRightActualSpeed()-i);
-		
-	}
+
 	public void setStandardSpeed(int standardSpeed) {
 		Motor.A.setSpeed(standardSpeed);
 		Motor.B.setSpeed(standardSpeed);
 		
 	}
-	public void turnLeft(int i) {
-		Motor.A.setSpeed(getLeftActualSpeed()-i);
-		Motor.B.setSpeed(getRightActualSpeed()+i);
-		
+	
+	public void stopWheelAndForward(Motor m){
+		m.setSpeed(0);
+		forward();
 	}
+
 
 }
