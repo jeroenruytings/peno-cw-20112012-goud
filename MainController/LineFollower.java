@@ -1,8 +1,7 @@
 package MainController;
 
-
-
 //import lejos.nxt.Button;
+
 
 import lejos.nxt.LCD;
 import lejos.nxt.LightSensor;
@@ -32,11 +31,14 @@ public class LineFollower {
 	 */
 	public static void main(String[] args) {
 		LineFollower lf = new LineFollower();
+
 		
 		lf.calibrate();
 		lf.showValues();
-		
 		lf.findLineEdge();
+		
+		while(true)
+			lf.followLine();
 		
 
 	}
@@ -46,54 +48,90 @@ public class LineFollower {
 		min = color;
 		max = color;
 		
-		pilot.rotate(-45);
+		pilot.rotate(90);
 		//LCD.drawString("press enter", 0,0);
 		//Button.ENTER.waitForPressAndRelease();
 		LCD.clear();
 		color = sensor.getNormalizedLightValue();
 		if (color > max){
+			setDark(true);
 			max = color;
-			darkline = true;
 		}
 		else if (color < min){
+			setDark(false);
 			min = color;
-			darkline = false;
 		}
 		
 		treshold = (min+max)/2;
 	}
 	
-  	public void findLineEdge(){
+  	private void setDark(boolean b) {
+		darkline = b;
 		
-		while(Math.abs(sensor.getNormalizedLightValue() - treshold) > 0);
-		pilot.rotate(1);
+	}
+  	
+  	private int getTreshold(){
+  		return treshold;
+  	}
+
+	public void findLineEdge(){
+		
+  		if (darkline){
+  			while((sensor.getNormalizedLightValue() - treshold) > 0){
+  				LCD.drawString("Verschilt: " + (sensor.getNormalizedLightValue() - treshold), 0,3);
+  				LCD.drawString("Value" + sensor.getNormalizedLightValue(),0,0);
+  				LCD.drawString("High: " + getMax(), 0, 1);
+  				LCD.drawString("Low: " + getMin(), 0, 2);
+  				LCD.drawString("Dark: " + isDark(), 0, 4);
+  				pilot.rotate(-5);
+  				}
+  			}
+		else{
+			while((sensor.getNormalizedLightValue() - treshold) < 0){
+				LCD.drawString("Verschilt: " + (sensor.getNormalizedLightValue() - treshold), 0,3);
+				LCD.drawString("Value" + sensor.getNormalizedLightValue(),0,0);
+				LCD.drawString("High: " + getMax(), 0, 1);
+				LCD.drawString("Low: " + getMin(), 0, 2);
+				LCD.drawString("Dark: " + isDark(), 0, 4);
+				pilot.rotate(-5);
+		}
+		}
 	}
 	
+	private boolean isDark() {
+		return darkline;
+	}
+
 	public void followLine(){
-		int standardSpeed=720;
-		int color;
-		while(true) {
-			color = sensor.getNormalizedLightValue();			
-			pilot.forward();
-			
-			if (inRange()) {
-				pilot.setStandardSpeed(standardSpeed);
-				continue;
+		pilot.setStandardSpeed(720);
+		pilot.forward();
+		while (inRange());
+		pilot.stop();
+		if(sensor.getNormalizedLightValue()>getTreshold()){
+			if(isDark()){
+				pilot.stopWheelAndForward(Motor.B);
+				while(!inRange());
+				pilot.stop();
 			}
-			// 5 nog aanpassen naar procenten
-			if(color>(treshold+5)) {
-				if (darkline = true)					//te ver naar links, naar rechts draaien
-					pilot.turnRight(20);
-				else
-					pilot.turnLeft(20);
-			}
-			else {
-				if (darkline = true)					//te ver naar links, naar rechts draaien
-					pilot.turnLeft(20);
-				else
-					pilot.turnRight(20);
+			else{
+				pilot.stopWheelAndForward(Motor.A);
+				while(!inRange());
+				pilot.stop();
 			}
 		}
+		else{
+			if(isDark()){
+				pilot.stopWheelAndForward(Motor.A);
+				while(!inRange());
+				pilot.stop();
+			}
+			else{
+				pilot.stopWheelAndForward(Motor.B);
+				while(!inRange());
+				pilot.stop();
+			}
+		}
+		
 	}
 	
 	public void recovery(){
@@ -118,7 +156,7 @@ public class LineFollower {
 	}
 	
 	public void showValues(){
-		while (true){
+		for (int i = 0; i<=20; i++){
 			LCD.drawString("Value" + sensor.getNormalizedLightValue(),0,0);
 			LCD.drawString("High: " + getMax(), 0, 1);
 			LCD.drawString("Low: " + getMin(), 0, 2);
@@ -126,4 +164,4 @@ public class LineFollower {
 		}
 	
 
-}
+}}
