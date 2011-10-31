@@ -1,5 +1,6 @@
 package MainController;
 
+
 import lejos.nxt.Motor;
 
 
@@ -33,9 +34,8 @@ public class ImprovedDifferentialPilot extends DifferentialPilot {
 		
 	}
 	
-	public void stopWheelAndForward(Motor m){
+	public void stopWheel(Motor m){
 		m.setSpeed(0);
-		forward();
 	}
 
 
