@@ -1,5 +1,9 @@
 package MainController;
 
+
+
+
+
 //import lejos.nxt.Button;
 
 
@@ -48,20 +52,19 @@ public class LineFollower {
 		min = color;
 		max = color;
 		
-		pilot.rotate(90);
-		//LCD.drawString("press enter", 0,0);
-		//Button.ENTER.waitForPressAndRelease();
-		LCD.clear();
-		color = sensor.getNormalizedLightValue();
-		if (color > max){
-			setDark(true);
-			max = color;
+		pilot.rotate(45);
+		for(int i = 1; i<=45; i++){
+			pilot.rotate(1);
+			color = sensor.getNormalizedLightValue();
+			if (color > max){
+				setDark(true);
+				max = color;
+			}
+			else if (color < min){
+				setDark(false);
+				min = color;
+			}
 		}
-		else if (color < min){
-			setDark(false);
-			min = color;
-		}
-		
 		treshold = (min+max)/2;
 	}
 	
@@ -109,25 +112,35 @@ public class LineFollower {
 		pilot.stop();
 		if(sensor.getNormalizedLightValue()>getTreshold()){
 			if(isDark()){
-				pilot.stopWheelAndForward(Motor.B);
-				while(!inRange());
+				pilot.stopWheel(Motor.B);
+				pilot.forward();
+				while(!inRange())
+					pilot.stopWheel(Motor.B);
 				pilot.stop();
 			}
 			else{
-				pilot.stopWheelAndForward(Motor.A);
-				while(!inRange());
+				pilot.stopWheel(Motor.A);
+				pilot.forward();
+				while(!inRange())
+					pilot.stopWheel(Motor.A);
 				pilot.stop();
 			}
 		}
 		else{
 			if(isDark()){
-				pilot.stopWheelAndForward(Motor.A);
-				while(!inRange());
+				pilot.stopWheel(Motor.A);
+				pilot.forward();
+				while(!inRange()){
+					pilot.stopWheel(Motor.A);
+				}
 				pilot.stop();
 			}
 			else{
-				pilot.stopWheelAndForward(Motor.B);
-				while(!inRange());
+				pilot.stopWheel(Motor.B);
+				pilot.forward();
+				while(!inRange()){
+					pilot.stopWheel(Motor.B);
+				}
 				pilot.stop();
 			}
 		}
@@ -164,4 +177,4 @@ public class LineFollower {
 		}
 	
 
-}}
+}}}
