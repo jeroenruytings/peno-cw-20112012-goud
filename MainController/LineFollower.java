@@ -1,5 +1,7 @@
 package MainController;
 
+
+
 import lejos.nxt.LCD;
 
 import lejos.nxt.LightSensor;
@@ -20,6 +22,7 @@ public class LineFollower {
 
 	
 	public LineFollower(){
+		darkline = true;
 		treshold = 0;
 		min = (int) Double.POSITIVE_INFINITY;
 		max = (int) Double.NEGATIVE_INFINITY;
@@ -63,6 +66,10 @@ public class LineFollower {
 				setDark(false);
 				min = color;
 			}
+			LCD.drawString("Value" + sensor.getNormalizedLightValue(),0,0);
+			LCD.drawString("High: " + getMax(), 0, 1);
+			LCD.drawString("Low: " + getMin(), 0, 2);
+			LCD.drawString("Dark: " + isDark(), 0, 4);
 		}
 		treshold = (min+max)/2;
 	}
