@@ -7,6 +7,7 @@ import lejos.nxt.LCD;
 import lejos.nxt.LightSensor;
 import lejos.nxt.Motor;
 import lejos.nxt.SensorPort;
+import lejos.util.Stopwatch;
 
 
 public class LineFollower {
@@ -36,7 +37,6 @@ public class LineFollower {
 
 		
 		lf.calibrate();
-		lf.showValues();
 		lf.findLineEdge();
 		
 		while(true){
@@ -47,6 +47,9 @@ public class LineFollower {
 	}
 	
 	public void calibrate() {
+		Stopwatch watch = new Stopwatch();
+		watch.reset();
+		while (watch.elapsed() <= 1000);
 		int color = sensor.getNormalizedLightValue();
 		min = color;
 		max = color;
@@ -93,8 +96,8 @@ public class LineFollower {
   				LCD.drawString("Low: " + getMin(), 0, 2);
   				LCD.drawString("Dark: " + isDark(), 0, 4);
   				pilot.rotate(-3);
-  				}
   			}
+  		}
 		else{
 			while((sensor.getNormalizedLightValue() - treshold) < 0){
 				LCD.drawString("Verschilt: " + (sensor.getNormalizedLightValue() - treshold), 0,3);
@@ -103,7 +106,7 @@ public class LineFollower {
 				LCD.drawString("Low: " + getMin(), 0, 2);
 				LCD.drawString("Dark: " + isDark(), 0, 4);
 				pilot.rotate(-3);
-		}
+			}
 		}
 	}
 	
@@ -234,13 +237,5 @@ public class LineFollower {
 			return (sensor.getNormalizedLightValue() > (getTreshold()+15));
 	}
 
-	public void showValues(){
-		for (int i = 0; i<=20; i++){
-			LCD.drawString("Value" + sensor.getNormalizedLightValue(),0,0);
-			LCD.drawString("High: " + getMax(), 0, 1);
-			LCD.drawString("Low: " + getMin(), 0, 2);
-			}
-		}
 	
-
 }
