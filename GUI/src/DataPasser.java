@@ -34,7 +34,7 @@ public class DataPasser{
 		dis = conn.getDataIn();
 //		System.out.println(dos.toString());
 //		System.out.println(dis.toString());
-//		System.out.println("getData");
+		System.out.println("getData");
 	}
 	
 //	DataPasser(int waarde, String string){
@@ -61,14 +61,15 @@ public class DataPasser{
 //		System.out.println(dis.toString());
 //		System.out.println(dos.toString());
 //		int barcodeWaarde = dis.readInt();
-//		System.out.println("ok4");
+//		System.out.println(barcodeWaarde);
 //		return barcodeWaarde;
 //		return 0;
 		
 		dos.writeInt(1);
 		dos.flush();
 		//dis.notify();
-		//int muurWaarde = dis.readInt();
+//		int muurWaarde = dis.readInt();
+//		System.out.println(muurWaarde);
 		int barcode = dis.readInt();
 		return barcode;
 	}
@@ -78,8 +79,16 @@ public class DataPasser{
 //	}
 
 	public int getLijnWaarde() throws IOException {
+		dos.writeInt(3);
+		dos.flush();
+		//dis.notify();
+		//int muurWaarde = dis.readInt();
+		int value = dis.readInt();
+		return value;
+		
+		
 		//System.out.println("line1");
-		return 0;
+		//return 0;
 //		dos.writeChars("lijnwaarde");
 		//dis.notify();
 //		System.out.println("line2");
