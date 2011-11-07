@@ -25,5 +25,16 @@ public class ImprovedDifferentialPilot extends DifferentialPilot {
 	{
 		 super.rotate((float) (d-0.4*num));
 	}
+	
+	public void setStandardSpeed(int standardSpeed) {
+		Motor.A.setSpeed(standardSpeed);
+		Motor.B.setSpeed(standardSpeed);
+		
+	}
+	
+	public void stopWheel(Motor m){
+		m.setSpeed(0);
+	}
+
 
 }

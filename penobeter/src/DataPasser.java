@@ -35,8 +35,10 @@ public class DataPasser implements Runnable{
 		else if(command == 2){//command.equals("muurwaarde")){
 			dos.writeInt(MainController.two.getDistance());
 		}
-		else if(command == 3);//command.equals("lijnwaarde"));
-			//TODO dos.writeInt(v)
+		else if(command == 3){//command.equals("lijnwaarde"));
+			dos.writeInt(MainController.three.getValue());
+		}
+
 		dos.flush();
 	}
 

@@ -8,8 +8,8 @@ import lejos.nxt.SensorPort;
 
 public class BarcodeThread implements java.lang.Runnable {
 
-	static LightSensor sensor = new LightSensor(SensorPort.S4);
-	node[] buffer = new node[15];
+	static LightSensor sensor = new LightSensor(SensorPort.S3);
+	node[] buffer = new node[20];
 	int elems = 0;
 	private long samplingtime=5;
 	static int WHITE;
@@ -20,20 +20,20 @@ public class BarcodeThread implements java.lang.Runnable {
 	private static void calibrateBlack() {
 		System.out.println("calibrate black:");
 		Button.waitForPress();
-		BarcodeThread.BLACK = SensorPort.S4.readRawValue();
+		BarcodeThread.BLACK = SensorPort.S3.readRawValue();
 	}
 
 	private static void calibrateWhite() {
 		System.out.println("calibrate white:");
 		Button.waitForPress();
-		BarcodeThread.WHITE = SensorPort.S4.readRawValue();
+		BarcodeThread.WHITE = SensorPort.S3.readRawValue();
 
 	}
 
 	private static void calibrateBrown() {
 		System.out.println("calibrate brown:");
 		Button.waitForPress();
-		BarcodeThread.BROWN = SensorPort.S4.readRawValue();
+		BarcodeThread.BROWN = SensorPort.S3.readRawValue();
 
 	}
 
@@ -99,7 +99,6 @@ public class BarcodeThread implements java.lang.Runnable {
 				}
 
 			}
-			lastRead = bar;
 			return bar;
 		}
 
@@ -187,7 +186,7 @@ public class BarcodeThread implements java.lang.Runnable {
 	}
 
 	public void start() {
-		Thread barCodeReader = new Thread(new BarcodeThread());
+		Thread barCodeReader = new Thread(this);
 		barCodeReader.start();
 	}
 
@@ -229,6 +228,7 @@ public class BarcodeThread implements java.lang.Runnable {
 					LCD.drawInt(code[i], 0, i);
 				}
 				barcode t = barcode.toBarcode(code);
+				lastRead = t;
 				//lastRead = t;
 				//editLastRead(t);
 				clear(buffer);
@@ -323,7 +323,7 @@ public class BarcodeThread implements java.lang.Runnable {
 	}
 
 	color getCurrentColor() {
-		return getc(SensorPort.S4.readRawValue());
+		return getc(SensorPort.S3.readRawValue());
 	}
 
 //	private barcode lastRead=null;
@@ -349,45 +349,50 @@ public class BarcodeThread implements java.lang.Runnable {
 	
 	
 	private static barcode lastRead;
-	
+	/**
+	 * non destructive, will always return the barcode that was lastread.
+	 * @return
+	 */
 	public int getBarcode(){
 		//return SensorPort.S4.readRawValue();
 		
 		if(lastRead == null)
-			return 667;
-		
-		if (lastRead.toString().equals("zero"))
-			return 0;
-		if (lastRead.toString().equals("one"))
-			return 1;
-		if (lastRead.toString().equals("two"))
-			return 2;
-		if (lastRead.toString().equals("three"))
-			return 3;
-		if (lastRead.toString().equals("four"))
-			return 4;
-		if (lastRead.toString().equals("five"))
-			return 5;
-		if (lastRead.toString().equals("six"))
-			return 6;
-		if (lastRead.toString().equals("seven"))
-			return 7;
-		if (lastRead.toString().equals("eight"))
-			return 8;
-		if (lastRead.toString().equals("nine"))
-			return 9;
-		if (lastRead.toString().equals("a"))
-			return 10;
-		if (lastRead.toString().equals("b"))
-			return 11;
-		if (lastRead.toString().equals("c"))
-			return 12;
-		if (lastRead.toString().equals("d"))
-			return 13;
-		if (lastRead.toString().equals("e"))
-			return 14;
-		if (lastRead.toString().equals("f"))
-			return 15;
-		return 666;
+			return 666;
+		return lastRead.ordinal();
+//		if (lastRead.toString().equals("zero"))
+//			return 0;
+//		if (lastRead.toString().equals("one"))
+//			return 1;
+//		if (lastRead.toString().equals("two"))
+//			return 2;
+//		if (lastRead.toString().equals("three"))
+//			return 3;
+//		if (lastRead.toString().equals("four"))
+//			return 4;
+//		if (lastRead.toString().equals("five"))
+//			return 5;
+//		if (lastRead.toString().equals("six"))
+//			return 6;
+//		if (lastRead.toString().equals("seven"))
+//			return 7;
+//		if (lastRead.toString().equals("eight"))
+//			return 8;
+//		if (lastRead.toString().equals("nine"))
+//			return 9;
+//		if (lastRead.toString().equals("a"))
+//			return 10;
+//		if (lastRead.toString().equals("b"))
+//			return 11;
+//		if (lastRead.toString().equals("c"))
+//			return 12;
+//		if (lastRead.toString().equals("d"))
+//			return 13;
+//		if (lastRead.toString().equals("e"))
+//			return 14;
+//		if (lastRead.toString().equals("f"))
+//			return 15;
+//		return 666;
 	}
+
+
 }

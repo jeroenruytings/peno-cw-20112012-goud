@@ -12,7 +12,7 @@ public class MuurvolgerThread implements Runnable  {
 
 
 	DifferentialPilot p;
-	UltrasonicSensor sonic = new UltrasonicSensor(SensorPort.S1);
+	UltrasonicSensor sonic = new UltrasonicSensor(SensorPort.S2);
 	
 	public MuurvolgerThread(DifferentialPilot pilot){
 		p = pilot;
