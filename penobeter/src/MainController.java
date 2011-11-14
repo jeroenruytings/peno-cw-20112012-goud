@@ -58,18 +58,26 @@ public class MainController {
 				} else {
 					boolean changed = false;
 					int current = one.getBarcode();
-					if (current != 666 && current != barcode) {
+					//boolean hasBarcode = one.hasNewBarcode();
+					//if (current != 666 && current != barcode) {
+					//	barcode = current;
+					//	changed = true;
+					//}
+					
+					if (current != 666 && one.hasNewBarcode()){
 						barcode = current;
 						changed = true;
 					}
+					
 
 					if (barcode != 666 && changed)// new barcode !
 					{
 						// System.out.println("barcode detected");
-
 						segments.push(barcodes[barcode]);
 						robothasaclue = true;
+						one.setNewBarcode(false);
 					}
+					
 				}
 			}
 

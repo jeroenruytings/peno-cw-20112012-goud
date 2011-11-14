@@ -232,12 +232,22 @@ public class BarcodeThread implements java.lang.Runnable {
 				//lastRead = t;
 				//editLastRead(t);
 				clear(buffer);
+				setNewBarcode(true);
 				currentcolor = color.brown;
 			}
 		}// while true
 
 	}
 	
+	private boolean newBarcode;
+
+	public boolean hasNewBarcode() {
+		return newBarcode;
+	}
+
+	public void setNewBarcode(boolean newBarcode) {
+		this.newBarcode = newBarcode;
+	}
 
 	@SuppressWarnings("unused")
 	private void printbuffer() {
