@@ -56,7 +56,7 @@ public class MainController {
 						robothasaclue = false;
 					}
 				} else {
-					boolean changed = false;
+					//boolean changed = false;
 					int current = one.getBarcode();
 					//boolean hasBarcode = one.hasNewBarcode();
 					//if (current != 666 && current != barcode) {
@@ -64,13 +64,10 @@ public class MainController {
 					//	changed = true;
 					//}
 					
-					if (current != 666 && one.hasNewBarcode()){
-						barcode = current;
-						changed = true;
-					}
+					
 					
 
-					if (barcode != 666 && changed)// new barcode !
+					if (current != 666 && one.hasNewBarcode())// new barcode !
 					{
 						// System.out.println("barcode detected");
 						segments.push(barcodes[barcode]);

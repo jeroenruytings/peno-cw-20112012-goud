@@ -239,14 +239,14 @@ public class BarcodeThread implements java.lang.Runnable {
 
 	}
 	
-	private boolean newBarcode;
+	private static boolean newBarcode=false;
 
 	public boolean hasNewBarcode() {
-		return newBarcode;
+		return BarcodeThread.newBarcode;
 	}
 
 	public void setNewBarcode(boolean newBarcode) {
-		this.newBarcode = newBarcode;
+		BarcodeThread.newBarcode = newBarcode;
 	}
 
 	@SuppressWarnings("unused")
