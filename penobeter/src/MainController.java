@@ -70,7 +70,7 @@ public class MainController {
 					if (current != 666 && one.hasNewBarcode())// new barcode !
 					{
 						// System.out.println("barcode detected");
-						segments.push(barcodes[barcode]);
+						segments.push(barcodes[current]);
 						robothasaclue = true;
 						one.setNewBarcode(false);
 					}
