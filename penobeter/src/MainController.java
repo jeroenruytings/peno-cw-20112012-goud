@@ -6,8 +6,8 @@ import lejos.nxt.Motor;
 import lejos.robotics.proposal.DifferentialPilot;
 
 public class MainController {
-	private static DifferentialPilot p = new DifferentialPilot(55.2f, 54.8f,
-			113f, Motor.A, Motor.B, false);
+	private static DifferentialPilot p = new DifferentialPilot(54.25f, 54.75f,
+			161.6f, Motor.A, Motor.B, false);
 	public static MuurvolgerThread two = new MuurvolgerThread(p);
 	public static BarcodeThread one = new BarcodeThread();
 	public static LineFollowerThread three = new LineFollowerThread();
@@ -43,38 +43,37 @@ public class MainController {
 			idp.forward();
 			System.out.println("starting while");
 			initializeBarcodes();
-			int barcode = 666;
 			while (true) {
 				if (robothasaclue) {
 					Segment segment = (Segment) segments.pop();
 					if (segment != null) {
+						if (one.hasNewBarcode())
+							System.out
+									.println("dees mag nooooit afgeprint worden&");
 						segment.driveWith(idp);
 						idp.forward();
+						try {
+							Thread.sleep(5);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							
+						}
 						robothasaclue = false;
 
 					} else {
 						robothasaclue = false;
 					}
 				} else {
-					//boolean changed = false;
-					int current = one.getBarcode();
-					//boolean hasBarcode = one.hasNewBarcode();
-					//if (current != 666 && current != barcode) {
-					//	barcode = current;
-					//	changed = true;
-					//}
-					
-					
-					
-
-					if (current != 666 && one.hasNewBarcode())// new barcode !
+					if (one.getBarcode() != 666 && one.hasNewBarcode())// new
+																		// barcode
+																		// !
 					{
-						// System.out.println("barcode detected");
-						segments.push(barcodes[current]);
+						// System.out.println("barcode detected"+current);
+						segments.push(barcodes[one.getBarcode()]);
 						robothasaclue = true;
 						one.setNewBarcode(false);
 					}
-					
+
 				}
 			}
 

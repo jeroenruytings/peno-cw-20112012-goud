@@ -390,7 +390,8 @@ public class BarcodeThread implements java.lang.Runnable {
 //		if (lastRead.toString().equals("nine"))
 //			return 9;
 //		if (lastRead.toString().equals("a"))
-//			return 10;
+//			return 10;= true;
+		//}			
 //		if (lastRead.toString().equals("b"))
 //			return 11;
 //		if (lastRead.toString().equals("c"))

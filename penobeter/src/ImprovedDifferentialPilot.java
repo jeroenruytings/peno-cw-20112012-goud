@@ -6,7 +6,8 @@ import lejos.robotics.proposal.DifferentialPilot;
 
 
 public class ImprovedDifferentialPilot extends DifferentialPilot {
-	static ImprovedDifferentialPilot p = new ImprovedDifferentialPilot(56f, 55.5f, 113f, Motor.B,
+	static ImprovedDifferentialPilot p = new ImprovedDifferentialPilot(54.25f, 54.75f,
+			161.6f, Motor.B,
 			Motor.A, false);
 	public ImprovedDifferentialPilot(float leftWheelDiameter,
 			float rightWheelDiameter, float trackWidth, TachoMotor leftMotor,
