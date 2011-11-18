@@ -8,6 +8,7 @@ import lejos.nxt.SensorPort;
 
 public class BarcodeThread implements java.lang.Runnable {
 
+	static LightSabre l = null;
 	static LightSensor sensor = new LightSensor(SensorPort.S3);
 	node[] buffer = new node[20];
 	int elems = 0;
