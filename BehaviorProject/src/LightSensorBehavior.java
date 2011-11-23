@@ -22,7 +22,9 @@ public class LightSensorBehavior extends LeoBehavior {
 			pilot.stop();
 			Button.ENTER.waitForPressAndRelease();
 			barcodeReader = new BarcodeReader();
-			this.suppress();
+			System.out.println("nieuwe reader aangemaakt");
+			Button.ENTER.waitForPressAndRelease();
+			barcodeReader.setLastRead(BarcodeReader.barcode.a);
 		}
 		pilot.stop();
 		while (!suppressed && pilot.isMoving()) {
@@ -62,7 +64,7 @@ public class LightSensorBehavior extends LeoBehavior {
 			int i = 0;
 			while(i<360 && !suppressed && !(Calibrate.isblack(SensorPort.S3.readRawValue()))){
 					pilot.rotate(40);
-					i++;
+					i+=10;
 				}
 			while (!suppressed && !(Calibrate.isbrown(SensorPort.S3.readRawValue()))){
 					pilot.rotate(12);
@@ -91,7 +93,7 @@ public class LightSensorBehavior extends LeoBehavior {
 			int ii = 0;
 				while(!suppressed && !(Calibrate.iswhite(SensorPort.S3.readRawValue()))){
 					pilot.rotate(-10);
-					ii++;
+					ii+=10;
 				}
 				while (!suppressed && !(Calibrate.isbrown(SensorPort.S3.readRawValue()))){
 					pilot.rotate(-12);

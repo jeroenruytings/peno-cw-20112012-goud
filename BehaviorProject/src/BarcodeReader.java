@@ -337,5 +337,10 @@ public class BarcodeReader implements java.lang.Runnable {
 	}
 	
 
+	public void setLastRead(barcode a){
+		lastRead = a;
+	}
+	
+
 
 }
