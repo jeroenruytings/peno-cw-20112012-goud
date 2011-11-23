@@ -96,7 +96,7 @@ public class LightSensorBehavior extends LeoBehavior {
 					ii+=10;
 				}
 				while (!suppressed && !(Calibrate.isbrown(SensorPort.S3.readRawValue()))){
-					pilot.rotate(-12);
+					pilot.rotate(-40);
 					pilot.travel(20);
 				}
 //			}
