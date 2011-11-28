@@ -10,6 +10,8 @@ public class BarcodeReader implements java.lang.Runnable {
 	private long samplingtime=5;
 	static int noiseDist = 15;
 	private barcode lastRead;
+	private boolean suppressed = false;
+	private double totaldist;
 	
 	class node {
 		color c;
@@ -154,10 +156,19 @@ public class BarcodeReader implements java.lang.Runnable {
 		barCodeReader.start();
 	}
 
+	
+	public boolean isSuppressed(){
+		return suppressed;
+	}
+	
+	public void setSuppressed(boolean suppressed){
+		this.suppressed = suppressed;
+	}
+	
 	//@Override
 	public void run() {
 		color currentcolor = color.brown;
-		while (!hasNewBarcode()) {
+		while (!hasNewBarcode()&& !isSuppressed()) {
 			try{
 				Thread.sleep(samplingtime);
 			}catch(Exception e)
@@ -168,10 +179,10 @@ public class BarcodeReader implements java.lang.Runnable {
 			if (!currentcolor.equals(c)) {
 				currentcolor = c;
 				push(new node(c, Motor.A.getTachoCount()), buffer);
-				System.out.println(currentcolor.toString());
-				System.out.println(Motor.A.getTachoCount());
+				//System.out.println(currentcolor.toString());
+				//System.out.println(Motor.A.getTachoCount());
 				if (noise() && !currentcolor.equals(color.brown)) {
-					System.out.println("noise");
+					//System.out.println("noise");
 					node P = pop(buffer);
 					node brown = pop(buffer);
 
@@ -188,7 +199,7 @@ public class BarcodeReader implements java.lang.Runnable {
 					&& peek(buffer).distanceto(
 							new node(null, Motor.A.getTachoCount())) > noiseDist) {
 				// new code detected 
-				System.out.println("new code");
+				//System.out.println("new code");
 				int[] code = convertTocode(buffer);
 				for (int i=0; i<code.length; i++){
 					LCD.drawInt(code[i], i, 0);
@@ -249,6 +260,8 @@ public class BarcodeReader implements java.lang.Runnable {
 		@SuppressWarnings("unused")
 		boolean castup = true;
 		double totaldist = buffer2[elems - 1].base - buffer2[0].base;
+		storeTotalDist(totaldist);
+		//System.out.println("De totale afstand = "+totaldist);
 		double basedist = totaldist / 7; // there are 7 bits
 		int[] returnvalue = new int[7];
 		int filled = 0;
@@ -276,6 +289,14 @@ public class BarcodeReader implements java.lang.Runnable {
 		return returnvalue;
 	}
 
+	private void storeTotalDist(double totaldist) {
+		this.totaldist = totaldist;
+	}
+	
+	public double getTotaldist(){
+		return totaldist;
+	}
+	
 	static color getc(int v) {
 		if (Calibrate.iswhite(v))
 			return color.white;

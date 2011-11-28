@@ -8,7 +8,7 @@ public class GoStraightBehavior extends LeoBehavior {
 	@Override
 	public void action() {
 		suppressed = false;
-		pilot.setSpeed(540);
+		pilot.setSpeed(720);//720 normaal
 		pilot.forward();
 		while(!suppressed){
 			Thread.yield();
