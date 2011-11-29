@@ -1,14 +1,15 @@
 import lejos.nxt.Button;
 import lejos.nxt.LCD;
+import lejos.nxt.LightSensor;
 import lejos.nxt.SensorPort;
 
 public class Calibrate {
 
-	//private static LightSensor sensor = new LightSensor(SensorPort.S3);
+	private static LightSensor sensor = new LightSensor(SensorPort.S3);
 	private static int WHITE;
 	private static int BLACK;
 	private static int BROWN;
-	//private static int noiseDist = 24;
+	private static int noiseDist = 24;
 	private static Calibrate cal = null;
 	
 	private Calibrate(){
