@@ -43,7 +43,7 @@ public class GuiCommunicator implements Runnable {
 				input[0] = in.readByte();
 				input[1] = in.readByte();
 				startOfChain.accept(input);
-				
+				System.out.println("Read input ...");
 			}
 		} catch (Exception e) {
 			System.out.println("things went bananas QQ!");
