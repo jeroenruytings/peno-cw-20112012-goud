@@ -37,6 +37,8 @@ public class RobotGui extends PApplet{
 	}
 	private void createCommunication() {
 		this.comm = new GuiCommunicator();
+		Thread t = new Thread(this.comm);
+		t.start();
 	}
 	public void draw(){
 		background(Color.WHITE.getRGB());
