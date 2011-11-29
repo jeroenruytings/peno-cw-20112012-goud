@@ -19,6 +19,7 @@ public class RobotGui extends PApplet{
 	private static RobotGui applet;
 	public Map<String,Label> textBoxes=new HashMap<String, Label>();
 	public Collection<Drawable> drawables=new ArrayList<Drawable>();
+	private Thread t;
 	public static RobotGui instance()
 	{
 		return applet;
@@ -37,7 +38,7 @@ public class RobotGui extends PApplet{
 	}
 	private void createCommunication() {
 		this.comm = new GuiCommunicator();
-		Thread t = new Thread(this.comm);
+		t = new Thread(this.comm);
 		t.start();
 		System.out.println("Started");
 	}

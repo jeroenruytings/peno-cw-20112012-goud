@@ -40,9 +40,14 @@ public class GuiCommunicator implements Runnable {
 		try {
 			while (true) {
 				byte[] input = new byte[2];
+				// TODO
+				System.out.println("Started reading ...");
 				input[0] = in.readByte();
+				// TODO
+				System.out.println("Read first byte.");
 				input[1] = in.readByte();
 				startOfChain.accept(input);
+				// TODO
 				System.out.println("Read input ...");
 			}
 		} catch (Exception e) {
