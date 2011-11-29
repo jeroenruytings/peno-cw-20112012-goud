@@ -34,7 +34,7 @@ public class SensorDecoder extends MessageDecoder {
 	}
 	@Override
 	public boolean accepts(byte[] message) {
-		return (message[1]&_identify_mask)==sensorkey;
+		return (message[0]&_identify_mask)==sensorkey;
 	}
 	public sensor_type getSensorType() {
 		return this.type;
