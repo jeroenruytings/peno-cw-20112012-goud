@@ -37,7 +37,6 @@ public class Communicator {
 
 	private void send(byte mes) {
 		try {
-			System.out.println("Send ...");
 			out.write(mes);
 		} catch (IOException e) {
 			System.out.println("IO exception occured");
