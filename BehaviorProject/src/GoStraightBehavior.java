@@ -7,6 +7,10 @@ public class GoStraightBehavior extends LeoBehavior {
 
 	@Override
 	public void action() {
+		Communicator.instance().send(
+				new Message(Monitor.BehaviorMonitor,
+						BehaviourIdentifier.GoStraigth,
+						BehaviourReason.NOREASON));
 		suppressed = false;
 		pilot.setSpeed(720);//720 normaal
 		pilot.forward();

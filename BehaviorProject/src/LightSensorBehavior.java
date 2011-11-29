@@ -7,9 +7,12 @@ public class LightSensorBehavior extends LeoBehavior {
 	boolean suppressed = true;
 	int lastSmallLine = 0;
 
-
 	@Override
 	public void action() {
+		Communicator.instance().send(
+				new Message(Monitor.BehaviorMonitor, 
+						BehaviourIdentifier.LightSensorBehaviour, 
+						BehaviourReason.LIGHTSENSORNOTBROWN));
 		suppressed = false;
 		barcodeReader.setSuppressed(false);
 		pilot.setSpeed(360); //normaal 360
