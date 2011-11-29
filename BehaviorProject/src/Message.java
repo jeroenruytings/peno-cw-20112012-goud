@@ -1,4 +1,3 @@
-package robot;
 
 public class Message {
 	public Message(Monitor id,Identifier message,Value value){

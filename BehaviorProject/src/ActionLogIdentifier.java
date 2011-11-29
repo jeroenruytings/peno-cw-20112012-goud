@@ -1,4 +1,3 @@
-package robot;
 
 public enum ActionLogIdentifier implements Identifier {
 	Forward(0),TurnLeft(1),TurnRight(2),Barcode(3);

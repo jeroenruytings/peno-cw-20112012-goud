@@ -61,28 +61,28 @@ public class LightSensorBehavior extends LeoBehavior {
 					Thread.yield();
 				break;
 			case three: //bocht links
-				pilot.travel(250,true);
-				interruptTravel();
-				while(!suppressed && pilot.isMoving())
-					Thread.yield();
-				double dist2 = barcodeReader.getTotaldist();
-				float degrees2 = (float) (dist2-290)*(90-45)/(446-290);
-				System.out.println(degrees2);
-				if(lastSmallLine==0)//default geen lijn
-					pilot.rotate(-90);
-				else if(lastSmallLine==1){//zwarte lijn
-					pilot.rotate(90 - degrees2);
-					System.out.println(90 - degrees2);
-					}
-				else if(lastSmallLine==2){//witte lijn
-					pilot.rotate(90 + degrees2);
-					System.out.println(90 + degrees2);
-				}
-				
-				
-				//pilot.rotate(-80);
-				while(!suppressed && pilot.isMoving())
-					Thread.yield();
+//				pilot.travel(250,true);
+//				interruptTravel();
+//				while(!suppressed && pilot.isMoving())
+//					Thread.yield();
+//				double dist2 = barcodeReader.getTotaldist();
+//				float degrees2 = (float) (dist2-290)*(90-45)/(446-290);
+//				System.out.println(degrees2);
+//				if(lastSmallLine==0)//default geen lijn
+//					pilot.rotate(-90);
+//				else if(lastSmallLine==1){//zwarte lijn
+//					pilot.rotate(90 - degrees2);
+//					System.out.println(90 - degrees2);
+//					}
+//				else if(lastSmallLine==2){//witte lijn
+//					pilot.rotate(90 + degrees2);
+//					System.out.println(90 + degrees2);
+//				}
+//				
+//				
+//				//pilot.rotate(-80);
+//				while(!suppressed && pilot.isMoving())
+//					Thread.yield();
 			case zero: //kleine zwarte lijn
 ////			double distb = sonar.getDistance();
 ////			System.out.println(distb);
@@ -160,8 +160,8 @@ public class LightSensorBehavior extends LeoBehavior {
 			case one: //rechtdoor rijden: niks doen
 				break;
 			case two: //omhoog
-				Motor.B.setSpeed(600);
-				Motor.A.setSpeed(720);
+				Motor.B.setSpeed(450);
+				Motor.A.setSpeed(520);
 				pilot.travel(800, true);
 				interruptTravel();
 				break;
@@ -170,8 +170,8 @@ public class LightSensorBehavior extends LeoBehavior {
 			case five:
 				break;
 			case seven: //wip
-				Motor.B.setSpeed(600);
-				Motor.A.setSpeed(720);
+				Motor.B.setSpeed(450);
+				Motor.A.setSpeed(520);
 				pilot.travel(650,true);
 				interruptTravel();
 				while(!suppressed && pilot.isMoving())

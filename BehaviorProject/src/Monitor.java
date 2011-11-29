@@ -1,4 +1,3 @@
-package robot;
 
 public enum Monitor {
 	SensorMonitor(0),BehaviorMonitor(64),ActionLogMonitor(128);

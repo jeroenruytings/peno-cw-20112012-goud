@@ -1,4 +1,3 @@
-package robot;
 
 public class SensorValue implements Value {
 	/**

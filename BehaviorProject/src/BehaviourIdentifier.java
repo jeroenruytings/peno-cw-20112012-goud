@@ -1,4 +1,3 @@
-package robot;
 
 public enum BehaviourIdentifier implements Identifier {
 	SonarBehaviour(0), LightSensorBehaviour(1), TouchSensorBehaviour(2), GoStraigth(

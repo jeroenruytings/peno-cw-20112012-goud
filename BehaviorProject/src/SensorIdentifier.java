@@ -1,4 +1,3 @@
-package robot;
 
 public enum SensorIdentifier implements Identifier {
 	LightSensor(0),UltrasonicSensor(1),BarcodeSensor(2);

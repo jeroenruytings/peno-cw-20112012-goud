@@ -12,7 +12,7 @@ public class ControllerMain {
 	private static Arbitrator arbitrator = new Arbitrator(behaviorList, false);
 	
 	public static void main(String args[]){
-		
+		Communicator.instance();
 		Calibrate.getInstance();
 		Calibrate.calibrate();
 		//mu.start();
