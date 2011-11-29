@@ -61,24 +61,24 @@ public class LightSensorBehavior extends LeoBehavior {
 					Thread.yield();
 				break;
 			case three: //bocht links
-//				pilot.travel(250,true);
-//				interruptTravel();
-//				while(!suppressed && pilot.isMoving())
-//					Thread.yield();
-//				double dist2 = barcodeReader.getTotaldist();
-//				float degrees2 = (float) (dist2-290)*(90-45)/(446-290);
-//				System.out.println(degrees2);
-//				if(lastSmallLine==0)//default geen lijn
-//					pilot.rotate(-90);
-//				else if(lastSmallLine==1){//zwarte lijn
-//					pilot.rotate(90 - degrees2);
-//					System.out.println(90 - degrees2);
-//					}
-//				else if(lastSmallLine==2){//witte lijn
-//					pilot.rotate(90 + degrees2);
-//					System.out.println(90 + degrees2);
-//				}
-//				
+				pilot.travel(250,true);
+				interruptTravel();
+				while(!suppressed && pilot.isMoving())
+					Thread.yield();
+				double dist2 = barcodeReader.getTotaldist();
+				float degrees2 = (float) (dist2-290)*(90-45)/(446-290);
+				System.out.println(degrees2);
+				if(lastSmallLine==0)//default geen lijn
+					pilot.rotate(-90);
+				else if(lastSmallLine==1){//zwarte lijn
+					pilot.rotate(90 - degrees2);
+					System.out.println(90 - degrees2);
+					}
+				else if(lastSmallLine==2){//witte lijn
+					pilot.rotate(90 + degrees2);
+					System.out.println(90 + degrees2);
+				}
+				break;				
 //				
 //				//pilot.rotate(-80);
 //				while(!suppressed && pilot.isMoving())
