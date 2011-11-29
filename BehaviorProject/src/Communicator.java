@@ -28,6 +28,11 @@ public class Communicator {
 		byte[] messge = message.getEncodedMessage();
 		this.send(messge[0]);
 		this.send(messge[1]);
+		try {
+			out.flush();
+		} catch (IOException e) {
+			System.out.println("Can't flush!");
+		}
 	}
 
 	private void send(byte mes) {
