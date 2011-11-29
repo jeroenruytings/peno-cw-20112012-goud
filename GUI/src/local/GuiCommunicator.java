@@ -22,6 +22,8 @@ public class GuiCommunicator implements Runnable {
 		
 		 in = conn.getDataIn();
 		System.out.println("getData");
+		Thread t = new Thread(this);
+		t.start();
 
 	}
 	private static LeoMonitor buildMonitors() {
