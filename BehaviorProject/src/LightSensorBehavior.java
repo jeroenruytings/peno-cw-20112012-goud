@@ -1,8 +1,6 @@
-import lejos.nxt.Button;
 import lejos.nxt.LCD;
 import lejos.nxt.Motor;
 import lejos.nxt.SensorPort;
-import lejos.nxt.UltrasonicSensor;
 
 public class LightSensorBehavior extends LeoBehavior {
 
@@ -44,7 +42,7 @@ public class LightSensorBehavior extends LeoBehavior {
 				while(!suppressed && pilot.isMoving())
 					Thread.yield();
 				double dist = barcodeReader.getTotaldist();
-				int degrees = (int) (dist-290)*(90-45)/(446-290);
+				float degrees = (float) (dist-290)*(90-45)/(446-290);
 				System.out.println(degrees);
 				if(lastSmallLine==0)//default geen lijn
 					pilot.rotate(-90);
@@ -63,26 +61,28 @@ public class LightSensorBehavior extends LeoBehavior {
 					Thread.yield();
 				break;
 			case three: //bocht links
-				pilot.travel(250, true);
+				pilot.travel(250,true);
 				interruptTravel();
 				while(!suppressed && pilot.isMoving())
 					Thread.yield();
 				double dist2 = barcodeReader.getTotaldist();
-				int degrees2 = (int) (290-dist2)*(90-45)/(446-290);
+				float degrees2 = (float) (dist2-290)*(90-45)/(446-290);
 				System.out.println(degrees2);
 				if(lastSmallLine==0)//default geen lijn
-					pilot.rotate(90);
-				if(lastSmallLine==1){//zwarte lijn
+					pilot.rotate(-90);
+				else if(lastSmallLine==1){//zwarte lijn
 					pilot.rotate(90 - degrees2);
 					System.out.println(90 - degrees2);
 					}
-				if(lastSmallLine==2){//witte lijn
+				else if(lastSmallLine==2){//witte lijn
 					pilot.rotate(90 + degrees2);
 					System.out.println(90 + degrees2);
 				}
+				
+				
+				//pilot.rotate(-80);
 				while(!suppressed && pilot.isMoving())
 					Thread.yield();
-				break;
 			case zero: //kleine zwarte lijn
 ////			double distb = sonar.getDistance();
 ////			System.out.println(distb);
@@ -157,26 +157,27 @@ public class LightSensorBehavior extends LeoBehavior {
 //			pilot.travel(100);
 //			}
 				break;
-			case one:
+			case one: //rechtdoor rijden: niks doen
 				break;
-			case two:
-				Motor.A.setSpeed(700);
-				Motor.B.setSpeed(720);
-				pilot.travel(700, true);
+			case two: //omhoog
+				Motor.B.setSpeed(600);
+				Motor.A.setSpeed(720);
+				pilot.travel(800, true);
 				interruptTravel();
 				break;
-			case four:
+			case four: //omlaag
 				break;
 			case five:
 				break;
 			case seven: //wip
-				pilot.setSpeed(540);
+				Motor.B.setSpeed(600);
+				Motor.A.setSpeed(720);
 				pilot.travel(650,true);
 				interruptTravel();
 				while(!suppressed && pilot.isMoving())
 					Thread.yield();
 				break;
-			case eight:
+			case eight: //versmalling: niks doen
 				break;
 			case nine:
 				break;
@@ -185,11 +186,26 @@ public class LightSensorBehavior extends LeoBehavior {
 			case b:
 				break;
 			case c: //bocht naar rechts fout gelezen en gecorrigeerd
-				pilot.travel(200,true);
+				pilot.travel(250,true);
 				interruptTravel();
 				while(!suppressed && pilot.isMoving())
 					Thread.yield();
-				pilot.rotate(-90);
+				double dist3 = barcodeReader.getTotaldist();
+				float degrees3 = (float) (dist3-290)*(90-45)/(446-290);
+				System.out.println(degrees3);
+				if(lastSmallLine==0)//default geen lijn
+					pilot.rotate(-90);
+				if(lastSmallLine==1){//zwarte lijn
+					pilot.rotate(-(90 - degrees3));
+					System.out.println(-(90 - degrees3));
+					}
+				if(lastSmallLine==2){//witte lijn
+					pilot.rotate(-(90 + degrees3));
+					System.out.println(-(90 + degrees3));
+				}
+				
+				
+				//pilot.rotate(-80);
 				while(!suppressed && pilot.isMoving())
 					Thread.yield();
 				break;
@@ -197,7 +213,27 @@ public class LightSensorBehavior extends LeoBehavior {
 				break;
 			case e:
 				break;
-			default:
+			case eightinverse: //versmalling omgekeerd gelezen
+				pilot.rotate(180);
+				pilot.travel(200);
+			break;
+			case oneinverse: //rechtdoor omgekeerd gelezen
+				pilot.rotate(180);
+				pilot.travel(200);
+			break;
+			case fourinverse: //rechtdoor omgekeerd gelezen
+				pilot.rotate(180);
+				pilot.travel(200);
+			break;
+			case twoinverse: //omhoog omgekeerd gelezen
+				pilot.travel(200);
+				pilot.rotate(180);
+			break;
+			case seveninverse: //wip omgekeerd gelezen
+				pilot.travel(200);
+				pilot.rotate(180);
+			break;
+			default: 
 				LCD.clear();
 				System.out.println("in default");
 			while (!suppressed && pilot.isMoving()) {
