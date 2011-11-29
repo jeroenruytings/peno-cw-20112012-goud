@@ -8,7 +8,7 @@ import java.util.Map;
 
 import local.processingextension.Drawable;
 import local.processingextension.Label;
-import local.processingextension.ListBox;
+
 
 import processing.core.PApplet;
 
@@ -33,7 +33,6 @@ public class RobotGui extends PApplet{
 		size(800,600);
 		//create communication
 		createCommunication();
-		this.add(new ListBox<String>(strings, 400	, 20));
 		applet.smooth();
 	}
 	private void createCommunication() {
@@ -41,7 +40,6 @@ public class RobotGui extends PApplet{
 	}
 	public void draw(){
 		background(Color.WHITE.getRGB());
-		strings.add(this.num+++"");
 		for(Drawable d:drawables)
 			d.draw();
 	}
