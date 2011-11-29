@@ -34,6 +34,7 @@ public class Communicator {
 		try {
 			System.out.println("Send ...");
 			out.write(mes);
+			System.out.println("Send done!");
 		} catch (IOException e) {
 			System.out.println("IO exception occured");
 		}
