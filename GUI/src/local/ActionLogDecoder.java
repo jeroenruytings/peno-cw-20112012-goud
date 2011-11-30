@@ -7,12 +7,13 @@ public class ActionLogDecoder extends MessageDecoder {
 	private Action action;
 
 	public enum action_type {
-		LEFTROTATE(0), RIGHTROTATE(1), FORWARD(2), UNSPECIFIEDFORWARD(3), BARCODE(
-				4);
+		FORWARD(0, "Rij vooruit"),LEFTROTATE(1,"Draai links"), RIGHTROTATE(2,"Draai rechts") , UNSPECIFIEDFORWARD(3,"Begint vooruit te rijden"), BARCODE(
+				4,"Barcode"), FORWARDMILIMETERS(5,"Vooruit gereden (in millimeters)");
 		private byte val;
-
-		private action_type(int val) {
+		private String message;
+		private action_type(int val, String message) {
 			this.val = (byte) val;
+			this.message = message;
 		}
 
 		public static action_type convert(byte val) {
@@ -23,6 +24,10 @@ public class ActionLogDecoder extends MessageDecoder {
 			}
 			throw new RuntimeException("Invalid action type code message");
 
+		}
+		
+		public String toString(){
+			return message;
 		}
 	}
 
@@ -37,7 +42,7 @@ public class ActionLogDecoder extends MessageDecoder {
 		return (message[0] & _identify_mask) == mask;
 	}
 
-	public void setAction(Action action) {
+	private void setAction(Action action) {
 		this.action = action;
 	}
 

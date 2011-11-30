@@ -36,7 +36,7 @@ public class Action {
 		this.type=type;
 		this.value=value;
 		this.invoker = invoker;
-		actionsTaken.add(this);
+		addAction(this);
 		// TODO Auto-generated constructor stub
 	}
 	
