@@ -38,6 +38,8 @@ public class LightSensorBehavior extends LeoBehavior {
 		
 		// links is positief roteren
 		try {
+			Message msg = new Message(Monitor.SensorMonitor, SensorIdentifier.BarcodeSensor, new SensorValue((byte)barcodeReader.lastRead().ordinal()));
+			Communicator.instance().send(msg);
 			switch (barcodeReader.lastRead()) {
 			case six: //bocht rechts
 				pilot.travel(250,true);

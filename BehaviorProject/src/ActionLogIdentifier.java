@@ -1,6 +1,6 @@
 
 public enum ActionLogIdentifier implements Identifier {
-	Forward(0),TurnLeft(1),TurnRight(2),Barcode(3);
+	Forward(0),TurnLeft(1),TurnRight(2), UNSPECIFIEDFORWARD(3),Barcode(4), FORWARDMILIMETERS(5);
 	private byte mask;
 	private ActionLogIdentifier(int b)
 	{
