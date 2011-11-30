@@ -1,4 +1,5 @@
 
+import lejos.nxt.LightSensor;
 import lejos.nxt.SensorPort;
 import lejos.nxt.TouchSensor;
 
@@ -20,6 +21,7 @@ public class TouchSensorBehavior extends LeoBehavior {
 	}
 	@Override
 	public void action() {
+
 		Message msg = new Message(Monitor.BehaviorMonitor,
 				BehaviourIdentifier.TouchSensorBehaviour,
 				sensorsPressed());
