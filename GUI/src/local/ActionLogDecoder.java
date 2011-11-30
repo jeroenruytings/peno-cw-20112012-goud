@@ -33,6 +33,7 @@ public class ActionLogDecoder extends MessageDecoder {
 
 	@Override
 	public void decode(byte[] message) {
+		
 		// TODO: BEHAVIOR TYPE
 		this.setAction(new Action(behaviour_enum.GOSTRAIGTH,action_type.convert(message[0]), message[1]));
 	}
