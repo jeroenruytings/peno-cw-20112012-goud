@@ -11,4 +11,15 @@ public abstract class LeoBehavior implements Behavior {
 	protected static SensorPort rightTouch = SensorPort.S1;		
 	protected static BarcodeReader barcodeReader = new BarcodeReader();
 
+	static boolean versmalling = false;
+
+	public static boolean isVersmalling() {
+		return versmalling;
+	}
+
+	public static void setVersmalling(boolean versmalling) {
+		LeoBehavior.versmalling = versmalling;
+	}
+	
 }
+

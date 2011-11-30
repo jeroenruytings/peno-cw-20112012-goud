@@ -6,16 +6,19 @@ public class SonarBehavior extends LeoBehavior{
     boolean closeLeft = false;
     boolean closeAhead = false;
     boolean closeRight = false;
+    boolean first = true;
     
     public void action() {
         suppressed = false;
         Sound.twoBeeps();
         if(closeAhead && !suppressed){
             if(MuurUpdater.rightDistance < MuurUpdater.leftDistance){
-                pilot.rotate(90);
+    			pilot.travelArc(-200, 250);
             }
+            else if(MuurUpdater.rightDistance == MuurUpdater.leftDistance)
+            	;
             else{
-                pilot.rotate(-90);
+    			pilot.travelArc(200, -250);
             }
             closeAhead = false;
         }
@@ -38,23 +41,27 @@ public class SonarBehavior extends LeoBehavior{
         
     }
     public boolean takeControl() {
-        if(MuurUpdater.aheadDistance < 30 && MuurUpdater.newValuesAhead){
+        if(MuurUpdater.aheadDistance < 20 && MuurUpdater.newValuesAhead
+        		&& !isVersmalling()){
             closeAhead = true;
             MuurUpdater.newValuesAhead = false;
+        	Sound.buzz();
             return true;
         }
-        
-        if(MuurUpdater.leftDistance < 20 && MuurUpdater.newValuesLeft){
-            closeLeft = true;
-            MuurUpdater.newValuesLeft = false;
-            return true;
-        }
-        
-        if(MuurUpdater.rightDistance < 30 && MuurUpdater.newValuesRight){
-            closeRight = true;
-            MuurUpdater.newValuesRight = false;
-            return true;
-        }
+//        
+//        if(MuurUpdater.leftDistance < 20 && MuurUpdater.newValuesLeft && !first){
+//            closeLeft = true;
+//            MuurUpdater.newValuesLeft = false;
+//            first = false;
+//            return true;
+//        }
+//        
+//        if(MuurUpdater.rightDistance < 30 && MuurUpdater.newValuesRight && !first){
+//            closeRight = true;
+//            MuurUpdater.newValuesRight = false;
+//            first = false;
+//            return true;
+//        }
         
         return false;
     }
