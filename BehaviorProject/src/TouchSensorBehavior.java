@@ -11,24 +11,19 @@ public class TouchSensorBehavior extends LeoBehavior {
 	boolean rightPressed = false;
 	boolean leftPressed = false;
 
+	private BehaviourReason sensorsPressed(){
+		if(leftPressed&&rightPressed)
+			return BehaviourReason.TWOTOUCH;
+		if(leftPressed)
+			return BehaviourReason.LEFTTOUCH;
+		return BehaviourReason.RIGHTTOUCH;
+	}
 	@Override
 	public void action() {
-		if (leftPressed && rightPressed)
-			Communicator.instance().send(
-					new Message(Monitor.BehaviorMonitor,
-							BehaviourIdentifier.TouchSensorBehaviour,
-							BehaviourReason.TWOTOUCH));
-		else if (leftPressed)
-			Communicator.instance().send(
-					new Message(Monitor.BehaviorMonitor,
-							BehaviourIdentifier.TouchSensorBehaviour,
-							BehaviourReason.LEFTTOUCH));
-		else if (rightPressed)
-			Communicator.instance().send(
-					new Message(Monitor.BehaviorMonitor,
-							BehaviourIdentifier.TouchSensorBehaviour,
-							BehaviourReason.RIGHTTOUCH));
-		
+		Message msg = new Message(Monitor.BehaviorMonitor,
+				BehaviourIdentifier.TouchSensorBehaviour,
+				sensorsPressed());
+		Communicator.instance().send(msg);
 		suppressed = false;
 		if(left.isPressed() && !right.isPressed()){
 			pilot.travelArc(200, -250);
