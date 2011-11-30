@@ -24,7 +24,7 @@ public class Communicator {
 		out = con.openDataOutputStream();
 	}
 
-	public void send(Message message) {
+	synchronized public void send(Message message) {
 		byte[] messge = message.getEncodedMessage();
 		this.send(messge[0]);
 		this.send(messge[1]);
