@@ -1,5 +1,7 @@
 package local;
 
+import local.BehaviourDecoder.behaviour_enum;
+
 public class ActionLogDecoder extends MessageDecoder {
 	private final byte mask = (byte) 128;
 	private Action action;
@@ -26,7 +28,8 @@ public class ActionLogDecoder extends MessageDecoder {
 
 	@Override
 	public void decode(byte[] message) {
-		this.setAction(new Action(action_type.convert(message[0]), message[1]));
+		// TODO: BEHAVIOR TYPE
+		this.setAction(new Action(behaviour_enum.GOSTRAIGTH,action_type.convert(message[0]), message[1]));
 	}
 
 	@Override
