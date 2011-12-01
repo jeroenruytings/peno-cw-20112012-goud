@@ -42,7 +42,7 @@ public class ImprovedDifferentialPilot extends DifferentialPilot {
 		else
 			msg = new Message(Monitor.ActionLogMonitor,ActionLogIdentifier.Forward, new SensorValue((byte) (distance/ 100)));
 		Communicator.instance().send(msg);
-		return travel(distance);
+		return super.travel(distance);
 		
 	}
 	
