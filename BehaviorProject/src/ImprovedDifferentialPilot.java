@@ -16,11 +16,7 @@ public class ImprovedDifferentialPilot extends DifferentialPilot {
 		super(wheelDiameter, trackWidth, leftMotor, rightMotor);
 	}
 	
-	public ImprovedDifferentialPilot(float wheelDiameter, float trackWidth,
-			float f, Motor a, Motor b, boolean b2) {
-		super(wheelDiameter,trackWidth,f,a,b,b2);
-	}
-
+	
 	@Override
 	public Movement rotate(float angle){
 		unfFix();
@@ -31,6 +27,18 @@ public class ImprovedDifferentialPilot extends DifferentialPilot {
 			msg = new Message(Monitor.ActionLogMonitor,ActionLogIdentifier.TurnRight, new SensorValue((byte) angle));
 		Communicator.instance().send(msg);
 		return super.rotate(angle);
+	}
+
+	@Override
+	public Movement rotate(float angle,boolean nonblocking){
+		unfFix();
+		Message msg;
+		if (angle > 0)
+			msg = new Message(Monitor.ActionLogMonitor,ActionLogIdentifier.TurnLeft, new SensorValue((byte) angle));
+		else
+			msg = new Message(Monitor.ActionLogMonitor,ActionLogIdentifier.TurnRight, new SensorValue((byte) angle));
+		Communicator.instance().send(msg);
+		return super.rotate(angle,nonblocking);
 	}
 	
 	@Override
