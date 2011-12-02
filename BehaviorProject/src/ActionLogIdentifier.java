@@ -13,7 +13,7 @@ public enum ActionLogIdentifier implements Identifier {
 
 	@Override
 	public boolean validMonitor(Monitor m) {
-		return false;
+		return m == Monitor.ActionLogMonitor;
 	}
 
 }

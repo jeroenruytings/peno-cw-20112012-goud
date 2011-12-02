@@ -11,9 +11,9 @@ public class ImprovedDifferentialPilot extends DifferentialPilot {
 	boolean passedUnf = false;
 	
 	
-	public ImprovedDifferentialPilot(float wheelDiameter, float trackWidth,
-			float f, TachoMotor leftMotor, TachoMotor rightMotor, boolean b) {
-		super(wheelDiameter, trackWidth, leftMotor, rightMotor);
+	public ImprovedDifferentialPilot(float wheelleft, float wheelright,
+			float width, TachoMotor leftMotor, TachoMotor rightMotor, boolean b) {
+		super(wheelleft, wheelright,width, leftMotor, rightMotor,b);
 	}
 	
 	
