@@ -9,6 +9,7 @@ import javax.swing.tree.TreeModel;
 
 import local.ActionLogDecoder.action_type;
 import local.BehaviourDecoder.behaviour_enum;
+import penoguiswing.GuiMain;
 
 public class Action {
 	private static Queue<Action> actionsTaken = new LinkedList<Action>();
@@ -54,6 +55,8 @@ public class Action {
 		{
 			lastNode.addChild(this);
 		}
+                System.out.println("Action gemaakt!!!!!!!!!!!!");
+                GuiMain.getApplication().getGui().updateActionList();
 	}
 	
 	public String toString(){

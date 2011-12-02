@@ -163,6 +163,11 @@ public class GuiView extends FrameView {
      */
     public void addToList(String b){
         behaviorList.add(b);
+        lstBehaviorReason.repaint();
+    }
+    
+    public void updateActionList(){
+        tvActions.repaint();
     }
     
     
