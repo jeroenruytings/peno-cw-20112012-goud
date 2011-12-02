@@ -24,6 +24,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import local.GuiCommunicator;
 import org.jdesktop.application.Action;
 
 /**
@@ -96,9 +97,19 @@ public class GuiView extends FrameView {
         this.setNewLightValue(0);
         tvActions.setModel(local.Action.getTree());
         tvActions.setRootVisible(false);
-
+        createCommunication();
         
     }
+    
+    private GuiCommunicator comm;
+    private Thread t;
+    
+    private void createCommunication() {
+		this.comm = new GuiCommunicator();
+		t = new Thread(this.comm);
+		t.start();
+		System.out.println("Started");
+	}
 
     @Action
     public void showAboutBox() {
