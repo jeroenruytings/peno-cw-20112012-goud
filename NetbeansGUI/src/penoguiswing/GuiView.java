@@ -88,7 +88,7 @@ public class GuiView extends FrameView {
         
         
         setNewDistance(0);
-        this.setNewBarcode(0);
+        this.setNewBarcode(-1);
         this.setNewLightValue(0);
         jButton1.addActionListener(new ActionListener() {
 
