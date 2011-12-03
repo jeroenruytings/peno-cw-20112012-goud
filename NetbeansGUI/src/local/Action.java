@@ -24,18 +24,18 @@ public class Action {
 	public void setType(action_type type) {
 		this.type = type;
 	}
-	public byte getValue() {
+	public int getValue() {
 		return value;
 	}
 	public void setValue(byte value) {
 		this.value = value;
 	}
 	private action_type type;
-	private byte value;
+	private int value;
 	private behaviour_enum invoker;
 	public Action(behaviour_enum invoker,action_type type, byte value) {
 		this.type=type;
-		this.value=value;
+		this.value=0x000000ff & value;
 		this.invoker = invoker;
 		//addAction(this);
                 GuiMain.getApplication().getGui().updateActionList(this.toString());
