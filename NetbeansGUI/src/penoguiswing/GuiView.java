@@ -89,7 +89,7 @@ public class GuiView extends FrameView {
         this.setNewLightValue(0);
         tvActions.setModel(local.Action.getTree());
         tvActions.setRootVisible(false);
-        //createCommunication();
+        createCommunication();
         
     }
     
