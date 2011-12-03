@@ -37,7 +37,8 @@ public class Action {
 		this.type=type;
 		this.value=value;
 		this.invoker = invoker;
-		addAction(this);
+		//addAction(this);
+                GuiMain.getApplication().getGui().updateActionList(this.toString());
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -52,9 +53,10 @@ public class Action {
 			lastNode = root.addChild(invoker);
 		}
                 lastNode.addChild(this);
-                GuiMain.getApplication().getGui().updateActionList();
+                
 	}
 	
+    @Override
 	public String toString(){
 		return type.toString() + " :" + value;
 	}
