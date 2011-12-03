@@ -5,50 +5,47 @@
     <Container class="javax.swing.JPanel" name="mainPanel">
       <Properties>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[1300, 680]"/>
+          <Dimension value="[1300, 800]"/>
         </Property>
         <Property name="name" type="java.lang.String" value="mainPanel" noResource="true"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[1300, 680]"/>
+          <Dimension value="[1300, 800]"/>
         </Property>
       </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" max="-2" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="1131" max="-2" attributes="0"/>
+                  <Component id="statusPanelSeparator" pref="253" max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="lblBehaviorReason" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jScrollPane3" alignment="0" min="-2" pref="727" max="-2" attributes="0"/>
+                              <Component id="lblBehaviorReason" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="pnlSensors" min="-2" max="-2" attributes="1"/>
                       </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                          <Component id="jPanel2" min="-2" pref="207" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="lblActionsPrefromed" min="-2" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="483" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="1131" max="-2" attributes="0"/>
-                  <Component id="statusPanelSeparator" pref="253" max="32767" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                  <Component id="lblPreviousBarcode" min="-2" pref="100" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lblBeforePrevious" min="-2" pref="100" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="630" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -61,26 +58,21 @@
                       <Component id="lblActionsPrefromed" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="jScrollPane3" min="-2" pref="380" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jScrollPane3" min="-2" pref="336" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="pnlSensors" min="-2" pref="263" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="pnlSensors" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jPanel2" min="-2" pref="101" max="-2" attributes="0"/>
+                              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <Component id="jScrollPane1" min="-2" pref="646" max="-2" attributes="1"/>
+                      <Component id="jScrollPane1" alignment="1" max="32767" attributes="1"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="lblPreviousBarcode" min="-2" pref="100" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="167" max="-2" attributes="0"/>
-                          <Component id="statusPanelSeparator" min="-2" pref="683" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                          <Component id="jPanel1" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblBeforePrevious" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
+                  <EmptySpace min="-2" pref="219" max="-2" attributes="0"/>
+                  <Component id="statusPanelSeparator" min="-2" pref="683" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -389,20 +381,6 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JLabel" name="lblPreviousBarcode">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" resourceKey="lblPreviousBarcode.icon"/>
-            <Property name="text" type="java.lang.String" resourceKey="lblPreviousBarcode.text"/>
-            <Property name="name" type="java.lang.String" value="lblPreviousBarcode" noResource="true"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblBeforePrevious">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" resourceKey="lblBeforePrevious.icon"/>
-            <Property name="text" type="java.lang.String" resourceKey="lblBeforePrevious.text"/>
-            <Property name="name" type="java.lang.String" value="lblBeforePrevious" noResource="true"/>
-          </Properties>
-        </Component>
         <Container class="javax.swing.JPanel" name="jPanel1">
           <Properties>
             <Property name="name" type="java.lang.String" value="jPanel1" noResource="true"/>
@@ -411,29 +389,24 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                       <Component id="lblConnect" pref="212" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jButton1" min="-2" pref="264" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButton1" min="-2" pref="40" max="-2" attributes="1"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                              <Component id="lblConnect" max="32767" attributes="1"/>
-                          </Group>
-                      </Group>
+                  <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jButton1" alignment="3" min="-2" pref="40" max="-2" attributes="1"/>
+                          <Component id="lblConnect" alignment="3" pref="31" max="32767" attributes="1"/>
+                      </Group>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -451,6 +424,51 @@
               <Properties>
                 <Property name="text" type="java.lang.String" resourceKey="jButton1.text"/>
                 <Property name="name" type="java.lang.String" value="jButton1" noResource="true"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="jPanel2">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="jPanel2" noResource="true"/>
+          </Properties>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="lblPreviousBarcode" min="-2" pref="100" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblBeforePrevious" min="-2" pref="100" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblPreviousBarcode" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="lblBeforePrevious" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="lblPreviousBarcode">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" resourceKey="lblPreviousBarcode.icon"/>
+                <Property name="text" type="java.lang.String" resourceKey="lblPreviousBarcode.text"/>
+                <Property name="name" type="java.lang.String" value="lblPreviousBarcode" noResource="true"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblBeforePrevious">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" resourceKey="lblBeforePrevious.icon"/>
+                <Property name="text" type="java.lang.String" resourceKey="lblBeforePrevious.text"/>
+                <Property name="name" type="java.lang.String" value="lblBeforePrevious" noResource="true"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -613,6 +631,6 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-1,0,0,5,20"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,3,79,0,0,5,20"/>
   </AuxValues>
 </Form>
