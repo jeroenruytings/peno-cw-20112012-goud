@@ -497,7 +497,7 @@ public class GuiView extends FrameView {
         menuBar.add(helpMenu);
 
         statusPanel.setName("statusPanel"); // NOI18N
-        statusPanel.setPreferredSize(new java.awt.Dimension(1350, 40));
+        statusPanel.setPreferredSize(new java.awt.Dimension(1350, 0));
 
         statusMessageLabel.setName("statusMessageLabel"); // NOI18N
 
