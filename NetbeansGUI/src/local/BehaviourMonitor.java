@@ -37,8 +37,7 @@ public class BehaviourMonitor extends LeoMonitor {
 		}
 		decoder.decode(message);
                 
-                GuiMain.getApplication().getGui().addToList(decoder.getBehaviour());
-                GuiMain.getApplication().getGui().addToList("       " + decoder.getReason());
+                GuiMain.getApplication().getGui().addToList(decoder.getBehaviour() + "\n       " + decoder.getReason());
                 
 		//behaviourLabel.setText(decoder.getBehaviour());           
                 //reason.setText(decoder.getReason());
