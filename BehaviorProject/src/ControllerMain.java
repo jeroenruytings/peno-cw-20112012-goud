@@ -6,7 +6,8 @@ public class ControllerMain {
 	private static MuurUpdater mu = new MuurUpdater();
 	private static GoStraightBehavior goStraightBehavior = new GoStraightBehavior();
 	private static TouchSensorBehavior touchSensorBehavior = new TouchSensorBehavior();
-	private static SonarBehavior sonarBehavior = new SonarBehavior();
+	
+	//	private static SonarBehavior sonarBehavior = new SonarBehavior();
 	private static LightSensorBehavior lightSensorBehavior = new LightSensorBehavior();
 	private static Behavior[] behaviorList = {goStraightBehavior,lightSensorBehavior,touchSensorBehavior};
 	private static Arbitrator arbitrator = new Arbitrator(behaviorList, false);
@@ -16,7 +17,7 @@ public class ControllerMain {
 		Communicator.instance();
 		Calibrate.getInstance();
 		Calibrate.calibrate();
-		//mu.start();
+		mu.start();
 		arbitrator.start();
 	}
 

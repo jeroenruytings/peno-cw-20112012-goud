@@ -23,45 +23,50 @@ public class MuurUpdater implements Runnable{
         while(true){
         	Message mes = new Message(Monitor.SensorMonitor, SensorIdentifier.UltrasonicSensor, new SensorValue((byte)sonic.getDistance()));
         	Communicator.instance().send(mes);
-        	// TODO: CHANGE
+        	
         	mes = new Message(Monitor.SensorMonitor, SensorIdentifier.LightSensor, new SensorValue((byte)(LeoBehavior.lightSensor.readRawValue() / 4)));
         	Communicator.instance().send(mes);
         	
-        	sw.reset();
-        	while(sw.elapsed() < 750){
-	            setAheadDistance(sonic.getDistance());
-	            newValuesAhead = true;
-        	}
-        	mes = new Message(Monitor.SensorMonitor, SensorIdentifier.UltrasonicSensor, new SensorValue((byte)sonic.getDistance()));
-        	Communicator.instance().send(mes);
-        	
-            Motor.C.rotate(90);
-            
-            setRightDistance(sonic.getDistance());
-            newValuesRight = true;
-            mes = new Message(Monitor.SensorMonitor, SensorIdentifier.UltrasonicSensor, new SensorValue((byte)sonic.getDistance()));
-        	Communicator.instance().send(mes);
-            
-            Motor.C.rotate(-90);
-            
-            sw.reset();
-        	while(sw.elapsed() < 750){
-	            setAheadDistance(sonic.getDistance());
-	            newValuesAhead = true;
-        	}
-        	mes = new Message(Monitor.SensorMonitor, SensorIdentifier.UltrasonicSensor, new SensorValue((byte)sonic.getDistance()));
-        	Communicator.instance().send(mes);
-        	
-            Motor.C.rotate(-90);
-            
-            setLeftDistance(sonic.getDistance());
-            newValuesLeft = true;
-            
-            mes = new Message(Monitor.SensorMonitor, SensorIdentifier.UltrasonicSensor, new SensorValue((byte)sonic.getDistance()));
-        	Communicator.instance().send(mes);
-            Motor.C.rotate(90);
+        	//rotateAndUpdate();
         }
     }
+
+	private void rotateAndUpdate() {
+		Message mes;
+		sw.reset();
+		while(sw.elapsed() < 750){
+		    setAheadDistance(sonic.getDistance());
+		    newValuesAhead = true;
+		}
+		mes = new Message(Monitor.SensorMonitor, SensorIdentifier.UltrasonicSensor, new SensorValue((byte)sonic.getDistance()));
+		Communicator.instance().send(mes);
+		
+		Motor.C.rotate(90);
+		
+		setRightDistance(sonic.getDistance());
+		newValuesRight = true;
+		mes = new Message(Monitor.SensorMonitor, SensorIdentifier.UltrasonicSensor, new SensorValue((byte)sonic.getDistance()));
+		Communicator.instance().send(mes);
+		
+		Motor.C.rotate(-90);
+		
+		sw.reset();
+		while(sw.elapsed() < 750){
+		    setAheadDistance(sonic.getDistance());
+		    newValuesAhead = true;
+		}
+		mes = new Message(Monitor.SensorMonitor, SensorIdentifier.UltrasonicSensor, new SensorValue((byte)sonic.getDistance()));
+		Communicator.instance().send(mes);
+		
+		Motor.C.rotate(-90);
+		
+		setLeftDistance(sonic.getDistance());
+		newValuesLeft = true;
+		
+		mes = new Message(Monitor.SensorMonitor, SensorIdentifier.UltrasonicSensor, new SensorValue((byte)sonic.getDistance()));
+		Communicator.instance().send(mes);
+		Motor.C.rotate(90);
+	}
     
     public int getAheadDistance() {
         return MuurUpdater.aheadDistance;
