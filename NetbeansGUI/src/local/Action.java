@@ -41,7 +41,7 @@ public class Action {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public static TreeModel getTree(){
+	public static DefaultTreeModel getTree(){
 		return tree;
 	}
 
@@ -51,7 +51,7 @@ public class Action {
 			BehaviorTreeNode root = (BehaviorTreeNode) tree.getRoot();
 			lastNode = root.addChild(invoker);
 		}
-			lastNode.addChild(this);
+                lastNode.addChild(this);
                 GuiMain.getApplication().getGui().updateActionList();
 	}
 	

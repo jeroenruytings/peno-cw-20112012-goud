@@ -153,7 +153,7 @@ public class GuiView extends FrameView {
     /**
      * This method adds a string to the end of the behavior list.
      * @param   b 
-     *              The vector to set.
+     *              The string to add.
      */
     public void addToList(String b){
         txaBehaviors.insert(b + "\n",0);
@@ -161,9 +161,7 @@ public class GuiView extends FrameView {
         //lstBehaviorReason.repaint();
     }
     
-    public void updateActionList(){
-        tvActions.repaint();
-    }
+    public void updateActionList(){}
     
     
 
@@ -519,5 +517,5 @@ public class GuiView extends FrameView {
     
     
     
-    private Vector<String> behaviorList = new Vector<String>(100);
+
 }
