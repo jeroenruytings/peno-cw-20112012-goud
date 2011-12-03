@@ -469,11 +469,17 @@ public class GuiView extends FrameView {
 
         lblPreviousBarcode.setIcon(resourceMap.getIcon("lblPreviousBarcode.icon")); // NOI18N
         lblPreviousBarcode.setText(resourceMap.getString("lblPreviousBarcode.text")); // NOI18N
+        lblPreviousBarcode.setMaximumSize(new java.awt.Dimension(100, 100));
+        lblPreviousBarcode.setMinimumSize(new java.awt.Dimension(100, 100));
         lblPreviousBarcode.setName("lblPreviousBarcode"); // NOI18N
+        lblPreviousBarcode.setPreferredSize(new java.awt.Dimension(100, 100));
 
         lblBeforePrevious.setIcon(resourceMap.getIcon("lblBeforePrevious.icon")); // NOI18N
         lblBeforePrevious.setText(resourceMap.getString("lblBeforePrevious.text")); // NOI18N
+        lblBeforePrevious.setMaximumSize(new java.awt.Dimension(100, 100));
+        lblBeforePrevious.setMinimumSize(new java.awt.Dimension(100, 100));
         lblBeforePrevious.setName("lblBeforePrevious"); // NOI18N
+        lblBeforePrevious.setPreferredSize(new java.awt.Dimension(100, 100));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
