@@ -5,7 +5,7 @@ public class SensorDecoder extends MessageDecoder {
 	private int value;
 	private sensor_type type;
 	public enum sensor_type{
-		LIGHTSENSOR(0),ULTRASONIC(1),BARCODE(2);
+		LIGHTSENSOR(0),ULTRASONIC(1),BARCODE(2),BROWNMESSAGE(3),BLACKMESSAGE(4),WHITEMESSAGE(5);
 		public final int mask;
 		private sensor_type(int mask)
 		{

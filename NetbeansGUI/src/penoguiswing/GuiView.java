@@ -9,6 +9,8 @@ import org.jdesktop.application.ResourceMap;
 import org.jdesktop.application.SingleFrameApplication;
 import org.jdesktop.application.FrameView;
 import org.jdesktop.application.TaskMonitor;
+
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
@@ -17,6 +19,8 @@ import javax.swing.Icon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import local.GuiCommunicator;
+import local.SensorColor;
+
 import org.jdesktop.application.Action;
 
 /**
@@ -536,6 +540,12 @@ public class GuiView extends FrameView {
     private int busyIconIndex = 0;
 
     private JDialog aboutBox;
+
+	public void lightSensorBox(SensorColor white) {
+		int color = white.rgb;
+		this.canvas1.setBackground(new Color(color));
+		
+	}
     
     
     

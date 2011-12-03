@@ -1,6 +1,8 @@
 package local;
 
 
+import java.awt.Color;
+
 import penoguiswing.GuiMain;
 
 
@@ -91,6 +93,17 @@ public class SensorMonitor extends LeoMonitor{
 			//RobotGui.instance().setLabel("DistanceSensorValue",decoder.value().toString());
                         GuiMain.getApplication().getGui().setNewDistance(decoder.value());
                         break;
+		case WHITEMESSAGE:
+			GuiMain.getApplication().getGui().lightSensorBox(SensorColor.WHITE);
+			break;
+		case BLACKMESSAGE:
+			GuiMain.getApplication().getGui().lightSensorBox(SensorColor.BLACK);
+			
+			break;
+		case BROWNMESSAGE:
+			GuiMain.getApplication().getGui().lightSensorBox(SensorColor.BROWN);
+			
+			break;
 		}
 		
 	}
