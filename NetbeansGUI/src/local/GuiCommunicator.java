@@ -8,7 +8,7 @@ public class GuiCommunicator implements Runnable {
 	private DataInputStream in;
 	private LeoMonitor startOfChain = buildMonitors();
 
-	public GuiCommunicator() {
+	public GuiCommunicator() throws Exception {
 		// XXX: do not delete this code
 		 NXTConnector conn = new NXTConnector();
 		
@@ -16,7 +16,7 @@ public class GuiCommunicator implements Runnable {
 		
 		 if (!connected) {
 		 System.err.println("Failed to connect to any NXT");
-		 System.exit(1);
+		 throw new Exception();
 		 }
 		 System.out.println("Connected!");
 		

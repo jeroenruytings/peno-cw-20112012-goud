@@ -113,7 +113,7 @@ public class GuiView extends FrameView {
     private GuiCommunicator comm;
     private Thread t;
     
-    private void createCommunication() {
+    private void createCommunication() throws Exception {
 		this.comm = new GuiCommunicator();
 		t = new Thread(this.comm);
 		t.start();
@@ -152,8 +152,6 @@ public class GuiView extends FrameView {
      */
     public void setNewLightValue(int Value){
         txfLightValue.setText(Integer.toString(Value));
-        // Paint on the canvas.
-        // Higher value gives = more white.
         
     }
     
