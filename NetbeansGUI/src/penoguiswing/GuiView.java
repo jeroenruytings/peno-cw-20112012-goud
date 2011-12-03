@@ -94,7 +94,14 @@ public class GuiView extends FrameView {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                try{
                 createCommunication();
+                }
+                catch(Exception exc){
+                    lblConnect.setForeground(Color.ORANGE);
+                    lblConnect.setText("Failed Connection");
+                    return;
+                }
                 lblConnect.setForeground(Color.GREEN);
                 lblConnect.setText("Connected");
                 
