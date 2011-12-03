@@ -226,9 +226,9 @@ public class GuiView extends FrameView {
         statusAnimationLabel = new javax.swing.JLabel();
         progressBar = new javax.swing.JProgressBar();
 
-        mainPanel.setMinimumSize(new java.awt.Dimension(1300, 720));
+        mainPanel.setMinimumSize(new java.awt.Dimension(1300, 680));
         mainPanel.setName("mainPanel"); // NOI18N
-        mainPanel.setPreferredSize(new java.awt.Dimension(1300, 720));
+        mainPanel.setPreferredSize(new java.awt.Dimension(1300, 680));
 
         pnlSensors.setName("pnlSensors"); // NOI18N
 
