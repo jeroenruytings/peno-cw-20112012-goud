@@ -9,7 +9,7 @@ package penoguiswing;
  */
 public enum BarcodeIcons {
   
-    RIGHT("rechtsaf"),LEFT("linksaf"),STRAIGHT("rechtdoor"),RISING("stijging"),LOWERING("daling"),ERROR("voorrang"),NARROWING("versmalling");
+    RIGHT("rechtsaf"),LEFT("linksaf"),STRAIGHT("rechtdoor"),RISING("stijging"),LOWERING("daling"),ERROR("voorrang"),NARROWING("versmalling"),BRIDGE("brug");
     
     private BarcodeIcons(String fileName){
         this.fileName = fileName;
@@ -33,6 +33,8 @@ public enum BarcodeIcons {
                 return LOWERING;
             case 6:
                 return NARROWING;
+            case 7:
+                return BRIDGE;
             default :
                 return ERROR;
         }
