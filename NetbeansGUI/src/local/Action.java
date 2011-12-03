@@ -49,13 +49,9 @@ public class Action {
 	public void addAction(Action a){
 		if ((lastNode == null) || (lastNode.getType() != invoker)){
 			BehaviorTreeNode root = (BehaviorTreeNode) tree.getRoot();
-			root.addChild(invoker);
+			lastNode = root.addChild(invoker);
 		}
-		else
-		{
 			lastNode.addChild(this);
-		}
-                System.out.println("Action gemaakt!!!!!!!!!!!!");
                 GuiMain.getApplication().getGui().updateActionList();
 	}
 	
