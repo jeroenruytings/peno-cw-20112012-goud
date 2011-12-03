@@ -5,7 +5,6 @@
 	<classpathentry kind="lib" path="C:/Program Files/leJOS NXJ/lib/jtools.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/leJOS NXJ/lib/pccomm.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/leJOS NXJ/lib/pctools.jar"/>
-	<classpathentry kind="lib" path="D:/Dropbox/P&amp;O Computerwetenschappen/Gui/core.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/NetBeans 7.0.1/java/modules/ext/appframework-1.0.3.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/NetBeans 7.0.1/java/modules/ext/swing-worker-1.1.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/leJOS NXJ/3rdparty/lib/bluecove.jar"/>

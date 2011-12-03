@@ -30,7 +30,7 @@ public class SensorDecoder extends MessageDecoder {
 	}
 	public Integer value()
 	{
-		return value;
+		return value&0x000000ff;
 	}
 	@Override
 	public boolean accepts(byte[] message) {
