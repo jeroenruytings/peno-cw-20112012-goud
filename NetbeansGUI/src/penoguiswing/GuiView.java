@@ -83,7 +83,6 @@ public class GuiView extends FrameView {
             }
         });
         
-        lstBehaviorReason.setListData(behaviorList);
         setNewDistance(0);
         this.setNewBarcode(0);
         this.setNewLightValue(0);
@@ -156,7 +155,7 @@ public class GuiView extends FrameView {
      *              The vector to set.
      */
     public void addToList(String b){
-        txaBehaviors.append(b + "\n");
+        txaBehaviors.insert(b + "\n",0);
         //behaviorList.add(b);
         //lstBehaviorReason.repaint();
     }
@@ -177,8 +176,6 @@ public class GuiView extends FrameView {
     private void initComponents() {
 
         mainPanel = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        lstBehaviorReason = new javax.swing.JList();
         pnlSensors = new javax.swing.JPanel();
         lblSensors = new javax.swing.JLabel();
         pnlDistanceSensor = new javax.swing.JPanel();
@@ -211,21 +208,9 @@ public class GuiView extends FrameView {
 
         mainPanel.setName("mainPanel"); // NOI18N
 
-        jScrollPane2.setName("jScrollPane2"); // NOI18N
-
-        lstBehaviorReason.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(penoguiswing.GuiMain.class).getContext().getResourceMap(GuiView.class);
-        lstBehaviorReason.setToolTipText(resourceMap.getString("lstBehavior.toolTipText")); // NOI18N
-        lstBehaviorReason.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        lstBehaviorReason.setName("lstBehavior"); // NOI18N
-        jScrollPane2.setViewportView(lstBehaviorReason);
-
         pnlSensors.setName("pnlSensors"); // NOI18N
 
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(penoguiswing.GuiMain.class).getContext().getResourceMap(GuiView.class);
         lblSensors.setFont(resourceMap.getFont("lblSensoren.font")); // NOI18N
         lblSensors.setText(resourceMap.getString("lblSensoren.text")); // NOI18N
         lblSensors.setName("lblSensoren"); // NOI18N
@@ -369,7 +354,7 @@ public class GuiView extends FrameView {
                     .addGroup(pnlSensorsLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(lblSensors, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(148, Short.MAX_VALUE))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
         pnlSensorsLayout.setVerticalGroup(
             pnlSensorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -393,6 +378,7 @@ public class GuiView extends FrameView {
         jScrollPane3.setName("jScrollPane3"); // NOI18N
 
         txaBehaviors.setColumns(20);
+        txaBehaviors.setEditable(false);
         txaBehaviors.setRows(5);
         txaBehaviors.setName("txaBehaviors"); // NOI18N
         jScrollPane3.setViewportView(txaBehaviors);
@@ -403,30 +389,24 @@ public class GuiView extends FrameView {
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlSensors, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pnlSensors, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(mainPanelLayout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE))
-                    .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addGap(392, 392, 392)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(12, 12, 12)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
                 .addContainerGap())
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 605, Short.MAX_VALUE)
                     .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(pnlSensors, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23)
+                        .addComponent(pnlSensors, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -504,14 +484,12 @@ public class GuiView extends FrameView {
     private java.awt.Canvas canvas1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblBarcode;
     private javax.swing.JLabel lblDistanceSensor;
     private javax.swing.JLabel lblErrorDistance;
     private javax.swing.JLabel lblLightSensor;
     private javax.swing.JLabel lblSensors;
-    private javax.swing.JList lstBehaviorReason;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JProgressBar pbDistance;
