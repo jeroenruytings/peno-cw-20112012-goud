@@ -39,13 +39,22 @@
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="1131" max="-2" attributes="0"/>
-                  <Component id="statusPanelSeparator" pref="265" max="32767" attributes="0"/>
+                  <Component id="statusPanelSeparator" pref="253" max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="lblPreviousBarcode" min="-2" pref="100" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="lblBeforePrevious" min="-2" pref="100" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="630" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblBehaviorReason" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
@@ -60,9 +69,19 @@
                       </Group>
                       <Component id="jScrollPane1" min="-2" pref="646" max="-2" attributes="1"/>
                   </Group>
-                  <EmptySpace min="-2" pref="189" max="-2" attributes="0"/>
-                  <Component id="statusPanelSeparator" min="-2" pref="683" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="lblPreviousBarcode" min="-2" pref="100" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="167" max="-2" attributes="0"/>
+                          <Component id="statusPanelSeparator" min="-2" pref="683" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                          <Component id="jPanel1" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblBeforePrevious" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -82,15 +101,9 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="pnlBarcode" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblConnect" pref="212" max="32767" attributes="0"/>
-                                  <Component id="pnlDistanceSensor" alignment="0" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="pnlDistanceSensor" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jButton1" min="-2" pref="264" max="-2" attributes="0"/>
-                                  <Component id="pnlLightSensor" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="pnlLightSensor" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="lblSensors" min="-2" pref="98" max="-2" attributes="0"/>
                       </Group>
@@ -105,17 +118,8 @@
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="pnlBarcode" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="pnlLightSensor" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="pnlDistanceSensor" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="lblConnect" max="32767" attributes="1"/>
-                                  <Component id="jButton1" alignment="0" pref="40" max="32767" attributes="1"/>
-                              </Group>
-                          </Group>
+                          <Component id="pnlLightSensor" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="pnlDistanceSensor" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -137,11 +141,11 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblErrorDistance" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="pbDistance" alignment="0" pref="188" max="32767" attributes="0"/>
+                              <Component id="lblErrorDistance" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="lblDistanceSensor" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace pref="53" max="32767" attributes="0"/>
@@ -159,11 +163,11 @@
                               <Component id="lblDistanceSensor" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txfDistanceValue" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="pbDistance" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                           <Component id="lblErrorDistance" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="22" max="32767" attributes="0"/>
+                          <EmptySpace pref="49" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -263,17 +267,17 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                  <Component id="canvas1" pref="263" max="32767" attributes="0"/>
+                              </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="lblLightSensor" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace pref="130" max="32767" attributes="0"/>
                                   <Component id="txfLightValue" min="-2" pref="42" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                  <Component id="canvas1" pref="263" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -288,8 +292,8 @@
                               <Component id="lblLightSensor" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="canvas1" min="-2" pref="61" max="-2" attributes="0"/>
-                          <EmptySpace pref="37" max="32767" attributes="0"/>
+                          <Component id="canvas1" pref="88" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -318,20 +322,6 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="jButton1">
-              <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="jButton1.text"/>
-                <Property name="name" type="java.lang.String" value="jButton1" noResource="true"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblConnect">
-              <Properties>
-                <Property name="font" type="java.awt.Font" resourceKey="lblConnect.font"/>
-                <Property name="foreground" type="java.awt.Color" resourceKey="lblConnect.foreground"/>
-                <Property name="text" type="java.lang.String" resourceKey="lblConnect.text"/>
-                <Property name="name" type="java.lang.String" value="lblConnect" noResource="true"/>
-              </Properties>
-            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JScrollPane" name="jScrollPane3">
@@ -395,6 +385,72 @@
                 <Property name="font" type="java.awt.Font" resourceKey="jTextArea1.font"/>
                 <Property name="rows" type="int" value="5"/>
                 <Property name="name" type="java.lang.String" value="jTextArea1" noResource="true"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JLabel" name="lblPreviousBarcode">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" resourceKey="lblPreviousBarcode.icon"/>
+            <Property name="text" type="java.lang.String" resourceKey="lblPreviousBarcode.text"/>
+            <Property name="name" type="java.lang.String" value="lblPreviousBarcode" noResource="true"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblBeforePrevious">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" resourceKey="lblBeforePrevious.icon"/>
+            <Property name="text" type="java.lang.String" resourceKey="lblBeforePrevious.text"/>
+            <Property name="name" type="java.lang.String" value="lblBeforePrevious" noResource="true"/>
+          </Properties>
+        </Component>
+        <Container class="javax.swing.JPanel" name="jPanel1">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="jPanel1" noResource="true"/>
+          </Properties>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblConnect" pref="212" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                      <Component id="jButton1" min="-2" pref="264" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jButton1" min="-2" pref="40" max="-2" attributes="1"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                              <Component id="lblConnect" max="32767" attributes="1"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="lblConnect">
+              <Properties>
+                <Property name="font" type="java.awt.Font" resourceKey="lblConnect.font"/>
+                <Property name="foreground" type="java.awt.Color" resourceKey="lblConnect.foreground"/>
+                <Property name="text" type="java.lang.String" resourceKey="lblConnect.text"/>
+                <Property name="name" type="java.lang.String" value="lblConnect" noResource="true"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButton1">
+              <Properties>
+                <Property name="text" type="java.lang.String" resourceKey="jButton1.text"/>
+                <Property name="name" type="java.lang.String" value="jButton1" noResource="true"/>
               </Properties>
             </Component>
           </SubComponents>
