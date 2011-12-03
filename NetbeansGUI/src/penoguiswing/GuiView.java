@@ -90,9 +90,6 @@ public class GuiView extends FrameView {
         setNewDistance(0);
         this.setNewBarcode(0);
         this.setNewLightValue(0);
-        tvActions.setModel(local.Action.getTree());
-        tvActions.setRootVisible(true);
-        tvActions.setEditable(true);
         createCommunication();
         
     }
