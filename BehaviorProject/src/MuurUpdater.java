@@ -21,7 +21,8 @@ public class MuurUpdater implements Runnable{
     
     public void run() {
         while(true){
-        	Message mes = new Message(Monitor.SensorMonitor, SensorIdentifier.UltrasonicSensor, new SensorValue((byte)sonic.getDistance()));
+        	aheadDistance = sonic.getDistance();
+        	Message mes = new Message(Monitor.SensorMonitor, SensorIdentifier.UltrasonicSensor, new SensorValue((byte)aheadDistance));
         	Communicator.instance().send(mes);
         	
         	mes = new Message(Monitor.SensorMonitor, SensorIdentifier.LightSensor, new SensorValue((byte)(LeoBehavior.lightSensor.readRawValue() / 4)));

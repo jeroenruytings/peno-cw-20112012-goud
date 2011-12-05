@@ -1,68 +1,41 @@
 import lejos.nxt.Motor;
+import lejos.nxt.SensorPort;
 import lejos.nxt.Sound;
+import lejos.nxt.UltrasonicSensor;
 
 public class SonarBehavior extends LeoBehavior{
+	UltrasonicSensor sonic = new UltrasonicSensor(SensorPort.S2);
     Boolean suppressed = false;
     boolean closeLeft = false;
     boolean closeAhead = false;
     boolean closeRight = false;
     boolean first = true;
+    int leftDistance;
+    int rightDistance;
     
     public void action() {
         suppressed = false;
         Sound.twoBeeps();
-        if(closeAhead && !suppressed){
-            if(MuurUpdater.rightDistance < MuurUpdater.leftDistance){
+        pilot.stop();
+        Motor.C.rotate(-90);
+        leftDistance = sonic.getDistance();
+        Motor.C.rotate(180);
+        rightDistance = sonic.getDistance();
+            if(rightDistance < leftDistance){
     			pilot.travelArc(-200, 250);
             }
-            else if(MuurUpdater.rightDistance == MuurUpdater.leftDistance)
-            	;
             else{
     			pilot.travelArc(200, -250);
-            }
-            closeAhead = false;
-        }
-        
-        else if(closeRight && !suppressed){
-            steerRight(MuurUpdater.rightDistance);
-            closeRight = false;
-            
-        }
-        
-        else if(closeLeft && !suppressed){
-            steerLeft(MuurUpdater.leftDistance);
-            closeLeft = false;
-        }
-        
+            }  
         suppressed = true;
-    }
+        }
     public void suppress() {
         suppressed = true;
         
     }
     public boolean takeControl() {
-        if(MuurUpdater.aheadDistance < 20 && MuurUpdater.newValuesAhead
-        		&& !isVersmalling()){
-            closeAhead = true;
-            MuurUpdater.newValuesAhead = false;
-        	Sound.buzz();
-            return true;
-        }
-//        
-//        if(MuurUpdater.leftDistance < 20 && MuurUpdater.newValuesLeft && !first){
-//            closeLeft = true;
-//            MuurUpdater.newValuesLeft = false;
-//            first = false;
-//            return true;
-//        }
-//        
-//        if(MuurUpdater.rightDistance < 30 && MuurUpdater.newValuesRight && !first){
-//            closeRight = true;
-//            MuurUpdater.newValuesRight = false;
-//            first = false;
-//            return true;
-//        }
-        
+    	if(MuurUpdater.aheadDistance < 10)
+    		return true;  
         return false;
     }
     
