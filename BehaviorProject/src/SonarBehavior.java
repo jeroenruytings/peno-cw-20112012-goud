@@ -19,13 +19,16 @@ public class SonarBehavior extends LeoBehavior{
         pilot.stop();
         Motor.C.rotate(-90);
         leftDistance = MuurUpdater.sonic.getDistance();
+        Communicator.instance().send(new Message(Monitor.SensorMonitor,SensorIdentifier.LEFTMESSAGE,new SensorValue((byte)leftDistance)));
         Motor.C.rotate(180);
         rightDistance = MuurUpdater.sonic.getDistance();
+        Communicator.instance().send(new Message(Monitor.SensorMonitor,SensorIdentifier.RIGHTMESSAGE,new SensorValue((byte)rightDistance)));
         Motor.C.rotate(-90);
         if(!LeoBehavior.isVersmalling()){
 	        if(rightDistance < leftDistance){
 	        	
 				pilot.travelArc(-250, 393);
+				
 	        }
 	        else{
 				pilot.travelArc(250, -393);
