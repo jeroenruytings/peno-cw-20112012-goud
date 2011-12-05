@@ -102,8 +102,14 @@ public class SensorMonitor extends LeoMonitor{
 			break;
 		case BROWNMESSAGE:
 			GuiMain.getApplication().getGui().lightSensorBox(SensorColor.BROWN);
-			
 			break;
+                case LEFTMESSAGE:
+                        GuiMain.getApplication().getGui().setLeftValue(decoder.value());
+			break;
+                case RIGHTMESSAGE:
+                        GuiMain.getApplication().getGui().setRightValue(decoder.value());
+			break;
+                    
 		}
 		
 	}
