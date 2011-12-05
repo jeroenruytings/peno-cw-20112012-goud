@@ -686,6 +686,7 @@ public class GuiView extends FrameView {
 	public void lightSensorBox(SensorColor white) {
 		int color = white.rgb;
 		this.canvas1.setBackground(new Color(color));
+                
 		
 	}
     
