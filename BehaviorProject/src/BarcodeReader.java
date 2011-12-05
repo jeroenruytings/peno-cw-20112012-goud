@@ -43,7 +43,7 @@ public class BarcodeReader implements java.lang.Runnable {
 				1, 1, 1, 1, 1, 1, 1),eightinverse(1, 1, 0, 0, 0, 0, 1),
 				oneinverse(1, 1, 1, 1, 0, 0, 0), twoinverse(0, 1, 1, 0, 1, 0, 0),
 				seveninverse(0, 0, 1, 1, 1, 1, 0), fourinverse(1, 0, 1, 0, 0, 1, 0),
-				threeinverse(1, 0, 0, 1, 1, 0, 0),leftinverse(0, 0, 1, 1, 0, 0, 0);
+				leftinverse(0, 0, 1, 1, 0, 0, 0);
 		private final int[] code;
 
 		private static int hammingdistance(int[] code, int[] other) {

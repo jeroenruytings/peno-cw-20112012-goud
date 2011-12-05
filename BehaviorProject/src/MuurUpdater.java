@@ -21,15 +21,18 @@ public class MuurUpdater implements Runnable{
     
     public void run() {
         while(true){
-        	aheadDistance = sonic.getDistance();
-        	Message mes = new Message(Monitor.SensorMonitor, SensorIdentifier.UltrasonicSensor, new SensorValue((byte)aheadDistance));
-        	Communicator.instance().send(mes);
-        	
-        	mes = new Message(Monitor.SensorMonitor, SensorIdentifier.LightSensor, new SensorValue((byte)(LeoBehavior.lightSensor.readRawValue() / 4)));
-        	Communicator.instance().send(mes);
-        	
-        	//rotateAndUpdate();
-        }
+            aheadDistance = sonic.getDistance();
+            Message mes = new Message(Monitor.SensorMonitor, SensorIdentifier.UltrasonicSensor, new SensorValue((byte)aheadDistance));
+            Communicator.instance().send(mes);
+            
+            mes = new Message(Monitor.SensorMonitor, SensorIdentifier.LightSensor, new SensorValue((byte)(LeoBehavior.lightSensor.readRawValue() / 4)));
+            Communicator.instance().send(mes);
+            int value = LeoBehavior.lightSensor.readRawValue();
+            mes=(Calibrate.isblack(value))?(new Message(Monitor.SensorMonitor,SensorIdentifier.BLACKMESSAGE,new SensorValue((byte) 0))):(Calibrate.iswhite(value)?new Message(Monitor.SensorMonitor,SensorIdentifier.WHITEMESSAGE,new SensorValue((byte) 0)):new Message(Monitor.SensorMonitor, SensorIdentifier.BROWNMESSAGE,new SensorValue((byte) 0)));
+            Communicator.instance().send(mes);
+            //rotateAndUpdate();
+    }
+
     }
 
 	private void rotateAndUpdate() {

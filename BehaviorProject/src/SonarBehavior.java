@@ -22,14 +22,29 @@ public class SonarBehavior extends LeoBehavior{
         Motor.C.rotate(180);
         rightDistance = MuurUpdater.sonic.getDistance();
         Motor.C.rotate(-90);
+        if(!LeoBehavior.isVersmalling()){
+	        if(rightDistance < leftDistance){
+	        	
+				pilot.travelArc(-250, 393);
+	        }
+	        else{
+				pilot.travelArc(250, -393);
+	        }
+	    }
+        else{
             if(rightDistance < leftDistance){
-    			pilot.travelArc(-250, 250);
+            	
+    			pilot.travelArc(-150, 236);
             }
             else{
-    			pilot.travelArc(250, -250);
-            }  
+    			pilot.travelArc(150, -236);
+            }
+        }
+        pilot.setSpeed(720);
+            
         suppressed = true;
         }
+    
     public void suppress() {
         suppressed = true;
         

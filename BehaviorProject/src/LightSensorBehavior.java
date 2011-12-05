@@ -186,6 +186,9 @@ public class LightSensorBehavior extends LeoBehavior {
 				setVersmalling(true);
 				break;
 			case nine:
+				pilot.travel(200);
+				interruptTravel();
+				pilot.rotate(180);
 				setVersmalling(false);
 				break;
 			case a:
@@ -244,12 +247,6 @@ public class LightSensorBehavior extends LeoBehavior {
 				setVersmalling(false);
 			break;
 			case seveninverse: //wip omgekeerd gelezen
-				pilot.travel(200);
-				interruptTravel();
-				pilot.rotate(180);
-				setVersmalling(false);
-			break;
-			case threeinverse:
 				pilot.travel(200);
 				interruptTravel();
 				pilot.rotate(180);
