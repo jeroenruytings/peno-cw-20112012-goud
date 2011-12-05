@@ -196,9 +196,9 @@ public class GuiView extends FrameView {
     
     public void updateActionList(String str){
         String printString = str + "\n";
-        leftToPrint = printString.concat(leftToPrint);
-        if (!tbtnPauze.isSelected())    
-            jTextArea1.insert(leftToPrint, 0);
+        //leftToPrint = printString.concat(leftToPrint);
+        //if (!tbtnPauze.isSelected())    
+            jTextArea1.insert(printString, 0);
     }
     
     
