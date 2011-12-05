@@ -1,6 +1,6 @@
 
 public enum SensorIdentifier implements Identifier {
-	LightSensor(0),UltrasonicSensor(1),BarcodeSensor(2);
+	LightSensor(0),UltrasonicSensor(1),BarcodeSensor(2),BROWNMESSAGE(3),BLACKMESSAGE(4),WHITEMESSAGE(5);
 	//XXX Maybe add pressing sensors
 	private byte mask;
 	private SensorIdentifier(int mask){
