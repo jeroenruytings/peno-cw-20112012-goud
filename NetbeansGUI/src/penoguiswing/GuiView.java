@@ -192,8 +192,13 @@ public class GuiView extends FrameView {
         //lstBehaviorReason.repaint();
     }
     
+    private String leftToPrint;
+    
     public void updateActionList(String str){
-        jTextArea1.insert(str + "\n", 0);
+        String printString = str + "\n";
+        leftToPrint = printString.concat(leftToPrint);
+        if (!tbtnPauze.isSelected())    
+            jTextArea1.insert(printString, 0);
     }
     
     
@@ -236,6 +241,7 @@ public class GuiView extends FrameView {
         jPanel2 = new javax.swing.JPanel();
         lblPreviousBarcode = new javax.swing.JLabel();
         lblBeforePrevious = new javax.swing.JLabel();
+        tbtnPauze = new javax.swing.JToggleButton();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
@@ -506,6 +512,9 @@ public class GuiView extends FrameView {
                 .addContainerGap())
         );
 
+        tbtnPauze.setText(resourceMap.getString("tbtnPauze.text")); // NOI18N
+        tbtnPauze.setName("tbtnPauze"); // NOI18N
+
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
@@ -528,10 +537,15 @@ public class GuiView extends FrameView {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblActionsPrefromed)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblActionsPrefromed)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(tbtnPauze, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(122, 122, 122))
         );
         mainPanelLayout.setVerticalGroup(
@@ -542,7 +556,7 @@ public class GuiView extends FrameView {
                     .addComponent(lblBehaviorReason, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblActionsPrefromed, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(mainPanelLayout.createSequentialGroup()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -551,7 +565,10 @@ public class GuiView extends FrameView {
                         .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tbtnPauze, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(219, 219, 219)
                 .addComponent(statusPanelSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 683, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -651,6 +668,7 @@ public class GuiView extends FrameView {
     private javax.swing.JLabel statusAnimationLabel;
     private javax.swing.JLabel statusMessageLabel;
     private javax.swing.JPanel statusPanel;
+    private javax.swing.JToggleButton tbtnPauze;
     private javax.swing.JTextArea txaBehaviors;
     private javax.swing.JTextField txfBarcode;
     private javax.swing.JTextField txfDistanceValue;

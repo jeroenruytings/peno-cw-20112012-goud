@@ -40,10 +40,18 @@
                           <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lblActionsPrefromed" min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="483" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblActionsPrefromed" min="-2" max="-2" attributes="0"/>
+                              <Component id="jScrollPane1" min="-2" pref="483" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="tbtnPauze" min="-2" pref="120" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
               </Group>
@@ -58,8 +66,8 @@
                       <Component id="lblActionsPrefromed" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <Component id="jScrollPane3" min="-2" pref="336" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="pnlSensors" min="-2" pref="263" max="-2" attributes="0"/>
@@ -69,7 +77,11 @@
                               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="jScrollPane1" alignment="1" max="32767" attributes="1"/>
+                      <Group type="102" attributes="0">
+                          <Component id="jScrollPane1" min="-2" pref="656" max="-2" attributes="1"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="tbtnPauze" min="-2" pref="40" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace min="-2" pref="219" max="-2" attributes="0"/>
                   <Component id="statusPanelSeparator" min="-2" pref="683" max="-2" attributes="0"/>
@@ -497,6 +509,12 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JToggleButton" name="tbtnPauze">
+          <Properties>
+            <Property name="text" type="java.lang.String" resourceKey="tbtnPauze.text"/>
+            <Property name="name" type="java.lang.String" value="tbtnPauze" noResource="true"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JMenuBar" name="menuBar">
