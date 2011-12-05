@@ -13,6 +13,7 @@ public class ControllerMain {
 	private static Arbitrator arbitrator = new Arbitrator(behaviorList, false);
 	
 	public static void main(String args[]){
+		System.out.println("Test Tibo");
 		System.out.println("Zet de GUI aan");
 		Communicator.instance();
 		Calibrate.getInstance();

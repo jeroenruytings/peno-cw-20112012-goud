@@ -1,10 +1,7 @@
 import lejos.nxt.Motor;
-import lejos.nxt.SensorPort;
 import lejos.nxt.Sound;
-import lejos.nxt.UltrasonicSensor;
 
 public class SonarBehavior extends LeoBehavior{
-	UltrasonicSensor sonic = new UltrasonicSensor(SensorPort.S2);
     Boolean suppressed = false;
     boolean closeLeft = false;
     boolean closeAhead = false;
@@ -18,9 +15,9 @@ public class SonarBehavior extends LeoBehavior{
         Sound.twoBeeps();
         pilot.stop();
         Motor.C.rotate(-90);
-        leftDistance = sonic.getDistance();
+        leftDistance = MuurUpdater.sonic.getDistance();
         Motor.C.rotate(180);
-        rightDistance = sonic.getDistance();
+        rightDistance = MuurUpdater.sonic.getDistance();
             if(rightDistance < leftDistance){
     			pilot.travelArc(-200, 250);
             }
@@ -34,8 +31,10 @@ public class SonarBehavior extends LeoBehavior{
         
     }
     public boolean takeControl() {
-    	if(MuurUpdater.aheadDistance < 10)
+		Sound.twoBeeps();
+    	if(MuurUpdater.aheadDistance < 10){
     		return true;  
+    	}
         return false;
     }
     

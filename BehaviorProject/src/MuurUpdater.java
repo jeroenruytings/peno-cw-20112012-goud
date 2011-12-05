@@ -4,7 +4,7 @@ import lejos.nxt.UltrasonicSensor;
 import lejos.util.Stopwatch;
 
 public class MuurUpdater implements Runnable{
-    UltrasonicSensor sonic = new UltrasonicSensor(SensorPort.S2);
+    static UltrasonicSensor sonic = new UltrasonicSensor(SensorPort.S2);
     static int aheadDistance;
     static int leftDistance;
     static int rightDistance;
