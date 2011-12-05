@@ -11,18 +11,22 @@ public class SonarBehavior extends LeoBehavior{
     int rightDistance;
     
     public void action() {
+    	Communicator.instance().send(
+    			new Message(Monitor.BehaviorMonitor,
+    					BehaviourIdentifier.SonarBehaviour,
+    					BehaviourReason.FRONTWALL));
         suppressed = false;
-        Sound.twoBeeps();
         pilot.stop();
         Motor.C.rotate(-90);
         leftDistance = MuurUpdater.sonic.getDistance();
         Motor.C.rotate(180);
         rightDistance = MuurUpdater.sonic.getDistance();
+        Motor.C.rotate(-90);
             if(rightDistance < leftDistance){
-    			pilot.travelArc(-200, 250);
+    			pilot.travelArc(-250, 250);
             }
             else{
-    			pilot.travelArc(200, -250);
+    			pilot.travelArc(250, -250);
             }  
         suppressed = true;
         }
@@ -31,10 +35,9 @@ public class SonarBehavior extends LeoBehavior{
         
     }
     public boolean takeControl() {
-		Sound.twoBeeps();
-    	if(MuurUpdater.aheadDistance < 10){
-    		return true;  
-    	}
+	    	if(MuurUpdater.aheadDistance < 10){
+	    		return true;  
+	    	}
         return false;
     }
     

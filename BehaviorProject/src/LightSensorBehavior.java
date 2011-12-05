@@ -43,7 +43,7 @@ public class LightSensorBehavior extends LeoBehavior {
 			switch (barcodeReader.lastRead()) {
 			case six: //bocht rechts
 				double dist = barcodeReader.getTotaldist();
-				float degrees = (float) (dist-290)*(45)/(446-290);
+				float degrees = (float) (((dist-290)*(45)/(446-290)) + 3);
 				//System.out.println(degrees);
 				if(lastSmallLine==1){//zwarte lijn
 					pilot.rotate(-degrees);
@@ -62,7 +62,7 @@ public class LightSensorBehavior extends LeoBehavior {
 				break;
 			case three: //bocht links
 				double dist2 = barcodeReader.getTotaldist();
-				float degrees2 = (float) (dist2-290)*(45)/(446-290);
+				float degrees2 = (float) (((dist2-290)*(45)/(446-290)) + 3);
 				//System.out.println(degrees2);
 				if(lastSmallLine==1){//zwarte lijn
 					pilot.rotate(-degrees2);
@@ -196,7 +196,7 @@ public class LightSensorBehavior extends LeoBehavior {
 				break;
 			case c: //bocht naar rechts fout gelezen en gecorrigeerd
 				double dist3 = barcodeReader.getTotaldist();
-				float degrees3 = (float) (dist3-290)*(45)/(446-290);
+				float degrees3 = (float) (((dist3-290)*(45)/(446-290)) + 3);
 				//System.out.println(degrees3);
 				if(lastSmallLine==1){//zwarte lijn
 					pilot.rotate(-degrees3);
