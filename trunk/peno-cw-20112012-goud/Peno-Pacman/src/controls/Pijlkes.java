@@ -1,7 +1,16 @@
 package controls;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.TextField;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import communication.Action;
 import communication.Commando;
@@ -10,14 +19,28 @@ import communication.Communicator;
 public class Pijlkes implements KeyListener{
 
 	private Communicator communicator;
+	private JTextField textField;
+	private JTextArea textArea;
 	
 	public Pijlkes (Communicator communicator) {
 		this.communicator = communicator;
+		textField = new JTextField(20); 
+		textField.addKeyListener(this);
+		textField.setVisible(true);
+		showGui();
 	}
 	
+	  
+	private void showGui() {
+		JFrame frame = new JFrame("TextDemo");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+	}
+
+
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-		switch(arg0.getID()){
+		switch(arg0.getKeyCode()){
 			case 40: 
 				communicator.sendCommando(down());
 				break;
