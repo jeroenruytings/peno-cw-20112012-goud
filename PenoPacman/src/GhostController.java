@@ -9,14 +9,15 @@ public class GhostController {
 	//Poort C = kop
 	
 	public static void main(String[] args) {
-		Receiver rec = new Receiver();
+		NXTCommunicator rec = new NXTCommunicator();
 		Thread t = new Thread(rec);
+		t.start();
 		boolean finished = false;
 		while(!finished){
-			System.out.println(rec.getCurrentCommand());
+			System.out.println("Controller" + rec.getCurrentCommand());
 			switch (rec.getCurrentCommand()){
 			case 0:
-				forward();
+				stop();
 				break;
 			case 1:
 				forward();

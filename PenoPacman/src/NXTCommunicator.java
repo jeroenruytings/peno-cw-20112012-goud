@@ -1,3 +1,5 @@
+
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -7,12 +9,12 @@ import lejos.nxt.comm.BTConnection;
 import lejos.nxt.comm.Bluetooth;
 
 
-public class Receiver implements Runnable{
+public class NXTCommunicator implements Runnable{
 	
 	private DataInputStream dis;
 	private DataOutputStream dos;
 
-	public Receiver(){
+	public NXTCommunicator(){
 		System.out.println("Waiting");
 		BTConnection btc = Bluetooth.waitForConnection();
 		System.out.println("Bluetooth");
@@ -56,13 +58,14 @@ public class Receiver implements Runnable{
 
 	public void run() {
 		while(true){
-			try {
-				waitForCommand();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				//e.printStackTrace();
-			}
-			
+
+				try {
+					waitForCommand();
+					dos.writeInt(SensorPort.S3.readRawValue());
+					dos.flush();
+				} catch (IOException e) {
+					System.out.println("error!");
+				}
 		}
 	}
 	
