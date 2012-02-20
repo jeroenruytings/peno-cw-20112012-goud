@@ -52,6 +52,7 @@ public class KeyEventDemo extends JFrame
     private static Communicator communicator;
 	JTextArea displayArea;
     JTextField typingArea;
+	private int oldcase;
     static final String newline = System.getProperty("line.separator");
     
     public static void main(String[] args) {
@@ -90,6 +91,7 @@ public class KeyEventDemo extends JFrame
      * event-dispatching thread.
      */
     private static void createAndShowGUI() {
+
         //Create and set up the window.
         KeyEventDemo frame = new KeyEventDemo("KeyEventDemo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -137,12 +139,19 @@ public class KeyEventDemo extends JFrame
     /** Handle the key typed event from the text field. */
     public void keyTyped(KeyEvent e) {
         displayInfo(e, "KEY TYPED: ");
+        
+        
+        
+
     }
     
     /** Handle the key pressed event from the text field. */
     public void keyPressed(KeyEvent e) {
         displayInfo(e, "KEY PRESSED: ");
-        switch(e.getKeyCode()){
+        if(oldcase == e.getKeyCode())
+        	return;
+        oldcase = e.getKeyCode();
+        switch(oldcase){
 		case 40: 
 			communicator.sendCommando(down());
 			break;
@@ -155,7 +164,11 @@ public class KeyEventDemo extends JFrame
 		case 39:
 			communicator.sendCommando(right());
 			break;
+		case 32:
+			communicator.sendCommando(stop());
+			break;
 	}
+        
     }
     
     /** Handle the key released event from the text field. */
@@ -233,6 +246,7 @@ public class KeyEventDemo extends JFrame
                 + "    " + actionString + newline
                 + "    " + locationString + newline);
         displayArea.setCaretPosition(displayArea.getDocument().getLength());
+        communicator.receiveValue();
     }
     
     public Commando up(){
