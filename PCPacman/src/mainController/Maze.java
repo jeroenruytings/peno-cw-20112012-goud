@@ -1,4 +1,4 @@
-package MainController;
+package mainController;
 
 public class Maze {
 
