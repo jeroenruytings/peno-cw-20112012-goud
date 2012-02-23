@@ -26,7 +26,7 @@ public class Maze {
 				maze.getSquare()[i][j] = square;
 			}
 		}
-		EuclideanGraph graph = new EuclideanGraph(maze.getSquare());
+		EuclideanGraph graph = new EuclideanGraph(maze.getSquare());    // <========= hier oneindige lus!
 		Dijkstra dijk = new Dijkstra(graph);
 		for(int i = 0; i<100; i++){
 			for(int j = 0; j<100; j++){
