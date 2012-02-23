@@ -33,5 +33,9 @@ public class DirectionLayer {
 				return;
 				}
 	}
+	public Orientation getDirection()
+	{
+		return currentOrientation;
+	}
 
 }
