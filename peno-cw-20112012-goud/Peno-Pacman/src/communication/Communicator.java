@@ -26,16 +26,36 @@ public class Communicator {
 		}
 	}
 	
-	public void receiveValue(){
+public int [] receiveValues() throws Exception{
+		
+		int numberOfBytes = -1;
+		
 		try {
-			System.out.println(streamIn.readInt());
+			numberOfBytes = streamIn.read();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		if (numberOfBytes == -1){
+			throw new Exception("no input available");
+		}
+		else{
+			byte[] data = new byte [numberOfBytes];
+			streamIn.read(data, 0, numberOfBytes);
+			String dataString = data.toString();
+			String[] sensorValues = dataString.split(":");
+			
+			return stringToInt(sensorValues);
+		}
+		
 	}
-	
-//	public int[] receiveValue(){
-//		streamIn.readUTF();
-//	}
+
+	private int[] stringToInt(String[] stringValues) {
+		int [] integers = new int[stringValues.length];
+		for (int i = 0 ; i<stringValues.length ; i++){
+			integers [i] = Integer.parseInt(stringValues[i]);
+			System.out.println(integers[i]);
+		}
+		return integers;
+	}
 }
