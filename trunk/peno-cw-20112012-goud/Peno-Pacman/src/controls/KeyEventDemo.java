@@ -107,6 +107,7 @@ public class KeyEventDemo extends JFrame
     /** Handle the key typed event from the text field. */
     public void keyTyped(KeyEvent e) {
         displayInfo(e, "KEY TYPED: ");
+       
     }
     
     int oldCommando;
@@ -114,13 +115,19 @@ public class KeyEventDemo extends JFrame
     /** Handle the key pressed event from the text field. */
     public void keyPressed(KeyEvent e) {
         displayInfo(e, "KEY PRESSED: ");
-        
+               
         if(oldCommando == e.getKeyCode())
         	return;
         oldCommando = e.getKeyCode();
         switch(e.getKeyCode()){
 		case 40: 
-			communicator.sendCommando(down());
+		    try {
+				communicator.receiveValues();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+//			communicator.sendCommando(down());
 			break;
 		case 38:
 			communicator.sendCommando(up());
