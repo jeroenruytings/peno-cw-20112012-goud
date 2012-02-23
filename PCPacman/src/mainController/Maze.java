@@ -1,17 +1,27 @@
 package mainController;
 
-import java.util.Random;
 
 import mainController.MainController.Orientation;
 
 public class Maze {
 
 	Square[][] square;
+	int[][] heuristic;
+	private int rows;
+	public int getRows() {
+		return rows;
+	}
+
+
+	public int getColumns() {
+		return columns;
+	}
+
+	private int columns;
 	
 	public Square[][] getSquare() {
 		return square;
 	}
-
 
 
 	public static void main(String[] args) {
@@ -37,8 +47,9 @@ public class Maze {
 	}
 	
 	
-	
 	public Maze(int rows, int columns){
+		this.rows = rows;
+		this.columns = columns;
 		square = new Square[rows][columns];
 	}
 	
@@ -53,8 +64,6 @@ public class Maze {
 	 */
 	public static int wallBetween(Square one, Square two){
 		
-		if(one.equals(null) || two.equals(null))
-			throw new NullPointerException();
 		
 		if(one.equals(two))
 			throw new IllegalArgumentException();

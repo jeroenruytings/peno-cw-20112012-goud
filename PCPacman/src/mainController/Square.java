@@ -8,7 +8,6 @@ public class Square {
 	private int wallEast;
 	private int wallWest;
 	private int wallSouth;
-	private boolean discovered;
 	private Barcode barcodeFromNorth;
 	private Barcode barcodeFromSouth;
 	private Barcode barcodeFromEast;
@@ -23,7 +22,6 @@ public class Square {
 		wallWest = 0;
 		wallSouth = 0;
 		//op het vakje geweest?
-		discovered = false;
 		//er bestaan er max 2 van de volgende
 		barcodeFromNorth = null;
 		barcodeFromSouth = null;
@@ -79,6 +77,19 @@ public class Square {
 
 	public void setYCoordinate(int yCoordinate) {
 		this.yCoordinate = yCoordinate;
+	}
+	
+	public int getHeuristic(){
+		int heuristic = 0;
+		if(getWallEast() == 0)
+			heuristic++;
+		if(getWallNorth()==0)
+			heuristic++;
+		if(getWallSouth()==0)
+			heuristic++;
+		if(getWallWest()==0)
+			heuristic++;
+		return heuristic;
 	}
 
 }
