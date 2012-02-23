@@ -1,13 +1,9 @@
 package mover;
 
-import java.util.Vector;
-
-import util.Sensor;
 
 public class VirtuBot {
 
-
-	 private Coordinate position; 
+ 
 	 private String name;
 	 private int ultrasonic;
 	 private int lightSensor;
@@ -23,17 +19,13 @@ public class VirtuBot {
 		
 	}
 	
-	public int getSensorValue(Sensor sensor){
-		return 0;
+	public void turnHead(int degrees){
+		
 	}
 	
-	 public Coordinate getPosition() {
-			return position;
-		}
-
-		private void setPosition(Coordinate position) {
-			this.position = position;
-		}
+	public int getSensorValue(panel.Sensor sensor){
+		return 0;
+	}
 
 		public String getName() {
 			return name;
@@ -73,6 +65,11 @@ public class VirtuBot {
 
 		private void setInfraredSensor(int infraredSensor) {
 			this.infraredSensor = infraredSensor;
+		}
+
+		public int getTachoCount() {
+			// TODO Auto-generated method stub
+			return 0;
 		}
 	
 	
