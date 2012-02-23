@@ -34,4 +34,8 @@ public class Communicator {
 			e.printStackTrace();
 		}
 	}
+	
+//	public int[] receiveValue(){
+//		streamIn.readUTF();
+//	}
 }
