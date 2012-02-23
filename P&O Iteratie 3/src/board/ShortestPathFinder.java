@@ -46,13 +46,14 @@ public class ShortestPathFinder {
 					if(board.hasPanelAt(d.addTo(current.getPoint())))
 						pq.add(new Node(current.dist,current,d.addTo(current.getPoint())));		
 			current = pq.poll();
-		}while(!pq.isEmpty()&&!current.getPoint().equals(end));
+		}while(!current.getPoint().equals(end));
 		if(current.getPoint().equals(end))
 			return makePath(current);
 		return null;
 	}
 	private Iterable<Point> makePath(Node current) {
 		Stack<Point> rv = new Stack<Point>();
+		rv.push(current.p);
 		while(current.prev!=null)
 			rv.push((current = current.prev).p);
 		return rv;
