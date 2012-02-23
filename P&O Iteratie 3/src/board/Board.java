@@ -2,16 +2,19 @@ package board;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.HashMap;
 
 import board.Panel.Direction;
+
 /**
  * 
  * @author Dieter
- *
- *This class assures that 2 boards that are next to eachother( according to our coordinate system) have no conflicting borders:
- *	 
+ * 
+ *         This class assures that 2 boards that are next to eachother(
+ *         according to our coordinate system) have no conflicting borders:
+ * 
  */
 public class Board {
 	private Map<Point, Panel> panels;
@@ -28,7 +31,8 @@ public class Board {
 	}
 
 	/**
-	 * Adds a panel and if it is conflicting with the already added panels it throws an exception
+	 * Adds a panel and if it is conflicting with the already added panels it
+	 * throws an exception
 	 * 
 	 */
 	public void add(Panel panel, Point p) {
@@ -36,8 +40,10 @@ public class Board {
 			throw new IllegalArgumentException();
 		panels.put(p, panel);
 	}
+
 	/**
-	 * If a border panel has a different 
+	 * If a border panel has a different
+	 * 
 	 * @param p
 	 * @param panel
 	 * @return
@@ -51,13 +57,14 @@ public class Board {
 			}
 		return false;
 	}
-	public void addForced(Panel panel,Point point)
-	{
-		this.panels.put(point,panel);
-		for(Direction d:Direction.values())
-			if(hasPanelAt(d.addTo(point)))
+
+	public void addForced(Panel panel, Point point) {
+		this.panels.put(point, panel);
+		for (Direction d : Direction.values())
+			if (hasPanelAt(d.addTo(point)))
 				panels.get(point).setBorder(d.opposite(), panel.getBorder(d));
 	}
+
 	public boolean hasPanelAt(Point p) {
 		return panels.containsKey(p);
 	}
@@ -85,4 +92,20 @@ public class Board {
 		return new Board(this);
 	}
 
+	public int maxX() {
+		int max = 0;
+		for (Point p : panels.keySet())
+			if (p.x > max)
+				max = p.x;
+		return max;
+
+	}
+
+	public int maxY() {
+		int max = 0;
+		for (Point p : panels.keySet())
+			if (p.y > max)
+				max = p.y;
+		return max;
+	}
 }

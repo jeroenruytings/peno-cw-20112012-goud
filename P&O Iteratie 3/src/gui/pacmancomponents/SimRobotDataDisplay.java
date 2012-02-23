@@ -1,11 +1,11 @@
 package gui.pacmancomponents;
 
-import gui.tmp.Coordinate;
-import gui.tmp.Track;
-
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
+
+import board.Board;
 
 
 public class SimRobotDataDisplay extends Canvas{
@@ -14,25 +14,25 @@ public class SimRobotDataDisplay extends Canvas{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Track myTrack;
+	private Board myTrack;
 	
 	public SimRobotDataDisplay()
 	{
 		this.setBackground(Color.BLACK);
 	}
 	
-	public void setTrack(Track t){
+	public void setTrack(Board t){
 		this.myTrack = t;
 	}
 	
 	private int calculatePanelWidth(){
 		if (myTrack == null)
 			throw new IllegalStateException("The track is not initialised!");
-		return Math.min(this.getHeight() / myTrack.getHeight(), this.getWidth() / myTrack.getWidth());
+		return Math.min(this.getHeight() / myTrack.maxY(), this.getWidth() / myTrack.maxX());
 	}
 	
-	private Coordinate calculateInitialPosition(){
-		Coordinate result = new Coordinate((this.getWidth() - calculatePanelWidth() * myTrack.getWidth()) / 2,(this.getHeight() - calculatePanelWidth() * myTrack.getHeight()) / 2);
+	private Point calculateInitialPosition(){
+		Point result = new Point((this.getWidth() - calculatePanelWidth() * myTrack.maxX()) / 2,(this.getHeight() - calculatePanelWidth() * myTrack.maxY()) / 2);
 		return result;
 	}
 	

@@ -1,13 +1,13 @@
 package gui.pacmancomponents;
 
-import gui.tmp.Coordinate;
-import gui.tmp.Direction;
-import gui.tmp.Panel;
-import gui.tmp.Track;
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
+
+import board.Board;
+import board.Panel;
+import board.Panel.Direction;
 
 
 public class TrackDisplayer {
@@ -16,7 +16,7 @@ public class TrackDisplayer {
 	private static final int SPACE = 4;
 	private static final Color color = Color.BLUE;
 	
-	public Image getTrackImage(Track t, int height, int width){
+	public Image getTrackImage(Board t, int height, int width){
 		return null;
 	}
 	
@@ -31,7 +31,7 @@ public class TrackDisplayer {
 	 * @param 	panelHeight
 	 * 				Panels are drawn as squares, the height is equal to the width.	
 	 */
-	public void drawTrack(Graphics g, Track t, Coordinate position, int panelHeight){
+	public void drawTrack(Graphics g, Board t, Point position, int panelHeight){
 		// for(Coordinate tmp : t.getCoordinates()){
 		//		drawPanel(g, t, position, tmp, panelHeight,panelHeight);
 	}
@@ -50,22 +50,22 @@ public class TrackDisplayer {
 	 * @param 	direction
 	 * 				The direction the wall blocks.
 	 */
-	public static void drawLine(Graphics g, Coordinate initialposition, int height, int width, Direction direction){
+	public static void drawLine(Graphics g, Point initialposition, int height, int width, Direction direction){
 		if(direction != null){
 			Color original = g.getColor();
 			g.setColor(color);
 			switch (direction){
-			case NORTH:
-				g.drawLine(initialposition.getX() + (width / AWAYFROMBORDER), initialposition.getY(), initialposition.getX() + width - (width / AWAYFROMBORDER), initialposition.getY());
+			case UP:
+				g.drawLine(initialposition.x + (width / AWAYFROMBORDER), initialposition.y, initialposition.x + width - (width / AWAYFROMBORDER), initialposition.y);
 				break;
-			case EAST:
-				g.drawLine(initialposition.getX() + width, initialposition.getY() + (height / AWAYFROMBORDER), initialposition.getX() + width, initialposition.getY() + height - (height / AWAYFROMBORDER));
+			case RIGHT:
+				g.drawLine(initialposition.x + width, initialposition.y + (height / AWAYFROMBORDER), initialposition.x + width, initialposition.y + height - (height / AWAYFROMBORDER));
 				break;
-			case SOUTH:
-				g.drawLine(initialposition.getX() + (width / AWAYFROMBORDER), initialposition.getY() + height, initialposition.getX() + width - (width / AWAYFROMBORDER), initialposition.getY() + height);
+			case DOWN:
+				g.drawLine(initialposition.x + (width / AWAYFROMBORDER), initialposition.y + height, initialposition.x + width - (width / AWAYFROMBORDER), initialposition.y + height);
 				break;
-			case WEST:
-				g.drawLine(initialposition.getX(), initialposition.getY() + (height / AWAYFROMBORDER), initialposition.getX(), initialposition.getY() + height - (height / AWAYFROMBORDER));
+			case LEFT:
+				g.drawLine(initialposition.x, initialposition.y + (height / AWAYFROMBORDER), initialposition.x, initialposition.y + height - (height / AWAYFROMBORDER));
 				break;
 			}
 			g.setColor(original);
@@ -85,11 +85,11 @@ public class TrackDisplayer {
 	 * @param panelWidth
 	 * 				The width of the panel in pixels.
 	 */
-	public static void  drawPanel(Graphics g, Track t,Coordinate initialCoordinate ,Coordinate panelCoordinate, int panelHeight, int panelWidth){
+	public static void  drawPanel(Graphics g, Board t,Point initialCoordinate ,Point panelCoordinate, int panelHeight, int panelWidth){
 		// Get the borders.
 		Direction[] borderDirections = new Direction[4];
 		for(Direction border : Direction.values()){
-			if (t.getPanel(panelCoordinate).hasBorder(border))
+			if (t.getPanelAt(panelCoordinate).getBorder(border))
 				borderDirections[border.ordinal()] = border;
 		}
 		// Get the null directions.
@@ -99,15 +99,15 @@ public class TrackDisplayer {
 				nullDirections[d.ordinal()] = d;
 		}
 		// Draw the null Directions.
-		Coordinate initialCoord = new Coordinate(initialCoordinate.getX() + (panelCoordinate.getX() * panelWidth),initialCoordinate.getY() + (panelCoordinate.getY() * panelHeight));
+		Point initialCoord = new Point(initialCoordinate.x + (panelCoordinate.x * panelWidth),initialCoordinate.y + (panelCoordinate.y * panelHeight));
 		for(Direction tmpDirection : nullDirections)
 			drawLine(g,initialCoord, panelHeight, panelWidth, tmpDirection);
 		// Draw the borders.
 		for (Direction tmpBorder : borderDirections){
 			if (tmpBorder != null){
-			drawLine(g, new Coordinate(initialCoord.getX() + SPACE, initialCoord.getY() + SPACE), panelHeight - (2* SPACE), panelWidth - (2*SPACE) , tmpBorder);
+			drawLine(g, new Point(initialCoord.x + SPACE, initialCoord.y + SPACE), panelHeight - (2* SPACE), panelWidth - (2*SPACE) , tmpBorder);
 				for (Direction tmp : borderDirections){
-					if (tmpBorder.neighbor(tmp))
+					if (tmpBorder.opposite()!=tmp&&tmp!=tmpBorder)
 						drawCorner(g, t, initialCoordinate, panelCoordinate, panelHeight, panelWidth, tmp, tmpBorder);
 				}
 			}
@@ -126,69 +126,69 @@ public class TrackDisplayer {
 	 * @param direction1
 	 * @param direction2
 	 */
-	public static void drawCorner(Graphics g, Track t, Coordinate initialCoordinate, Coordinate panelCoordinate, int panelHeight, int panelWidth, Direction direction1, Direction direction2){
+	public static void drawCorner(Graphics g, Board t, Point initialCoordinate, Point panelCoordinate, int panelHeight, int panelWidth, Direction direction1, Direction direction2){
 		Color original = g.getColor();
 		g.setColor(color);
-		Coordinate startCoord = new Coordinate(0, 0);
+		Point startCoord = new Point(0, 0);
 		int startAngle = 0;
-		if ((direction1 == Direction.NORTH && direction2 == Direction.WEST) || (direction1 == Direction.WEST && direction2 == Direction.NORTH)){
-			startCoord = new Coordinate(initialCoordinate.getX() + (panelCoordinate.getX() * panelWidth), initialCoordinate.getY() + (panelCoordinate.getY() * panelHeight));
+		if ((direction1 == Direction.UP && direction2 == Direction.LEFT) || (direction1 == Direction.LEFT && direction2 == Direction.UP)){
+			startCoord = new Point(initialCoordinate.x + (panelCoordinate.x * panelWidth), initialCoordinate.y + (panelCoordinate.y * panelHeight));
 			startAngle = 180;
 		}
-		if ((direction1 == Direction.NORTH && direction2 == Direction.EAST) || (direction1 == Direction.EAST && direction2 == Direction.NORTH))
+		if ((direction1 == Direction.UP && direction2 == Direction.RIGHT) || (direction1 == Direction.RIGHT && direction2 == Direction.UP))
 		{
-			startCoord = new Coordinate(initialCoordinate.getX() + (panelWidth - (2 * (panelWidth/AWAYFROMBORDER))) + (panelCoordinate.getX() * panelWidth),
-					initialCoordinate.getY()  + (panelCoordinate.getY() * panelHeight));
+			startCoord = new Point(initialCoordinate.x + (panelWidth - (2 * (panelWidth/AWAYFROMBORDER))) + (panelCoordinate.x * panelWidth),
+					initialCoordinate.y  + (panelCoordinate.y * panelHeight));
 			startAngle = 90;
 		}
-		if ((direction1 == Direction.SOUTH && direction2 == Direction.WEST) || (direction1 == Direction.WEST && direction2 == Direction.SOUTH))
+		if ((direction1 == Direction.DOWN && direction2 == Direction.LEFT) || (direction1 == Direction.LEFT && direction2 == Direction.DOWN))
 		{
-			startCoord = new Coordinate(initialCoordinate.getX() + (panelCoordinate.getX() * panelWidth),
-					initialCoordinate.getY() + panelHeight - (2 * (panelHeight/AWAYFROMBORDER)) + (panelCoordinate.getY() * panelHeight));
+			startCoord = new Point(initialCoordinate.x + (panelCoordinate.x * panelWidth),
+					initialCoordinate.y + panelHeight - (2 * (panelHeight/AWAYFROMBORDER)) + (panelCoordinate.y * panelHeight));
 			startAngle = 270;
 		}
-		if ((direction1 == Direction.SOUTH && direction2 == Direction.EAST) || (direction1 == Direction.EAST && direction2 == Direction.SOUTH))
+		if ((direction1 == Direction.DOWN && direction2 == Direction.RIGHT) || (direction1 == Direction.RIGHT && direction2 == Direction.DOWN))
 		{
-			startCoord = new Coordinate(initialCoordinate.getX() + (panelWidth - (2 * (panelWidth/AWAYFROMBORDER))) + (panelCoordinate.getX() * panelWidth),
-					initialCoordinate.getY() + panelHeight - (2 * (panelHeight/AWAYFROMBORDER)) + (panelCoordinate.getY() * panelHeight));
+			startCoord = new Point(initialCoordinate.x + (panelWidth - (2 * (panelWidth/AWAYFROMBORDER))) + (panelCoordinate.x * panelWidth),
+					initialCoordinate.y + panelHeight - (2 * (panelHeight/AWAYFROMBORDER)) + (panelCoordinate.y * panelHeight));
 			startAngle = 0;
 		}
 		
-		g.drawArc(startCoord.getX(), startCoord.getY(), 2 * (panelWidth / AWAYFROMBORDER), 2 * (panelHeight / AWAYFROMBORDER), startAngle, -90);
+		g.drawArc(startCoord.x, startCoord.y, 2 * (panelWidth / AWAYFROMBORDER), 2 * (panelHeight / AWAYFROMBORDER), startAngle, -90);
 		g.setColor(original);
 	}
 	
-	public static void drawReverseCorner(Graphics g, Track t, Coordinate initialCoord, Coordinate panelCoord, int panelHeight, int panelWidth, Direction direction1, Direction direction2, boolean nullCorner){
+	public static void drawReverseCorner(Graphics g, Board t, Point initialCoord, Point panelCoord, int panelHeight, int panelWidth, Direction direction1, Direction direction2, boolean nullCorner){
 		Color original = g.getColor();
 		g.setColor(color);
-		Coordinate startCoord = new Coordinate(0, 0);
+		Point startCoord = new Point(0, 0);
 		int startAngle = 0;
-		if ((direction1 == Direction.NORTH && direction2 == Direction.WEST) || (direction1 == Direction.WEST && direction2 == Direction.NORTH)){
-			startCoord = new Coordinate(initialCoord.getX() + (panelCoord.getX() * panelWidth) - (panelWidth / AWAYFROMBORDER), 
-					initialCoord.getY() + (panelCoord.getY() * panelHeight) - (panelHeight / AWAYFROMBORDER));
+		if ((direction1 == Direction.UP && direction2 == Direction.LEFT) || (direction1 == Direction.LEFT && direction2 == Direction.UP)){
+			startCoord = new Point(initialCoord.x + (panelCoord.x * panelWidth) - (panelWidth / AWAYFROMBORDER), 
+					initialCoord.y + (panelCoord.y * panelHeight) - (panelHeight / AWAYFROMBORDER));
 			startAngle = 0;
 		}
-		if ((direction1 == Direction.NORTH && direction2 == Direction.EAST) || (direction1 == Direction.EAST && direction2 == Direction.NORTH))
+		if ((direction1 == Direction.UP && direction2 == Direction.RIGHT) || (direction1 == Direction.RIGHT && direction2 == Direction.UP))
 		{
-			startCoord = new Coordinate(initialCoord.getX() + (panelWidth - (panelWidth/AWAYFROMBORDER)) + (panelCoord.getX() * panelWidth),
-					initialCoord.getY()  + (panelCoord.getY() * panelHeight) - (panelHeight / AWAYFROMBORDER));
+			startCoord = new Point(initialCoord.x + (panelWidth - (panelWidth/AWAYFROMBORDER)) + (panelCoord.x * panelWidth),
+					initialCoord.y  + (panelCoord.y * panelHeight) - (panelHeight / AWAYFROMBORDER));
 			startAngle = 270;
 		}
-		if ((direction1 == Direction.SOUTH && direction2 == Direction.WEST) || (direction1 == Direction.WEST && direction2 == Direction.SOUTH))
+		if ((direction1 == Direction.DOWN && direction2 == Direction.LEFT) || (direction1 == Direction.LEFT && direction2 == Direction.DOWN))
 		{
-			startCoord = new Coordinate(initialCoord.getX() + (panelCoord.getX() * panelWidth) - (panelWidth / AWAYFROMBORDER),
-					initialCoord.getY() + panelHeight - ((panelHeight/AWAYFROMBORDER)) + (panelCoord.getY() * panelHeight));
+			startCoord = new Point(initialCoord.x + (panelCoord.x * panelWidth) - (panelWidth / AWAYFROMBORDER),
+					initialCoord.y + panelHeight - ((panelHeight/AWAYFROMBORDER)) + (panelCoord.y * panelHeight));
 			startAngle = 90;
 		}
-		if ((direction1 == Direction.SOUTH && direction2 == Direction.EAST) || (direction1 == Direction.EAST && direction2 == Direction.SOUTH))
+		if ((direction1 == Direction.DOWN && direction2 == Direction.RIGHT) || (direction1 == Direction.RIGHT && direction2 == Direction.DOWN))
 		{
-			startCoord = new Coordinate(initialCoord.getX() + (panelWidth - (panelWidth/AWAYFROMBORDER)) + (panelCoord.getX() * panelWidth),
-					initialCoord.getY() + panelHeight - ((panelHeight/AWAYFROMBORDER)) + (panelCoord.getY() * panelHeight));
+			startCoord = new Point(initialCoord.x + (panelWidth - (panelWidth/AWAYFROMBORDER)) + (panelCoord.x * panelWidth),
+					initialCoord.y + panelHeight - ((panelHeight/AWAYFROMBORDER)) + (panelCoord.y * panelHeight));
 			startAngle = 180;
 		}
 		if (nullCorner)
-			g.drawArc(startCoord.getX(), startCoord.getY(), 2 * (panelWidth / AWAYFROMBORDER), 2 * (panelHeight / AWAYFROMBORDER), startAngle, -90);
-		g.drawArc(startCoord.getX() - SPACE, startCoord.getY() - SPACE, 2 * ((panelWidth / AWAYFROMBORDER) + SPACE), 2 * ((panelHeight / AWAYFROMBORDER) + SPACE), startAngle, -90);
+			g.drawArc(startCoord.x, startCoord.y, 2 * (panelWidth / AWAYFROMBORDER), 2 * (panelHeight / AWAYFROMBORDER), startAngle, -90);
+		g.drawArc(startCoord.x - SPACE, startCoord.y - SPACE, 2 * ((panelWidth / AWAYFROMBORDER) + SPACE), 2 * ((panelHeight / AWAYFROMBORDER) + SPACE), startAngle, -90);
 		g.setColor(original);
 		
 		//TODO
@@ -207,20 +207,20 @@ public class TrackDisplayer {
 	 * 			The panel in the given direction.
 	 * @note	The panel could be null.
 	 */
-	private static Panel getPanelInDirection(Coordinate panelCoord, Track t, Direction direction){
+	private static Panel getPanelInDirection(Point panelCoord, Board t, Direction direction){
 		if (direction == null)
 			return null;
 		if ((t == null) || (panelCoord == null))
 			throw new IllegalArgumentException("Track or Coord is null!!!");
 		switch (direction){
-		case NORTH:
-			return t.getPanel(new Coordinate(panelCoord.getX(),(panelCoord.getY() - 1)));
-		case SOUTH:
-			return t.getPanel(new Coordinate(panelCoord.getX(),(panelCoord.getY() + 1)));
-		case EAST:
-			return t.getPanel(new Coordinate((panelCoord.getX() + 1),panelCoord.getY()));
-		case WEST:
-			return t.getPanel(new Coordinate((panelCoord.getX() - 1),panelCoord.getY()));
+		case UP:
+			return t.getPanelAt(new Point(panelCoord.x,(panelCoord.y - 1)));
+		case DOWN:
+			return t.getPanelAt(new Point(panelCoord.x,(panelCoord.y + 1)));
+		case RIGHT:
+			return t.getPanelAt(new Point((panelCoord.x + 1),panelCoord.y));
+		case LEFT:
+			return t.getPanelAt(new Point((panelCoord.x - 1),panelCoord.y));
 		default:
 			return null;
 		}
