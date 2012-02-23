@@ -14,6 +14,7 @@ import javax.swing.JButton;
 
 import pacmancomponents.TrackDisplayer;
 import tmp.Coordinate;
+import tmp.Direction;
 import tmp.Panel;
 import tmp.Track;
 
@@ -139,15 +140,28 @@ public class Mainscreen {
 	
 	public void draw_oncanvas(){
 		Panel[][] test = new Panel[2][2];
-		test[0][0] = new Panel(null, true, false, false, true);
-		test[0][1] = new Panel(null, false, true,true,true);
+		test[0][0] = new Panel(null, true, false, true, true);
+		test[0][1] = new Panel(null, false, true,false,true);
 		test[1][1] = new Panel(null, true,true,false,false);
 		test[1][0] = new Panel(null, true,true,true,false);
 		Track t = new Track(test);
-		TrackDisplayer.drawPanel(cnvRobot1.getGraphics(), t, new Coordinate(40, 40),new Coordinate(0,0), (cnvRobot1.getHeight() / 10), (cnvRobot1.getHeight() / 10));
-		TrackDisplayer.drawPanel(cnvRobot1.getGraphics(), t, new Coordinate(40, 40),new Coordinate(0,1), (cnvRobot1.getHeight() / 10), (cnvRobot1.getHeight() / 10));
-		TrackDisplayer.drawPanel(cnvRobot1.getGraphics(), t, new Coordinate(40, 40),new Coordinate(1,1), (cnvRobot1.getHeight() / 10), (cnvRobot1.getHeight() / 10));
-		TrackDisplayer.drawPanel(cnvRobot1.getGraphics(), t, new Coordinate(40, 40),new Coordinate(1,0), (cnvRobot1.getHeight() / 10), (cnvRobot1.getHeight() / 10));
+		//TrackDisplayer.drawReverseCorner(cnvRobot1.getGraphics(), t, new Coordinate(0,0), new Coordinate(0,0), 50, 50, Direction.NORTH, Direction.EAST, true);
+		//TrackDisplayer.drawReverseCorner(cnvRobot1.getGraphics(), t, new Coordinate(4,4), new Coordinate(0,0), 40 - 8, 40 - 8, Direction.NORTH, Direction.EAST, true);
+		//TrackDisplayer.drawCorner(cnvRobot1.getGraphics(), t, new Coordinate(0,0), new Coordinate(0,0), 50, 50, Direction.NORTH, Direction.WEST);
+		//TrackDisplayer.drawReverseCorner(cnvRobot1.getGraphics(), t, new Coordinate(4,4), new Coordinate(0,0), 40 - 8, 40 - 8, Direction.NORTH, Direction.WEST, true);
+		//TrackDisplayer.drawReverseCorner(cnvRobot1.getGraphics(), t, new Coordinate(0,0), new Coordinate(0,0), 50, 50, Direction.SOUTH, Direction.EAST, false);
+		//TrackDisplayer.drawReverseCorner(cnvRobot1.getGraphics(), t, new Coordinate(4,4), new Coordinate(0,0), 40 - 8, 40 - 8, Direction.SOUTH, Direction.EAST, true);
+		//TrackDisplayer.drawReverseCorner(cnvRobot1.getGraphics(), t, new Coordinate(0,0), new Coordinate(0,0), 50, 50, Direction.SOUTH, Direction.WEST, true);
+		//TrackDisplayer.drawReverseCorner(cnvRobot1.getGraphics(), t, new Coordinate(4,4), new Coordinate(0,0), 40 - 8, 40 - 8, Direction.SOUTH, Direction.WEST, true);
+		TrackDisplayer.drawPanel(cnvRobot1.getGraphics(), t, new Coordinate(0,0), new Coordinate(0,0), 50, 50);
+		TrackDisplayer.drawPanel(cnvRobot1.getGraphics(), t, new Coordinate(0,0), new Coordinate(0,1), 50, 50);
+		TrackDisplayer.drawPanel(cnvRobot1.getGraphics(), t, new Coordinate(0,0), new Coordinate(1,1), 50, 50);
+		TrackDisplayer.drawPanel(cnvRobot1.getGraphics(), t, new Coordinate(0,0), new Coordinate(1,0), 50, 50);
+		
+//		TrackDisplayer.drawPanel(cnvRobot1.getGraphics(), t, new Coordinate(40, 40),new Coordinate(0,0), (cnvRobot1.getHeight() / 10), (cnvRobot1.getHeight() / 10));
+//		TrackDisplayer.drawPanel(cnvRobot1.getGraphics(), t, new Coordinate(40, 40),new Coordinate(0,1), (cnvRobot1.getHeight() / 10), (cnvRobot1.getHeight() / 10));
+//		TrackDisplayer.drawPanel(cnvRobot1.getGraphics(), t, new Coordinate(40, 40),new Coordinate(1,1), (cnvRobot1.getHeight() / 10), (cnvRobot1.getHeight() / 10));
+//		TrackDisplayer.drawPanel(cnvRobot1.getGraphics(), t, new Coordinate(40, 40),new Coordinate(1,0), (cnvRobot1.getHeight() / 10), (cnvRobot1.getHeight() / 10));
 		//TrackDisplayer.drawLine(cnvRobot1.getGraphics(), new Coordinate(0, 0), (cnvRobot1.getHeight() / 10), (cnvRobot1.getHeight()/10), Direction.EAST);
 		//TrackDisplayer.drawLine(cnvRobot1.getGraphics(), new Coordinate(0, 0), (cnvRobot1.getHeight() / 10), (cnvRobot1.getHeight()/10), Direction.NORTH);
 		//TrackDisplayer.drawLine(cnvRobot1.getGraphics(), new Coordinate(0, 0), (cnvRobot1.getHeight() / 10), (cnvRobot1.getHeight()/10), Direction.SOUTH);

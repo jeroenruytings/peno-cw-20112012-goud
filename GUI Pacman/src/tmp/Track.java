@@ -26,6 +26,13 @@ public class Track {
 		
 	}
 	
+	public int getHeight(){
+		return 0;
+	}
+	
+	public int getWidth(){
+		return 0;
+	}
 	
 	
 	public Panel getPanel(Coordinate position){

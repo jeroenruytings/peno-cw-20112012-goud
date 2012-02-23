@@ -13,7 +13,7 @@ public class TrackDisplayer {
 	
 	private static final int AWAYFROMBORDER = 5;
 	private static final int SPACE = 4;
-	
+	private static final Color color = Color.BLUE;
 	
 	public Image getTrackImage(Track t, int height, int width){
 		return null;
@@ -26,7 +26,7 @@ public class TrackDisplayer {
 	 * @param 	t
 	 * 				The track to draw.	
 	 * @param 	position
-	 * 				The position to strart drawing, the upper left corner.
+	 * 				The position to start drawing, the upper left corner.
 	 * @param 	panelHeight
 	 * 				Panels are drawn as squares, the height is equal to the width.	
 	 */
@@ -52,7 +52,7 @@ public class TrackDisplayer {
 	public static void drawLine(Graphics g, Coordinate initialposition, int height, int width, Direction direction){
 		if(direction != null){
 			Color original = g.getColor();
-			g.setColor(Color.BLUE);
+			g.setColor(color);
 			switch (direction){
 			case NORTH:
 				g.drawLine(initialposition.getX() + (width / AWAYFROMBORDER), initialposition.getY(), initialposition.getX() + width - (width / AWAYFROMBORDER), initialposition.getY());
@@ -102,8 +102,96 @@ public class TrackDisplayer {
 		for(Direction tmpDirection : nullDirections)
 			drawLine(g,initialCoord, panelHeight, panelWidth, tmpDirection);
 		// Draw the borders.
-		for (Direction tmpBorder : borderDirections)
+		for (Direction tmpBorder : borderDirections){
+			if (tmpBorder != null){
 			drawLine(g, new Coordinate(initialCoord.getX() + SPACE, initialCoord.getY() + SPACE), panelHeight - (2* SPACE), panelWidth - (2*SPACE) , tmpBorder);
+				for (Direction tmp : borderDirections){
+					if (tmpBorder.neighbor(tmp))
+						drawCorner(g, t, initialCoordinate, panelCoordinate, panelHeight, panelWidth, tmp, tmpBorder);
+				}
+			}
+		}
+					
+	}
+	
+	/**
+	 * This method draws the corner of a panel.
+	 * @param g
+	 * @param t
+	 * @param initialCoordinate
+	 * @param panelCoordinate
+	 * @param panelHeight
+	 * @param panelWidth
+	 * @param direction1
+	 * @param direction2
+	 */
+	public static void drawCorner(Graphics g, Track t, Coordinate initialCoordinate, Coordinate panelCoordinate, int panelHeight, int panelWidth, Direction direction1, Direction direction2){
+		Color original = g.getColor();
+		g.setColor(color);
+		Coordinate startCoord = new Coordinate(0, 0);
+		int startAngle = 0;
+		if ((direction1 == Direction.NORTH && direction2 == Direction.WEST) || (direction1 == Direction.WEST && direction2 == Direction.NORTH)){
+			startCoord = new Coordinate(initialCoordinate.getX() + (panelCoordinate.getX() * panelWidth), initialCoordinate.getY() + (panelCoordinate.getY() * panelHeight));
+			startAngle = 180;
+		}
+		if ((direction1 == Direction.NORTH && direction2 == Direction.EAST) || (direction1 == Direction.EAST && direction2 == Direction.NORTH))
+		{
+			startCoord = new Coordinate(initialCoordinate.getX() + (panelWidth - (2 * (panelWidth/AWAYFROMBORDER))) + (panelCoordinate.getX() * panelWidth),
+					initialCoordinate.getY()  + (panelCoordinate.getY() * panelHeight));
+			startAngle = 90;
+		}
+		if ((direction1 == Direction.SOUTH && direction2 == Direction.WEST) || (direction1 == Direction.WEST && direction2 == Direction.SOUTH))
+		{
+			startCoord = new Coordinate(initialCoordinate.getX() + (panelCoordinate.getX() * panelWidth),
+					initialCoordinate.getY() + panelHeight - (2 * (panelHeight/AWAYFROMBORDER)) + (panelCoordinate.getY() * panelHeight));
+			startAngle = 270;
+		}
+		if ((direction1 == Direction.SOUTH && direction2 == Direction.EAST) || (direction1 == Direction.EAST && direction2 == Direction.SOUTH))
+		{
+			startCoord = new Coordinate(initialCoordinate.getX() + (panelWidth - (2 * (panelWidth/AWAYFROMBORDER))) + (panelCoordinate.getX() * panelWidth),
+					initialCoordinate.getY() + panelHeight - (2 * (panelHeight/AWAYFROMBORDER)) + (panelCoordinate.getY() * panelHeight));
+			startAngle = 0;
+		}
+		
+		g.drawArc(startCoord.getX(), startCoord.getY(), 2 * (panelWidth / AWAYFROMBORDER), 2 * (panelHeight / AWAYFROMBORDER), startAngle, -90);
+		g.setColor(original);
+	}
+	
+	public static void drawReverseCorner(Graphics g, Track t, Coordinate initialCoord, Coordinate panelCoord, int panelHeight, int panelWidth, Direction direction1, Direction direction2, boolean nullCorner){
+		Color original = g.getColor();
+		g.setColor(color);
+		Coordinate startCoord = new Coordinate(0, 0);
+		int startAngle = 0;
+		if ((direction1 == Direction.NORTH && direction2 == Direction.WEST) || (direction1 == Direction.WEST && direction2 == Direction.NORTH)){
+			startCoord = new Coordinate(initialCoord.getX() + (panelCoord.getX() * panelWidth) - (panelWidth / AWAYFROMBORDER), 
+					initialCoord.getY() + (panelCoord.getY() * panelHeight) - (panelHeight / AWAYFROMBORDER));
+			startAngle = 0;
+		}
+		if ((direction1 == Direction.NORTH && direction2 == Direction.EAST) || (direction1 == Direction.EAST && direction2 == Direction.NORTH))
+		{
+			startCoord = new Coordinate(initialCoord.getX() + (panelWidth - (panelWidth/AWAYFROMBORDER)) + (panelCoord.getX() * panelWidth),
+					initialCoord.getY()  + (panelCoord.getY() * panelHeight) - (panelHeight / AWAYFROMBORDER));
+			startAngle = 270;
+		}
+		if ((direction1 == Direction.SOUTH && direction2 == Direction.WEST) || (direction1 == Direction.WEST && direction2 == Direction.SOUTH))
+		{
+			startCoord = new Coordinate(initialCoord.getX() + (panelCoord.getX() * panelWidth) - (panelWidth / AWAYFROMBORDER),
+					initialCoord.getY() + panelHeight - ((panelHeight/AWAYFROMBORDER)) + (panelCoord.getY() * panelHeight));
+			startAngle = 90;
+		}
+		if ((direction1 == Direction.SOUTH && direction2 == Direction.EAST) || (direction1 == Direction.EAST && direction2 == Direction.SOUTH))
+		{
+			startCoord = new Coordinate(initialCoord.getX() + (panelWidth - (panelWidth/AWAYFROMBORDER)) + (panelCoord.getX() * panelWidth),
+					initialCoord.getY() + panelHeight - ((panelHeight/AWAYFROMBORDER)) + (panelCoord.getY() * panelHeight));
+			startAngle = 180;
+		}
+		if (nullCorner)
+			g.drawArc(startCoord.getX(), startCoord.getY(), 2 * (panelWidth / AWAYFROMBORDER), 2 * (panelHeight / AWAYFROMBORDER), startAngle, -90);
+		g.drawArc(startCoord.getX() - SPACE, startCoord.getY() - SPACE, 2 * ((panelWidth / AWAYFROMBORDER) + SPACE), 2 * ((panelHeight / AWAYFROMBORDER) + SPACE), startAngle, -90);
+		g.setColor(original);
+		
+		//TODO
+		
 	}
 	
 	/**
