@@ -13,8 +13,10 @@ public class Square {
 	private Barcode barcodeFromSouth;
 	private Barcode barcodeFromEast;
 	private Barcode barcodeFromWest;
+	private int xCoordinate;
+	private int yCoordinate;
 
-	public Square(){
+	public Square(int x, int y){
 		//0 = onbekend, 1 = muur, 2 = geen muur
 		wallNorth = 0;
 		wallEast = 0;
@@ -26,7 +28,57 @@ public class Square {
 		barcodeFromNorth = null;
 		barcodeFromSouth = null;
 		barcodeFromEast = null;
-		barcodeFromWest = null;		
+		barcodeFromWest = null;	
+		xCoordinate = x;
+		yCoordinate = y;
+	}
+
+	public int getWallNorth() {
+		return wallNorth;
+	}
+
+	public void setWallNorth(int wallNorth) {
+		this.wallNorth = wallNorth;
+	}
+
+	public int getWallEast() {
+		return wallEast;
+	}
+
+	public void setWallEast(int wallEast) {
+		this.wallEast = wallEast;
+	}
+
+	public int getWallWest() {
+		return wallWest;
+	}
+
+	public void setWallWest(int wallWest) {
+		this.wallWest = wallWest;
+	}
+
+	public int getWallSouth() {
+		return wallSouth;
+	}
+
+	public void setWallSouth(int wallSouth) {
+		this.wallSouth = wallSouth;
+	}
+
+	public int getXCoordinate() {
+		return xCoordinate;
+	}
+
+	public void setXCoordinate(int xCoordinate) {
+		this.xCoordinate = xCoordinate;
+	}
+
+	public int getYCoordinate() {
+		return yCoordinate;
+	}
+
+	public void setYCoordinate(int yCoordinate) {
+		this.yCoordinate = yCoordinate;
 	}
 
 }

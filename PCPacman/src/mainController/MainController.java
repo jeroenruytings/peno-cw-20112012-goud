@@ -34,10 +34,26 @@ public class MainController {
 	}
 	
 	public enum Orientation{
-		NORTH,
-		SOUTH,
-		WEST,
-		EAST;
+		NORTH(-1,0),
+		SOUTH(1,0),
+		WEST(0,-1),
+		EAST(0,1);
+		
+		private int xPlus;
+		private int yPlus;
+		
+		private Orientation(int x, int y){
+			xPlus = x;
+			yPlus = y;
+		}
+		
+		public int getXPlus () {
+			return xPlus;
+		}
+		
+		public int getYPlus () {
+			return yPlus;
+		}
 
 		public static Orientation fromOrdinal(int i) {
 			
