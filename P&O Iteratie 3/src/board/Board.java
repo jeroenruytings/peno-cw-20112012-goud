@@ -2,6 +2,7 @@ package board;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.HashMap;
@@ -86,7 +87,13 @@ public class Board {
 	public Iterable<Point> getFilledPoints() {
 		return new ArrayList<Point>(panels.keySet());
 	}
-
+	public Collection<Point> nextTo(Point p)
+	{
+		ArrayList<Point> rv = new ArrayList<Point>();
+		for(Direction d:Direction.values())
+			rv.add(d.addTo(p));
+	return rv;
+	}
 	@Override
 	public Object clone() {
 		return new Board(this);
