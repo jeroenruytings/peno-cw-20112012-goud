@@ -2,11 +2,10 @@ package panel;
 
 import javax.naming.OperationNotSupportedException;
 
+import direction.Direction;
+
 public class PanelLayer {
-	enum Direction{
-		LEFT,RIGHT,UP,DOWN;
-		
-	}
+	
 	public void go(Direction d)
 	{
 	
