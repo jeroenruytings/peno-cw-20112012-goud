@@ -87,7 +87,7 @@ public class Board {
 	public Iterable<Point> getFilledPoints() {
 		return new ArrayList<Point>(panels.keySet());
 	}
-	public Collection<Point> nextTo(Point p)
+	public Collection<Point> getSurrounding(Point p)
 	{
 		ArrayList<Point> rv = new ArrayList<Point>();
 		for(Direction d:Direction.values())
@@ -115,4 +115,5 @@ public class Board {
 				max = p.y;
 		return max;
 	}
+	
 }
