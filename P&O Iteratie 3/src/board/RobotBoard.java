@@ -102,5 +102,9 @@ public class RobotBoard  {
 		return possibleStartingPoints.size()==1;
 			
 	}
+	
+	public Board getRelativeBoard(){
+		return relativeBoard;
+	}
 
 }

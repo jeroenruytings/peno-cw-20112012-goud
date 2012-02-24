@@ -1,6 +1,6 @@
 package gui.mainscreen;
 
-import gui.pacmancomponents.BoardDisplayer;
+import gui.pacmancomponents.SimRobotDataDisplay;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
@@ -15,15 +15,14 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
-
-import board.Board;
 import board.Panel;
 import board.Panel.Direction;
+import board.RobotBoard;
 
 public class Mainscreen {
 
 	private JFrame frmPacman;
-	Canvas cnvRobot1 = new Canvas();
+	Canvas cnvRobot1;
 	
 	
 	/**
@@ -135,25 +134,33 @@ public class Mainscreen {
 		
 	}
 	
+	RobotBoard rb = new RobotBoard(5, 5);
+	Panel panel1 = new Panel();
+	Panel panel2 = new Panel();
+	Panel panel3 = new Panel();
+	{
+	panel1.setBorder(Direction.UP, true);
+	panel1.setBorder(Direction.LEFT, true);
+	panel2.setBorder(Direction.LEFT, true);
+	panel2.setBorder(Direction.RIGHT, true);
+	panel2.setBorder(Direction.DOWN, true);
+	panel3.setBorder(Direction.UP, true);
+	panel3.setBorder(Direction.RIGHT, true);
+	panel3.setBorder(Direction.DOWN, true);
+	rb.setCurrentPanel(new Point(0,0), panel1);
+	rb.setCurrentPanel(new Point(0,1), panel2);
+	rb.setCurrentPanel(new Point(1,0), panel3);
+	cnvRobot1 = new SimRobotDataDisplay(rb);
+	}
+	
 	public void testMethod(){
 		
-		Board t = new Board();
-		Panel panel1 = new Panel();
-		Panel panel2 = new Panel();
-		Panel panel3 = new Panel();
-		panel1.setBorder(Direction.UP, true);
-		panel1.setBorder(Direction.LEFT, true);
-		panel2.setBorder(Direction.LEFT, true);
-		panel2.setBorder(Direction.RIGHT, true);
-		panel2.setBorder(Direction.DOWN, true);
-		panel3.setBorder(Direction.UP, true);
-		panel3.setBorder(Direction.RIGHT, true);
-		panel3.setBorder(Direction.DOWN, true);
-		t.add(panel1, new Point(0,0));
-		t.add(panel2, new Point(0,1));
-		t.add(panel3, new Point(1,0));
 		
-		BoardDisplayer.drawBoard(cnvRobot1.getGraphics(), t, new Point(0,0), 40);
+		
+		cnvRobot1 = new SimRobotDataDisplay(rb);
+		
+		
+		//BoardDisplayer.drawBoard(cnvRobot1.getGraphics(), t, new Point(0,0), 40);
 	}
 	
 

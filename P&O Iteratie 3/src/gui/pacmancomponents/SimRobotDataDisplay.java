@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 
 import board.Board;
+import board.RobotBoard;
 
 
 public class SimRobotDataDisplay extends Canvas{
@@ -14,25 +15,27 @@ public class SimRobotDataDisplay extends Canvas{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Board myTrack;
+	private RobotBoard myRobotData; 
 	
-	public SimRobotDataDisplay()
+	public SimRobotDataDisplay(RobotBoard rb)
 	{
+		super();
 		this.setBackground(Color.BLACK);
+		myRobotData = rb;
 	}
 	
-	public void setTrack(Board t){
-		this.myTrack = t;
+	public Board getBoard(){
+		return myRobotData.getRelativeBoard();
 	}
 	
 	private int calculatePanelWidth(){
-		if (myTrack == null)
+		if (getBoard() == null)
 			throw new IllegalStateException("The track is not initialised!");
-		return Math.min(this.getHeight() / myTrack.maxY(), this.getWidth() / myTrack.maxX());
+		return Math.min(this.getHeight() / (getBoard().maxY() + 1), this.getWidth() / (getBoard().maxX() + 1));
 	}
 	
 	private Point calculateInitialPosition(){
-		Point result = new Point((this.getWidth() - calculatePanelWidth() * myTrack.maxX()) / 2,(this.getHeight() - calculatePanelWidth() * myTrack.maxY()) / 2);
+		Point result = new Point((this.getWidth() - (calculatePanelWidth() * (getBoard().maxX() + 1))) / 2,(this.getHeight() - (calculatePanelWidth() * (getBoard().maxY() + 1))) / 2);
 		return result;
 	}
 	
@@ -40,19 +43,7 @@ public class SimRobotDataDisplay extends Canvas{
 	 * Code to draw the canvas, given it's SimRobotData.
 	 */
 	public void paint(Graphics g){
-		super.paint(g);
-		
-		BoardDisplayer td = new BoardDisplayer();
-		td.drawBoard(g, myTrack, calculateInitialPosition(), calculatePanelWidth());
+		BoardDisplayer.drawBoard(g, getBoard(), calculateInitialPosition(), calculatePanelWidth());
 	}
-	
-	/**
-	 * Repaint the Canvas.
-	 */
-	public void repaint(){
-		this.paint(this.getGraphics());
-	}
-
-	
 	
 }
