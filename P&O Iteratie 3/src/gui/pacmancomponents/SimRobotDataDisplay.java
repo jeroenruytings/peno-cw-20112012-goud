@@ -42,8 +42,8 @@ public class SimRobotDataDisplay extends Canvas{
 	public void paint(Graphics g){
 		super.paint(g);
 		
-		TrackDisplayer td = new TrackDisplayer();
-		td.drawTrack(g, myTrack, calculateInitialPosition(), calculatePanelWidth());
+		BoardDisplayer td = new BoardDisplayer();
+		td.drawBoard(g, myTrack, calculateInitialPosition(), calculatePanelWidth());
 	}
 	
 	/**

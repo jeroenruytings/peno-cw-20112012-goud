@@ -10,7 +10,7 @@ import board.Panel;
 import board.Panel.Direction;
 
 
-public class TrackDisplayer {
+public class BoardDisplayer {
 	
 	private static final int AWAYFROMBORDER = 5;
 	private static final int SPACE = 4;
@@ -31,7 +31,7 @@ public class TrackDisplayer {
 	 * @param 	panelHeight
 	 * 				Panels are drawn as squares, the height is equal to the width.	
 	 */
-	public static void drawTrack(Graphics g, Board t, Point position, int panelHeight){
+	public static void drawBoard(Graphics g, Board t, Point position, int panelHeight){
 		for(Point tmp : t.getFilledPoints())
 			drawPanel(g, t, position, tmp, panelHeight,panelHeight);
 	}

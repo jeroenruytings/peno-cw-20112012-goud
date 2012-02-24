@@ -1,6 +1,6 @@
 package gui.mainscreen;
 
-import gui.pacmancomponents.TrackDisplayer;
+import gui.pacmancomponents.BoardDisplayer;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
@@ -153,7 +153,7 @@ public class Mainscreen {
 		t.add(panel2, new Point(0,1));
 		t.add(panel3, new Point(1,0));
 		
-		TrackDisplayer.drawTrack(cnvRobot1.getGraphics(), t, new Point(0,0), 40);
+		BoardDisplayer.drawBoard(cnvRobot1.getGraphics(), t, new Point(0,0), 40);
 	}
 	
 
