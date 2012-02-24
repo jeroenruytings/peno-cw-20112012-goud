@@ -31,9 +31,9 @@ public class TrackDisplayer {
 	 * @param 	panelHeight
 	 * 				Panels are drawn as squares, the height is equal to the width.	
 	 */
-	public void drawTrack(Graphics g, Board t, Point position, int panelHeight){
-		// for(Coordinate tmp : t.getCoordinates()){
-		//		drawPanel(g, t, position, tmp, panelHeight,panelHeight);
+	public static void drawTrack(Graphics g, Board t, Point position, int panelHeight){
+		for(Point tmp : t.getFilledPoints())
+			drawPanel(g, t, position, tmp, panelHeight,panelHeight);
 	}
 
 	
@@ -100,15 +100,24 @@ public class TrackDisplayer {
 		}
 		// Draw the null Directions.
 		Point initialCoord = new Point(initialCoordinate.x + (panelCoordinate.x * panelWidth),initialCoordinate.y + (panelCoordinate.y * panelHeight));
-		for(Direction tmpDirection : nullDirections)
-			drawLine(g,initialCoord, panelHeight, panelWidth, tmpDirection);
+		for(Direction tmpDirection : nullDirections){
+			if (tmpDirection != null){
+				drawLine(g,initialCoord, panelHeight, panelWidth, tmpDirection);
+				for (Direction tmp : nullDirections){
+					if ((tmpDirection.opposite() != tmp)&&(tmp != tmpDirection)&&(tmp != null))
+						drawCorner(g, t,initialCoordinate, panelCoordinate, panelHeight, panelWidth, tmp, tmpDirection, false);
+				}
+			}
+		}
+
 		// Draw the borders.
 		for (Direction tmpBorder : borderDirections){
 			if (tmpBorder != null){
-			drawLine(g, new Point(initialCoord.x + SPACE, initialCoord.y + SPACE), panelHeight - (2* SPACE), panelWidth - (2*SPACE) , tmpBorder);
+				Point newInitial = new Point(initialCoord.x + SPACE, initialCoord.y + SPACE); 
+			drawLine(g, newInitial, panelHeight - (2* SPACE), panelWidth - (2*SPACE) , tmpBorder);
 				for (Direction tmp : borderDirections){
-					if (tmpBorder.opposite()!=tmp&&tmp!=tmpBorder)
-						drawCorner(g, t, initialCoordinate, panelCoordinate, panelHeight, panelWidth, tmp, tmpBorder);
+					if ((tmpBorder.opposite()!=tmp)&&(tmp!=tmpBorder)&&(tmp != null))
+						drawCorner(g, t,initialCoordinate, panelCoordinate, panelHeight, panelWidth, tmp, tmpBorder, true);
 				}
 			}
 		}
@@ -126,7 +135,7 @@ public class TrackDisplayer {
 	 * @param direction1
 	 * @param direction2
 	 */
-	public static void drawCorner(Graphics g, Board t, Point initialCoordinate, Point panelCoordinate, int panelHeight, int panelWidth, Direction direction1, Direction direction2){
+	public static void drawCorner(Graphics g, Board t, Point initialCoordinate, Point panelCoordinate, int panelHeight, int panelWidth, Direction direction1, Direction direction2, boolean inner){
 		Color original = g.getColor();
 		g.setColor(color);
 		Point startCoord = new Point(0, 0);
@@ -153,8 +162,10 @@ public class TrackDisplayer {
 					initialCoordinate.y + panelHeight - (2 * (panelHeight/AWAYFROMBORDER)) + (panelCoordinate.y * panelHeight));
 			startAngle = 0;
 		}
-		
-		g.drawArc(startCoord.x, startCoord.y, 2 * (panelWidth / AWAYFROMBORDER), 2 * (panelHeight / AWAYFROMBORDER), startAngle, -90);
+		if (!inner)
+			g.drawArc(startCoord.x, startCoord.y, 2 * (panelWidth / AWAYFROMBORDER), 2 * (panelHeight / AWAYFROMBORDER), startAngle, -90);
+		else
+			g.drawArc(startCoord.x + SPACE, startCoord.y + SPACE, 2 * (panelWidth / AWAYFROMBORDER) - 2*SPACE, 2 * (panelHeight / AWAYFROMBORDER) - 2*SPACE, startAngle, -90);
 		g.setColor(original);
 	}
 	

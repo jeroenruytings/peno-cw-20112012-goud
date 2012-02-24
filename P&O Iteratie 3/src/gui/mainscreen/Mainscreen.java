@@ -1,10 +1,8 @@
 package gui.mainscreen;
 
 import gui.pacmancomponents.TrackDisplayer;
-import gui.tmp.Direction;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JSplitPane;
 import java.awt.BorderLayout;
@@ -12,17 +10,15 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Point;
 
-
 import javax.swing.JTabbedPane;
 import javax.swing.JButton;
-
-
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
 
 import board.Board;
+import board.Panel;
+import board.Panel.Direction;
 
 public class Mainscreen {
 
@@ -116,7 +112,7 @@ public class Mainscreen {
 		JButton btnUltrasonic = new JButton("New button");
 		btnUltrasonic.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				testMethod();
 			}
 		});
 		btnUltrasonic.setActionCommand("Ultrasonic");
@@ -137,6 +133,27 @@ public class Mainscreen {
 		cnvRobot2.setBackground(Color.BLACK);
 		splitPane_2.setRightComponent(cnvRobot2);
 		
+	}
+	
+	public void testMethod(){
+		
+		Board t = new Board();
+		Panel panel1 = new Panel();
+		Panel panel2 = new Panel();
+		Panel panel3 = new Panel();
+		panel1.setBorder(Direction.UP, true);
+		panel1.setBorder(Direction.LEFT, true);
+		panel2.setBorder(Direction.LEFT, true);
+		panel2.setBorder(Direction.RIGHT, true);
+		panel2.setBorder(Direction.DOWN, true);
+		panel3.setBorder(Direction.UP, true);
+		panel3.setBorder(Direction.RIGHT, true);
+		panel3.setBorder(Direction.DOWN, true);
+		t.add(panel1, new Point(0,0));
+		t.add(panel2, new Point(0,1));
+		t.add(panel3, new Point(1,0));
+		
+		TrackDisplayer.drawTrack(cnvRobot1.getGraphics(), t, new Point(0,0), 40);
 	}
 	
 
