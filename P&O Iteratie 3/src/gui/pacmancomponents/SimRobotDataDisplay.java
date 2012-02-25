@@ -43,6 +43,13 @@ public class SimRobotDataDisplay extends Canvas{
 	 * Code to draw the canvas, given it's SimRobotData.
 	 */
 	public void paint(Graphics g){
+		drawBoard(g);
+	}
+	
+	/**
+	 * Draw the board of the RobotData object.
+	 */
+	private void drawBoard(Graphics g){
 		BoardDisplayer.drawBoard(g, getBoard(), calculateInitialPosition(), calculatePanelWidth());
 	}
 	
