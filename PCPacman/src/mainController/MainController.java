@@ -12,20 +12,26 @@ public class MainController {
 	private Orientation currentOrientation;
 	private Board board;
 	private IndexPQ pq;
-	private int rows;
-	private int columns;
 	
 	public static void main(String[] args) {
 		int rows = Integer.parseInt(args[0]);
 		int columns = Integer.parseInt(args[1]);
 		MainController main = new MainController(rows, columns);
-		main.nextMove();
+		while (true){
+			//kijk om u heen
+			main.nextMove();
+		}
 	}
 	
+	/**
+	 * 
+	 * @return	de oriëntatie waar je naartoe moet.
+	 * @return 	null als alle omliggende vakjes gekend zijn.
+	 */
 	private Orientation nextMove() {
 		Point currentPoint = new Point(getCurrentX(),getCurrentY());
 		Orientation best = null;
-		int nbUnknowns=-1;
+		int nbUnknowns=0;
 		for(Orientation orientation: Orientation.values()){
 			if (board.wallBetween(currentPoint, orientation))
 				continue;
@@ -45,9 +51,7 @@ public class MainController {
 		currentX = 0;
 		currentY = 0;
 		currentOrientation = Orientation.NORTH;
-		board = new Board();
-		this.rows = rows;
-		this.columns = columns;
+		board = new Board(rows, columns);
 		pq = new IndexPQ(rows*columns);
 	}
 

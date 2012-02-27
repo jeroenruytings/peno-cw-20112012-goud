@@ -18,10 +18,19 @@ import mainController.Orientation;
  */
 public class Board {
 	private Map<Point, Panel> panels;
+	private int rows;
+	private int columns;
 
-	public Board() {
+	public Board(int rows, int columns) {
 		panels = new HashMap<Point, Panel>();
+		this.rows = rows;
+		this.columns = columns;
 	}
+	
+	public int getRows() {
+		return rows;
+	}
+	
 
 	public Board(Board board) {
 		this.panels = new HashMap<Point, Panel>();
@@ -89,8 +98,11 @@ public class Board {
 	public Collection<Point> getSurrounding(Point p)
 	{
 		ArrayList<Point> rv = new ArrayList<Point>();
-		for(Orientation d:Orientation.values())
-			rv.add(d.addTo(p));
+		for(Orientation d:Orientation.values()){
+			Point newPoint = d.addTo(p);
+			//als newpoint erbuiten ligt
+			rv.add(newPoint);
+		}
 	return rv;
 	}
 	@Override

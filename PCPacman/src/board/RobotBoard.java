@@ -31,8 +31,8 @@ public class RobotBoard  {
 	{
 		this.maxx=maxx;
 		this.maxy=maxy;
-		this.relativeBoard = new Board();
-		this.absoluteBoard = new Board();
+		this.relativeBoard = new Board(5,5);
+		this.absoluteBoard = new Board(5,5);
 		this.currentPositionRelative = new Point();
 		this.absolutePointsFound = new HashMap<Point, Point>();
 		possibleStartingPoints=possibleStartingPoints();

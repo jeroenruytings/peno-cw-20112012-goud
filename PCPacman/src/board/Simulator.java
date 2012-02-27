@@ -15,7 +15,7 @@ public class Simulator {
 	public Simulator()
 	{
 		_data	=	new ArrayList<SimRobotData>();
-		_globalBoard	=	new Board();
+		_globalBoard	=	new Board(5,5);
 		
 	}
 	public Iterable<SimRobotData> getSimRobots()

@@ -14,7 +14,7 @@ public class _BoardTest {
 	@Test
 	public void OnePanel()
 	{
-		Board b = new Board();
+		Board b = new Board(5,5);
 		Panel p = new Panel();
 		b.add(p, new Point(0,0));
 		assertTrue(b.hasPanelAt(new Point(0,0)));
@@ -22,7 +22,7 @@ public class _BoardTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void ConflictingPanel()
 	{
-	Board b = new Board();
+	Board b = new Board(5,5);
 	Panel p1 = new Panel();
 	Panel p2 = new Panel();
 	p1.setBorder(Orientation.EAST,true);
@@ -33,7 +33,7 @@ public class _BoardTest {
 	@Test
 	public void NonConflictingPanels()
 	{
-	Board b = new Board();
+	Board b = new Board(5,5);
 	Panel p1 = new Panel();
 	Panel p2 = new Panel();
 	p1.setBorder(Orientation.EAST,true);
@@ -45,7 +45,7 @@ public class _BoardTest {
 	@Test
 	public void wallBetweenTest0() throws Exception
 	{
-		Board b = new Board();
+		Board b = new Board(5,5);
 		Panel p1 = new Panel();
 		Panel p2 = new Panel();
 		p1.setBorder(Orientation.EAST,false);

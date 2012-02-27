@@ -30,7 +30,7 @@ public class _ShortestPathFinderTest {
 	@Test
 	public void panelsTest()
 	{
-		Board one = new Board();
+		Board one = new Board(10,10);
 		Panel p1 = new Panel();
 		Panel p2 = new Panel();
 		Panel p3 = new Panel();
