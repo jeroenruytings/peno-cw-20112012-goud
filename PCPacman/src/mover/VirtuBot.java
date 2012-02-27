@@ -1,6 +1,5 @@
 package mover;
 
-
 public class VirtuBot {
 
  
