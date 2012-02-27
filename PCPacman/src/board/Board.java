@@ -3,12 +3,14 @@ package board;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.HashMap;
+import mainController.Orientation;
 
-import board.Panel.Orientation;
+<<<<<<< .mine
 
+=======
+>>>>>>> .r207
 /**
  * 
  * @author Dieter
