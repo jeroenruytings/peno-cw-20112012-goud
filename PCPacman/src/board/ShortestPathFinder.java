@@ -4,8 +4,6 @@ import java.awt.Point;
 import java.util.PriorityQueue;
 import java.util.Stack;
 
-import board.Panel.Orientation;
-
 public class ShortestPathFinder {
 	private Board board;
 	public ShortestPathFinder(Board board)

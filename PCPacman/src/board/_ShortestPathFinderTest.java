@@ -2,9 +2,10 @@ package board;
 
 import java.awt.Point;
 
+import mainController.Orientation;
+
 import org.junit.Test;
 
-import board.Panel.Orientation;
 
 public class _ShortestPathFinderTest {
 //	@Test

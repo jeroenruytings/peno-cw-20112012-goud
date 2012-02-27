@@ -1,6 +1,6 @@
 package direction;
 
 
-class DirectionLayerTest {
+class _DirectionLayerTest {
 	//TODO: test direcion adding
 }

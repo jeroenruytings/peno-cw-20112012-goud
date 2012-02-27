@@ -1,6 +1,6 @@
 package direction;
 
-import mainController.MainController.Orientation;
+import mainController.Orientation;
 import panel.PanelLayer;
 
 public class DirectionLayer {
