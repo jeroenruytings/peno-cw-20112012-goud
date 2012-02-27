@@ -14,8 +14,10 @@ public class PLAN extends Decoder {
 
 	@Override
 	public boolean canDecode(String message) {
-		// TODO Auto-generated method stub
-		return false;
+		String[] mes = message.split(" ");
+		if(!correctKey(message))
+			return false;
+		return true;
 	}
 
 	@Override

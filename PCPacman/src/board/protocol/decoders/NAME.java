@@ -16,10 +16,9 @@ public class NAME extends Decoder{
 
 	@Override
 	public boolean canDecode(String message) {
-		String [] mes=message.split(" ");
-		if(!mes[1].equals("NAME"))
+		String[] mes = message.split(" ");
+		if(!correctKey(message))
 			return false;
-		
 		return true;
 	}
 
