@@ -7,10 +7,7 @@ import java.util.Map;
 import java.util.HashMap;
 import mainController.Orientation;
 
-<<<<<<< .mine
 
-=======
->>>>>>> .r207
 /**
  * 
  * @author Dieter
