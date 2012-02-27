@@ -128,4 +128,18 @@ public class Board {
 		
 	}
 	
+	/**
+	 * Geeft terug hoeveel punten rond dit punt gekend zijn. (bestaan al)
+	 * @param point
+	 * @return
+	 */
+	public int nbOfUnknowns(Point point){
+		int nbUnknown = 0;
+		for(Point current: getSurrounding(point)){
+			if (!panels.containsKey(current))
+				nbUnknown++;
+		}
+		return nbUnknown;
+	}
+	
 }
