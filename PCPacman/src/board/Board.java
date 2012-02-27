@@ -7,8 +7,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.HashMap;
 
-import mainController.Square;
-
 import board.Panel.Orientation;
 
 /**
