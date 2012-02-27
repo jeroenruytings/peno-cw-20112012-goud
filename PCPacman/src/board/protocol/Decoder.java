@@ -3,13 +3,16 @@ package board.protocol;
 import java.text.ParseException;
 
 public abstract class Decoder {
+	protected String _key;
 	private Decoder _next;
-	public Decoder()
+	public Decoder(String key)
 	{
+		this._key=key;
 		_next = new NullDecoder();
 	}
-	public Decoder(Decoder next)
+	protected Decoder(Decoder next,String key)
 	{
+		this._key = key;
 		_next=next;
 	}
 	public abstract boolean canDecode(String message);
@@ -23,5 +26,11 @@ public abstract class Decoder {
 	public void setNext(Decoder next)
 	{
 		_next=next;
+	}
+	protected boolean correctKey(String message) {
+		String[] mes = message.split(" ");
+		if(!mes[1].equals("BARCODE"))
+			return false;
+		return true;
 	}
 }

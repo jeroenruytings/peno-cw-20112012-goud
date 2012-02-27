@@ -6,12 +6,14 @@ import board.protocol.Decoder;
 
 public class JOIN extends Decoder {
 
+
+
 	public JOIN(Decoder next) {
-		super(next);
+		super(next, "JOIN");
 	}
 
 	public JOIN() {
-		super();
+		super("JOIN");
 	}
 
 	@Override
