@@ -1,5 +1,6 @@
 package mainController;
 
+import board.Board;
 import direction.Direction;
 import mainController.MainController.Orientation;
 
@@ -8,13 +9,13 @@ public class MainController {
 	private int currentX;
 	private int currentY;
 	private Orientation currentOrientation;
-	private Maze maze;
+	private Board board;
 	
 	public MainController(int rows, int columns){
 		currentX = 0;
 		currentY = 0;
 		currentOrientation = Orientation.NORTH;
-		maze = new Maze(rows, columns);
+		board = new Board();
 	}
 
 	public int getCurrentX() {
