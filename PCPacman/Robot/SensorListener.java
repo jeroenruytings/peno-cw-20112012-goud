@@ -52,7 +52,7 @@ public class SensorListener implements Runnable {
 	private void sendValue(int Value, SensorIdentifier sensorID) {
 		
         Message mes = new Message(Monitor.SensorMonitor, sensorID, new SensorValue((byte)Value));
-        Communicator.instance().send(mes);
+        RobotCommunicator.instance().send(mes);
 
 		
 	}

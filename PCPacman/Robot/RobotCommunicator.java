@@ -6,19 +6,19 @@ import java.io.IOException;
 import lejos.nxt.comm.BTConnection;
 import lejos.nxt.comm.Bluetooth;
 
-public class Communicator {
-	private static Communicator instance;
+public class RobotCommunicator {
+	private static RobotCommunicator instance;
 	private DataOutputStream out;
 	@SuppressWarnings("unused")
 	private DataInputStream in;
 
-	public static Communicator instance() {
+	public static RobotCommunicator instance() {
 		if (instance == null)
-			instance = new Communicator();
+			instance = new RobotCommunicator();
 		return instance;
 	}
 
-	private Communicator() {
+	private RobotCommunicator() {
 		BTConnection con = Bluetooth.waitForConnection();
 		in = con.openDataInputStream();
 		out = con.openDataOutputStream();
