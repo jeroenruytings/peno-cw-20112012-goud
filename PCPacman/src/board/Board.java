@@ -31,6 +31,9 @@ public class Board {
 		return rows;
 	}
 	
+	public int getColumns() {
+		return columns;
+	}
 
 	public Board(Board board) {
 		this.panels = new HashMap<Point, Panel>();
@@ -87,6 +90,10 @@ public class Board {
 			return null;
 		return new Panel(panels.get(p));
 	}
+	
+	public Map<Point,Panel> getPanels(){
+		return panels;
+	}
 
 	public void clear() {
 
@@ -100,11 +107,20 @@ public class Board {
 		ArrayList<Point> rv = new ArrayList<Point>();
 		for(Orientation d:Orientation.values()){
 			Point newPoint = d.addTo(p);
-			//als newpoint erbuiten ligt
-			rv.add(newPoint);
+			if (!outOfCoords(newPoint))
+				rv.add(newPoint);
 		}
 	return rv;
 	}
+	
+	private boolean outOfCoords(Point point) {
+		if (point.getX() > columns || point.getX() < 0)
+			return true;
+		if (point.getY() > rows || point.getY() < 0)
+			return true;
+		return false;
+	}
+	
 	@Override
 	public Object clone() {
 		return new Board(this);
@@ -127,17 +143,45 @@ public class Board {
 		return max;
 	}
 	
+	/**
+	 * 
+	 * @param one
+	 * @param orientation
+	 * @return	true als er een muur tussen ligt
+	 * @return 	false als er geen muur tussen ligt, of het niet weet
+	 */
 	public boolean wallBetween(Point one, Orientation orientation) {
 		
 		if(one==null)
 			throw new NullPointerException();
 		if(getPanelAt(one)==null)
 			if(getPanelAt(orientation.addTo(one))==null)
-				return true;//TODO:give better name
+				return false;
 			else
 				return getPanelAt(orientation.addTo(one)).getBorder(orientation.opposite());
 		return getPanelAt(one).getBorder(orientation);
 		
+	}
+	
+	/**
+	 * Geeft aan of er een muur ligt tussen de twee punten
+	 * @pre	de twee punten moeten VLAK naast elkaar liggen
+	 * @param one
+	 * @param two
+	 * @return	true als er een muur tussen ligt
+	 * @return 	false als er geen muur tussen ligt, of het niet weet
+	 */
+	public boolean wallBetween(Point one, Point two) {
+		if(one==null)
+			throw new NullPointerException();
+		if(two==null)
+			throw new NullPointerException();
+		for (Orientation orientation : Orientation.values()){
+			Point point = orientation.addTo(one);
+			if (point.getX() == two.getX() && point.getY() == two.getY())
+				return wallBetween(one,orientation);
+		}
+		return false; //<-- DIT MAG NOOIT GEBEUREN @pre
 	}
 	
 	/**
@@ -147,9 +191,14 @@ public class Board {
 	 */
 	public int nbOfUnknowns(Point point){
 		int nbUnknown = 0;
+		Collection<Point> points = getSurrounding(point);
 		for(Point current: getSurrounding(point)){
-			if (!panels.containsKey(current))
-				nbUnknown++;
+			if (panels.containsKey(current))
+				continue;
+			if (wallBetween(point,current))
+				continue;
+			nbUnknown++;
+			
 		}
 		return nbUnknown;
 	}
