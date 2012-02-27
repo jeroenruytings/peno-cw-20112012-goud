@@ -1,5 +1,6 @@
 package direction;
 
+import board.Panel;
 import mainController.Orientation;
 import panel.PanelLayer;
 
@@ -21,7 +22,10 @@ public class DirectionLayer {
 		for (Orientation orient : o)
 			go(orient);
 	}
-
+	public Panel getPanel()
+	{
+		return layer.getPanel();
+	}
 	/**
 	 * 
 	 */

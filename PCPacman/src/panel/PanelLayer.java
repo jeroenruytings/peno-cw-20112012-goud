@@ -2,6 +2,8 @@ package panel;
 
 import javax.naming.OperationNotSupportedException;
 
+import board.Panel;
+
 import panel.BarcodeReader.color;
 
 import mover.VirtuBot;
@@ -92,6 +94,11 @@ public class PanelLayer {
 	
 	public Direction getPacman()
 	{
+		return null;
+	}
+
+	public Panel getPanel() {
+
 		return null;
 	}
 }
