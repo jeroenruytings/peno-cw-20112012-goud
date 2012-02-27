@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import mainController.Orientation;
+import direction.Direction;
 
 public class RobotBoard  {
 	
@@ -45,62 +45,46 @@ public class RobotBoard  {
 	{
 		relativeBoard.add(panel, xy);
 		currentPositionRelative = xy;
-		if(possibleStartingPoints.size()>1)
-			fixPossibleStartingPoints();
+	
 		
 	}
 	
-	private void fixPossibleStartingPoints() {
-			if(onStartingPos())
-			{
-				removePosstibleStarts();
-			}
-	}
+//	private void fixPossibleStartingPoints() {
+//			if(onStartingPos())
+//			{
+//				removePosstibleStarts();
+//			}
+//	}
 
-	private void removePosstibleStarts() {
-		Panel startingpanel= this.relativeBoard.getPanelAt(currentPositionRelative);
-		if(startingpanel.getBorder(Orientation.SOUTH)==false){
-			possibleStartingPoints.remove(botLeft());
-			possibleStartingPoints.remove(botRight());
-		}
-		if(startingpanel.getBorder(Orientation.NORTH)==false){
-			possibleStartingPoints.remove(topLeft());
-			possibleStartingPoints.remove(topRight());
-		}
-		if(startingpanel.getBorder(Orientation.WEST)==false){
-			possibleStartingPoints.remove(topLeft());
-			possibleStartingPoints.remove(botLeft());
-		}
-		if(startingpanel.getBorder(Orientation.EAST)==false){
-			possibleStartingPoints.remove(topRight());
-			possibleStartingPoints.remove(botRight());
-		}
-		
-	}
+//	private void removePosstibleStarts() {
+//		Panel startingpanel= this.relativeBoard.getPanelAt(currentPositionRelative);
+//		if(startingpanel.getBorder(Direction.DOWN)==false){
+//			possibleStartingPoints.remove(botLeft());
+//			possibleStartingPoints.remove(botRight());
+//		}
+//		if(startingpanel.getBorder(Direction.UP)==false){
+//			possibleStartingPoints.remove(topLeft());
+//			possibleStartingPoints.remove(topRight());
+//		}
+//		if(startingpanel.getBorder(Direction.LEFT)==false){
+//			possibleStartingPoints.remove(topLeft());
+//			possibleStartingPoints.remove(botLeft());
+//		}
+//		if(startingpanel.getBorder(Direction.RIGHT)==false){
+//			possibleStartingPoints.remove(topRight());
+//			possibleStartingPoints.remove(botRight());
+//		}
+//		
+//	}
 
-	private Point botLeft() {
-		return new Point(maxx,0);
-	}
-	private Point topLeft()
-	{
-		return new Point(0,0);
-	}
-	private Point topRight()
-	{
-		return new Point (0,maxy);
-	}
-	private Point botRight()
-	{
-		return new Point(maxx,maxy);
-	}
-
-	private boolean onStartingPos() {
-		return currentPositionRelative.equals(new Point(0,0));
-	}
 	public boolean absoluteCoordsFound()
 	{
 		return possibleStartingPoints.size()==1;
 			
+	}
+	
+	public Board getRelativeBoard(){
+		return relativeBoard;
 	}
 
 }

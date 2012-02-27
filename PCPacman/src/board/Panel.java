@@ -1,7 +1,5 @@
 package board;
 
-import java.awt.Point;
-
 import mainController.Orientation;
 
 import panel.Barcode;
