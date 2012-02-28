@@ -38,13 +38,13 @@ public class SensorListener implements Runnable {
 		int sonarValue = getSonarValue();
 		sendValue(sonarValue, SensorIdentifier.UltrasonicSensor);
 		
-		// send direction ir
-		int irDirection = getIrDirection();
-		sendValue(irDirection, SensorIdentifier.DirectionIrSensor);
-		
-		// send sonar value
-		int irValue = getIrValue();
-		sendValue(irValue, SensorIdentifier.ValueIrSensor);
+//		// send direction ir
+//		int irDirection = getIrDirection();
+//		sendValue(irDirection, SensorIdentifier.DirectionIrSensor);
+//		
+//		// send sonar value
+//		int irValue = getIrValue();
+//		sendValue(irValue, SensorIdentifier.ValueIrSensor);
 		
 		}	
 		

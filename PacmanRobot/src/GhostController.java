@@ -1,5 +1,6 @@
-package Robot;
 
+
+import Robot.SensorListener;
 import lejos.nxt.Motor;
 import lejos.robotics.proposal.DifferentialPilot;
 
@@ -22,9 +23,7 @@ public class GhostController {
 		System.out.println("listener opstarten");
 		listen.start();
 		System.out.println("opgestart");
-		while (true){
-			;
-		}
+		while (true);
 		
 		
 //		boolean finished = false;
