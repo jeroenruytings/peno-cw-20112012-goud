@@ -14,26 +14,26 @@ import board.protocol.ProtocolDecoder;
 
 public class Simulator {
 	Thread	communicator;
-	private Collection<SimRobotData> _data;
+	private Collection<RobotData> _data;
 	private Board	_globalBoard;
 	private ProtocolDecoder _protocolDecoder;
 	
 	public Simulator(String host) throws IOException
 	{
-		_data	=	new ArrayList<SimRobotData>();	
+		_data	=	new ArrayList<RobotData>();	
 		communicator	= new Thread( new MQCommunicator(host, this));
 		communicator.start();
 		_globalBoard	=	new Board(5,5);
 		
 	}
-	public void add(SimRobotData data)
+	public void add(RobotData data)
 	{
 		_data.add(data);
 	}
 	
-	public Iterable<SimRobotData> getSimRobots()
+	public Iterable<RobotData> getSimRobots()
 	{
-		return new ArrayList<SimRobotData>(_data);
+		return new ArrayList<RobotData>(_data);
 		
 	}
 	public void proces(String string) 

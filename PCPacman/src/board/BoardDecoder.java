@@ -3,10 +3,10 @@ package board;
 public class BoardDecoder {
 	
 	
-	public SimRobotData getBoard(String mazeProtocol){
+	public RobotData getBoard(String mazeProtocol){
 		
 		Board b = new Board(0, 0);
-		SimRobotData result = new SimRobotData(null, b);
+		RobotData result = new RobotData(null, b);
 		
 		String[] messages = mazeProtocol.split("\n");
 		for(String msg : messages){

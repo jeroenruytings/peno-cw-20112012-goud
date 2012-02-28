@@ -2,10 +2,12 @@ package board;
 
 
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
-public class SimRobotData {
+public class RobotData {
 
 	
 	private Board board;
@@ -18,11 +20,26 @@ public class SimRobotData {
 	
 	private Point position = new Point(0, 0);
 	
-	private Simulator overview;
+	private ArrayList<Point> plan;
 	
-	public SimRobotData(Simulator sim,Board board){
+	private boolean capturedPacman;
+	
+	public boolean isCapturedPacman() {
+		return capturedPacman;
+	}
+
+	public void setCapturedPacman(boolean capturedPacman) {
+		this.capturedPacman = capturedPacman;
+	}
+
+	public RobotData(Board board){
 		this.board = board;
-		this.overview = sim;
+		plan = new ArrayList<Point>();
+	}
+	
+	public RobotData(){
+		board = new Board();
+		plan = new ArrayList<Point>();
 	}
 	
 	/**
@@ -69,6 +86,12 @@ public class SimRobotData {
 	public void setPosition(Point newPosition){
 		this.position = newPosition;
 	}
-	
-	
+
+	public void clearPlan() {
+		Iterator<Point> it = plan.iterator();
+		while(it.hasNext()){
+			it.remove();
+			it.next();
+		}
+	}
 }

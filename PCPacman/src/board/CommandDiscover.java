@@ -46,8 +46,9 @@ public class CommandDiscover implements Command {
 
 	@Override
 	public void execute(World simulator) {
-		
-
+		Panel p = getPanel();
+		Board b = simulator.getRobot(_name).getBoard();
+		b.add(p, simulator.getRobot(_name).getPosition());
 	}
 
 }

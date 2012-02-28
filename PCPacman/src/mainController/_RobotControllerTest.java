@@ -9,7 +9,7 @@ import org.junit.Test;
 import board.Board;
 import board.Panel;
 
-public class _MainControllerTest {
+public class _RobotControllerTest {
 	
 	@Test
 	public void nextMoveTest(){
@@ -65,7 +65,7 @@ public class _MainControllerTest {
 		
 		
 		
-		MainController main = new MainController(one);
+		RobotController main = new RobotController(one);
 		System.out.println(main.lookForDestination());
 		assertEquals(main.lookForDestination(),new Point(0,1));
 		

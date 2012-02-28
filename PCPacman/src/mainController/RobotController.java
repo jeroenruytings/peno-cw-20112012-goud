@@ -6,7 +6,7 @@ import java.io.ObjectInputStream.GetField;
 import board.Board;
 import direction.Direction;
 
-public class MainController {
+public class RobotController {
 	
 	private int currentX;
 	private int currentY;
@@ -16,7 +16,7 @@ public class MainController {
 	public static void main(String[] args) {
 		int rows = Integer.parseInt(args[0]);
 		int columns = Integer.parseInt(args[1]);
-		MainController main = new MainController(rows, columns);
+		RobotController main = new RobotController(rows, columns);
 		Point destination = null;
 		while (true){
 			//kijk om u heen
@@ -38,7 +38,7 @@ public class MainController {
 	
 	/**
 	 * 
-	 * @return	de oriëntatie waar je naartoe moet.
+	 * @return	de oriï¿½ntatie waar je naartoe moet.
 	 * @return 	null als alle omliggende vakjes gekend zijn.
 	 */
 	private Orientation nextMove() {
@@ -83,14 +83,14 @@ public class MainController {
 		return (int) (Math.abs(destination.getX() - currentX) + Math.abs(destination.getY() - currentY));
 	}
 	
-	public MainController(int rows, int columns){
+	public RobotController(int rows, int columns){
 		currentX = 0;
 		currentY = 0;
 		currentOrientation = Orientation.NORTH;
 		board = new Board(rows, columns);
 	}
 	
-	public MainController(Board board) {
+	public RobotController(Board board) {
 		this.board = board;
 		currentX = 0;
 		currentY = 0;

@@ -10,7 +10,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import board.Board;
-import board.SimRobotData;
+import board.RobotData;
 
 
 public class SimRobotDataDisplay extends Canvas{
@@ -19,10 +19,10 @@ public class SimRobotDataDisplay extends Canvas{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private SimRobotData myRobotData;
+	private RobotData myRobotData;
 	private Color robotColor = Color.GRAY;
 	
-	public SimRobotDataDisplay(SimRobotData robot)
+	public SimRobotDataDisplay(RobotData robot)
 	{
 		super();
 		this.setBackground(Color.BLACK);
@@ -75,7 +75,7 @@ public class SimRobotDataDisplay extends Canvas{
 	private Image getImage(String name){
 		Image img = null;
 		try {
-			img = ImageIO.read(SimRobotData.class.getResource("/resources/" + name).openStream());
+			img = ImageIO.read(RobotData.class.getResource("/resources/" + name).openStream());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

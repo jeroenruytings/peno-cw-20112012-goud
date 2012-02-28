@@ -2,16 +2,19 @@ package board;
 
 import java.util.Map;
 
-import system.ProxyRobot;
-
 public class World {
-	private Map<String, ProxyRobot>	_robots;
+	private Map<String, RobotData>_robots;
 	
+	public Map<String, RobotData> get_robots() {
+		return _robots;
+	}
+
 	public World(){
 		
 	}
 	
-	public ProxyRobot getRobot(String name) {
+	public RobotData getRobot(String name) {
 		return _robots.get(name);
 	}
+	
 }

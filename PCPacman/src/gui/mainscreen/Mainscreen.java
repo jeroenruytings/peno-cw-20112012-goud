@@ -15,7 +15,7 @@ import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 import board.Board;
 import board.Panel;
-import board.SimRobotData;
+import board.RobotData;
 import javax.swing.JToolBar;
 import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
@@ -246,7 +246,7 @@ public class Mainscreen {
 	Panel panel1 = new Panel();
 	Panel panel2 = new Panel();
 	Panel panel3 = new Panel();
-	SimRobotData srd = new SimRobotData(null, board);
+	RobotData srd = new RobotData(null, board);
 	{
 	panel1.setBorder(Orientation.NORTH, true);
 	panel1.setBorder(Orientation.WEST, true);
