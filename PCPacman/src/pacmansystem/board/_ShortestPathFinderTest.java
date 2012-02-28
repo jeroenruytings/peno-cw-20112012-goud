@@ -2,6 +2,8 @@ package pacmansystem.board;
 
 import java.awt.Point;
 
+import org.junit.Test;
+
 import pacmansystem.board.enums.Orientation;
 
 public class _ShortestPathFinderTest

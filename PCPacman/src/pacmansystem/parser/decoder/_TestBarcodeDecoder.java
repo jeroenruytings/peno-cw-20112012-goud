@@ -1,5 +1,9 @@
 package pacmansystem.parser.decoder;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 import pacmansystem.parser.Decoder;
 
 public class _TestBarcodeDecoder

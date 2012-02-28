@@ -1,5 +1,7 @@
 package pacmansystem.ai.robot.fysicalRobot.connector;
 
+import lejos.pc.comm.NXTConnector;
+
 
 public class Connection
 {

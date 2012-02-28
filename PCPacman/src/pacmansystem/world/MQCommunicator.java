@@ -1,7 +1,14 @@
 package pacmansystem.world;
 
 import java.io.IOException;
-import java.nio.channels.Channel;
+
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.ConsumerCancelledException;
+import com.rabbitmq.client.QueueingConsumer;
+import com.rabbitmq.client.QueueingConsumer.Delivery;
+import com.rabbitmq.client.ShutdownSignalException;
 
 public class MQCommunicator implements Runnable
 {
