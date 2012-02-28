@@ -1,5 +1,7 @@
 package panel;
 
+import java.awt.Point;
+
 import javax.naming.OperationNotSupportedException;
 
 import board.Panel;
@@ -10,7 +12,7 @@ import mover.VirtuBot;
 
 import direction.Direction;
 
-public class PanelLayer {
+public class PanelLayer implements PanelLayerInterface {
 	
 	VirtuBot virtu;
 	public final static int distance = 40;
@@ -19,6 +21,10 @@ public class PanelLayer {
 		this.virtu = virtu;
 	}
 	
+	/* (non-Javadoc)
+	 * @see panel.PanelLayerInterface#go(direction.Direction)
+	 */
+	@Override
 	public void go(Direction d)
 	{
 		switch(d.ordinal()){
@@ -38,6 +44,10 @@ public class PanelLayer {
 			virtu.drive(distance);
 		}
 	}
+	/* (non-Javadoc)
+	 * @see panel.PanelLayerInterface#hasBorder(direction.Direction)
+	 */
+	@Override
 	public boolean hasBorder(Direction d){
 		int distanceToWall;
 		switch(d.ordinal()){
@@ -68,11 +78,10 @@ public class PanelLayer {
 		}
 		return false;		
 	}
-	/**
-	 * @pre robot is on middlepoint of panel
-	 * Checks if this panel has a barcode
-	 * @return true if there is a panel on this barcode
+	/* (non-Javadoc)
+	 * @see panel.PanelLayerInterface#hasBarcode()
 	 */
+	@Override
 	public boolean hasBarcode()
 	{
 		color color = BarcodeReader.getc(virtu.getLightSensor());
@@ -81,22 +90,29 @@ public class PanelLayer {
 		else return false;
 	}
 	//returns null if there is no barcode < also no ints.
-	/**
-	 * 
-	 * @return null if this.hasBarcode() == false;
-	 * @throws OperationNotSupportedException 
+	/* (non-Javadoc)
+	 * @see panel.PanelLayerInterface#getBarcode()
 	 */
+	@Override
 	public Barcode getBarcode() throws OperationNotSupportedException
 	{
 		throw new OperationNotSupportedException();
 	}
 	
 	
-	public Direction getPacman()
+	/* (non-Javadoc)
+	 * @see panel.PanelLayerInterface#getPacman()
+	 */
+	@Override
+	public Point getPacman()
 	{
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see panel.PanelLayerInterface#getPanel()
+	 */
+	@Override
 	public Panel getPanel() {
 
 		return null;

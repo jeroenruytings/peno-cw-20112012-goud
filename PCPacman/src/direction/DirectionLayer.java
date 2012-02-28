@@ -2,23 +2,24 @@ package direction;
 
 import board.Panel;
 import mainController.Orientation;
-import panel.PanelLayer;
+import panel.PanelLayerInterface;
+import simulatedrobot.IllegalDriveException;
 
 public class DirectionLayer {
 	private Orientation currentOrientation;
 
 
-	private PanelLayer layer;
+	private PanelLayerInterface layer;
 
 	/**
 	 * 
 	 * @param layer
 	 */
-	public DirectionLayer(PanelLayer layer) {
+	public DirectionLayer(PanelLayerInterface layer) {
 		this.layer = layer;
 	}
 
-	public void go(Orientation... o) {
+	public void go(Orientation... o) throws IllegalDriveException {
 		for (Orientation orient : o)
 			go(orient);
 	}
@@ -27,9 +28,10 @@ public class DirectionLayer {
 		return layer.getPanel();
 	}
 	/**
+	 * @throws IllegalDriveException 
 	 * 
 	 */
-	public void go(Orientation o) {
+	public void go(Orientation o) throws IllegalDriveException {
 		for(Direction d:Direction.values())
 			if(this.currentOrientation==o.addTo(d))
 				{layer.go(d);
