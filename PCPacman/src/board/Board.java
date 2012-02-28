@@ -83,10 +83,12 @@ public class Board {
 	}
 
 	public void addForced(Panel panel, Point point) {
+		this.panels.remove(point);
 		this.panels.put(point, panel);
 		for (Orientation d : Orientation.values())
 			if (hasPanelAt(d.addTo(point)))
-				panels.get(point).setBorder(d.opposite(), panel.getBorder(d));
+				panels.get(d.addTo(point)).setBorder(d.opposite(), panel.getBorder(d));
+		System.out.println("w");
 	}
 
 	public boolean hasPanelAt(Point p) {
@@ -214,5 +216,6 @@ public class Board {
 		}
 		return nbUnknown;
 	}
+	
 	
 }

@@ -7,6 +7,7 @@ import org.junit.Test;
 import board.protocol.Decoder;
 
 public class _TestBarcodeDecoder {
+	
 	@Test
 	public void trueTest()
 	{

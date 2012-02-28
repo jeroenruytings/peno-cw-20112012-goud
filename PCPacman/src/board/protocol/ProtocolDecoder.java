@@ -10,6 +10,7 @@ public class ProtocolDecoder {
 	{
 		head = new JOIN();
 	}
+	
 	public Command parse(String string) throws ParseException
 	{
 		Decoder current = head;

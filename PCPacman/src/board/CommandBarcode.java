@@ -29,9 +29,10 @@ public class CommandBarcode implements Command{
 	}
 	
 	@Override
-	public void execute(Simulator simulator) {
-		// TODO Auto-generated method stub
-		
+	public void execute(World simulator) {
+		Panel p = simulator.getRobot(_name).getBoard().getPanelAt(simulator.getRobot(_name).getLocation());
+		p.setBarcode(_barcode);
+		simulator.getRobot(_name).getBoard().addForced(p, simulator.getRobot(_name).getLocation());
 	}
 
 }

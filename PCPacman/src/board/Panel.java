@@ -49,4 +49,9 @@ public class Panel
 		return null;
 	}
 
+	public void setBarcode(int _barcode) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

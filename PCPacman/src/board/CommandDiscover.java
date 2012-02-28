@@ -45,8 +45,8 @@ public class CommandDiscover implements Command {
 	}
 
 	@Override
-	public void execute(Simulator simulator) {
-		// TODO Auto-generated method stub
+	public void execute(World simulator) {
+		
 
 	}
 

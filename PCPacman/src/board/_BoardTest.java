@@ -54,4 +54,11 @@ public class _BoardTest {
 		b.add(p2, new Point(1,0));
 		assertFalse(b.wallBetween(new Point(0,0), Orientation.EAST));
 	}
+	@Test 
+	public void defaultBoardTest()
+	{
+		Board board = BoardCreator.createWithEdges(10, 10);
+	
+		System.out.println("abra");
+	}
 }

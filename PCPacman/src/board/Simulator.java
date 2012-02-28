@@ -20,7 +20,7 @@ public class Simulator {
 	
 	public Simulator(String host) throws IOException
 	{
-		_data	=	new ArrayList<SimRobotData>();
+		_data	=	new ArrayList<SimRobotData>();	
 		communicator	= new Thread( new MQCommunicator(host, this));
 		communicator.start();
 		_globalBoard	=	new Board(5,5);
