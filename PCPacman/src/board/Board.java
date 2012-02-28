@@ -126,9 +126,9 @@ public class Board {
 	}
 	
 	private boolean outOfCoords(Point point) {
-		if (point.getX() > columns || point.getX() < 0)
+		if (point.getX() >= columns || point.getX() < 0)
 			return true;
-		if (point.getY() > rows || point.getY() < 0)
+		if (point.getY() >= rows || point.getY() < 0)
 			return true;
 		return false;
 	}
