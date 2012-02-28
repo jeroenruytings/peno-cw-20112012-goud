@@ -52,7 +52,7 @@ public class SimulatedRobot implements PanelLayerInterface {
 
 	@Override
 	public Panel getPanel() {
-		return null;
+		return _realWorld.getGlobalBoard().getPanelAt(_currentLocation);
 		
 	}
 	
