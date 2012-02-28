@@ -103,32 +103,34 @@ public class VirtuBot
 		pcc.sendCommando(new Commando(Action.CALIBRATEBLACK, "Calibrate black"));
 		while(!buttonIsPushed()) ;
 		getBarcodeReader().setBlack(getLightSensor());
+		button = false;
 	}
 
-		public BarcodeReader getBarcodeReader() {
-			return barcodeReader;
-		}
+	public BarcodeReader getBarcodeReader() {
+		return barcodeReader;
+	}
 
-		public void calibrateWhite() {
-			pcc.sendCommando(new Commando(Action.CALIBRATEWHITE, "Calibrate white"));
-			while(!buttonIsPushed()) ;
-			getBarcodeReader().setWhite(getLightSensor());
-			
-		}
+	public void calibrateWhite() {
+		pcc.sendCommando(new Commando(Action.CALIBRATEWHITE, "Calibrate white"));
+		while(!buttonIsPushed()) ;
+		getBarcodeReader().setWhite(getLightSensor());
+		button = false;
 		
-		public void calibrateBrown() {
-			pcc.sendCommando(new Commando(Action.CALIBRATEBROWN, "Calibrate brown"));
-			while(!buttonIsPushed()) ;
-			getBarcodeReader().setBrown(getLightSensor());
-			
-		}
+	}
+	
+	public void calibrateBrown() {
+		pcc.sendCommando(new Commando(Action.CALIBRATEBROWN, "Calibrate brown"));
+		while(!buttonIsPushed()) ;
+		getBarcodeReader().setBrown(getLightSensor());
+		button = false;
+	}
+	
+	public void pushButton(){
+		button = true;
+	}
+	
+	public boolean buttonIsPushed(){
+		return button;
 		
-		public void pushButton(){
-			button = true;
-		}
-		
-		public boolean buttonIsPushed(){
-			return button;
-			
-		}
+	}
 }
