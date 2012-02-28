@@ -1,6 +1,7 @@
 package board;
 
 
+import board.enums.Orientation;
 import panel.Barcode;
 
 public class Panel

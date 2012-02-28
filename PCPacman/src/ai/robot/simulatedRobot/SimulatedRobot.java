@@ -1,12 +1,12 @@
-package simulatedrobot;
+package ai.robot.simulatedRobot;
 
 import java.awt.Point;
 
 
-import board.Orientation;
 import board.Panel;
 import board.Simulator;
-import direction.Direction;
+import board.enums.Direction;
+import board.enums.Orientation;
 import panel.Barcode;
 import panel.PanelLayerInterface;
 

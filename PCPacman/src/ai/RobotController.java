@@ -4,8 +4,8 @@ import java.awt.Point;
 import java.io.ObjectInputStream.GetField;
 
 import board.Board;
-import board.Orientation;
-import direction.Direction;
+import board.enums.Direction;
+import board.enums.Orientation;
 
 public class RobotController {
 	

@@ -2,6 +2,8 @@ package board;
 
 import java.awt.Point;
 
+import board.enums.Orientation;
+
 
 
 public class BoardCreator {

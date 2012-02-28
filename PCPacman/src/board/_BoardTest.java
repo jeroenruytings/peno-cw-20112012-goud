@@ -7,6 +7,8 @@ import java.awt.Point;
 
 import org.junit.Test;
 
+import board.enums.Orientation;
+
 
 
 public class _BoardTest {

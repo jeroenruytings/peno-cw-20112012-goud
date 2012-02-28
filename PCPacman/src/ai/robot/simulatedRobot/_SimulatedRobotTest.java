@@ -1,4 +1,4 @@
-package simulatedrobot;
+package ai.robot.simulatedRobot;
 
 import org.junit.Test;
 

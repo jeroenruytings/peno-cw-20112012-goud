@@ -4,13 +4,13 @@ import java.awt.Point;
 
 import javax.naming.OperationNotSupportedException;
 
+import ai.robot.fysicalRobot.connector.VirtuBot;
 import board.Panel;
+import board.enums.Direction;
 
 import panel.BarcodeReader.color;
 
-import mover.VirtuBot;
 
-import direction.Direction;
 
 public class PanelLayer implements PanelLayerInterface {
 	

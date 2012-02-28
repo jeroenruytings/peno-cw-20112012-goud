@@ -4,10 +4,10 @@ import java.awt.Point;
 
 import javax.naming.OperationNotSupportedException;
 
-import simulatedrobot.IllegalDriveException;
 
+import ai.robot.simulatedRobot.IllegalDriveException;
 import board.Panel;
-import direction.Direction;
+import board.enums.Direction;
 
 public interface PanelLayerInterface {
 

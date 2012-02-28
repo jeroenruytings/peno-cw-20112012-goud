@@ -1,9 +1,10 @@
-package direction;
+package ai.robot;
 
-import board.Orientation;
+import ai.robot.simulatedRobot.IllegalDriveException;
 import board.Panel;
+import board.enums.Direction;
+import board.enums.Orientation;
 import panel.PanelLayerInterface;
-import simulatedrobot.IllegalDriveException;
 
 public class DirectionLayer {
 	private Orientation currentOrientation;

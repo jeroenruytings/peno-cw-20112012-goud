@@ -15,8 +15,9 @@ import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 
 import board.Board;
-import board.Orientation;
 import board.Panel;
+import board.enums.Orientation;
+
 import javax.swing.JToolBar;
 import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;

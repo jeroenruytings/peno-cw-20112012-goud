@@ -7,8 +7,8 @@ import world.World;
 
 
 import board.Board;
-import board.Orientation;
 import board.Panel;
+import board.enums.Orientation;
 
 public class CommandDiscover implements Command {
 

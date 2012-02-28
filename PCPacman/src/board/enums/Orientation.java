@@ -1,8 +1,7 @@
-package board;
+package board.enums;
 
 import java.awt.Point;
 
-import direction.Direction;
 
 public enum Orientation{
 	NORTH(0,-1),SOUTH(0,1),WEST(-1,0),EAST(1,0);

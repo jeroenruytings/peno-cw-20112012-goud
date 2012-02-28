@@ -1,4 +1,4 @@
-package direction;
+package ai.robot;
 
 
 class _DirectionLayerTest {

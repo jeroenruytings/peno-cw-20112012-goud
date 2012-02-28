@@ -1,4 +1,4 @@
-package mover;
+package ai.robot.fysicalRobot.connector;
 
 public class VirtuBot {
 

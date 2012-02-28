@@ -7,8 +7,8 @@ import java.awt.Point;
 import org.junit.Test;
 
 import board.Board;
-import board.Orientation;
 import board.Panel;
+import board.enums.Orientation;
 
 public class _RobotControllerTest {
 	

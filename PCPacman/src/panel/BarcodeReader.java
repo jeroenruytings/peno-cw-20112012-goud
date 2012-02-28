@@ -1,6 +1,6 @@
 package panel;
 
-import mover.VirtuBot;
+import ai.robot.fysicalRobot.connector.VirtuBot;
 
 
 

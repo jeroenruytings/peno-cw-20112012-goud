@@ -1,4 +1,4 @@
-package direction;
+package board.enums;
 
 import java.awt.Point;
 

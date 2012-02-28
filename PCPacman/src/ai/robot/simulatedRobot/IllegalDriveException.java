@@ -1,4 +1,4 @@
-package simulatedrobot;
+package ai.robot.simulatedRobot;
 
 public class IllegalDriveException extends Exception {
 
