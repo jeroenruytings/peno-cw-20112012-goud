@@ -20,7 +20,8 @@ public class CommandoListener implements Runnable {
 	}
 	
 	private void executeCommando(Commando receivedCommando) {
-	
+		if (receivedCommando == null)
+			return;
 		switch (receivedCommando.getAction().ordinal()){
 		case 0:
 			stop();
@@ -48,11 +49,21 @@ public class CommandoListener implements Runnable {
 			return new Commando(Action.STOP,"");
 		case 1:
 			return new Commando(Action.FORWARD,"");
+		case 2:
+			return new Commando(Action.BACKWARD,"");
+		case 3:
+			return new Commando(Action.LEFT,"");
+		case 4:
+			return new Commando(Action.RIGHT,"");
 		//nog extra commando's invoegen;
 		default:
 			return null;
 		}
 		
+	}
+	
+	public void readBarcode(){
+		//TODO
 	}
 	
 //	boolean finished = false;

@@ -26,17 +26,25 @@ public class SensorListener implements Runnable {
 		
 		while (true){
 		
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+			}
 		//send push value
 		int pushValue = getPushValue();
 		sendValue(pushValue, SensorIdentifier.PushSensor);
+		Thread.yield();
 				
 		//send light value
 		int lightValue = getLightValue();
 		sendValue(lightValue, SensorIdentifier.LightSensor);
+		Thread.yield();
 		
 		// send sonar value
 		int sonarValue = getSonarValue();
 		sendValue(sonarValue, SensorIdentifier.UltrasonicSensor);
+		Thread.yield();
 		
 //		// send direction ir
 //		int irDirection = getIrDirection();
