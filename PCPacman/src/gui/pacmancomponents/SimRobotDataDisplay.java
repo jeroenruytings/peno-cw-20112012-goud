@@ -9,8 +9,9 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import world.RobotData;
+
 import board.Board;
-import board.RobotData;
 
 
 public class SimRobotDataDisplay extends Canvas{

@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 
 import java.awt.Point;
 
-import mainController.Orientation;
 
 import org.junit.Test;
+
 
 
 public class _BoardTest {

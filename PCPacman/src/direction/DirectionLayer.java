@@ -1,7 +1,7 @@
 package direction;
 
+import board.Orientation;
 import board.Panel;
-import mainController.Orientation;
 import panel.PanelLayerInterface;
 import simulatedrobot.IllegalDriveException;
 

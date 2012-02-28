@@ -5,9 +5,9 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
 
-import mainController.Orientation;
 
 import board.Board;
+import board.Orientation;
 import board.Panel;
 
 public class BoardDisplayer {

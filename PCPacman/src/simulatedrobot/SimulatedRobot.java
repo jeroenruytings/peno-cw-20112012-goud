@@ -2,8 +2,8 @@ package simulatedrobot;
 
 import java.awt.Point;
 
-import mainController.Orientation;
 
+import board.Orientation;
 import board.Panel;
 import board.Simulator;
 import direction.Direction;

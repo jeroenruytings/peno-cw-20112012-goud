@@ -2,7 +2,7 @@ package board;
 
 import java.awt.Point;
 
-import mainController.Orientation;
+
 
 public class BoardCreator {
 	public static Board createWithEdges(int x, int y)

@@ -13,9 +13,10 @@ import java.awt.FontFormatException;
 import java.awt.Point;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
+
 import board.Board;
+import board.Orientation;
 import board.Panel;
-import board.RobotData;
 import javax.swing.JToolBar;
 import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
@@ -26,7 +27,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import javax.swing.JLabel;
 
-import mainController.Orientation;
+import world.RobotData;
+
 import java.awt.Dimension;
 
 public class Mainscreen {

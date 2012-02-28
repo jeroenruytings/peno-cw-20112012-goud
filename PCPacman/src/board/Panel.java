@@ -1,6 +1,5 @@
 package board;
 
-import mainController.Orientation;
 
 import panel.Barcode;
 
