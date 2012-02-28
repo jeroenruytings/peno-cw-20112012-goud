@@ -3,8 +3,7 @@ package parser.command;
 import java.awt.Point;
 
 import parser.Command;
-
-import board.Simulator;
+import world.World;
 
 public class CommandPacman implements Command {
 
@@ -27,9 +26,8 @@ public class CommandPacman implements Command {
 	}
 
 	@Override
-	public void execute(Simulator simulator) {
-		// TODO Auto-generated method stub
-
+	public void execute(World simulator) {
+		simulator.getRobot(_name).setPacman(_coordinate);
 	}
 
 }

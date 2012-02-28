@@ -1,12 +1,12 @@
 package parser.command;
 
 import parser.Command;
-import board.Simulator;
+import world.World;
 
 public class NullCommand implements Command {
 
 	@Override
-	public void execute(Simulator simulator) {
+	public void execute(World simulator) {
 
 	}
 

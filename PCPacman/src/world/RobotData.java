@@ -96,4 +96,9 @@ public class RobotData {
 			it.next();
 		}
 	}
+	
+	public void addPlan(ArrayList<Point> newPlan){
+		clearPlan();
+		plan = newPlan;
+	}
 }

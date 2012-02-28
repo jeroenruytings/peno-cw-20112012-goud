@@ -1,10 +1,10 @@
 package parser.command;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 import parser.Command;
-
-import board.Simulator;
+import world.World;
 
 public class CommandPlan implements Command {
 
@@ -27,9 +27,12 @@ public class CommandPlan implements Command {
 	}
 
 	@Override
-	public void execute(Simulator simulator) {
-		// TODO Auto-generated method stub
-
+	public void execute(World simulator) {
+		ArrayList<Point> plan = new ArrayList<Point>();
+		for(Point point : _path){
+			plan.add(point);
+		}
+		simulator.getRobot(_name).addPlan(plan);
 	}
 
 }
