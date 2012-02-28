@@ -8,7 +8,7 @@ import java.util.List;
 public class SimRobotData {
 
 	
-	private RobotBoard board;
+	private Board board;
 	// Pacman's location.
 	private Point pacman;
 	// All the locations pacman was sighted by this robot.
@@ -16,9 +16,11 @@ public class SimRobotData {
 	// The amount of previous data to be hold.
 	private int pacmanhistorylength;
 	
+	private Point position = new Point(0, 0);
+	
 	private Simulator overview;
 	
-	public SimRobotData(Simulator sim,RobotBoard board){
+	public SimRobotData(Simulator sim,Board board){
 		this.board = board;
 		this.overview = sim;
 	}
@@ -41,7 +43,7 @@ public class SimRobotData {
 	/**
 	 * @return The board this robot has created.
 	 */
-	public RobotBoard getBoard(){
+	public Board getBoard(){
 		return this.board;
 	}
 	
@@ -50,6 +52,22 @@ public class SimRobotData {
 	 */
 	public Point getPacmanLastSighted(){
 		return pacman;
+	}
+	
+	/**
+	 * @return	The position of the robot.
+	 */
+	public Point getPosition(){
+		return position;
+	}
+	
+	/**
+	 * Set a new position for the robot.
+	 * @param 	newPosition
+	 * 				The new position of the robot.
+	 */
+	public void setPosition(Point newPosition){
+		this.position = newPosition;
 	}
 	
 	

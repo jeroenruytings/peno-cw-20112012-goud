@@ -8,6 +8,7 @@ import java.util.Map;
 
 import direction.Direction;
 
+//TODO: CAN BE DELETED?
 public class RobotBoard  {
 	
 	private int maxx;
@@ -45,8 +46,6 @@ public class RobotBoard  {
 	{
 		relativeBoard.add(panel, xy);
 		currentPositionRelative = xy;
-	
-		
 	}
 	
 //	private void fixPossibleStartingPoints() {

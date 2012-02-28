@@ -11,33 +11,23 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Point;
-
-import javax.swing.JTabbedPane;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
+import board.Board;
 import board.Panel;
-import board.RobotBoard;
-import javax.swing.JLayeredPane;
-import javax.swing.JDesktopPane;
-import javax.swing.JInternalFrame;
+import board.SimRobotData;
 import javax.swing.JToolBar;
 import javax.swing.JPanel;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.EtchedBorder;
 import javax.swing.border.MatteBorder;
 import java.awt.Component;
 import javax.swing.SwingConstants;
 import java.awt.Insets;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import mainController.Orientation;
+import java.awt.Dimension;
 
 public class Mainscreen {
 
@@ -88,6 +78,9 @@ public class Mainscreen {
 	 */
 	private void initialize() {
 		frmPacman = new JFrame();
+		frmPacman.setMinimumSize(new Dimension(1200, 800));
+		frmPacman.setSize(new Dimension(1200, 800));
+		frmPacman.setPreferredSize(new Dimension(1200, 800));
 		frmPacman.setTitle("Pacman");
 		frmPacman.setFont(getPacmanFont());
 		frmPacman.setBounds(100, 100, 1200, 600);
@@ -124,7 +117,7 @@ public class Mainscreen {
 		lblRobot_1.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_2.add(lblRobot_1, BorderLayout.NORTH);
 		
-		Canvas cnvRobot3 = new SimRobotDataDisplay(rb);
+		Canvas cnvRobot3 = new SimRobotDataDisplay(srd);
 		cnvRobot3.setBackground(Color.BLACK);
 		panel_2.add(cnvRobot3, BorderLayout.CENTER);
 		
@@ -139,13 +132,13 @@ public class Mainscreen {
 		lblRobot_2.setForeground(Color.WHITE);
 		panel_3.add(lblRobot_2, BorderLayout.NORTH);
 		
-		Canvas cnvRobot4 = new SimRobotDataDisplay(rb);
+		Canvas cnvRobot4 = new SimRobotDataDisplay(srd);
 		panel_3.add(cnvRobot4, BorderLayout.CENTER);
 		
 		JSplitPane splitPane_4 = new JSplitPane();
 		splitPane_4.setEnabled(false);
 		splitPane_4.setDividerSize(5);
-		splitPane_4.setResizeWeight(0.25);
+		splitPane_4.setResizeWeight(0.4);
 		splitPane_4.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		splitPane_1.setLeftComponent(splitPane_4);
 		
@@ -154,7 +147,7 @@ public class Mainscreen {
 		splitPane_5.setEnabled(false);
 		splitPane_5.setOneTouchExpandable(true);
 		splitPane_5.setOrientation(JSplitPane.VERTICAL_SPLIT);
-		splitPane_5.setResizeWeight(0.75);
+		splitPane_5.setResizeWeight(0.6);
 		splitPane_4.setRightComponent(splitPane_5);
 		
 		JPanel panel_4 = new JPanel();
@@ -168,7 +161,7 @@ public class Mainscreen {
 		lblGlobal.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_4.add(lblGlobal, BorderLayout.NORTH);
 		
-		Canvas cnvGlobal = new SimRobotDataDisplay(rb);
+		Canvas cnvGlobal = new SimRobotDataDisplay(srd);
 		cnvGlobal.setBackground(Color.BLACK);
 		panel_4.add(cnvGlobal, BorderLayout.CENTER);
 		
@@ -229,7 +222,7 @@ public class Mainscreen {
 		lblRobot.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_1.add(lblRobot, BorderLayout.NORTH);
 		
-		Canvas cnvRobot2 = new SimRobotDataDisplay(rb);
+		Canvas cnvRobot2 = new SimRobotDataDisplay(srd);
 		cnvRobot2.setBackground(Color.BLACK);
 		panel_1.add(cnvRobot2, BorderLayout.CENTER);
 		
@@ -244,15 +237,16 @@ public class Mainscreen {
 		lblRobot_3.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_5.add(lblRobot_3, BorderLayout.NORTH);
 		
-		Canvas cnvRobot1 = new SimRobotDataDisplay(rb);
+		Canvas cnvRobot1 = new SimRobotDataDisplay(srd);
 		panel_5.add(cnvRobot1, BorderLayout.CENTER);
 		
 	}
 	
-	RobotBoard rb = new RobotBoard(5, 5);
+	Board board = new Board(5, 5);
 	Panel panel1 = new Panel();
 	Panel panel2 = new Panel();
 	Panel panel3 = new Panel();
+	SimRobotData srd = new SimRobotData(null, board);
 	{
 	panel1.setBorder(Orientation.NORTH, true);
 	panel1.setBorder(Orientation.WEST, true);
@@ -262,9 +256,11 @@ public class Mainscreen {
 	panel3.setBorder(Orientation.NORTH, true);
 	panel3.setBorder(Orientation.EAST, true);
 	panel3.setBorder(Orientation.SOUTH, true);
-	rb.setCurrentPanel(new Point(0,0), panel1);
-	rb.setCurrentPanel(new Point(0,1), panel2);
-	rb.setCurrentPanel(new Point(1,0), panel3);
+	board.add(panel1, new Point(0,0));
+	board.add(panel2, new Point(0,1));
+	board.add(panel3, new Point(1,0));
+	srd.setPosition(new Point(0,1));
+	srd.setPacman(new Point(1, 0));
 	}
 	
 
