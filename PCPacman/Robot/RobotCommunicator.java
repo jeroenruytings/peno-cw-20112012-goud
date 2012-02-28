@@ -3,6 +3,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import lejos.nxt.Button;
 import lejos.nxt.comm.BTConnection;
 import lejos.nxt.comm.Bluetooth;
 
@@ -19,7 +20,9 @@ public class RobotCommunicator {
 	}
 
 	private RobotCommunicator() {
+		System.out.println("waiting..");
 		BTConnection con = Bluetooth.waitForConnection();
+		System.out.println("connection established");
 		in = con.openDataInputStream();
 		out = con.openDataOutputStream();
 	}

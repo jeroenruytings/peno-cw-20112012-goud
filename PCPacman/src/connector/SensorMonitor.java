@@ -1,9 +1,6 @@
 
 package connector;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 
 public class SensorMonitor extends LeoMonitor{
 	private SensorDecoder decoder;
@@ -12,6 +9,7 @@ public class SensorMonitor extends LeoMonitor{
 		super(next);
 		this.decoder = new SensorDecoder();
 	}
+	
 	
 	/**
 	 * Accepts the bytes that represent the message send to the gui. This byte is decoded here and 
@@ -32,9 +30,12 @@ public class SensorMonitor extends LeoMonitor{
 			//gevolg invullen
 			System.out.println("druksensor: " + decoder.value());
 			break;
-		case IRSENSOR:
+		case DIRECTIONIRSENSOR:
 			//gevolg invullen
-			System.out.println("irsensor: " + decoder.value());
+			System.out.println("direction irsensor: " + decoder.value());
+		case VALUEIRSENSOR:
+			//gevolg invullen
+			System.out.println("value irsensor: " + decoder.value());
 		case LIGHTSENSOR:
 			//gevolg invullen
 			System.out.println("ligtsensor: " + decoder.value());

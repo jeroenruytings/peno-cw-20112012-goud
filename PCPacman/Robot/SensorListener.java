@@ -1,15 +1,20 @@
+import lejos.nxt.LightSensor;
 import lejos.nxt.SensorPort;
+import lejos.nxt.TouchSensor;
+import lejos.nxt.UltrasonicSensor;
+import lejos.nxt.addon.IRSeeker;
 
 
 public class SensorListener implements Runnable {
 	
-	SensorPort push = SensorPort.S2;
-	SensorPort ir = SensorPort.S4;
-	SensorPort light = SensorPort.S1;
-	SensorPort sonar = SensorPort.S3;
+	UltrasonicSensor sonar = new UltrasonicSensor(SensorPort.S3);
+	LightSensor light = new LightSensor(SensorPort.S2);
+	TouchSensor push = new TouchSensor(SensorPort.S1);
+	IRSeeker ir = new IRSeeker(SensorPort.S4);
 	
 	
 	public void start(){
+	
 	Thread listener = new Thread(this);
     listener.start();
 	}
@@ -17,14 +22,12 @@ public class SensorListener implements Runnable {
 	@Override
 	public void run() {
 		
+		while (true){
+		
 		//send push value
 		int pushValue = getPushValue();
 		sendValue(pushValue, SensorIdentifier.PushSensor);
-		
-		//send infra red value
-		int irValue = getIrValue();
-		sendValue(irValue, SensorIdentifier.UltrasonicSensor );
-		
+				
 		//send light value
 		int lightValue = getLightValue();
 		sendValue(lightValue, SensorIdentifier.LightSensor);
@@ -33,20 +36,37 @@ public class SensorListener implements Runnable {
 		int sonarValue = getSonarValue();
 		sendValue(sonarValue, SensorIdentifier.UltrasonicSensor);
 		
+		// send direction ir
+		int irDirection = getIrDirection();
+		sendValue(sonarValue, SensorIdentifier.DirectionIrSensor);
 		
+		// send sonar value
+		int irValue = getIrValue();
+		sendValue(sonarValue, SensorIdentifier.ValueIrSensor);
 		
+		}	
+		
+	}
+
+	private int getIrDirection() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	private int getSonarValue() {
-		return sonar.readRawValue();
+		
+		return sonar.getDistance();			
+		
 	}
 
 	private int getLightValue() {
-		return light.readRawValue();
+		return light.readValue();
 	}
 
 	private int getIrValue() {
-		return ir.readRawValue();
+		
+		//TODO op moment standaardwaarde
+		return ir.getSensorValue(5);
 	}
 
 	private void sendValue(int Value, SensorIdentifier sensorID) {
@@ -58,7 +78,12 @@ public class SensorListener implements Runnable {
 	}
 
 	private int getPushValue() {
-		return push.readRawValue();
+		if (push.isPressed()){
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
 
 }
