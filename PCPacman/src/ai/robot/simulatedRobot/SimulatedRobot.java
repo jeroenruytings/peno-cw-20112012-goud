@@ -2,19 +2,22 @@ package ai.robot.simulatedRobot;
 
 import java.awt.Point;
 
+import world.RealWorld;
+import world.World;
+
 
 import ai.robot.Barcode;
 import ai.robot.PanelLayerInterface;
 import board.Panel;
-import board.Simulator;
 import board.enums.Direction;
 import board.enums.Orientation;
 
 public class SimulatedRobot implements PanelLayerInterface {
 	private Point _currentLocation;
 	private Orientation _currentOrientation;
-	private Simulator _realWorld;
-	public SimulatedRobot(Simulator realworld)
+	private RealWorld _realWorld;
+	
+	public SimulatedRobot(RealWorld realworld)
 	{
 		_realWorld = realworld;
 	}
@@ -69,5 +72,5 @@ public class SimulatedRobot implements PanelLayerInterface {
 			//silence will come
 		}
 	}
-	
+
 }
