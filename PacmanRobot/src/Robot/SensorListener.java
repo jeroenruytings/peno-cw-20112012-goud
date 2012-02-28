@@ -9,10 +9,10 @@ import lejos.nxt.UltrasonicSensor;
 
 public class SensorListener implements Runnable {
 	
-	UltrasonicSensor sonar = new UltrasonicSensor(SensorPort.S3);
-	LightSensor light = new LightSensor(SensorPort.S2);
-	TouchSensor push = new TouchSensor(SensorPort.S1);
-	IRSeekerV2 ir = new IRSeekerV2(SensorPort.S4, Mode.AC);
+	UltrasonicSensor sonar = new UltrasonicSensor(SensorPort.S3); //check
+	LightSensor light = new LightSensor(SensorPort.S1);	//check
+	TouchSensor push = new TouchSensor(SensorPort.S4);	//check
+	IRSeekerV2 ir = new IRSeekerV2(SensorPort.S2, Mode.AC);	//check
 	
 	
 	public void start(){

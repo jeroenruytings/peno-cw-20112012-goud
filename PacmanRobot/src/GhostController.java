@@ -1,5 +1,7 @@
 
 
+import Robot.CommandoListener;
+import Robot.RobotCommunicator;
 import Robot.SensorListener;
 import lejos.nxt.Motor;
 import lejos.robotics.proposal.DifferentialPilot;
@@ -14,9 +16,9 @@ public class GhostController {
 	public static void main(String[] args) {
 		
 		//start Threads
-//		RobotCommunicator rec = new RobotCommunicator();
-//		Thread t = new Thread(rec);
-//		t.start();
+		CommandoListener executer = new CommandoListener();
+		Thread execute = new Thread(executer);
+		execute.start();
 		SensorListener listener = new SensorListener();
 		System.out.println("listener aanmaken");
 		Thread listen = new Thread(listener);
@@ -52,28 +54,28 @@ public class GhostController {
 		
 //	}
 
-	private static void right() {
-		Motor.B.forward();
-		Motor.A.backward();
-	}
-
-	private static void left() {
-		Motor.B.backward();
-		Motor.A.forward();
-	}
-
-	private static void backward() {
-		Motor.B.backward();
-		Motor.A.backward();
-	}
-
-	private static void forward() {
-		Motor.B.forward();
-		Motor.A.forward();
-	}
-
-	private static void stop() {
-		Motor.A.stop();
-		Motor.B.stop();
-	}
+//	private static void right() {
+//		Motor.B.forward();
+//		Motor.A.backward();
+//	}
+//
+//	private static void left() {
+//		Motor.B.backward();
+//		Motor.A.forward();
+//	}
+//
+//	private static void backward() {
+//		Motor.B.backward();
+//		Motor.A.backward();
+//	}
+//
+//	private static void forward() {
+//		Motor.B.forward();
+//		Motor.A.forward();
+//	}
+//
+//	private static void stop() {
+//		Motor.A.stop();
+//		Motor.B.stop();
+//	}
 }

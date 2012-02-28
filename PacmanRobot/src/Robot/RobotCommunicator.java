@@ -48,4 +48,18 @@ public class RobotCommunicator {
 		}
 
 	}
+
+	public Commando receiveCommando() {
+		Commando commando = null;
+		try {
+			commando = CommandoListener.decodeCommando(in.readInt());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("fout gegaan in het lezen van de inputstream");
+		}
+		return commando;
+		
+		
+		
+	}
 }
