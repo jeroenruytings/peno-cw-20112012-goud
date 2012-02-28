@@ -40,8 +40,13 @@ public class MQCommunicator implements Runnable {
 			Delivery del = null;
 			try {
 				del = consumer.nextDelivery();
-			} catch (ShutdownSignalException | ConsumerCancelledException
-					| InterruptedException e) {
+			} catch (ShutdownSignalException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ConsumerCancelledException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
