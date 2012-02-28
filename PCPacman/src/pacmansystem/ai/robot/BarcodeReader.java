@@ -29,21 +29,17 @@ public class BarcodeReader implements Runnable
 		return BROWN;
 	}
 
-	private void calibrateBlack(VirtuBot virtu)
-	{
-
+	private void calibrateBlack(VirtuBot virtu) {
 		virtu.calibrateBlack();
 
 	}
 
-	private void calibrateWhite(VirtuBot virtu)
-	{
-
+	private void calibrateWhite(VirtuBot virtu) {
+		virtu.calibrateWhite();
 	}
 
-	private void calibrateBrown(VirtuBot virtu)
-	{
-
+	private void calibrateBrown(VirtuBot virtu) {
+		virtu.calibrateBlack();
 	}
 
 	public void calibrate(VirtuBot virtu)

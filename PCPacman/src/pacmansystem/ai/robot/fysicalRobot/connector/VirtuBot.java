@@ -98,9 +98,12 @@ public class VirtuBot
 		return 0;
 	}
 
-	public BarcodeReader getBarcodeReader()
-	{
-		return barcodeReader;
-	}
+		public BarcodeReader getBarcodeReader() {
+			return barcodeReader;
+		}
 
+		public void calibrateWhite() {
+			// TODO Auto-generated method stub
+			
+		}
 }
