@@ -4,6 +4,7 @@ import java.text.ParseException;
 
 import pacmansystem.parser.Command;
 import pacmansystem.parser.Decoder;
+import pacmansystem.parser.command.CommandPong;
 
 public class PONG extends Decoder
 {
@@ -17,7 +18,7 @@ public class PONG extends Decoder
 	@Override
 	public boolean canDecode(String message)
 	{
-		String[] mes = message.split(" ");
+		
 		if (!correctKey(message))
 			return false;
 		return true;
@@ -26,8 +27,8 @@ public class PONG extends Decoder
 	@Override
 	public Command parse(String message) throws ParseException
 	{
-		// TODO Auto-generated method stub
-		return null;
+		String[] mes = message.split(" ");
+		return new CommandPong(mes[0],mes[2],mes[3]);
 	}
 
 }

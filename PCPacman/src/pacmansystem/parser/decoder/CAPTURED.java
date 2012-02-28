@@ -18,7 +18,6 @@ public class CAPTURED extends Decoder
 	@Override
 	public boolean canDecode(String message)
 	{
-		String[] mes = message.split(" ");
 		if (!correctKey(message))
 			return false;
 		return true;

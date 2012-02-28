@@ -1,9 +1,11 @@
 package pacmansystem.parser.decoder;
 
+import java.awt.Point;
 import java.text.ParseException;
 
 import pacmansystem.parser.Command;
 import pacmansystem.parser.Decoder;
+import pacmansystem.parser.command.CommandPlan;
 
 public class PLAN extends Decoder
 {
@@ -17,7 +19,7 @@ public class PLAN extends Decoder
 	@Override
 	public boolean canDecode(String message)
 	{
-		String[] mes = message.split(" ");
+		
 		if (!correctKey(message))
 			return false;
 		return true;
@@ -26,8 +28,16 @@ public class PLAN extends Decoder
 	@Override
 	public Command parse(String message) throws ParseException
 	{
-		// TODO Auto-generated method stub
-		return null;
+		String[] mes = message.split(" ");
+		Point[] param = new Point[mes.length - 2];
+		int x;
+		int y;
+		for(int i = 1; i <  mes.length; i++){
+			x = Integer.parseInt(mes[i].split(",")[0]);
+			y = Integer.parseInt(mes[i].split(",")[1]);
+			param[i - 2] = new Point(x,y);
+		}
+		return new CommandPlan(mes[0], param);
 	}
 
 }

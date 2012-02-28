@@ -20,7 +20,7 @@ public class SimRobotDataDisplay extends Canvas
 	 */
 	private static final long serialVersionUID = 1L;
 	private RobotData myRobotData;
-	private Color robotColor = Color.GRAY;
+	private Color robotColor = Color.BLUE;
 
 	public SimRobotDataDisplay(RobotData robot)
 	{
@@ -94,6 +94,13 @@ public class SimRobotDataDisplay extends Canvas
 		return img;
 	}
 
+	
+	/**
+	 * Draw robot on graphics g, the dimensions are calculated with the panelwidth.
+	 * @note	The color of the robot is equal to the robotcolor.
+	 * @param 	g
+	 * 				Graphics to draw on.
+	 */
 	private void drawRobot(Graphics g)
 	{
 		if (myRobotData.getPosition() != null) {
@@ -104,14 +111,22 @@ public class SimRobotDataDisplay extends Canvas
 					(int) (calculateInitialPosition().getY()
 							+ (calculatePanelWidth() * myRobotData
 									.getPosition().getY()) + getSpacing()),
+
 					calculatePanelWidth() - 2 * getSpacing(),
 					calculatePanelWidth() - 2 * getSpacing(), robotColor, this);
 		}
 	}
 
+	
+	/**
+	 * Draw pacman on graphics g, the dimensions are calculated with the panelwidth.
+	 * @param 	g
+	 * 				Graphics to draw on.
+	 */
 	private void drawPacman(Graphics g)
 	{
 		if (myRobotData.getPacmanLastSighted() != null) {
+
 			Color original = g.getColor();
 			g.setColor(Color.YELLOW);
 			g.fillOval(
