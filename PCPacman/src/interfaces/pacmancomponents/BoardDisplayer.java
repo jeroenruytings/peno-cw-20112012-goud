@@ -1,4 +1,4 @@
-package gui.pacmancomponents;
+package interfaces.pacmancomponents;
 
 import java.awt.Color;
 import java.awt.Graphics;

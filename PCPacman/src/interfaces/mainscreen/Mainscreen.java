@@ -1,6 +1,7 @@
-package gui.mainscreen;
+package interfaces.mainscreen;
 
-import gui.pacmancomponents.SimRobotDataDisplay;
+
+import interfaces.pacmancomponents.SimRobotDataDisplay;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
