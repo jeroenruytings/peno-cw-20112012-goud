@@ -1,5 +1,6 @@
 package pacmansystem.ai.robot.fysicalRobot.connector;
 
-public class ConnectionFailedException extends Exception {
+public class ConnectionFailedException extends Exception
+{
 
 }

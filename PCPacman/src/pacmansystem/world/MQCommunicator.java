@@ -1,39 +1,35 @@
 package pacmansystem.world;
 
 import java.io.IOException;
+import java.nio.channels.Channel;
 
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.ConsumerCancelledException;
-import com.rabbitmq.client.QueueingConsumer;
-import com.rabbitmq.client.QueueingConsumer.Delivery;
-import com.rabbitmq.client.ShutdownSignalException;
+public class MQCommunicator implements Runnable
+{
 
-public class MQCommunicator implements Runnable {
-	
 	private static final String QUEUENAME = "queue";
 	private Connection _conn;
 	private Channel _chan;
-	public MQCommunicator(String host) throws IOException{
+
+	public MQCommunicator(String host) throws IOException
+	{
 		ConnectionFactory fact = new ConnectionFactory();
 		fact.setHost(host);
 		_conn = fact.newConnection();
 		_chan = _conn.createChannel();
-		
+
 	}
 
 	@Override
-	public void run() {
+	public void run()
+	{
 		QueueingConsumer consumer = new QueueingConsumer(_chan);
 		try {
-			_chan.basicConsume(QUEUENAME,true,consumer);
+			_chan.basicConsume(QUEUENAME, true, consumer);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		while(true)
-		{
+		while (true) {
 			Delivery del = null;
 			try {
 				del = consumer.nextDelivery();
@@ -48,8 +44,7 @@ public class MQCommunicator implements Runnable {
 				e.printStackTrace();
 			}
 			String message = new String(del.getBody());
-			
-			
+
 		}
 	}
 

@@ -1,5 +1,6 @@
 package pacmansystem.board;
 
-public class _RobotBoardTest {
+public class _RobotBoardTest
+{
 
 }

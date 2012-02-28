@@ -1,5 +1,6 @@
 package pacmansystem.parser.decoder;
 
-public class _TestCapturedPlanDecoder {
+public class _TestCapturedPlanDecoder
+{
 
 }

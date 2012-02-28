@@ -1,8 +1,10 @@
 package pacmansystem.ai.robot.fysicalRobot.connector;
 
-public class SensorDecodeException extends IllegalArgumentException {
+public class SensorDecodeException extends IllegalArgumentException
+{
 
-	public SensorDecodeException(String string) {
+	public SensorDecodeException(String string)
+	{
 		super(string);
 	}
 

@@ -1,22 +1,25 @@
 package pacmansystem.ai.robot.fysicalRobot.connector;
 
+public class Commando
+{
 
-public class Commando {
-	
 	Action action;
 	String reason;
-	
-	public Commando(Action action, String reason){
+
+	public Commando(Action action, String reason)
+	{
 		this.action = action;
 		this.reason = reason;
 	}
-	
-	public Action getAction(){
+
+	public Action getAction()
+	{
 		return action;
 	}
-	
-	public String getReason(){
+
+	public String getReason()
+	{
 		return reason;
 	}
-	
+
 }

@@ -4,21 +4,25 @@ import java.awt.Point;
 
 public enum Direction
 {
-	
-	UP( 0,-1),DOWN(0,1),LEFT(-1,0),RIGHT(1,0);
+
+	UP(0, -1), DOWN(0, 1), LEFT(-1, 0), RIGHT(1, 0);
 	public final int x;
 	public final int y;
-	private Direction(int x,int y)
+
+	private Direction(int x, int y)
 	{
-		this.x=x;this.y=y;
+		this.x = x;
+		this.y = y;
 	}
+
 	public Point addTo(Point p)
 	{
-		return new Point(p.x+this.x,p.y+this.y);
+		return new Point(p.x + this.x, p.y + this.y);
 	}
+
 	public Direction opposite()
 	{
-		switch(this)
+		switch (this)
 		{
 		case UP:
 			return DOWN;
@@ -26,10 +30,10 @@ public enum Direction
 			return UP;
 		case LEFT:
 			return RIGHT;
-		case RIGHT: 
+		case RIGHT:
 			return LEFT;
 		default:
 			throw new RuntimeException();
-}
+		}
 	}
 };

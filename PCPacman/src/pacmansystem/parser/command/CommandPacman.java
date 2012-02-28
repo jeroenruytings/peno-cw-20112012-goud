@@ -5,28 +5,32 @@ import java.awt.Point;
 import pacmansystem.parser.Command;
 import pacmansystem.world.World;
 
-public class CommandPacman implements Command {
+public class CommandPacman implements Command
+{
 
 	private String _name;
 	private Point _coordinate;
-	
-	
-	public CommandPacman(String name, Point coordinate){
+
+	public CommandPacman(String name, Point coordinate)
+	{
 		this._name = name;
 		this._coordinate = coordinate;
 	}
-	
+
 	@Override
-	public String getNameFrom() {
+	public String getNameFrom()
+	{
 		return _name;
 	}
-	
-	public Point getPosition(){
+
+	public Point getPosition()
+	{
 		return _coordinate;
 	}
 
 	@Override
-	public void execute(World simulator) {
+	public void execute(World simulator)
+	{
 		simulator.getRobot(_name).setPacman(_coordinate);
 	}
 

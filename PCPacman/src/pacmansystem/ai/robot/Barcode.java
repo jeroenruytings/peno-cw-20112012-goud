@@ -1,5 +1,6 @@
 package pacmansystem.ai.robot;
 
-public enum Barcode {
-	
+public enum Barcode
+{
+
 }

@@ -1,14 +1,18 @@
 package pacmansystem.ai.robot.fysicalRobot.connector;
 
-public abstract class LeoMonitor {
+public abstract class LeoMonitor
+{
 	private LeoMonitor next;
+
 	public LeoMonitor(LeoMonitor next)
 	{
-			this.next=next;
+		this.next = next;
 	}
+
 	public abstract void accept(byte[] message);
-	public LeoMonitor next(){
+
+	public LeoMonitor next()
+	{
 		return this.next;
 	}
 }
-

@@ -2,59 +2,64 @@ package pacmansystem.ai.robot;
 
 import pacmansystem.ai.robot.fysicalRobot.connector.VirtuBot;
 
+public class BarcodeReader implements Runnable
+{
 
-
-
-
-public class BarcodeReader implements Runnable{
-	
-	
 	node[] buffer = new node[20];
 	int elems = 0;
-	private long samplingtime=5;
+	private long samplingtime = 5;
 	private VirtuBot virtu;
 	private int WHITE;
 	private int BLACK;
 	private int BROWN;
 	static int noiseDist = 24;
-	
-	public int getWHITE() {
+
+	public int getWHITE()
+	{
 		return WHITE;
 	}
 
-	public int getBLACK() {
+	public int getBLACK()
+	{
 		return BLACK;
 	}
 
-	public int getBROWN() {
+	public int getBROWN()
+	{
 		return BROWN;
 	}
 
-	private void calibrateBlack(VirtuBot virtu) {
-		
+	private void calibrateBlack(VirtuBot virtu)
+	{
+
 		virtu.calibrateBlack();
-		
+
 	}
 
-	private void calibrateWhite(VirtuBot virtu) {
-		
+	private void calibrateWhite(VirtuBot virtu)
+	{
+
 	}
 
-	private void calibrateBrown(VirtuBot virtu) {
-		
+	private void calibrateBrown(VirtuBot virtu)
+	{
+
 	}
 
-	public void calibrate(VirtuBot virtu) {
+	public void calibrate(VirtuBot virtu)
+	{
 		calibrateBlack(virtu);
 		calibrateBrown(virtu);
-		calibrateWhite(virtu);		
+		calibrateWhite(virtu);
 	}
 
-	class node {
+	class node
+	{
 		color c;
 		int base;
 
-		public node(color c, int b) {
+		public node(color c, int b)
+		{
 			this.base = b;
 			this.c = c;
 		}
@@ -65,12 +70,14 @@ public class BarcodeReader implements Runnable{
 		 * @param n
 		 * @return
 		 */
-		float distanceto(node n) {
+		float distanceto(node n)
+		{
 			return (float) ((float) (n.base - base) * Math.PI * 56f / 360f);
 		}
 	};
 
-	enum barcode {
+	enum barcode
+	{
 		zero(0, 0, 0, 0, 0, 0, 0), one(0, 0, 0, 1, 1, 1, 1), two(0, 0, 1, 0, 1,
 				1, 0), three(0, 0, 1, 1, 0, 0, 1), four(0, 1, 0, 0, 1, 0, 1), five(
 				0, 1, 0, 1, 0, 1, 0), six(0, 1, 1, 0, 0, 1, 1), seven(0, 1, 1,
@@ -81,7 +88,8 @@ public class BarcodeReader implements Runnable{
 
 		private final int[] code;
 
-		private static int hammingdistance(int[] code, int[] other) {
+		private static int hammingdistance(int[] code, int[] other)
+		{
 			int totald = 0;
 			for (int i = 0; i < other.length; i++) {
 				if (code[i] == other[i])
@@ -90,7 +98,8 @@ public class BarcodeReader implements Runnable{
 			return totald;
 		}
 
-		public static barcode toBarcode(int[] code) {
+		public static barcode toBarcode(int[] code)
+		{
 			barcode bar = null;
 			int dis = 0;
 			if (code.length != barcode.one.code.length)
@@ -105,15 +114,19 @@ public class BarcodeReader implements Runnable{
 			return bar;
 		}
 
-		barcode(int... arg) {
+		barcode(int... arg)
+		{
 			code = arg;
 		}
 	};
 
-	enum color {
+	enum color
+	{
 		white, black, brown;
-		public String toString() {
-			switch (this) {
+		public String toString()
+		{
+			switch (this)
+			{
 			case white:
 				return "white";
 			case black:
@@ -126,11 +139,13 @@ public class BarcodeReader implements Runnable{
 
 	}
 
-	void push(node n, node[] stack) {
+	void push(node n, node[] stack)
+	{
 		stack[elems++] = n;
 	}
 
-	public static boolean EQual(int[] code, int[] code2) {
+	public static boolean EQual(int[] code, int[] code2)
+	{
 		for (int i = 0; i < code2.length; i++) {
 			if (code[i] != code2[i])
 				return false;
@@ -138,32 +153,35 @@ public class BarcodeReader implements Runnable{
 		return true;
 	}
 
-	node pop(node[] stack) {
+	node pop(node[] stack)
+	{
 		return stack[elems-- - 1];
 	}
 
-	void clear(node[] stack) {
+	void clear(node[] stack)
+	{
 		for (int i = 0; i < stack.length; i++) {
 			stack[i] = null;
 			elems = 0;
 		}
 	}
 
-	public void start(VirtuBot virtu) {
+	public void start(VirtuBot virtu)
+	{
 		this.virtu = virtu;
 		Thread barCodeReader = new Thread(this);
 		barCodeReader.start();
 	}
 
-	//@Override
-	public void run() {
+	// @Override
+	public void run()
+	{
 		color currentcolor = color.brown;
 		while (true) {
-			try{
+			try {
 				Thread.sleep(samplingtime);
-			}catch(Exception e)
-			{
-				
+			} catch (Exception e) {
+
 			}
 			color c = getCurrentColor();
 			if (!currentcolor.equals(c)) {
@@ -186,12 +204,12 @@ public class BarcodeReader implements Runnable{
 					&& peek(buffer).c.equals(color.brown)
 					&& peek(buffer).distanceto(
 							new node(null, virtu.getTachoCount())) > noiseDist) {
-				// new code detected 
+				// new code detected
 				int[] code = convertTocode(buffer);
 				barcode t = barcode.toBarcode(code);
 				lastRead = t;
-				//lastRead = t;
-				//editLastRead(t);
+				// lastRead = t;
+				// editLastRead(t);
 				clear(buffer);
 				setNewBarcode(true);
 				currentcolor = color.brown;
@@ -199,41 +217,48 @@ public class BarcodeReader implements Runnable{
 		}// while true
 
 	}
-	
-	private static boolean newBarcode=false;
 
-	public boolean hasNewBarcode() {
+	private static boolean newBarcode = false;
+
+	public boolean hasNewBarcode()
+	{
 		return BarcodeReader.newBarcode;
 	}
 
-	public void setNewBarcode(boolean newBarcode) {
+	public void setNewBarcode(boolean newBarcode)
+	{
 		BarcodeReader.newBarcode = newBarcode;
 	}
 
 	@SuppressWarnings("unused")
-	private void printbuffer() {
+	private void printbuffer()
+	{
 		for (int i = 0; i < elems; i++)
 			System.out.println("N:" + i + " c:" + buffer[i].c.toString() + ":"
 					+ buffer[i].base);
 	}
 
-	public static double todegrees(long cm) {
+	public static double todegrees(long cm)
+	{
 		return cm / Math.PI / 56 * 3600;
 	}
 
-	private node peek(node[] buffer2) {
+	private node peek(node[] buffer2)
+	{
 		return buffer2[elems - 1];
 
 	}
 
-	private boolean noise() {
+	private boolean noise()
+	{
 		if (elems <= 1)
 			return false;
 		return buffer[elems - 2].c.equals(color.brown)
 				&& buffer[elems - 2].distanceto(buffer[elems - 1]) < noiseDist;
 	}
 
-	private int[] convertTocode(node[] buffer2) {
+	private int[] convertTocode(node[] buffer2)
+	{
 		@SuppressWarnings("unused")
 		boolean castup = true;
 		double totaldist = buffer2[elems - 1].base - buffer2[0].base;
@@ -249,7 +274,8 @@ public class BarcodeReader implements Runnable{
 			int j = filled;
 
 			for (; j < filled + UNITS; j++) {
-				switch (c) {
+				switch (c)
+				{
 				case black:
 					returnvalue[j] = 0;
 					break;
@@ -264,19 +290,23 @@ public class BarcodeReader implements Runnable{
 		return returnvalue;
 	}
 
-	public boolean iswhite(int value) {
+	public boolean iswhite(int value)
+	{
 		return value < getWHITE() + (getBROWN() - getWHITE()) / 2;
 	}
 
-	public boolean isblack(int value) {
+	public boolean isblack(int value)
+	{
 		return value > getBLACK() - (getBLACK() - getWHITE()) / 2;
 	}
 
-	public boolean isbrown(int v) {
+	public boolean isbrown(int v)
+	{
 		return !isblack(v) && !iswhite(v);
 	}
 
-	public color getc(int v) {
+	public color getc(int v)
+	{
 		if (iswhite(v))
 			return color.white;
 		if (isblack(v))
@@ -284,21 +314,24 @@ public class BarcodeReader implements Runnable{
 		return color.brown;
 	}
 
-	color getCurrentColor() {
+	color getCurrentColor()
+	{
 		return getc(virtu.getLightSensor());
-	}	
-	
+	}
+
 	private static barcode lastRead;
+
 	/**
 	 * non destructive, will always return the barcode that was lastread.
+	 * 
 	 * @return
 	 */
-	public int getBarcode(){
-		
-		if(lastRead == null)
+	public int getBarcode()
+	{
+
+		if (lastRead == null)
 			return 666;
 		return lastRead.ordinal();
 	}
-
 
 }

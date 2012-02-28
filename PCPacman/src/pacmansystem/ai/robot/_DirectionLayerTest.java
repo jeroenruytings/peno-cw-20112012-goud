@@ -1,6 +1,6 @@
 package pacmansystem.ai.robot;
 
-
-class _DirectionLayerTest {
-	//TODO: test direcion adding
+class _DirectionLayerTest
+{
+	// TODO: test direcion adding
 }

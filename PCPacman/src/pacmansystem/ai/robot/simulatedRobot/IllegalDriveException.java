@@ -1,5 +1,6 @@
 package pacmansystem.ai.robot.simulatedRobot;
 
-public class IllegalDriveException extends Exception {
+public class IllegalDriveException extends Exception
+{
 
 }

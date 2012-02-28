@@ -9,31 +9,32 @@ import pacmansystem.ai.robot.fysicalRobot.connector.VirtuBot;
 import pacmansystem.board.Panel;
 import pacmansystem.board.enums.Direction;
 
+public class PanelLayer implements PanelLayerInterface
+{
 
-
-
-
-public class PanelLayer implements PanelLayerInterface {
-	
 	VirtuBot virtu;
 	public final static int distance = 40;
-	
-	public PanelLayer(VirtuBot virtu) {
+
+	public PanelLayer(VirtuBot virtu)
+	{
 		this.virtu = virtu;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see panel.PanelLayerInterface#go(direction.Direction)
 	 */
 	@Override
 	public void go(Direction d)
 	{
-		switch(d.ordinal()){
-		case 0: 
+		switch (d.ordinal())
+		{
+		case 0:
 			virtu.turn(-90);
 			virtu.drive(distance);
 			break;
-		case 1: 
+		case 1:
 			virtu.turn(90);
 			virtu.drive(distance);
 			break;
@@ -45,41 +46,49 @@ public class PanelLayer implements PanelLayerInterface {
 			virtu.drive(distance);
 		}
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see panel.PanelLayerInterface#hasBorder(direction.Direction)
 	 */
 	@Override
-	public boolean hasBorder(Direction d){
+	public boolean hasBorder(Direction d)
+	{
 		int distanceToWall;
-		switch(d.ordinal()){
-		case 0: 
+		switch (d.ordinal())
+		{
+		case 0:
 			virtu.turnHead(-90);
 			distanceToWall = virtu.getUltrasonic();
 			virtu.turnHead(90);
-			if(distanceToWall < 15)
+			if (distanceToWall < 15)
 				return true;
-			else 
+			else
 				return false;
-		case 1: 
+		case 1:
 			virtu.turnHead(90);
 			distanceToWall = virtu.getUltrasonic();
 			virtu.turnHead(-90);
-			if(distanceToWall < 15)
+			if (distanceToWall < 15)
 				return true;
-			else 
+			else
 				return false;
 		case 2:
 			distanceToWall = virtu.getUltrasonic();
-			if(distanceToWall < 15)
+			if (distanceToWall < 15)
 				return true;
-			else 
+			else
 				return false;
 		case 3:
 			return false;
 		}
-		return false;		
+		return false;
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see panel.PanelLayerInterface#hasBarcode()
 	 */
 	@Override
@@ -88,10 +97,14 @@ public class PanelLayer implements PanelLayerInterface {
 		color color = virtu.getBarcodeReader().getc(virtu.getLightSensor());
 		if (color != color.brown)
 			return true;
-		else return false;
+		else
+			return false;
 	}
-	//returns null if there is no barcode < also no ints.
-	/* (non-Javadoc)
+
+	// returns null if there is no barcode < also no ints.
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see panel.PanelLayerInterface#getBarcode()
 	 */
 	@Override
@@ -99,9 +112,10 @@ public class PanelLayer implements PanelLayerInterface {
 	{
 		throw new OperationNotSupportedException();
 	}
-	
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see panel.PanelLayerInterface#getPacman()
 	 */
 	@Override
@@ -110,11 +124,14 @@ public class PanelLayer implements PanelLayerInterface {
 		return null;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see panel.PanelLayerInterface#getPanel()
 	 */
 	@Override
-	public Panel getPanel() {
+	public Panel getPanel()
+	{
 
 		return null;
 	}
