@@ -5,7 +5,7 @@ import world.World;
 
 public class CommandJoin implements Command {
 
-	public CommandJoin(String name){
+	public CommandJoin(){
 		
 	}
 	
