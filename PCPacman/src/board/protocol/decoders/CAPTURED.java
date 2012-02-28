@@ -15,14 +15,16 @@ public class CAPTURED extends Decoder{
 
 	@Override
 	public boolean canDecode(String message) {
-		// TODO Auto-generated method stub
-		return false;
+		String[] mes = message.split(" ");
+		if(!correctKey(message))
+			return false;
+		return true;
 	}
 
 	@Override
 	public Command parse(String message) throws ParseException {
-		// TODO Auto-generated method stub
-		return new CommandCaptured();
+		String[] mes = message.split(" ");
+		return new CommandCaptured(mes[0]);
 	}
 
 }

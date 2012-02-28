@@ -29,7 +29,7 @@ public abstract class Decoder {
 	}
 	protected boolean correctKey(String message) {
 		String[] mes = message.split(" ");
-		if(!mes[1].equals("BARCODE"))
+		if(!mes[1].equals("_key"))
 			return false;
 		return true;
 	}

@@ -1,6 +1,5 @@
 package board;
 
-import java.rmi.activation.ActivationGroupDesc.CommandEnvironment;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;

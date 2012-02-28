@@ -1,7 +1,9 @@
 package board.protocol.decoders;
 
+import java.awt.Point;
 import java.text.ParseException;
 
+import board.CommandPacman;
 import board.protocol.Command;
 import board.protocol.Decoder;
 
@@ -22,8 +24,10 @@ public class PACMAN extends Decoder {
 
 	@Override
 	public Command parse(String message) throws ParseException {
-		// TODO Auto-generated method stub
-		return null;
+		String[] mes = message.split(" ");
+		String[] coordinate = mes[2].split(",");
+		Point coord= new Point(Integer.parseInt(coordinate[0]), Integer.parseInt(coordinate[1]));
+		return new CommandPacman(mes[0], coord);
 	}
 
 

@@ -20,8 +20,8 @@ public class BARCODE extends Decoder {
 
 	@Override
 	public Command parse(String message) throws ParseException {
-		// TODO Auto-generated method stub
-		return new CommandBarcode()	;
+		String[] mes = message.split(" ");
+		return new CommandBarcode(mes[0],Integer.parseInt(mes[2]),Integer.parseInt(mes[3]));
 	}
 
 

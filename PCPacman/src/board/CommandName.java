@@ -13,8 +13,11 @@ public class CommandName implements Command {
 	}
 	@Override
 	public String getNameFrom() {
-		// TODO Auto-generated method stub
-		return null;
+		return _name;
+	}
+	
+	public int getVersion(){
+		return _version;
 	}
 
 	@Override

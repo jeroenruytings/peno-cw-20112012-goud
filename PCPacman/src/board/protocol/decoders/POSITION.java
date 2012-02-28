@@ -1,9 +1,9 @@
 package board.protocol.decoders;
 
+import java.awt.Point;
 import java.text.ParseException;
 
-import board.Simulator;
-import board.protocol.Command;
+import board.CommandPosition;
 import board.protocol.Decoder;
 
 public class POSITION extends  Decoder{
@@ -21,10 +21,14 @@ public class POSITION extends  Decoder{
 		return true;
 	}
 
+	/**
+	 * Create a Command object for the given message.
+	 */
 	@Override
-	public Command parse(String message) throws ParseException {
-		// TODO Auto-generated method stub
-		return null;
+	public CommandPosition parse(String message) throws ParseException {
+		String[] mes = message.split(" ");
+		String[] coord = mes[2].split(",");
+		return new CommandPosition(mes[0], new Point(Integer.parseInt(coord[0]), Integer.parseInt(coord[1])));
 	}
 	
 }

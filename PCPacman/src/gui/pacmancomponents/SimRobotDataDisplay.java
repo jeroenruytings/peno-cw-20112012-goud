@@ -20,7 +20,7 @@ public class SimRobotDataDisplay extends Canvas{
 	 */
 	private static final long serialVersionUID = 1L;
 	private SimRobotData myRobotData;
-	private Color robotColor = Color.RED;
+	private Color robotColor = Color.PINK;
 	
 	public SimRobotDataDisplay(SimRobotData robot)
 	{

@@ -1,5 +1,6 @@
 package board.protocol.decoders;
 
+import java.awt.Point;
 import java.text.ParseException;
 
 import board.CommandDiscover;
@@ -23,7 +24,11 @@ public class DISCOVER  extends Decoder {
 
 	@Override
 	public Command parse(String message) throws ParseException {
-		return new CommandDiscover();
+		//TODO: Does the message contain "\n"?
+		String[] mes = message.split(" ");
+		String[] coord = mes[2].split(",");
+		Point discovered = new Point(Integer.parseInt(coord[0]), Integer.parseInt(coord[1]));
+		return new CommandDiscover(mes[0],discovered,Byte.parseByte(mes[3]),Byte.parseByte(mes[4]),Byte.parseByte(mes[5]), Byte.parseByte(mes[6]));
 	}
 
 }

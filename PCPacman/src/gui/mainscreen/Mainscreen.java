@@ -260,7 +260,7 @@ public class Mainscreen {
 	board.add(panel2, new Point(0,1));
 	board.add(panel3, new Point(1,0));
 	srd.setPosition(new Point(0,1));
-	srd.setPacman(new Point(1, 0));
+	srd.setPacman(new Point(0, 0));
 	}
 	
 
