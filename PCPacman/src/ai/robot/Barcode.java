@@ -1,4 +1,4 @@
-package panel;
+package ai.robot;
 
 public enum Barcode {
 	

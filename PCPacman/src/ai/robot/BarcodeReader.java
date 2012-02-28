@@ -1,4 +1,4 @@
-package panel;
+package ai.robot;
 
 import ai.robot.fysicalRobot.connector.VirtuBot;
 

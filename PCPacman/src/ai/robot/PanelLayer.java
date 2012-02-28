@@ -1,14 +1,14 @@
-package panel;
+package ai.robot;
 
 import java.awt.Point;
 
 import javax.naming.OperationNotSupportedException;
 
+import ai.robot.BarcodeReader.color;
 import ai.robot.fysicalRobot.connector.VirtuBot;
 import board.Panel;
 import board.enums.Direction;
 
-import panel.BarcodeReader.color;
 
 
 

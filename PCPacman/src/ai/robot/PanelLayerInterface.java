@@ -1,4 +1,4 @@
-package panel;
+package ai.robot;
 
 import java.awt.Point;
 

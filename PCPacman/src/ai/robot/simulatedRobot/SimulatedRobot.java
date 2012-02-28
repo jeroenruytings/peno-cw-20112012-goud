@@ -3,12 +3,12 @@ package ai.robot.simulatedRobot;
 import java.awt.Point;
 
 
+import ai.robot.Barcode;
+import ai.robot.PanelLayerInterface;
 import board.Panel;
 import board.Simulator;
 import board.enums.Direction;
 import board.enums.Orientation;
-import panel.Barcode;
-import panel.PanelLayerInterface;
 
 public class SimulatedRobot implements PanelLayerInterface {
 	private Point _currentLocation;

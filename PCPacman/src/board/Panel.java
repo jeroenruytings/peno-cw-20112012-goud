@@ -1,8 +1,8 @@
 package board;
 
 
+import ai.robot.Barcode;
 import board.enums.Orientation;
-import panel.Barcode;
 
 public class Panel
 {

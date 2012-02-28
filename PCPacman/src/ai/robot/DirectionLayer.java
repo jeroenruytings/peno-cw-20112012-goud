@@ -4,7 +4,6 @@ import ai.robot.simulatedRobot.IllegalDriveException;
 import board.Panel;
 import board.enums.Direction;
 import board.enums.Orientation;
-import panel.PanelLayerInterface;
 
 public class DirectionLayer {
 	private Orientation currentOrientation;

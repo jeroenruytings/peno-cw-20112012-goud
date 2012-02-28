@@ -22,7 +22,7 @@ public class VirtuBot {
 		
 	}
 	
-	public int getSensorValue(panel.Sensor sensor){
+	public int getSensorValue(ai.robot.Sensor sensor){
 		return 0;
 	}
 
