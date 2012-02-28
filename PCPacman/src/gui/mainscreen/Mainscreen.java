@@ -249,7 +249,7 @@ public class Mainscreen {
 	Panel panel1 = new Panel();
 	Panel panel2 = new Panel();
 	Panel panel3 = new Panel();
-	RobotData srd = new RobotData(null, board);
+	RobotData srd = new RobotData(board);
 	{
 	panel1.setBorder(Orientation.NORTH, true);
 	panel1.setBorder(Orientation.WEST, true);
