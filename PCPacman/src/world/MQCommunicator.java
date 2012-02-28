@@ -2,8 +2,6 @@ package world;
 
 import java.io.IOException;
 
-import board.Simulator;
-
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -17,13 +15,12 @@ public class MQCommunicator implements Runnable {
 	private static final String QUEUENAME = "queue";
 	private Connection _conn;
 	private Channel _chan;
-	private Simulator _sim; 
-	public MQCommunicator(String host,Simulator sim) throws IOException{
+	public MQCommunicator(String host) throws IOException{
 		ConnectionFactory fact = new ConnectionFactory();
 		fact.setHost(host);
 		_conn = fact.newConnection();
 		_chan = _conn.createChannel();
-		_sim=sim;
+		
 	}
 
 	@Override
@@ -51,7 +48,7 @@ public class MQCommunicator implements Runnable {
 				e.printStackTrace();
 			}
 			String message = new String(del.getBody());
-			_sim.proces(message);
+			
 			
 		}
 	}
