@@ -38,7 +38,7 @@ public class SensorMonitor extends LeoMonitor{
 			System.out.println("value irsensor: " + decoder.value());
 		case LIGHTSENSOR:
 			//gevolg invullen
-			System.out.println("ligtsensor: " + decoder.value());
+			System.out.println("lichtsensor: " + decoder.value());
 			break;
 		case ULTRASONIC:
 			// gevolg invullen

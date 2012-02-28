@@ -1,15 +1,12 @@
 package connector;
 
 import java.io.DataInputStream;
-
+import java.io.IOException;
 import java.io.DataOutputStream;
-
-import lejos.pc.comm.NXTConnector;
 
 public class PCCommunicator implements Runnable {
 
 	private LeoMonitor startOfChain = buildMonitors();
-	
 	private Connection connection;
 	private DataOutputStream streamOut;
 	private DataInputStream streamIn;
@@ -37,16 +34,33 @@ public class PCCommunicator implements Runnable {
 				);
 	}
 
+	public void sendCommando(Commando commando) {
+		try {
+			streamOut.writeInt(commando.getAction().ordinal());
+			streamOut.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void receiveValues() throws IOException{
+		byte[] input = new byte[2];		
+		input[0] = streamIn.readByte();
+		input[1] = streamIn.readByte();
+		startOfChain.accept(input);
+	}
+	
 	@Override
 	public void run() {
 		try {
 			while (true) {
-				byte[] input = new byte[2];		
-				input[0] = streamIn.readByte();
-				input[1] = streamIn.readByte();
-				startOfChain.accept(input);
-
+				receiveValues();
+				Commando comm = new Commando(Action.FORWARD, "");
+				sendCommando(comm);
+				Commando com = new Commando(Action.STOP,"");
+				sendCommando(com);
 			}
+			
 		} catch (Exception e) {
 			System.out.println("things went bananas QQ!");
 		}
