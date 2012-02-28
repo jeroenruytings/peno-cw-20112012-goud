@@ -27,12 +27,24 @@ public class Board {
 		this.columns = columns;
 	}
 	
+	/**
+	 * This constructor does not specify the dimensions of the board.
+	 * The dimensions are the maxX and maxY coordinates.
+	 */
+	public Board(){
+		this(0,0);
+	}
+	
 	public int getRows() {
-		return rows;
+		if (rows > maxY())
+			return rows;
+		return maxY();
 	}
 	
 	public int getColumns() {
-		return columns;
+		if (columns > maxX())
+			return columns;
+		return maxX();
 	}
 
 	public Board(Board board) {
