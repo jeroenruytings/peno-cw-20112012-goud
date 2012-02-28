@@ -1,6 +1,7 @@
 package connector;
 
 import java.io.DataInputStream;
+import java.util.Random;
 import java.io.IOException;
 import java.io.DataOutputStream;
 
@@ -55,10 +56,10 @@ public class PCCommunicator implements Runnable {
 		try {
 			while (true) {
 				receiveValues();
-				Commando comm = new Commando(Action.FORWARD, "");
+				Random generator = new Random();
+				Action action = Action.getActionByOrdinal(generator.nextInt(6));
+				Commando comm = new Commando(action, "");
 				sendCommando(comm);
-				Commando com = new Commando(Action.STOP,"");
-				sendCommando(com);
 			}
 			
 		} catch (Exception e) {
