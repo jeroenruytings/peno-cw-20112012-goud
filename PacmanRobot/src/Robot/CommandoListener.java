@@ -1,5 +1,8 @@
 package Robot;
 
+import java.awt.Button;
+
+import lejos.nxt.LCD;
 import lejos.nxt.Motor;
 
 public class CommandoListener implements Runnable {
@@ -38,9 +41,40 @@ public class CommandoListener implements Runnable {
 		case 4:
 			right();
 			break;
+		case 5:
+			calibrateBlack();
+		case 6:
+			calibrateWhite();
+		case 7:
+			calibrateBrown();
+			
 		default:;
 		}
 		
+	}
+
+	private void calibrateBrown() {
+		LCD.clear();
+		LCD.drawString("BRUIN (enter)", 0, 0);
+		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
+		lejos.nxt.Button.ENTER.waitForPressAndRelease();
+		communicator.send(message);
+	}
+
+	private void calibrateWhite() {
+		LCD.clear();
+		LCD.drawString("WIT (enter)", 0, 0);
+		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
+		lejos.nxt.Button.ENTER.waitForPressAndRelease();
+		communicator.send(message);
+	}
+
+	private void calibrateBlack() {
+		LCD.clear();
+		LCD.drawString("BLACK (enter)", 0, 0);
+		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
+		lejos.nxt.Button.ENTER.waitForPressAndRelease();
+		communicator.send(message);
 	}
 
 	public static Commando decodeCommando(int comm){
