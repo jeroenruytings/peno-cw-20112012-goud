@@ -5,6 +5,7 @@ import lejos.nxt.LightSensor;
 import lejos.nxt.SensorPort;
 import lejos.nxt.TouchSensor;
 import lejos.nxt.UltrasonicSensor;
+import lejos.nxt.addon.IRSeeker;
 
 
 public class SensorListener implements Runnable {
@@ -12,11 +13,11 @@ public class SensorListener implements Runnable {
 	UltrasonicSensor sonar = new UltrasonicSensor(SensorPort.S3); //check
 	LightSensor light = new LightSensor(SensorPort.S1);	//check
 	TouchSensor push = new TouchSensor(SensorPort.S4);	//check
-	IRSeekerV2 ir = new IRSeekerV2(SensorPort.S2, Mode.AC);	//check
+	IRSeeker ir = new IRSeeker(SensorPort.S2);	//check
 	
 	
 	public void start(){
-	
+	ir.setAddress(0x8);
 	Thread listener = new Thread(this);
     listener.start();
 	}
@@ -46,19 +47,21 @@ public class SensorListener implements Runnable {
 		sendValue(sonarValue, SensorIdentifier.UltrasonicSensor);
 		Thread.yield();
 		
-//		// send direction ir
-//		int irDirection = getIrDirection();
-//		sendValue(irDirection, SensorIdentifier.DirectionIrSensor);
-//		
-//		// send sonar value
-//		int irValue = getIrValue();
-//		sendValue(irValue, SensorIdentifier.ValueIrSensor);
+		// send direction ir
+		int irDirection = getIrDirection();
+		sendValue(irDirection, SensorIdentifier.DirectionIrSensor);
+		
+		// send sonar value
+		int irValue = getIrValue();
+		sendValue(irValue, SensorIdentifier.ValueIrSensor);
+		
 		
 		}	
 		
 	}
 
 	private int getIrDirection() {
+		
 		return ir.getDirection();
 	}
 
