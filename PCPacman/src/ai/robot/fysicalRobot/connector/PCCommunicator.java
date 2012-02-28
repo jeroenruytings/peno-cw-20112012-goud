@@ -1,4 +1,4 @@
-package connector;
+package ai.robot.fysicalRobot.connector;
 
 import java.io.DataInputStream;
 import java.util.Random;

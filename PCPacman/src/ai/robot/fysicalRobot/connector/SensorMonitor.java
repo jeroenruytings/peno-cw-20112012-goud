@@ -1,5 +1,5 @@
 
-package connector;
+package ai.robot.fysicalRobot.connector;
 
 
 public class SensorMonitor extends LeoMonitor{

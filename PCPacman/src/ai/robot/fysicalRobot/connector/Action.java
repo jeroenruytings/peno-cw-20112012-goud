@@ -1,4 +1,4 @@
-package connector;
+package ai.robot.fysicalRobot.connector;
 
 public enum Action {
 	STOP,FORWARD,BACKWARD, LEFT, RIGHT, CALIBRATEBLACK,

@@ -1,4 +1,4 @@
-package connector;
+package ai.robot.fysicalRobot.connector;
 
 import lejos.pc.comm.NXTCommFactory;
 import lejos.pc.comm.NXTConnector;

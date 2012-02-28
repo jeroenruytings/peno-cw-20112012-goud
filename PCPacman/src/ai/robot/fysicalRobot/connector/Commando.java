@@ -1,4 +1,4 @@
-package connector;
+package ai.robot.fysicalRobot.connector;
 
 
 public class Commando {
