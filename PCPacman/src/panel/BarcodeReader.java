@@ -1,6 +1,7 @@
 package panel;
 
-import mover.VirtuBot;
+import pacmansystem.ai.robot.fysicalRobot.connector.VirtuBot;
+
 
 
 
