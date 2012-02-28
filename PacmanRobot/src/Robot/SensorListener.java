@@ -1,10 +1,10 @@
 package Robot;
 
+import Robot.IRSeekerV2.Mode;
 import lejos.nxt.LightSensor;
 import lejos.nxt.SensorPort;
 import lejos.nxt.TouchSensor;
 import lejos.nxt.UltrasonicSensor;
-import lejos.nxt.addon.IRSeeker;
 
 
 public class SensorListener implements Runnable {
@@ -12,7 +12,7 @@ public class SensorListener implements Runnable {
 	UltrasonicSensor sonar = new UltrasonicSensor(SensorPort.S3);
 	LightSensor light = new LightSensor(SensorPort.S2);
 	TouchSensor push = new TouchSensor(SensorPort.S1);
-	IRSeeker ir = new IRSeeker(SensorPort.S4);
+	IRSeekerV2 ir = new IRSeekerV2(SensorPort.S4, Mode.AC);
 	
 	
 	public void start(){
@@ -40,19 +40,18 @@ public class SensorListener implements Runnable {
 		
 		// send direction ir
 		int irDirection = getIrDirection();
-		sendValue(sonarValue, SensorIdentifier.DirectionIrSensor);
+		sendValue(irDirection, SensorIdentifier.DirectionIrSensor);
 		
 		// send sonar value
 		int irValue = getIrValue();
-		sendValue(sonarValue, SensorIdentifier.ValueIrSensor);
+		sendValue(irValue, SensorIdentifier.ValueIrSensor);
 		
 		}	
 		
 	}
 
 	private int getIrDirection() {
-		// TODO Auto-generated method stub
-		return 0;
+		return ir.getDirection();
 	}
 
 	private int getSonarValue() {
@@ -66,17 +65,13 @@ public class SensorListener implements Runnable {
 	}
 
 	private int getIrValue() {
-		
-		//TODO op moment standaardwaarde
-		return ir.getSensorValue(5);
+		return ir.getSensorValue(getIrDirection());
 	}
 
 	private void sendValue(int Value, SensorIdentifier sensorID) {
 		
         Message mes = new Message(Monitor.SensorMonitor, sensorID, new SensorValue((byte)Value));
-        RobotCommunicator.instance().send(mes);
-
-		
+        RobotCommunicator.instance().send(mes);	
 	}
 
 	private int getPushValue() {
