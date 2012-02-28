@@ -9,9 +9,10 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import world.RobotData;
+import pacmansystem.board.Board;
+import pacmansystem.world.RobotData;
 
-import board.Board;
+
 
 
 public class SimRobotDataDisplay extends Canvas{

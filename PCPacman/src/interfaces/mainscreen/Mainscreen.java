@@ -15,9 +15,6 @@ import java.awt.Point;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 
-import board.Board;
-import board.Panel;
-import board.enums.Orientation;
 
 import javax.swing.JToolBar;
 import javax.swing.JPanel;
@@ -29,7 +26,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import javax.swing.JLabel;
 
-import world.RobotData;
+import pacmansystem.board.Board;
+import pacmansystem.board.Panel;
+import pacmansystem.board.enums.Orientation;
+import pacmansystem.world.RobotData;
+
 
 import java.awt.Dimension;
 

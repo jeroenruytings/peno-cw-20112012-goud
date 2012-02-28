@@ -5,10 +5,11 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
 
+import pacmansystem.board.Board;
+import pacmansystem.board.Panel;
+import pacmansystem.board.enums.Orientation;
 
-import board.Board;
-import board.Panel;
-import board.enums.Orientation;
+
 
 public class BoardDisplayer {
 	
