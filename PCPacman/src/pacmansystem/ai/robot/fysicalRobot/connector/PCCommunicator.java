@@ -12,6 +12,7 @@ public class PCCommunicator implements Runnable
 	private Connection connection;
 	private DataOutputStream streamOut;
 	private DataInputStream streamIn;
+	private VirtuBot virtu;
 
 	public PCCommunicator()
 	{
@@ -25,16 +26,17 @@ public class PCCommunicator implements Runnable
 		streamIn = connection.getConnection().getDataIn();
 	}
 
-	public static void main(String[] args)
+	public void start(VirtuBot virtu)
 	{
 		PCCommunicator comm = new PCCommunicator();
 		Thread t = new Thread(comm);
+		this.virtu = virtu;
 		t.start();
 	}
 
-	private static LeoMonitor buildMonitors()
+	private LeoMonitor buildMonitors()
 	{
-		return new SensorMonitor(new NullMonitor(null));
+		return new SensorMonitor(new NullMonitor(null), virtu);
 	}
 
 	public void sendCommando(Commando commando)

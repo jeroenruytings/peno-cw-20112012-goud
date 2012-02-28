@@ -18,6 +18,18 @@ public class BarcodeReader implements Runnable
 	{
 		return WHITE;
 	}
+	
+	public void setWhite(int white){
+		WHITE = white;
+	}
+	
+	public void setBlack(int black){
+		BLACK = black;
+	}
+	
+	public void setBrown(int brown){
+		BROWN = brown;
+	}
 
 	public int getBLACK()
 	{
@@ -31,7 +43,6 @@ public class BarcodeReader implements Runnable
 
 	private void calibrateBlack(VirtuBot virtu) {
 		virtu.calibrateBlack();
-
 	}
 
 	private void calibrateWhite(VirtuBot virtu) {
@@ -39,7 +50,7 @@ public class BarcodeReader implements Runnable
 	}
 
 	private void calibrateBrown(VirtuBot virtu) {
-		virtu.calibrateBlack();
+		virtu.calibrateBrown();
 	}
 
 	public void calibrate(VirtuBot virtu)

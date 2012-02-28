@@ -3,11 +3,13 @@ package pacmansystem.ai.robot.fysicalRobot.connector;
 public class SensorMonitor extends LeoMonitor
 {
 	private SensorDecoder decoder;
+	private VirtuBot virtu;
 
-	public SensorMonitor(LeoMonitor next)
+	public SensorMonitor(LeoMonitor next, VirtuBot virtu)
 	{
 		super(next);
 		this.decoder = new SensorDecoder();
+		this.virtu = virtu;
 	}
 
 	/**
@@ -44,6 +46,10 @@ public class SensorMonitor extends LeoMonitor
 			// gevolg invullen
 			System.out.println("afstandssensor: " + decoder.value());
 			break;
+		case BUTTON:
+			virtu.pushButton();
+			break;
+			
 		}
 
 	}

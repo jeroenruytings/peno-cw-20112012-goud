@@ -11,15 +11,21 @@ public class VirtuBot
 	private boolean pushSensor;
 	private int infraredSensor;
 	private BarcodeReader barcodeReader;
+	private PCCommunicator pcc;
+	boolean button = false;
 
+	
 	public VirtuBot(String name)
 	{
 
 		setName(name);
 		barcodeReader = new BarcodeReader();
 		barcodeReader.calibrate(this);
-
+		pcc = new PCCommunicator();
+		Thread communicator = new Thread(pcc);
+		communicator.start();
 	}
+	
 
 	public void turn(int degrees)
 	{
@@ -92,10 +98,11 @@ public class VirtuBot
 		return 0;
 	}
 
-	public int calibrateBlack()
+	public void calibrateBlack()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		pcc.sendCommando(new Commando(Action.CALIBRATEBLACK, "Calibrate black"));
+		while(!buttonIsPushed()) ;
+		getBarcodeReader().setBlack(getLightSensor());
 	}
 
 		public BarcodeReader getBarcodeReader() {
@@ -103,7 +110,25 @@ public class VirtuBot
 		}
 
 		public void calibrateWhite() {
-			// TODO Auto-generated method stub
+			pcc.sendCommando(new Commando(Action.CALIBRATEWHITE, "Calibrate white"));
+			while(!buttonIsPushed()) ;
+			getBarcodeReader().setWhite(getLightSensor());
+			
+		}
+		
+		public void calibrateBrown() {
+			pcc.sendCommando(new Commando(Action.CALIBRATEBROWN, "Calibrate brown"));
+			while(!buttonIsPushed()) ;
+			getBarcodeReader().setBrown(getLightSensor());
+			
+		}
+		
+		public void pushButton(){
+			button = true;
+		}
+		
+		public boolean buttonIsPushed(){
+			return button;
 			
 		}
 }
