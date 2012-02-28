@@ -39,4 +39,14 @@ public class Panel
 		return new Panel(this);
 	}
 
+	public boolean hasBarcode() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public Barcode getBarcode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
