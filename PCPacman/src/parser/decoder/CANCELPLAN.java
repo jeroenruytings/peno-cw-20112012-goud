@@ -14,7 +14,6 @@ public class CANCELPLAN extends Decoder {
 
 	@Override
 	public boolean canDecode(String message) {
-		String[] mes = message.split(" ");
 		if(!correctKey(message))
 			return false;
 		return true;
@@ -22,8 +21,8 @@ public class CANCELPLAN extends Decoder {
 
 	@Override
 	public Command parse(String message) throws ParseException {
-		// TODO Auto-generated method stub
-		return new CommandCancelPlan();
+		String[] mes = message.split(" ");
+		return new CommandCancelPlan(mes[0]);
 	}
 
 }
