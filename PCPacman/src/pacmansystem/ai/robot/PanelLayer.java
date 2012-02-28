@@ -54,7 +54,7 @@ public class PanelLayer implements PanelLayerInterface {
 		switch(d.ordinal()){
 		case 0: 
 			virtu.turnHead(-90);
-			distanceToWall = virtu.getSensorValue(Sensor.SONAR);
+			distanceToWall = virtu.getUltrasonic();
 			virtu.turnHead(90);
 			if(distanceToWall < 15)
 				return true;
@@ -62,14 +62,14 @@ public class PanelLayer implements PanelLayerInterface {
 				return false;
 		case 1: 
 			virtu.turnHead(90);
-			distanceToWall = virtu.getSensorValue(Sensor.SONAR);
+			distanceToWall = virtu.getUltrasonic();
 			virtu.turnHead(-90);
 			if(distanceToWall < 15)
 				return true;
 			else 
 				return false;
 		case 2:
-			distanceToWall = virtu.getSensorValue(Sensor.SONAR);
+			distanceToWall = virtu.getUltrasonic();
 			if(distanceToWall < 15)
 				return true;
 			else 
@@ -85,7 +85,7 @@ public class PanelLayer implements PanelLayerInterface {
 	@Override
 	public boolean hasBarcode()
 	{
-		color color = BarcodeReader.getc(virtu.getLightSensor());
+		color color = virtu.getBarcodeReader().getc(virtu.getLightSensor());
 		if (color != color.brown)
 			return true;
 		else return false;

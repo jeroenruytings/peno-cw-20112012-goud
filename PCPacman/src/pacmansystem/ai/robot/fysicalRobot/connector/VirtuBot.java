@@ -1,5 +1,10 @@
 package pacmansystem.ai.robot.fysicalRobot.connector;
 
+import pacmansystem.ai.robot.BarcodeReader;
+
+
+
+
 public class VirtuBot {
 
  
@@ -8,7 +13,16 @@ public class VirtuBot {
 	 private int lightSensor;
 	 private boolean pushSensor;
 	 private int infraredSensor;
+	 private BarcodeReader barcodeReader;
 	
+	 
+	public VirtuBot(String name){
+		
+		setName(name);
+		barcodeReader = new BarcodeReader();
+		barcodeReader.calibrate(this);
+		
+	}
 	
 	public void turn(int degrees){
 		
@@ -22,9 +36,7 @@ public class VirtuBot {
 		
 	}
 	
-	public int getSensorValue(pacmansystem.ai.robot.Sensor sensor){
-		return 0;
-	}
+
 
 		public String getName() {
 			return name;
@@ -69,6 +81,15 @@ public class VirtuBot {
 		public int getTachoCount() {
 			// TODO Auto-generated method stub
 			return 0;
+		}
+
+		public int calibrateBlack() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		public BarcodeReader getBarcodeReader() {
+			return barcodeReader;
 		}
 	
 	

@@ -4,6 +4,8 @@ import pacmansystem.ai.robot.fysicalRobot.connector.VirtuBot;
 
 
 
+
+
 public class BarcodeReader implements Runnable{
 	
 	
@@ -11,27 +13,41 @@ public class BarcodeReader implements Runnable{
 	int elems = 0;
 	private long samplingtime=5;
 	private VirtuBot virtu;
-	static int WHITE;
-	static int BLACK;
-	static int BROWN;
+	private int WHITE;
+	private int BLACK;
+	private int BROWN;
 	static int noiseDist = 24;
+	
+	public int getWHITE() {
+		return WHITE;
+	}
 
-	private static void calibrateBlack() {
+	public int getBLACK() {
+		return BLACK;
+	}
+
+	public int getBROWN() {
+		return BROWN;
+	}
+
+	private void calibrateBlack(VirtuBot virtu) {
+		
+		virtu.calibrateBlack();
 		
 	}
 
-	private static void calibrateWhite() {
+	private void calibrateWhite(VirtuBot virtu) {
 		
 	}
 
-	private static void calibrateBrown() {
+	private void calibrateBrown(VirtuBot virtu) {
 		
 	}
 
-	public static void calibrate() {
-		calibrateBlack();
-		calibrateBrown();
-		calibrateWhite();		
+	public void calibrate(VirtuBot virtu) {
+		calibrateBlack(virtu);
+		calibrateBrown(virtu);
+		calibrateWhite(virtu);		
 	}
 
 	class node {
@@ -248,19 +264,19 @@ public class BarcodeReader implements Runnable{
 		return returnvalue;
 	}
 
-	static boolean iswhite(int value) {
-		return value < WHITE + (BROWN - WHITE) / 2;
+	public boolean iswhite(int value) {
+		return value < getWHITE() + (getBROWN() - getWHITE()) / 2;
 	}
 
-	static boolean isblack(int value) {
-		return value > BLACK - (BLACK - WHITE) / 2;
+	public boolean isblack(int value) {
+		return value > getBLACK() - (getBLACK() - getWHITE()) / 2;
 	}
 
-	static boolean isbrown(int v) {
+	public boolean isbrown(int v) {
 		return !isblack(v) && !iswhite(v);
 	}
 
-	static color getc(int v) {
+	public color getc(int v) {
 		if (iswhite(v))
 			return color.white;
 		if (isblack(v))
