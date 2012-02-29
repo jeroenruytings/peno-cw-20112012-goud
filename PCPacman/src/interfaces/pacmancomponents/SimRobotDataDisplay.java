@@ -6,9 +6,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
-
 import pacmansystem.board.Board;
 import pacmansystem.world.RobotData;
 
@@ -22,6 +20,9 @@ public class SimRobotDataDisplay extends Canvas
 	private RobotData myRobotData;
 	private Color robotColor = Color.BLUE;
 
+	private Graphics bufferedGraphics;
+	private Image bufferedImage;
+	
 	public SimRobotDataDisplay(RobotData robot)
 	{
 		super();
@@ -68,11 +69,26 @@ public class SimRobotDataDisplay extends Canvas
 	/**
 	 * Code to draw the canvas, given it's SimRobotData.
 	 */
+	@Override
 	public void paint(Graphics g)
 	{
-		drawBoard(g);
-		drawRobot(g);
-		drawPacman(g);
+		if (bufferedImage == null){
+			bufferedImage = createImage(this.getWidth(), this.getHeight());
+			bufferedGraphics = bufferedImage.getGraphics();
+		}
+		
+		bufferedGraphics.clearRect(0, 0, getWidth(), getHeight());
+		drawBoard(bufferedGraphics);
+		drawRobot(bufferedGraphics);
+		drawPacman(bufferedGraphics);
+		
+		
+		g.drawImage(bufferedImage, 0,0,this);
+	}
+	
+	@Override
+	public void update(Graphics g){
+		paint(g);
 	}
 
 	/**

@@ -20,6 +20,20 @@ public class CommandPong implements Command {
 	public String getNameFrom() {
 		return _name;
 	}
+	
+	/**
+	 * @return The name of the recipient.
+	 */
+	public String getBestemmeling(){
+		return _bestemmeling;
+	}
+	
+	/**
+	 * @return The string passed along to the pong commando.
+	 */
+	public String getString(){
+		return _string;
+	}
 
 	@Override
 	public void execute(World simulator) {

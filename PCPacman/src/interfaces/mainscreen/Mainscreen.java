@@ -27,6 +27,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
 import pacmansystem.board.Board;
+import pacmansystem.board.BoardCreator;
 import pacmansystem.board.Panel;
 import pacmansystem.board.enums.Orientation;
 import pacmansystem.world.RobotData;

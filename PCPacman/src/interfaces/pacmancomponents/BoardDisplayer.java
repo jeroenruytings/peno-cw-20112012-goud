@@ -16,6 +16,7 @@ public class BoardDisplayer
 	private static final int SPACE = 4;
 	private static final Color color = Color.BLUE;
 
+
 	public Image getTrackImage(Board t, int height, int width)
 	{
 		return null;
