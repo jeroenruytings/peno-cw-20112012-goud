@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -29,6 +30,8 @@ import pacmansystem.board.Board;
 import pacmansystem.board.Panel;
 import pacmansystem.board.enums.Orientation;
 import pacmansystem.world.RobotData;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Mainscreen
 {
@@ -170,9 +173,17 @@ public class Mainscreen
 		lblGlobal.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_4.add(lblGlobal, BorderLayout.NORTH);
 
-		Canvas cnvGlobal = new SimRobotDataDisplay(srd);
+		final SimRobotDataDisplay cnvGlobal = new SimRobotDataDisplay(srd);
 		cnvGlobal.setBackground(Color.BLACK);
 		panel_4.add(cnvGlobal, BorderLayout.CENTER);
+		JButton btnColortest = new JButton("ColorTest");
+		btnColortest.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cnvGlobal.setRobotColor(JColorChooser.showDialog(frmPacman, "Kies een Kleur", cnvGlobal.getRobotColor()));
+				cnvGlobal.repaint();
+			}
+		});
+		splitPane_5.setRightComponent(btnColortest);
 
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.BLACK);

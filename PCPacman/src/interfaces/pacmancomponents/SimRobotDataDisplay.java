@@ -28,6 +28,16 @@ public class SimRobotDataDisplay extends Canvas
 		this.setBackground(Color.BLACK);
 		myRobotData = robot;
 	}
+	
+	public Color getRobotColor(){
+		return robotColor;
+	}
+	
+	public void setRobotColor(Color newColor){
+		if (newColor != null){
+			this.robotColor = newColor;
+		}
+	}
 
 	public Board getBoard()
 	{
