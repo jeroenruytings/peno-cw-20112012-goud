@@ -1,6 +1,5 @@
 package Robot;
 
-import Robot.IRSeekerV2.Mode;
 import lejos.nxt.LightSensor;
 import lejos.nxt.Motor;
 import lejos.nxt.MotorPort;
@@ -17,11 +16,26 @@ public class SensorListener implements Runnable {
 	TouchSensor push = new TouchSensor(SensorPort.S4);	//check
 	IRSeeker ir = new IRSeeker(SensorPort.S2);	//check
 	Motor motor = new Motor(MotorPort.A);
+	
+	int sonarValue;
+	int lightValue;
+	int pushValue; 
+	int irValue; 
+	int irDirection;
+	int tachoCount; 
+
 
 	
 	
 	public void start(){
 	ir.setAddress(0x8);
+	sonarValue = sonar.getDistance(); 
+	lightValue = light.getLightValue();
+	pushValue = 0;
+	irDirection = ir.getDirection();	
+	irValue = ir.getSensorValue(irDirection); 
+	tachoCount = new Motor(MotorPort.A).getTachoCount();
+	
 	Thread listener = new Thread(this);
     listener.start();
 	}
@@ -30,40 +44,47 @@ public class SensorListener implements Runnable {
 	public void run() {
 		
 		while (true){
-		
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-			}
+			
 		//send push value
-		int pushValue = getPushValue();
+			if(pushValue != getPushValue()){
+				pushValue = getPushValue();
 		sendValue(pushValue, SensorIdentifier.PushSensor);
+			}
 		Thread.yield();
 				
 		//send light value
-		int lightValue = getLightValue();
+			if(lightValue != getLightValue()){
+				lightValue = getLightValue();
 		sendValue(lightValue, SensorIdentifier.LightSensor);
+			}
 		Thread.yield();
 		
 		// send sonar value
-		int sonarValue = getSonarValue();
+			if(sonarValue != getSonarValue()){
+				sonarValue = getSonarValue();
 		sendValue(sonarValue, SensorIdentifier.UltrasonicSensor);
+			}
 		Thread.yield();
 		
-		// send direction ir
-		int irDirection = getIrDirection();
+		// send direction ir	
+			if(irDirection != getIrDirection()){
+				irDirection = getIrDirection();
 		sendValue(irDirection, SensorIdentifier.DirectionIrSensor);
+			}
 		Thread.yield();
 		
 		// send sonar value
-		int irValue = getIrValue();
+			if(irValue != getIrValue()){
+				irValue = getIrValue();
 		sendValue(irValue, SensorIdentifier.ValueIrSensor);
+			}
 		Thread.yield();
 		
 		//sent Tachocount
-		int tachoCount = getTachoCount();
+			if(tachoCount != getTachoCount()){
+				tachoCount = getTachoCount();
 		sendValue(tachoCount, SensorIdentifier.TachoCount);
+			}
 		Thread.yield();
 		
 		
@@ -80,10 +101,8 @@ public class SensorListener implements Runnable {
 		return ir.getDirection();
 	}
 
-	private int getSonarValue() {
-		
-		return sonar.getDistance();			
-		
+	private int getSonarValue() {	
+		return sonar.getDistance();
 	}
 
 	private int getLightValue() {

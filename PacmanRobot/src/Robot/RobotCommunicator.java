@@ -5,14 +5,13 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import lejos.nxt.Button;
+import lejos.nxt.LCD;
 import lejos.nxt.comm.BTConnection;
 import lejos.nxt.comm.Bluetooth;
 
 public class RobotCommunicator {
 	private static RobotCommunicator instance;
 	private DataOutputStream out;
-	@SuppressWarnings("unused")
 	private DataInputStream in;
 
 	public static RobotCommunicator instance() {
@@ -52,6 +51,7 @@ public class RobotCommunicator {
 	public Commando receiveCommando() {
 		Commando commando = null;
 		try {
+			LCD.clear();
 			commando = CommandoListener.decodeCommando(in.readInt());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

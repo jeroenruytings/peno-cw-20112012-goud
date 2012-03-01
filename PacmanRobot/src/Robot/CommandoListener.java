@@ -21,35 +21,44 @@ public class CommandoListener implements Runnable {
 	}
 	
 	private void executeCommando(Commando receivedCommando) {
-		if (receivedCommando == null)
+		LCD.clear();
+		LCD.drawString("EXECUTE COMMAND", 0, 0);
+		
+		if (receivedCommando == null){
+			LCD.drawString("NULL", 0, 2);
 			return;
-		switch (receivedCommando.getAction().ordinal()){
-		case 0:
-			stop();
-			break;
-		case 1:
-			forward();
-			break;
-		case 2:
-			backward();
-			break;
-		case 3:
-			left();
-			break;
-		case 4:
-			right();
-			break;
-		case 5:
-			calibrateBlack();
-		case 6:
-			calibrateWhite();
-		case 7:
-			calibrateBrown();
-			
-		default:;
+		}
+		else{
+			switch (receivedCommando.getAction().ordinal()){
+				case 0:
+					stop();
+					break;
+				case 1:
+					forward();
+					break;
+				case 2:
+					backward();
+					break;
+				case 3:
+					left();
+					break;
+				case 4:
+					right();
+					break;
+				case 5:
+					calibrateBlack();
+					break;
+				case 6:
+					calibrateWhite();
+					break;
+				case 7:
+					calibrateBrown();
+					break;
+				default:;
+			}
 		}
 		
-	}
+		}
 
 	private void calibrateBrown() {
 		LCD.clear();
@@ -76,6 +85,8 @@ public class CommandoListener implements Runnable {
 	}
 
 	public static Commando decodeCommando(int comm){
+		LCD.clear();
+		System.out.println("IN decode!");
 		switch(comm){
 		case 0:
 			return new Commando(Action.STOP,"");
@@ -87,6 +98,12 @@ public class CommandoListener implements Runnable {
 			return new Commando(Action.LEFT,"");
 		case 4:
 			return new Commando(Action.RIGHT,"");
+		case 5:
+			return new Commando(Action.CALIBRATEBLACK,"");
+		case 6:
+			return new Commando(Action.CALIBRATEWHITE, "");
+		case 7:
+			return new Commando(Action.CALIBRATEBROWN, "");
 		//nog extra commando's invoegen;
 		default:
 			return null;
@@ -98,32 +115,6 @@ public class CommandoListener implements Runnable {
 		//TODO
 	}
 	
-//	boolean finished = false;
-//	while(!finished){
-//		System.out.println("Controller" + rec.getCurrentCommand());
-//		switch (rec.getCurrentCommand()){
-//		case 0:
-//			stop();
-//			break;
-//		case 1:
-//			forward();
-//			break;
-//		case 2:
-//			backward();
-//			break;
-//		case 3:
-//			left();
-//			break;
-//		case 4:
-//			right();
-//			break;
-//		default:;
-//	}
-
-	
-	
-//}
-
 private static void right() {
 	Motor.B.forward();
 	Motor.A.backward();
