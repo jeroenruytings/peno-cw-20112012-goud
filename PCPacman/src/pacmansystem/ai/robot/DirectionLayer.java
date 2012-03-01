@@ -11,13 +11,17 @@ public class DirectionLayer
 
 	private PanelLayerInterface layer;
 
+	public PanelLayerInterface getLayer() {
+		return layer;
+	}
+
 	/**
 	 * 
 	 * @param layer
 	 */
-	public DirectionLayer(PanelLayerInterface layer)
+	public DirectionLayer()
 	{
-		this.layer = layer;
+		layer = new PanelLayer();
 	}
 
 	public void go(Orientation... o) throws IllegalDriveException
@@ -26,9 +30,9 @@ public class DirectionLayer
 			go(orient);
 	}
 
-	public Panel getPanel()
+	public Panel getPanel(Orientation orientation)
 	{
-		return layer.getPanel();
+		return layer.getPanel(orientation);
 	}
 
 	/**

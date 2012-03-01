@@ -64,7 +64,7 @@ public class SimulatedRobot implements PanelLayerInterface
 	}
 
 	@Override
-	public Panel getPanel()
+	public Panel getPanel(Orientation orientation)
 	{
 		sleep(2);
 		return _realWorld.getGlobalBoard().getPanelAt(_currentLocation);

@@ -7,6 +7,7 @@ import javax.naming.OperationNotSupportedException;
 import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
 import pacmansystem.board.Panel;
 import pacmansystem.board.enums.Direction;
+import pacmansystem.board.enums.Orientation;
 
 public interface PanelLayerInterface
 {
@@ -36,6 +37,6 @@ public interface PanelLayerInterface
 	 */
 	public abstract Point getPacman();
 
-	public abstract Panel getPanel();
+	public abstract Panel getPanel(Orientation currentOrientation);
 
 }

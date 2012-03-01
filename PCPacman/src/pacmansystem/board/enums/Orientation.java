@@ -46,7 +46,6 @@ public enum Orientation
 				return WEST;
 			case UP:
 				return this;
-
 			case RIGHT:
 				return EAST;
 			case DOWN:

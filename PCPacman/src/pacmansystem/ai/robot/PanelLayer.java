@@ -8,16 +8,19 @@ import pacmansystem.ai.robot.BarcodeReader.color;
 import pacmansystem.ai.robot.fysicalRobot.connector.MoverLayer;
 import pacmansystem.board.Panel;
 import pacmansystem.board.enums.Direction;
+import pacmansystem.board.enums.Orientation;
 
 public class PanelLayer implements PanelLayerInterface
 {
 
 	MoverLayer mover;
 	public final static int distance = 40;
+	Panel panel;
 
-	public PanelLayer(MoverLayer mover)
+	public PanelLayer()
 	{
-		this.mover = mover;
+		mover = new MoverLayer();
+		panel = new Panel();
 	}
 
 	/*
@@ -124,15 +127,22 @@ public class PanelLayer implements PanelLayerInterface
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see panel.PanelLayerInterface#getPanel()
+	/**
+	 * Geeft het paneel terug waarop de robot zich bevindt. Hij voegt muren toe en een eventuele barcode.
+	 *
 	 */
 	@Override
-	public Panel getPanel()
+	public Panel getPanel(Orientation currentOrientation)
 	{
-
-		return null;
+		for (Direction direction : Direction.values()) {
+			if(hasBorder(direction)){
+				panel.setBorder(currentOrientation.addTo(direction), true);
+			}
+			else{
+				panel.setBorder(currentOrientation.addTo(direction), false);
+			}
+		}
+		//TODO: barcode toevoegen aan paneel
+		return panel;
 	}
 }

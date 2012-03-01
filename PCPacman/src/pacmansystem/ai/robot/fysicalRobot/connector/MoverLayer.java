@@ -5,7 +5,6 @@ import pacmansystem.ai.robot.BarcodeReader;
 public class MoverLayer
 {
 
-	private String name;
 	private int ultrasonic;
 	private int lightSensor;
 	private boolean pushSensor;
@@ -15,10 +14,9 @@ public class MoverLayer
 	boolean button = false;
 
 	
-	public MoverLayer(String name)
+	public MoverLayer()
 	{
 
-		setName(name);
 		barcodeReader = new BarcodeReader();
 		barcodeReader.calibrate(this);
 		pcc = new PCCommunicator();
@@ -42,15 +40,7 @@ public class MoverLayer
 
 	}
 
-	public String getName()
-	{
-		return name;
-	}
-
-	private void setName(String name)
-	{
-		this.name = name;
-	}
+	
 
 	public int getUltrasonic()
 	{

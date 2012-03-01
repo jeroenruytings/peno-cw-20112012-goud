@@ -2,7 +2,9 @@ package pacmansystem.ai;
 
 import java.awt.Point;
 
+import pacmansystem.ai.robot.PathLayer;
 import pacmansystem.board.Board;
+import pacmansystem.board.Panel;
 import pacmansystem.board.enums.Orientation;
 
 public class RobotController
@@ -12,6 +14,15 @@ public class RobotController
 	private int currentY;
 	private Orientation currentOrientation;
 	private Board board;
+	public Board getBoard() {
+		return board;
+	}
+
+	private PathLayer pathLayer;
+
+	public PathLayer getPathLayer() {
+		return pathLayer;
+	}
 
 	public static void main(String[] args)
 	{
@@ -20,10 +31,26 @@ public class RobotController
 		RobotController main = new RobotController(rows, columns);
 		Point destination = null;
 		while (true) {
-			// kijk om u heen
-			destination = main.lookForDestination();
-			// ga naar destination en pas currentX en Y aan
+			Panel p = main.getPathLayer().getDirectionLayer().getPanel(main.getCurrentOrientation()); //getPanel() moet om zich heen kijken
+			//Punten toevoegen
+			main.getBoard().add(p, main.getCurrentPoint()); //voegt panel toe aan board
+			destination = main.lookForDestination(); //zoekt volgend punt om naartoe te gaan
+			main.getPathLayer().go(main.getCurrentPoint(), destination); //gaat naar volgend punt
+			main.setCurrentPoint(destination); //verandert huidig punt
 		}
+	}
+
+	public Orientation getCurrentOrientation() {
+		return currentOrientation;
+	}
+
+	private Point getCurrentPoint() {
+		return new Point(getCurrentX(),getCurrentY());
+	}
+	
+	private void setCurrentPoint(Point p){
+		setCurrentX((int) p.getX());
+		setCurrentY((int) p.getY());
 	}
 
 	public Point lookForDestination()
@@ -97,6 +124,9 @@ public class RobotController
 		currentY = 0;
 		currentOrientation = Orientation.NORTH;
 		board = new Board(rows, columns);
+		Panel p1 = new Panel();
+		board.add(p1, new Point(0,0));
+		pathLayer = new PathLayer(board);
 	}
 
 	public RobotController(Board board)
@@ -105,6 +135,7 @@ public class RobotController
 		currentX = 0;
 		currentY = 0;
 		currentOrientation = Orientation.NORTH;
+		pathLayer = new PathLayer(board);
 	}
 
 	public int getCurrentX()

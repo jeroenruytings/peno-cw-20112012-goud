@@ -242,5 +242,20 @@ public class Board
 		}
 		return nbUnknown;
 	}
+	
+	/**
+	 * Geeft null terug als punten niet naast mekaar gelegen zijn
+	 * 
+	 * @param 
+	 * @return
+	 */
+	public static Orientation getOrientationBetween(Point one, Point two){
+		for (Orientation orientation : Orientation.values()) {
+			Point point = orientation.addTo(one);
+			if (point.getX() == two.getX() && point.getY() == two.getY())
+				return orientation;
+		}
+		return null;
+	}
 
 }
