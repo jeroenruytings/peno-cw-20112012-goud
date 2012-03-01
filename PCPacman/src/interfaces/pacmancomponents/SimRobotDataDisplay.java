@@ -8,6 +8,7 @@ import java.awt.Point;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import pacmansystem.board.Board;
+import pacmansystem.board.enums.Orientation;
 import pacmansystem.world.RobotData;
 
 public class SimRobotDataDisplay extends Canvas
@@ -22,6 +23,7 @@ public class SimRobotDataDisplay extends Canvas
 
 	private Graphics bufferedGraphics;
 	private Image bufferedImage;
+	private Orientation robotOrientation = Orientation.SOUTH;
 	
 	public SimRobotDataDisplay(RobotData robot)
 	{
@@ -130,7 +132,7 @@ public class SimRobotDataDisplay extends Canvas
 	private void drawRobot(Graphics g)
 	{
 		if (myRobotData.getPosition() != null) {
-			g.drawImage(getImage("ghost.png"),
+			g.drawImage(getGhostImage(robotOrientation ),
 					(int) (calculateInitialPosition().getX()
 							+ (calculatePanelWidth() * myRobotData
 									.getPosition().getX()) + getSpacing()),
@@ -141,6 +143,21 @@ public class SimRobotDataDisplay extends Canvas
 					calculatePanelWidth() - 2 * getSpacing(),
 					calculatePanelWidth() - 2 * getSpacing(), robotColor, this);
 		}
+	}
+	
+	
+	public Image getGhostImage(Orientation direction){
+		switch (direction) {
+		case NORTH:
+			return getImage("ghostUP.png");
+		case EAST:
+			return getImage("ghostRight.png");
+		case SOUTH:
+			return getImage("ghostDown.png");
+		case WEST:
+			return getImage("ghostLeft.png");
+		}
+		return null;
 	}
 
 	

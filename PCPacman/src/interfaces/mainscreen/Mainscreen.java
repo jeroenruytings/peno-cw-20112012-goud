@@ -4,7 +4,6 @@ import interfaces.pacmancomponents.Barcodeframe;
 import interfaces.pacmancomponents.SimRobotDataDisplay;
 
 import java.awt.BorderLayout;
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -19,7 +18,6 @@ import java.io.InputStream;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
@@ -35,14 +33,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import java.awt.GridLayout;
-import javax.swing.BoxLayout;
-import javax.swing.SpringLayout;
-import java.awt.FlowLayout;
 import java.awt.Cursor;
 
 public class Mainscreen
