@@ -23,15 +23,33 @@ public class TestClass {
 			System.out.println("BarcodeReader WHITE: " + mover.getBarcodeReader().getWHITE());
 			System.out.println("BarcodeReader BROWN: " + mover.getBarcodeReader().getBROWN());
 		
-		mover.getPcc().sendCommando(new Commando(Action.FORWARD, "BarcodeTest"));
+//		mover.getPcc().sendCommando(new Commando(Action.FORWARD, "BarcodeTest"));
 		
 		while (true){
-			int barcode = mover.getBarcodeReader().getBarcode();
-			if(barcode != 666){
-			System.out.println();
+			 
+			int sonar = mover.getUltrasonic();
+			int IRD = mover.getInfraredSensorDirection();
+			int IRV = mover.getInfraRedSensorValue();
+			int tacho = mover.getTachoCount();
+			int light =  mover.getUltrasonic();
+			
+			sonar = mover.getUltrasonic();
+			System.out.println("SONAR: " + sonar );
+		
+			light = mover.getLightSensor();
+			System.out.println("LIGHT: " + light );
+				
+			IRD = mover.getInfraredSensorDirection();
+			System.out.println("IRD:" + IRD );
+			
+			IRV = mover.getInfraRedSensorValue();
+			System.out.println("IRV " + IRV);
+			
+			tacho = mover.getTachoCount();
+			System.out.println("TACHO: " + tacho);
 			}
 		}
 			
 	}
 
-}
+

@@ -43,7 +43,8 @@ public class PCCommunicator implements Runnable
 	public void sendCommando(Commando commando)
 	{
 		try {
-			streamOut.writeInt(commando.getAction().ordinal());
+			int k = (((commando.getAction().ordinal())*1000) + commando.getArgument());
+			streamOut.writeInt(k);
 			streamOut.flush();
 		} catch (IOException e) {
 			e.printStackTrace();

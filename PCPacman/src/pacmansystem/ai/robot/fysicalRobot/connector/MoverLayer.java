@@ -8,7 +8,8 @@ public class MoverLayer
 	private int ultrasonic;
 	private int lightSensor;
 	private boolean pushSensor;
-	private int infraredSensor;
+	private int infraredSensorDirection;
+	private int infraRedSensorValue;
 	private BarcodeReader barcodeReader;
 	private PCCommunicator pcc;
 	boolean button = false;
@@ -42,9 +43,9 @@ public class MoverLayer
 
 	public void drive(int distance)
 	{
-		pcc.sendCommando(new Commando(Action.FORWARD, "test"));
+		pcc.sendCommando(new Commando(Action.FORWARD,distance, "test"));
 		for (int i = 0; i<100; i++);
-		pcc.sendCommando(new Commando(Action.STOP, "test"));
+		pcc.sendCommando(new Commando(Action.STOP,0, "test"));
 
 	}
 
@@ -60,7 +61,7 @@ public class MoverLayer
 		return ultrasonic;
 	}
 
-	private void setUltrasonic(int ultrasonic)
+	public void setUltrasonic(int ultrasonic)
 	{
 		this.ultrasonic = ultrasonic;
 	}
@@ -75,19 +76,19 @@ public class MoverLayer
 		return pushSensor;
 	}
 
-	private void setPushSensor(boolean pushSensor)
+	public void setPushSensor(boolean pushSensor)
 	{
 		this.pushSensor = pushSensor;
 	}
 
-	public int getInfraredSensor()
+	public int getInfraredSensorDirection()
 	{
-		return infraredSensor;
+		return infraredSensorDirection;
 	}
 
-	private void setInfraredSensor(int infraredSensor)
+	public void setInfraredSensorDirection(int infraredSensor)
 	{
-		this.infraredSensor = infraredSensor;
+		this.infraredSensorDirection = infraredSensor;
 	}
 
 	public int getTachoCount()
@@ -100,7 +101,7 @@ public class MoverLayer
 	public void calibrateBlack()
 	{
 		System.out.println("Sending to calibrate BLACK");
-		pcc.sendCommando(new Commando(Action.CALIBRATEBLACK, "Calibrate black"));
+		pcc.sendCommando(new Commando(Action.CALIBRATEBLACK,0, "Calibrate black"));
 		while(!buttonIsPushed()) ;
 		getBarcodeReader().setBlack(getLightSensor());
 		button = false;
@@ -111,7 +112,7 @@ public class MoverLayer
 	}
 
 	public void calibrateWhite() {
-		pcc.sendCommando(new Commando(Action.CALIBRATEWHITE, "Calibrate white"));
+		pcc.sendCommando(new Commando(Action.CALIBRATEWHITE,0, "Calibrate white"));
 		while(!buttonIsPushed()) ;
 		getBarcodeReader().setWhite(getLightSensor());
 		button = false;
@@ -119,7 +120,7 @@ public class MoverLayer
 	}
 	
 	public void calibrateBrown() {
-		pcc.sendCommando(new Commando(Action.CALIBRATEBROWN, "Calibrate brown"));
+		pcc.sendCommando(new Commando(Action.CALIBRATEBROWN,0, "Calibrate brown"));
 		while(!buttonIsPushed()) ;
 		getBarcodeReader().setBrown(getLightSensor());
 		button = false;
@@ -150,4 +151,14 @@ public class MoverLayer
 	public PCCommunicator getPcc() {
 		return this.pcc;
 	}
+
+	public void setInfraRedSensorValue(int infraRedSensorValue) {
+		this.infraRedSensorValue = infraRedSensorValue;
+	}
+
+	public int getInfraRedSensorValue() {
+		return infraRedSensorValue;
+	}
+
+
 }
