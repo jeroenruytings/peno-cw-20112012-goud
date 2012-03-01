@@ -26,7 +26,8 @@ public class CAPTURED extends Decoder
 	@Override
 	public Command parse(String message) throws ParseException
 	{
-		String[] mes = message.split(" ");
+		String msg = stripMessage(message);
+		String[] mes = msg.split(" ");
 		return new CommandCaptured(mes[0]);
 	}
 

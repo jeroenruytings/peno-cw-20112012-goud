@@ -231,7 +231,7 @@ public class Board
 	public int nbOfUnknowns(Point point)
 	{
 		int nbUnknown = 0;
-		Collection<Point> points = getSurrounding(point);
+		//Collection<Point> points = getSurrounding(point);
 		for (Point current : getSurrounding(point)) {
 			if (panels.containsKey(current))
 				continue;

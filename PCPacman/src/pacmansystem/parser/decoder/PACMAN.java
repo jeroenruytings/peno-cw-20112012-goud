@@ -19,7 +19,6 @@ public class PACMAN extends Decoder
 	@Override
 	public boolean canDecode(String message)
 	{
-		String[] mes = message.split(" ");
 		if (!correctKey(message))
 			return false;
 		return true;
@@ -28,7 +27,8 @@ public class PACMAN extends Decoder
 	@Override
 	public Command parse(String message) throws ParseException
 	{
-		String[] mes = message.split(" ");
+		String msg = stripMessage(message);
+		String[] mes = msg.split(" ");
 		String[] coordinate = mes[2].split(",");
 		Point coord = new Point(Integer.parseInt(coordinate[0]),
 				Integer.parseInt(coordinate[1]));

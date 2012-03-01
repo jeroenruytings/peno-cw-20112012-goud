@@ -22,6 +22,17 @@ public abstract class Decoder
 	public abstract boolean canDecode(String message);
 
 	public abstract Command parse(String message) throws ParseException;
+	
+	/**
+	 * This message strips messages to the right format for the parse method.
+	 * @param 	message
+	 * 				The message to strip.
+	 * @return
+	 * 			The stripped message.
+	 */
+	public String stripMessage(String message){
+		return message.replaceAll("\n", "");
+	}
 
 	public Decoder next()
 	{

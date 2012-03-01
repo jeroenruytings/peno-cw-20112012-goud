@@ -26,7 +26,8 @@ public class PING extends Decoder
 	@Override
 	public Command parse(String message) throws ParseException
 	{
-		String[] mes = message.split(" ");
+		String msg = stripMessage(message);
+		String[] mes = msg.split(" ");
 		return new CommandPing(mes[0], mes[2], mes[3]);
 	}
 

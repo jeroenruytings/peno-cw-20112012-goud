@@ -19,7 +19,6 @@ public class DISCOVER extends Decoder
 	@Override
 	public boolean canDecode(String message)
 	{
-		String[] mes = message.split(" ");
 		if (!correctKey(message))
 			return false;
 		return true;
@@ -28,8 +27,8 @@ public class DISCOVER extends Decoder
 	@Override
 	public Command parse(String message) throws ParseException
 	{
-		// TODO: Does the message contain "\n"?
-		String[] mes = message.split(" ");
+		String msg = stripMessage(message);
+		String[] mes = msg.split(" ");
 		String[] coord = mes[2].split(",");
 		Point discovered = new Point(Integer.parseInt(coord[0]),
 				Integer.parseInt(coord[1]));

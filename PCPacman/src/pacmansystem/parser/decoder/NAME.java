@@ -18,7 +18,6 @@ public class NAME extends Decoder
 	@Override
 	public boolean canDecode(String message)
 	{
-		String[] mes = message.split(" ");
 		if (!correctKey(message))
 			return false;
 		return true;
@@ -29,7 +28,8 @@ public class NAME extends Decoder
 	{
 		if (!canDecode(message))
 			throw new ParseException("exc", 0);
-		String[] mes = message.split(" ");
+		String msg = stripMessage(message);
+		String[] mes = msg.split(" ");
 		return new CommandName(mes[0], new Integer(mes[2]));
 	}
 

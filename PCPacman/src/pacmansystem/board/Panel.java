@@ -47,13 +47,12 @@ public class Panel
 
 	public Barcode getBarcode()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return barcode;
 	}
 
-	public void setBarcode(int _barcode)
+	public void setBarcode(int barcode)
 	{
-		// TODO Auto-generated method stub
+		//TODO: CREATE BARCODE CLASS!!!!
 
 	}
 

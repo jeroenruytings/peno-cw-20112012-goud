@@ -27,7 +27,8 @@ public class PONG extends Decoder
 	@Override
 	public Command parse(String message) throws ParseException
 	{
-		String[] mes = message.split(" ");
+		String msg = stripMessage(message);
+		String[] mes = msg.split(" ");
 		return new CommandPong(mes[0],mes[2],mes[3]);
 	}
 

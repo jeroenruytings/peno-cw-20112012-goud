@@ -25,7 +25,8 @@ public class CANCELPLAN extends Decoder
 	@Override
 	public Command parse(String message) throws ParseException
 	{
-		String[] mes = message.split(" ");
+		String msg = stripMessage(message);
+		String[] mes = msg.split(" ");
 		return new CommandCancelPlan(mes[0]);
 	}
 

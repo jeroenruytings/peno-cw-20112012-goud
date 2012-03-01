@@ -18,7 +18,6 @@ public class POSITION extends Decoder
 	@Override
 	public boolean canDecode(String message)
 	{
-		String[] mes = message.split(" ");
 		if (!correctKey(message))
 			return false;
 		return true;
@@ -30,7 +29,8 @@ public class POSITION extends Decoder
 	@Override
 	public CommandPosition parse(String message) throws ParseException
 	{
-		String[] mes = message.split(" ");
+		String msg = stripMessage(message);
+		String[] mes = msg.split(" ");
 		String[] coord = mes[2].split(",");
 		return new CommandPosition(mes[0], new Point(
 				Integer.parseInt(coord[0]), Integer.parseInt(coord[1])));

@@ -28,7 +28,8 @@ public class PLAN extends Decoder
 	@Override
 	public Command parse(String message) throws ParseException
 	{
-		String[] mes = message.split(" ");
+		String msg = stripMessage(message);
+		String[] mes = msg.split(" ");
 		Point[] param = new Point[mes.length - 2];
 		int x;
 		int y;
