@@ -1,7 +1,5 @@
 package Robot;
 
-import java.awt.Button;
-
 import lejos.nxt.LCD;
 import lejos.nxt.Motor;
 

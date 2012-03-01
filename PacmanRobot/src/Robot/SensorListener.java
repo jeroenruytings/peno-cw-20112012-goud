@@ -2,6 +2,8 @@ package Robot;
 
 import Robot.IRSeekerV2.Mode;
 import lejos.nxt.LightSensor;
+import lejos.nxt.Motor;
+import lejos.nxt.MotorPort;
 import lejos.nxt.SensorPort;
 import lejos.nxt.TouchSensor;
 import lejos.nxt.UltrasonicSensor;
@@ -14,6 +16,8 @@ public class SensorListener implements Runnable {
 	LightSensor light = new LightSensor(SensorPort.S1);	//check
 	TouchSensor push = new TouchSensor(SensorPort.S4);	//check
 	IRSeeker ir = new IRSeeker(SensorPort.S2);	//check
+	Motor motor = new Motor(MotorPort.A);
+
 	
 	
 	public void start(){
@@ -50,14 +54,25 @@ public class SensorListener implements Runnable {
 		// send direction ir
 		int irDirection = getIrDirection();
 		sendValue(irDirection, SensorIdentifier.DirectionIrSensor);
+		Thread.yield();
 		
 		// send sonar value
 		int irValue = getIrValue();
 		sendValue(irValue, SensorIdentifier.ValueIrSensor);
+		Thread.yield();
+		
+		//sent Tachocount
+		int tachoCount = getTachoCount();
+		sendValue(tachoCount, SensorIdentifier.TachoCount);
+		Thread.yield();
 		
 		
 		}	
 		
+	}
+
+	private int getTachoCount() {
+		return motor.getTachoCount();
 	}
 
 	private int getIrDirection() {
