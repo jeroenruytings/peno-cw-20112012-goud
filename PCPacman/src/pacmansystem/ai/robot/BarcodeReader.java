@@ -13,6 +13,11 @@ public class BarcodeReader implements Runnable
 	private int BLACK;
 	private int BROWN;
 	static int noiseDist = 24;
+	
+	public BarcodeReader(MoverLayer mover){
+		this.virtu = mover;
+		System.out.println("VLAK VOOR CALIBREREN");
+	}
 
 	public int getWHITE()
 	{
@@ -272,8 +277,8 @@ public class BarcodeReader implements Runnable
 		@SuppressWarnings("unused")
 		boolean castup = true;
 		double totaldist = buffer2[elems - 1].base - buffer2[0].base;
-		double basedist = totaldist / 8; // there are 7 bits
-		int[] returnvalue = new int[8];
+		double basedist = totaldist / 7; // there are 7 bits tweede sem  TODO 8 nog aanpassen
+		int[] returnvalue = new int[7];
 		int filled = 0;
 		for (int i = 1; i < elems; i++) {
 			double dist = buffer2[i].base - buffer2[i - 1].base;
@@ -338,7 +343,7 @@ public class BarcodeReader implements Runnable
 	 */
 	public int getBarcode()
 	{
-
+		
 		if (lastRead == null)
 			return 666;
 		return lastRead.ordinal();

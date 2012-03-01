@@ -4,8 +4,8 @@ public enum Action
 {
 	STOP, FORWARD, BACKWARD, LEFT, RIGHT, CALIBRATEBLACK, 
 	CALIBRATEWHITE, CALIBRATEBROWN, READBARCODE
-	// stop = 0. forward = 4, backward = 5, calibrablack = 6,
-	// calibratewhite = 7, Calibratebrown = 8, readbarcode = 9, etc...
+	// stop = 0, forward = 1, backward = 2, left = 3, right = 4, calibrablack = 5,
+	// calibratewhite = 6, Calibratebrown = 7, readbarcode = 8, etc...
 	;
 
 	public static Action getActionByOrdinal(int nextInt)

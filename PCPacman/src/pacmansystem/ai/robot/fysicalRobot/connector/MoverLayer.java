@@ -17,17 +17,20 @@ public class MoverLayer
 	
 	public MoverLayer()
 	{
-//		initialiseMoverLayer();
+		initialiseMoverLayer();
 	}
 	
-	public void initialiseMoverLayer(){
+	private void initialiseMoverLayer(){
 		
-		barcodeReader = new BarcodeReader();
-//		Thread reader = new Thread(barcodeReader);
-//		reader.start();
 		pcc = new PCCommunicator(this);
 		Thread communicator = new Thread(pcc);
 		communicator.start();
+		System.out.println("VLAK VOOR AANMAAK BARCODEREADER");
+		barcodeReader = new BarcodeReader(this);
+		getBarcodeReader().calibrate(this);
+		Thread reader = new Thread(barcodeReader);
+		System.out.println("barcodereader mover: " + reader);
+		reader.start();
 		
 	}
 	
@@ -96,6 +99,7 @@ public class MoverLayer
 
 	public void calibrateBlack()
 	{
+		System.out.println("Sending to calibrate BLACK");
 		pcc.sendCommando(new Commando(Action.CALIBRATEBLACK, "Calibrate black"));
 		while(!buttonIsPushed()) ;
 		getBarcodeReader().setBlack(getLightSensor());

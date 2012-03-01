@@ -30,30 +30,30 @@ public class SensorMonitor extends LeoMonitor
 		{
 		case PUSH:
 			// gevolg invullen
-			System.out.println("druksensor: " + decoder.value());
-			System.out.println(virtu);
+//			System.out.println("druksensor: " + decoder.value());
 			break;
 		case DIRECTIONIRSENSOR:
 			// gevolg invullen
-			System.out.println("direction irsensor: " + decoder.value());
+//			System.out.println("direction irsensor: " + decoder.value());
 		case VALUEIRSENSOR:
 			// gevolg invullen
-			System.out.println("value irsensor: " + decoder.value());
+//			System.out.println("value irsensor: " + decoder.value());
 		case LIGHTSENSOR:
 			// gevolg invullen
-			System.out.println("lichtsensor: " + decoder.value());
+//			System.out.println("lichtsensor: " + decoder.value());
 			virtu.setLightSensor(decoder.value());
 			break;
 		case ULTRASONIC:
 			// gevolg invullen
-			System.out.println("afstandssensor: " + decoder.value());
+//			System.out.println("afstandssensor: " + decoder.value());
 			break;
 		case BUTTON:
 			virtu.pushButton();
+//			System.out.println(virtu.buttonIsPushed());
 			break;
 		case TACHOCOUNT:
-			System.out.println("tachocount: " + decoder.value());
-//			virtu.setTachoCount(decoder.value());
+//			System.out.println("tachocount: " + decoder.value());
+			virtu.setTachoCount(decoder.value());
 			
 		}
 

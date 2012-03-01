@@ -65,10 +65,11 @@ public class PCCommunicator implements Runnable
 			while (true) {
 				//TODO run invullen
 				receiveValues();
-				Random generator = new Random();
-				Action action = Action.getActionByOrdinal(generator.nextInt(6));
-				Commando comm = new Commando(action, "");
-				sendCommando(comm);
+//				System.out.println(virtu.buttonIsPushed());
+//				Random generator = new Random();
+//				Action action = Action.getActionByOrdinal(generator.nextInt(6));
+//				Commando comm = new Commando(action, "");
+//				sendCommando(comm);
 			}
 
 		} catch (Exception e) {
