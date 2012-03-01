@@ -10,6 +10,11 @@ import java.awt.Panel;
 
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class Barcodeframe extends JFrame{
 
@@ -19,6 +24,31 @@ public class Barcodeframe extends JFrame{
 		super("Bacode");
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.barcode = barcode;
+		
+		JPanel pnlBarcode = new JPanel();
+		pnlBarcode.setForeground(Color.BLACK);
+		pnlBarcode.setBackground(Color.GRAY);
+		getContentPane().add(pnlBarcode, BorderLayout.CENTER);
+		pnlBarcode.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblBarcode = new JLabel("\"" + String.valueOf(barcode) + "\"");
+		lblBarcode.setForeground(Color.WHITE);
+		lblBarcode.setBackground(Color.GRAY);
+		lblBarcode.setHorizontalAlignment(SwingConstants.CENTER);
+		lblBarcode.setFont(new Font("Dialog", Font.BOLD, 20));
+		pnlBarcode.add(lblBarcode, BorderLayout.NORTH);
+		Panel p = new Panel() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void paint(Graphics g){
+				drawBarcode(g, this);
+			}
+		};
+		pnlBarcode.add(p,BorderLayout.CENTER);
 	}
 	
 	/**
@@ -44,20 +74,6 @@ public class Barcodeframe extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public void init(){
-		Panel p = new Panel() {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void paint(Graphics g){
-				drawBarcode(g, this);
-			}
-		};
-		this.getContentPane().add(p);
-	}
 	
 	private void drawBarcode(Graphics g, Component c){
 		char[] barcodestring = (Integer.toString(barcode)).toCharArray();
@@ -65,8 +81,12 @@ public class Barcodeframe extends JFrame{
 			if (barcodestring[i] == '1'){
 				g.setColor(Color.BLACK);
 				g.fillRect(0, (i * (c.getHeight() / barcodestring.length)), c.getWidth(), (c.getHeight() / barcodestring.length));
-				g.setColor(Color.WHITE);
 			}
+			else if (barcodestring[i] == '0'){
+				g.setColor(Color.WHITE);
+				g.fillRect(0, (i * (c.getHeight() / barcodestring.length)), c.getWidth(), (c.getHeight() / barcodestring.length));
+			}
+			
 		}
 	}
 	
@@ -75,7 +95,6 @@ public class Barcodeframe extends JFrame{
 		Barcodeframe tmp = new Barcodeframe(barcode);
 		tmp.setMinimumSize(new Dimension(600,400));
 		tmp.setVisible(true);
-		tmp.init();
 	}
 
 }
