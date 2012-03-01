@@ -3,7 +3,10 @@ package interfaces.pacmancomponents;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.List;
 import java.awt.Point;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import pacmansystem.board.Board;
 import pacmansystem.board.Panel;
@@ -119,6 +122,16 @@ public class BoardDisplayer
 					&& (d != null))
 				nullOrientations[d.ordinal()] = d;
 		}
+		
+		ArrayList<Orientation> noNullBorder = new ArrayList<Orientation>(4);
+		for(Orientation o : Orientation.values()){
+			noNullBorder.add(o);
+		}
+		for(Orientation o2 : nullOrientations){
+			noNullBorder.remove(o2);
+		}
+		
+		
 		// Draw the null Orientations.
 		Point initialCoord = new Point(initialCoordinate.x
 				+ (panelCoordinate.x * panelWidth), initialCoordinate.y
@@ -136,7 +149,27 @@ public class BoardDisplayer
 				}
 			}
 		}
+		for (Orientation tmpOrientation : nullOrientations) {
+			if (tmpOrientation != null) {
+				drawLine(g, initialCoord, panelHeight, panelWidth,
+						tmpOrientation);
+				for (Orientation tmp : noNullBorder) {
+					if ((tmpOrientation.opposite() != tmp)
+							&& (tmp != tmpOrientation) && (tmp != null))
+						drawLineFinish(g, t, initialCoordinate, panelCoordinate,
+								panelHeight, panelWidth, tmpOrientation, tmp, false);
+				}
+			}
+		}
 
+		ArrayList<Orientation> noBorder = new ArrayList<Orientation>(4);
+		for(Orientation o : Orientation.values()){
+			noBorder.add(o);
+		}
+		for(Orientation o2 : borderOrientations){
+			noBorder.remove(o2);
+		}
+		
 		// Draw the borders.
 		for (Orientation tmpBorder : borderOrientations) {
 			if (tmpBorder != null) {
@@ -152,7 +185,67 @@ public class BoardDisplayer
 				}
 			}
 		}
-
+		// Draw the borders.
+		for (Orientation tmpBorder : borderOrientations) {
+			if (tmpBorder != null) {
+				for (Orientation tmp : noBorder) {
+					if ((tmpBorder.opposite() != tmp) && (tmp != tmpBorder)
+							&& (tmp != null))
+						drawLineFinish(g, t, initialCoordinate, panelCoordinate,
+								panelHeight, panelWidth, tmpBorder, tmp, true);
+				}
+			}
+		}
+	}
+	
+	public static void drawLineFinish(Graphics g, Board t, Point initialCoordinate,
+			Point panelCoordinate, int panelHeight, int panelWidth,
+			Orientation Orientation1, Orientation Orientation2, boolean isInner)
+	{
+		Color original = g.getColor();
+		g.setColor(color);
+		Point startCoord = new Point(0, 0);
+		Point endCoord = new Point(50,50);
+		int spaceAway = 0;
+		if (isInner)
+			spaceAway = SPACE;
+		
+		if (Orientation1 == Orientation.WEST && Orientation2 == Orientation.NORTH)
+		{
+			startCoord = new Point(initialCoordinate.x +(panelCoordinate.x * panelWidth) + spaceAway, initialCoordinate.y + (panelCoordinate.y * panelHeight));
+			endCoord = new Point(initialCoordinate.x + (panelCoordinate.x * panelWidth)+ spaceAway, initialCoordinate.y + (panelHeight / AWAYFROMBORDER) + (panelCoordinate.y * panelHeight));
+		}
+		else if ((Orientation1 == Orientation.NORTH && Orientation2 == Orientation.WEST)) {
+			startCoord = new Point(initialCoordinate.x + (panelCoordinate.x * panelWidth), initialCoordinate.y + spaceAway + (panelCoordinate.y * panelHeight));
+			endCoord = new Point(initialCoordinate.x + (panelCoordinate.x * panelWidth)+ (panelWidth / AWAYFROMBORDER), initialCoordinate.y + spaceAway + (panelCoordinate.y * panelHeight));
+		}
+		else if (Orientation1 == Orientation.NORTH && Orientation2 == Orientation.EAST) {
+			startCoord = new Point(initialCoordinate.x + (panelCoordinate.x * panelWidth) + panelWidth, initialCoordinate.y + spaceAway + (panelCoordinate.y * panelHeight));
+			endCoord = new Point(initialCoordinate.x + (panelCoordinate.x * panelWidth) +panelWidth - (panelWidth / AWAYFROMBORDER), initialCoordinate.y + spaceAway + (panelCoordinate.y * panelHeight));
+		}
+		else if (Orientation1 == Orientation.EAST && Orientation2 == Orientation.NORTH) {
+			startCoord = new Point(initialCoordinate.x + (panelCoordinate.x * panelWidth) + panelWidth - spaceAway, initialCoordinate.y + (panelCoordinate.y * panelHeight));
+			endCoord = new Point(initialCoordinate.x + (panelCoordinate.x * panelWidth) +  panelWidth - spaceAway, initialCoordinate.y + (panelHeight / AWAYFROMBORDER) + (panelCoordinate.y * panelHeight));
+		}
+		else if (Orientation1 == Orientation.SOUTH && Orientation2 == Orientation.WEST) {
+			startCoord = new Point(initialCoordinate.x + (panelCoordinate.x * panelWidth), initialCoordinate.y + panelHeight - spaceAway + (panelCoordinate.y * panelHeight));
+			endCoord = new Point(initialCoordinate.x + (panelCoordinate.x * panelWidth) + (panelWidth / AWAYFROMBORDER), initialCoordinate.y + panelHeight - spaceAway + (panelCoordinate.y * panelHeight));
+		}
+		else if (Orientation1 == Orientation.WEST && Orientation2 == Orientation.SOUTH) {
+			startCoord = new Point(initialCoordinate.x + (panelCoordinate.x * panelWidth) + spaceAway, initialCoordinate.y + panelHeight + (panelCoordinate.y * panelHeight));
+			endCoord = new Point(initialCoordinate.x + (panelCoordinate.x * panelWidth) +spaceAway, initialCoordinate.y + panelHeight - (panelHeight / AWAYFROMBORDER) + (panelCoordinate.y * panelHeight));
+		}
+		else if (Orientation1 == Orientation.SOUTH && Orientation2 == Orientation.EAST) {
+			startCoord = new Point(initialCoordinate.x + (panelCoordinate.x * panelWidth) + panelWidth, initialCoordinate.y + panelHeight - spaceAway + (panelCoordinate.y * panelHeight));
+			endCoord = new Point(initialCoordinate.x + (panelCoordinate.x * panelWidth) + panelWidth - (panelWidth / AWAYFROMBORDER), initialCoordinate.y + panelHeight - spaceAway + (panelCoordinate.y * panelHeight));
+		}
+		else if (Orientation1 == Orientation.EAST && Orientation2 == Orientation.SOUTH) {
+			startCoord = new Point(initialCoordinate.x + (panelCoordinate.x * panelWidth) + panelWidth - spaceAway, initialCoordinate.y + panelHeight + (panelCoordinate.y * panelHeight));
+			endCoord = new Point(initialCoordinate.x + (panelCoordinate.x * panelWidth) + panelWidth - spaceAway, initialCoordinate.y + panelHeight - (panelHeight / AWAYFROMBORDER) + (panelCoordinate.y * panelHeight));
+		}
+		g.drawLine(startCoord.x, startCoord.y, endCoord.x, endCoord.y);
+		
+		g.setColor(original);
 	}
 
 	/**
