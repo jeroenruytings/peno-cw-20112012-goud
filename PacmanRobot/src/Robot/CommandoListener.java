@@ -2,10 +2,12 @@ package Robot;
 
 import lejos.nxt.LCD;
 import lejos.nxt.Motor;
+import lejos.robotics.proposal.DifferentialPilot;
 
 public class CommandoListener implements Runnable {
 	
 	private RobotCommunicator communicator = RobotCommunicator.instance();
+	DifferentialPilot pilot = new DifferentialPilot(0, 0, 0, null, null, false);
 	
 	public void start(){
 		Thread listener = new Thread(this);
@@ -34,16 +36,16 @@ public class CommandoListener implements Runnable {
 					stop();
 					break;
 				case 1:
-					forward();
+					forward(receivedCommando.getArgument());
 					break;
 				case 2:
-					backward();
+					backward(receivedCommando.getArgument());
 					break;
 				case 3:
-					left();
+					left(receivedCommando.getArgument());
 					break;
 				case 4:
-					right();
+					right(receivedCommando.getArgument());
 					break;
 				case 5:
 					calibrateBlack();
@@ -87,23 +89,24 @@ public class CommandoListener implements Runnable {
 	public static Commando decodeCommando(int comm){
 		LCD.clear();
 		System.out.println("IN decode!");
-		switch(comm){
+		int k = comm/1000;
+		switch(k){
 		case 0:
-			return new Commando(Action.STOP,"");
+			return new Commando(Action.STOP,comm-(k*1000),"");
 		case 1:
-			return new Commando(Action.FORWARD,"");
-		case 2:
-			return new Commando(Action.BACKWARD,"");
+			return new Commando(Action.FORWARD,comm-(k*1000), "");
+		case 2: 
+			return new Commando(Action.BACKWARD,comm-(k*1000),"");
 		case 3:
-			return new Commando(Action.LEFT,"");
+			return new Commando(Action.LEFT,comm-(k*1000),"");
 		case 4:
-			return new Commando(Action.RIGHT,"");
+			return new Commando(Action.RIGHT,comm-(k*1000),"");
 		case 5:
-			return new Commando(Action.CALIBRATEBLACK,"");
+			return new Commando(Action.CALIBRATEBLACK,comm-(k*1000),"");
 		case 6:
-			return new Commando(Action.CALIBRATEWHITE, "");
+			return new Commando(Action.CALIBRATEWHITE,comm-(k*1000),"");
 		case 7:
-			return new Commando(Action.CALIBRATEBROWN, "");
+			return new Commando(Action.CALIBRATEBROWN,comm-(k*1000),"");
 		//nog extra commando's invoegen;
 		default:
 			return null;
@@ -115,22 +118,30 @@ public class CommandoListener implements Runnable {
 		//TODO
 	}
 	
-private static void right() {
+private static void right(int i) {
+	
+	System.out.println("distance = " + i);
 	Motor.B.forward();
 	Motor.A.backward();
 }
 
-private static void left() {
+private static void left(int i) {
+	
+	System.out.println("distance = " + i);
 	Motor.B.backward();
 	Motor.A.forward();
 }
 
-private static void backward() {
+private static void backward(int i) {
+	
+	System.out.println("distance = " + i);
 	Motor.B.backward();
 	Motor.A.backward();
 }
 
-private static void forward() {
+private static void forward(int i) {
+	
+	System.out.println("distance = " + i);
 	Motor.B.forward();
 	Motor.A.forward();
 }

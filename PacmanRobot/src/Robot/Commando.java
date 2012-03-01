@@ -5,10 +5,12 @@ public class Commando {
 	
 	Action action;
 	String reason;
+	int argument;
 	
-	public Commando(Action action, String reason){
+	public Commando(Action action,int argument, String reason){
 		this.action = action;
 		this.reason = reason;
+		this.argument = argument;
 	}
 	
 	public Action getAction(){
@@ -17,6 +19,10 @@ public class Commando {
 	
 	public String getReason(){
 		return reason;
+	}
+	
+	public int getArgument(){
+		return argument;
 	}
 	
 }
