@@ -16,7 +16,7 @@ public class _PanelTest
 	{
 		Panel a = new Panel();
 		for (Orientation d : Orientation.values())
-			assertFalse(a.getBorder(d));
+			assertFalse(a.hasBorder(d));
 	}
 
 	@Test
@@ -24,7 +24,7 @@ public class _PanelTest
 	{
 		Panel a = new Panel();
 		a.setBorder(Orientation.NORTH, true);
-		assertTrue(a.getBorder(Orientation.NORTH));
+		assertTrue(a.hasBorder(Orientation.NORTH));
 	}
 
 	@Test
@@ -32,9 +32,9 @@ public class _PanelTest
 	{
 		Panel a = new Panel();
 		a.setBorder(Orientation.NORTH, true);
-		assertTrue(a.getBorder(Orientation.NORTH));
+		assertTrue(a.hasBorder(Orientation.NORTH));
 		a.setBorder(Orientation.SOUTH, true);
-		assertTrue(a.getBorder(Orientation.SOUTH));
+		assertTrue(a.hasBorder(Orientation.SOUTH));
 	}
 
 	@Test

@@ -20,7 +20,7 @@ public class Panel
 	{
 		this.borders = new boolean[4];
 		for (Orientation d : Orientation.values())
-			this.setBorder(d, panel.getBorder(d));
+			this.setBorder(d, panel.hasBorder(d));
 	}
 
 	public void setBorder(Orientation d, Boolean b)
@@ -28,7 +28,7 @@ public class Panel
 		borders[d.ordinal()] = b;
 	}
 
-	public boolean getBorder(Orientation d)
+	public boolean hasBorder(Orientation d)
 	{
 		return borders[d.ordinal()];
 	}

@@ -109,7 +109,7 @@ public class BoardDisplayer
 		// Get the borders.
 		Orientation[] borderOrientations = new Orientation[4];
 		for (Orientation border : Orientation.values()) {
-			if (t.getPanelAt(panelCoordinate).getBorder(border))
+			if (t.getPanelAt(panelCoordinate).hasBorder(border))
 				borderOrientations[border.ordinal()] = border;
 		}
 		// Get the null Orientations.

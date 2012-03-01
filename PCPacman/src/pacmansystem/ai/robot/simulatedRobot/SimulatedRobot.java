@@ -25,7 +25,7 @@ public class SimulatedRobot implements PanelLayerInterface
 	{
 		sleep(3);
 		if (_realWorld.getGlobalBoard().getPanelAt(_currentLocation)
-				.getBorder(_currentOrientation.addTo(d)))
+				.hasBorder(_currentOrientation.addTo(d)))
 			throw new IllegalDriveException();
 		_currentLocation = _currentOrientation.addTo(d).addTo(_currentLocation);
 		_currentOrientation = _currentOrientation.addTo(d);
@@ -36,7 +36,7 @@ public class SimulatedRobot implements PanelLayerInterface
 	{
 		sleep(1);
 		return _realWorld.getGlobalBoard().getPanelAt(_currentLocation)
-				.getBorder(_currentOrientation.addTo(d));
+				.hasBorder(_currentOrientation.addTo(d));
 	}
 
 	@Override

@@ -83,8 +83,8 @@ public class Board
 	{
 		for (Orientation d : Orientation.values())
 			if (hasPanelAt(d.addTo(p))) {
-				if (panel.getBorder(d) != this.getPanelAt(d.addTo(p))
-						.getBorder(d.opposite()))
+				if (panel.hasBorder(d) != this.getPanelAt(d.addTo(p))
+						.hasBorder(d.opposite()))
 					return true;
 			}
 		return false;
@@ -97,7 +97,7 @@ public class Board
 		for (Orientation d : Orientation.values())
 			if (hasPanelAt(d.addTo(point)))
 				panels.get(d.addTo(point)).setBorder(d.opposite(),
-						panel.getBorder(d));
+						panel.hasBorder(d));
 		System.out.println("w");
 	}
 
@@ -193,9 +193,9 @@ public class Board
 			if (getPanelAt(orientation.addTo(one)) == null)
 				return false;
 			else
-				return getPanelAt(orientation.addTo(one)).getBorder(
+				return getPanelAt(orientation.addTo(one)).hasBorder(
 						orientation.opposite());
-		return getPanelAt(one).getBorder(orientation);
+		return getPanelAt(one).hasBorder(orientation);
 
 	}
 

@@ -31,9 +31,15 @@ public class RobotController
 		RobotController main = new RobotController(rows, columns);
 		Point destination = null;
 		while (true) {
-			Panel p = main.getPathLayer().getDirectionLayer().getPanel(main.getCurrentOrientation()); //getPanel() moet om zich heen kijken
-			//Punten toevoegen
-			main.getBoard().add(p, main.getCurrentPoint()); //voegt panel toe aan board
+			Panel p1 = main.getPathLayer().getDirectionLayer().getPanel(main.getCurrentOrientation()); //getPanel() moet om zich heen kijken
+			main.getBoard().add(p1, main.getCurrentPoint()); //voegt panel toe aan board
+			for (Orientation orientation : Orientation.values()) { //voegt omliggende punten toe indien ze geen tussenmuur hebben
+				if(! p1.hasBorder(orientation)){
+					Panel p2 = new Panel();
+					p2.setBorder(orientation.opposite(), true);
+					main.getBoard().add(p2, new Point(main.getCurrentX()+orientation.getXPlus(),main.getCurrentY()+orientation.getYPlus()));
+				}
+			}
 			destination = main.lookForDestination(); //zoekt volgend punt om naartoe te gaan
 			main.getPathLayer().go(main.getCurrentPoint(), destination); //gaat naar volgend punt
 			main.setCurrentPoint(destination); //verandert huidig punt

@@ -42,8 +42,8 @@ public class _BoardTest
 		p2.setBorder(Orientation.WEST, true);
 		b.add(p1, new Point(0, 0));
 		b.add(p2, new Point(1, 0));
-		assertTrue(b.getPanelAt(new Point(0, 0)).getBorder(Orientation.EAST) == b
-				.getPanelAt(new Point(1, 0)).getBorder(Orientation.WEST));
+		assertTrue(b.getPanelAt(new Point(0, 0)).hasBorder(Orientation.EAST) == b
+				.getPanelAt(new Point(1, 0)).hasBorder(Orientation.WEST));
 	}
 
 	@Test
