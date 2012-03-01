@@ -2,7 +2,7 @@ package pacmansystem.ai.robot.fysicalRobot.connector;
 
 import pacmansystem.ai.robot.BarcodeReader;
 
-public class VirtuBot
+public class MoverLayer
 {
 
 	private String name;
@@ -15,7 +15,7 @@ public class VirtuBot
 	boolean button = false;
 
 	
-	public VirtuBot(String name)
+	public MoverLayer(String name)
 	{
 
 		setName(name);

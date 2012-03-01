@@ -5,17 +5,17 @@ import java.awt.Point;
 import javax.naming.OperationNotSupportedException;
 
 import pacmansystem.ai.robot.BarcodeReader.color;
-import pacmansystem.ai.robot.fysicalRobot.connector.VirtuBot;
+import pacmansystem.ai.robot.fysicalRobot.connector.MoverLayer;
 import pacmansystem.board.Panel;
 import pacmansystem.board.enums.Direction;
 
 public class PanelLayer implements PanelLayerInterface
 {
 
-	VirtuBot virtu;
+	MoverLayer virtu;
 	public final static int distance = 40;
 
-	public PanelLayer(VirtuBot virtu)
+	public PanelLayer(MoverLayer virtu)
 	{
 		this.virtu = virtu;
 	}

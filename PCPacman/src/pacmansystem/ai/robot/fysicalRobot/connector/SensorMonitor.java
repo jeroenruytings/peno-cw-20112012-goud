@@ -3,9 +3,9 @@ package pacmansystem.ai.robot.fysicalRobot.connector;
 public class SensorMonitor extends LeoMonitor
 {
 	private SensorDecoder decoder;
-	private VirtuBot virtu;
+	private MoverLayer virtu;
 
-	public SensorMonitor(LeoMonitor next, VirtuBot virtu)
+	public SensorMonitor(LeoMonitor next, MoverLayer virtu)
 	{
 		super(next);
 		this.decoder = new SensorDecoder();

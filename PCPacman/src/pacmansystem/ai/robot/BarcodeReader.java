@@ -1,6 +1,6 @@
 package pacmansystem.ai.robot;
 
-import pacmansystem.ai.robot.fysicalRobot.connector.VirtuBot;
+import pacmansystem.ai.robot.fysicalRobot.connector.MoverLayer;
 
 public class BarcodeReader implements Runnable
 {
@@ -8,7 +8,7 @@ public class BarcodeReader implements Runnable
 	node[] buffer = new node[20];
 	int elems = 0;
 	private long samplingtime = 5;
-	private VirtuBot virtu;
+	private MoverLayer virtu;
 	private int WHITE;
 	private int BLACK;
 	private int BROWN;
@@ -41,19 +41,19 @@ public class BarcodeReader implements Runnable
 		return BROWN;
 	}
 
-	private void calibrateBlack(VirtuBot virtu) {
+	private void calibrateBlack(MoverLayer virtu) {
 		virtu.calibrateBlack();
 	}
 
-	private void calibrateWhite(VirtuBot virtu) {
+	private void calibrateWhite(MoverLayer virtu) {
 		virtu.calibrateWhite();
 	}
 
-	private void calibrateBrown(VirtuBot virtu) {
+	private void calibrateBrown(MoverLayer virtu) {
 		virtu.calibrateBrown();
 	}
 
-	public void calibrate(VirtuBot virtu)
+	public void calibrate(MoverLayer virtu)
 	{
 		calibrateBlack(virtu);
 		calibrateBrown(virtu);
@@ -173,7 +173,7 @@ public class BarcodeReader implements Runnable
 		}
 	}
 
-	public void start(VirtuBot virtu)
+	public void start(MoverLayer virtu)
 	{
 		this.virtu = virtu;
 		Thread barCodeReader = new Thread(this);

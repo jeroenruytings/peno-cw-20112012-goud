@@ -12,7 +12,7 @@ public class PCCommunicator implements Runnable
 	private Connection connection;
 	private DataOutputStream streamOut;
 	private DataInputStream streamIn;
-	private VirtuBot virtu;
+	private MoverLayer virtu;
 
 	public PCCommunicator()
 	{
@@ -26,7 +26,7 @@ public class PCCommunicator implements Runnable
 		streamIn = connection.getConnection().getDataIn();
 	}
 
-	public void start(VirtuBot virtu)
+	public void start(MoverLayer virtu)
 	{
 		PCCommunicator comm = new PCCommunicator();
 		Thread t = new Thread(comm);
