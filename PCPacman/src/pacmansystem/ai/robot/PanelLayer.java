@@ -12,12 +12,12 @@ import pacmansystem.board.enums.Direction;
 public class PanelLayer implements PanelLayerInterface
 {
 
-	MoverLayer virtu;
+	MoverLayer mover;
 	public final static int distance = 40;
 
-	public PanelLayer(MoverLayer virtu)
+	public PanelLayer(MoverLayer mover)
 	{
-		this.virtu = virtu;
+		this.mover = mover;
 	}
 
 	/*
@@ -31,19 +31,19 @@ public class PanelLayer implements PanelLayerInterface
 		switch (d.ordinal())
 		{
 		case 0:
-			virtu.turn(-90);
-			virtu.drive(distance);
+			mover.turn(-90);
+			mover.drive(distance);
 			break;
 		case 1:
-			virtu.turn(90);
-			virtu.drive(distance);
+			mover.turn(90);
+			mover.drive(distance);
 			break;
 		case 2:
-			virtu.drive(distance);
+			mover.drive(distance);
 			break;
 		case 3:
-			virtu.turn(180);
-			virtu.drive(distance);
+			mover.turn(180);
+			mover.drive(distance);
 		}
 	}
 
@@ -59,23 +59,23 @@ public class PanelLayer implements PanelLayerInterface
 		switch (d.ordinal())
 		{
 		case 0:
-			virtu.turnHead(-90);
-			distanceToWall = virtu.getUltrasonic();
-			virtu.turnHead(90);
+			mover.turnHead(-90);
+			distanceToWall = mover.getUltrasonic();
+			mover.turnHead(90);
 			if (distanceToWall < 15)
 				return true;
 			else
 				return false;
 		case 1:
-			virtu.turnHead(90);
-			distanceToWall = virtu.getUltrasonic();
-			virtu.turnHead(-90);
+			mover.turnHead(90);
+			distanceToWall = mover.getUltrasonic();
+			mover.turnHead(-90);
 			if (distanceToWall < 15)
 				return true;
 			else
 				return false;
 		case 2:
-			distanceToWall = virtu.getUltrasonic();
+			distanceToWall = mover.getUltrasonic();
 			if (distanceToWall < 15)
 				return true;
 			else
@@ -94,7 +94,7 @@ public class PanelLayer implements PanelLayerInterface
 	@Override
 	public boolean hasBarcode()
 	{
-		color color = virtu.getBarcodeReader().getc(virtu.getLightSensor());
+		color color = mover.getBarcodeReader().getc(mover.getLightSensor());
 		if (color != color.brown)
 			return true;
 		else
