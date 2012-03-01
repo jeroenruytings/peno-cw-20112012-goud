@@ -12,16 +12,23 @@ public class MoverLayer
 	private BarcodeReader barcodeReader;
 	private PCCommunicator pcc;
 	boolean button = false;
+	private int tachoCount;
 
 	
 	public MoverLayer()
 	{
-
+//		initialiseMoverLayer();
+	}
+	
+	public void initialiseMoverLayer(){
+		
 		barcodeReader = new BarcodeReader();
-		barcodeReader.calibrate(this);
-		pcc = new PCCommunicator();
+//		Thread reader = new Thread(barcodeReader);
+//		reader.start();
+		pcc = new PCCommunicator(this);
 		Thread communicator = new Thread(pcc);
 		communicator.start();
+		
 	}
 	
 
@@ -32,6 +39,9 @@ public class MoverLayer
 
 	public void drive(int distance)
 	{
+		pcc.sendCommando(new Commando(Action.FORWARD, "test"));
+		for (int i = 0; i<100; i++);
+		pcc.sendCommando(new Commando(Action.STOP, "test"));
 
 	}
 
@@ -57,11 +67,6 @@ public class MoverLayer
 		return lightSensor;
 	}
 
-	private void setLightSensor(int lightSensor)
-	{
-		this.lightSensor = lightSensor;
-	}
-
 	public boolean isPushSensor()
 	{
 		return pushSensor;
@@ -84,8 +89,9 @@ public class MoverLayer
 
 	public int getTachoCount()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		//TODO set tachocount
+		return this.tachoCount;
+		
 	}
 
 	public void calibrateBlack()
@@ -122,5 +128,22 @@ public class MoverLayer
 	public boolean buttonIsPushed(){
 		return button;
 		
+	}
+
+
+	public void setTachoCount(Integer value) {
+		this.tachoCount = value;
+		
+	}
+
+
+	public void setLightSensor(Integer value) {
+		System.out.println("Dit is de lightsensorwaarde van de robot:" + value);
+		this.lightSensor = value;
+	}
+
+
+	public PCCommunicator getPcc() {
+		return this.pcc;
 	}
 }

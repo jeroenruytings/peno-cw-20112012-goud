@@ -8,14 +8,17 @@ import java.util.Random;
 public class PCCommunicator implements Runnable
 {
 
-	private LeoMonitor startOfChain = buildMonitors();
+	private LeoMonitor startOfChain;
 	private Connection connection;
 	private DataOutputStream streamOut;
 	private DataInputStream streamIn;
 	private MoverLayer virtu;
 
-	public PCCommunicator()
+	public PCCommunicator(MoverLayer virtu)
 	{
+		this.virtu = virtu;
+		startOfChain = buildMonitors(virtu);
+
 		try {
 			connection = new Connection("Goud");
 		} catch (ConnectionFailedException e) {
@@ -26,17 +29,15 @@ public class PCCommunicator implements Runnable
 		streamIn = connection.getConnection().getDataIn();
 	}
 
-	public void start(MoverLayer virtu)
-	{
-		PCCommunicator comm = new PCCommunicator();
-		Thread t = new Thread(comm);
-		this.virtu = virtu;
-		t.start();
-	}
+//	public void start()
+//	{
+//		Thread t = new Thread();
+//		t.start();
+//	}
 
-	private LeoMonitor buildMonitors()
+	private LeoMonitor buildMonitors(MoverLayer mover)
 	{
-		return new SensorMonitor(new NullMonitor(null), virtu);
+		return new SensorMonitor(new NullMonitor(null), mover);
 	}
 
 	public void sendCommando(Commando commando)
@@ -62,6 +63,7 @@ public class PCCommunicator implements Runnable
 	{
 		try {
 			while (true) {
+				//TODO run invullen
 				receiveValues();
 				Random generator = new Random();
 				Action action = Action.getActionByOrdinal(generator.nextInt(6));
@@ -72,6 +74,10 @@ public class PCCommunicator implements Runnable
 		} catch (Exception e) {
 			System.out.println("things went bananas QQ!");
 		}
+	}
+
+	public MoverLayer getVirtu() {
+		return this.virtu;
 	}
 
 }

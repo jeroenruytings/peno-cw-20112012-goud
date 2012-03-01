@@ -2,7 +2,8 @@ package pacmansystem.ai.robot.fysicalRobot.connector;
 
 public enum Action
 {
-	STOP, FORWARD, BACKWARD, LEFT, RIGHT, CALIBRATEBLACK, CALIBRATEWHITE, CALIBRATEBROWN, READBARCODE
+	STOP, FORWARD, BACKWARD, LEFT, RIGHT, CALIBRATEBLACK, 
+	CALIBRATEWHITE, CALIBRATEBROWN, READBARCODE
 	// stop = 0. forward = 4, backward = 5, calibrablack = 6,
 	// calibratewhite = 7, Calibratebrown = 8, readbarcode = 9, etc...
 	;
