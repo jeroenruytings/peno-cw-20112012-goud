@@ -1,11 +1,23 @@
 package pacmansystem.board;
 
 import java.awt.Point;
+import java.text.ParseException;
 
 import pacmansystem.board.enums.Orientation;
+import pacmansystem.parser.Command;
+import pacmansystem.parser.ProtocolDecoder;
+import pacmansystem.parser.command.CommandDiscover;
+import pacmansystem.parser.command.CommandName;
+import pacmansystem.parser.command.CommandPacman;
+import pacmansystem.parser.command.CommandPosition;
+import pacmansystem.world.RealWorld;
 
 public class BoardCreator
 {
+	
+	private static final String MAZEPROTOCOLVERSION = "0.3";
+	
+	
 	public static Board createWithEdges(int x, int y)
 	{
 		Board returnValue = new Board(x, y);
@@ -51,5 +63,43 @@ public class BoardCreator
 		p.setBorder(Orientation.EAST, true);
 		returnValue.addForced(p, new Point(0, y));
 		return returnValue;
+	}
+	
+	/**
+	 * 
+	 * @param 	mazeProtocol
+	 * 				Each line contains one of the mazeprotocol commands.
+	 * @throws 	ParseException
+	 * 				One of the commands could not be parsed.
+	 * @throws	IllegalStateException
+	 * 				If the version number does not match.
+	 */
+	public static void createBoard(String[] mazeProtocol) throws ParseException {
+		ProtocolDecoder pdc = new ProtocolDecoder();
+		Command tmp;
+		RealWorld realWorld = new RealWorld();
+		Board b = new Board();
+		for (int i = 1; i < mazeProtocol.length; i++){
+			tmp = pdc.parse(mazeProtocol[i]);
+			if (tmp instanceof CommandName){
+				if (!((CommandName)tmp).getVersion().equals("maze-protocol-" + MAZEPROTOCOLVERSION))
+					throw new IllegalStateException("Not the right version number.");
+			}
+			else if(tmp instanceof CommandDiscover){
+				CommandDiscover cmd = ((CommandDiscover)tmp);
+				b.add(cmd.getPanel(), cmd.getCoordinate());
+			}
+			else if (tmp instanceof CommandPacman){
+				CommandPacman cmd = ((CommandPacman)tmp);
+				realWorld.setPacman(cmd.getPosition());
+			}
+			else if (tmp instanceof CommandPosition){
+				CommandPosition cmd = ((CommandPosition)tmp);
+				//TODO: Starting points? 
+			}
+		}
+		
+		
+		
 	}
 }

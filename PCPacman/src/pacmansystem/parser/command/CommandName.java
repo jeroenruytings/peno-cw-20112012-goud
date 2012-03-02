@@ -7,9 +7,9 @@ import pacmansystem.world.World;
 public class CommandName implements Command
 {
 	private String _name;
-	private int _version;
+	private String _version;
 
-	public CommandName(String name, int version)
+	public CommandName(String name, String version)
 	{
 		_name = name;
 		_version = version;
@@ -21,7 +21,7 @@ public class CommandName implements Command
 		return _name;
 	}
 
-	public int getVersion()
+	public String getVersion()
 	{
 		return _version;
 	}

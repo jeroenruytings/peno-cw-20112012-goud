@@ -30,7 +30,7 @@ public class NAME extends Decoder
 			throw new ParseException("exc", 0);
 		String msg = stripMessage(message);
 		String[] mes = msg.split(" ");
-		return new CommandName(mes[0], new Integer(mes[2]));
+		return new CommandName(mes[0], mes[2]);
 	}
 
 }

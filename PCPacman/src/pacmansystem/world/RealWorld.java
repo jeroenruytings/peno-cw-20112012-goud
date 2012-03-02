@@ -39,5 +39,9 @@ public class RealWorld
 	{
 		return pacman;
 	}
+	
+	public void setPacman(Point location){
+		this.pacman = location;
+	}
 
 }

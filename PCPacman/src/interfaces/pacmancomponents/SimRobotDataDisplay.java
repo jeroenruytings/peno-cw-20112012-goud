@@ -23,7 +23,7 @@ public class SimRobotDataDisplay extends Canvas
 
 	private Graphics bufferedGraphics;
 	private Image bufferedImage;
-	private Orientation robotOrientation = Orientation.SOUTH;
+	private Orientation robotOrientation = Orientation.NORTH;
 	
 	public SimRobotDataDisplay(RobotData robot)
 	{
@@ -46,13 +46,21 @@ public class SimRobotDataDisplay extends Canvas
 	{
 		return myRobotData.getBoard();
 	}
+	
+	public int getDrawHeight(){
+		return super.getHeight() - super.getHeight() / 10;
+	}
+	
+	public int getDrawWidth(){
+		return super.getWidth() - super.getWidth() / 10;
+	}
 
 	private int calculatePanelWidth()
 	{
 		if (getBoard() == null)
 			throw new IllegalStateException("The track is not initialised!");
-		return Math.min(this.getHeight() / (getBoard().maxY() + 1),
-				this.getWidth() / (getBoard().maxX() + 1));
+		return Math.min(getDrawHeight() / (getBoard().maxY() + 1),
+				getDrawWidth() / (getBoard().maxX() + 1));
 	}
 
 	private int getSpacing()
@@ -63,8 +71,8 @@ public class SimRobotDataDisplay extends Canvas
 	private Point calculateInitialPosition()
 	{
 		Point result = new Point(
-				(this.getWidth() - (calculatePanelWidth() * (getBoard().maxX() + 1))) / 2,
-				(this.getHeight() - (calculatePanelWidth() * (getBoard().maxY() + 1))) / 2);
+				(getWidth() - (calculatePanelWidth() * (getBoard().maxX() + 1))) / 2,
+				(getHeight() - (calculatePanelWidth() * (getBoard().maxY() + 1))) / 2);
 		return result;
 	}
 
@@ -75,7 +83,7 @@ public class SimRobotDataDisplay extends Canvas
 	public void paint(Graphics g)
 	{
 		if (bufferedImage == null){
-			bufferedImage = createImage(this.getWidth(), this.getHeight());
+			bufferedImage = createImage(getWidth(), getHeight());
 			bufferedGraphics = bufferedImage.getGraphics();
 		}
 		
