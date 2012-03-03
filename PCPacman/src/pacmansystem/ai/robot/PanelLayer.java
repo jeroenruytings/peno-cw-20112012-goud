@@ -5,6 +5,7 @@ import java.awt.Point;
 import javax.naming.OperationNotSupportedException;
 
 import pacmansystem.ai.robot.BarcodeReader.color;
+import pacmansystem.ai.robot.fysicalRobot.PanelColor;
 import pacmansystem.ai.robot.fysicalRobot.connector.MoverLayer;
 import pacmansystem.board.Panel;
 import pacmansystem.board.enums.Direction;
@@ -97,8 +98,10 @@ public class PanelLayer implements PanelLayerInterface
 	@Override
 	public boolean hasBarcode()
 	{
-		color color = mover.getBarcodeReader().getc(mover.getLightSensor());
-		if (color != color.brown)
+		
+		// verantwoordelijkheid van barcode reader?
+		PanelColor color = mover.getBarcodeReader().getColor(mover.getLightSensor());
+		if (color != color.BROWN)
 			return true;
 		else
 			return false;

@@ -10,20 +10,26 @@ public enum Action
 
 	public static Action getActionByOrdinal(int nextInt)
 	{
-		switch (nextInt)
-		{
-		case 0:
-			return Action.STOP;
-		case 1:
-			return Action.FORWARD;
-		case 2:
-			return Action.BACKWARD;
-		case 3:
-			return Action.LEFT;
-		case 4:
-			return Action.RIGHT;
-		default:
-			return Action.STOP;
-		}
+		//XXX: ahum mischien is dit  een niet verschrikkelijke oplossing ...?
+		for(Action a : Action.values())
+			if(a.ordinal()==nextInt)
+				return a;
+		return STOP;// waarom is dit de default actie ...?
+//maybe do this ?		throw new IllegalArgumentException("No such enum value defined");
+//		switch (nextInt)
+//		{
+//		case 0:
+//			return Action.STOP;
+//		case 1:
+//			return Action.FORWARD;
+//		case 2:
+//			return Action.BACKWARD;
+//		case 3:
+//			return Action.LEFT;
+//		case 4:
+//			return Action.RIGHT;
+//		default:
+//			return Action.STOP;
+//		}
 	}
 }

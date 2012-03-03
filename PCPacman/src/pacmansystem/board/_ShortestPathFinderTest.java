@@ -61,5 +61,18 @@ public class _ShortestPathFinderTest
 		for (Point p : r)
 			System.out.println(p);
 	}
-
+	
+	@Test
+	public void panelTest2()
+	{
+		Board one = new Board(50,50);
+		for(int i = 0; i < 50;i++)
+			for(int j=0;j<50;j++)
+				one.add(new Panel(), new Point(i,j));
+		ShortestPathFinder f = new ShortestPathFinder(one);
+	for(Point p:	f.shortestPath(new Point(0,0),new Point(49,49)))
+		System.out.println(p);
+	
+		
+	}
 }

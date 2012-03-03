@@ -2,6 +2,7 @@ package pacmansystem.ai.robot.fysicalRobot.connector;
 
 import pacmansystem.ai.robot.Barcode;
 import pacmansystem.ai.robot.BarcodeReader;
+import pacmansystem.ai.robot.fysicalRobot.PanelColor;
 
 public class TestClass {
 	
@@ -19,9 +20,9 @@ public class TestClass {
 		System.out.println("Virtu:" + mover.getPcc().getVirtu());	
 		
 	
-			System.out.println("BarcodeReader BLACK: " + mover.getBarcodeReader().getBLACK());
-			System.out.println("BarcodeReader WHITE: " + mover.getBarcodeReader().getWHITE());
-			System.out.println("BarcodeReader BROWN: " + mover.getBarcodeReader().getBROWN());
+			System.out.println("BarcodeReader BLACK: " + mover.getBarcodeReader().getColor(PanelColor.BLACK));
+			System.out.println("BarcodeReader WHITE: " + mover.getBarcodeReader().getColor(PanelColor.WHITE));
+			System.out.println("BarcodeReader BROWN: " + mover.getBarcodeReader().getColor(PanelColor.BROWN));
 		
 //		mover.getPcc().sendCommando(new Commando(Action.FORWARD, "BarcodeTest"));
 		

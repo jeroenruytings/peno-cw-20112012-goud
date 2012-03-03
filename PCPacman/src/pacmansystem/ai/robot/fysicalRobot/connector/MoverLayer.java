@@ -1,6 +1,8 @@
 package pacmansystem.ai.robot.fysicalRobot.connector;
 
 import pacmansystem.ai.robot.BarcodeReader;
+import pacmansystem.ai.robot.fysicalRobot.PanelColor;
+import pacmansystem.ai.robot.fysicalRobot.barcode.ColorTransitionStack;
 
 public class MoverLayer
 {
@@ -10,11 +12,10 @@ public class MoverLayer
 	private boolean pushSensor;
 	private int infraredSensorDirection;
 	private int infraRedSensorValue;
-	private BarcodeReader barcodeReader;
 	private PCCommunicator pcc;
 	boolean button = false;
 	private int tachoCount;
-
+	private ColorTransitionStack _colorStack = new ColorTransitionStack(this);
 	
 	public MoverLayer()
 	{
@@ -26,15 +27,18 @@ public class MoverLayer
 		pcc = new PCCommunicator(this);
 		Thread communicator = new Thread(pcc);
 		communicator.start();
-		System.out.println("VLAK VOOR AANMAAK BARCODEREADER");
-		barcodeReader = new BarcodeReader(this);
-		getBarcodeReader().calibrate(this);
-		Thread reader = new Thread(barcodeReader);
-		System.out.println("barcodereader mover: " + reader);
-		reader.start();
+		calibrateColors();
 		
 	}
 	
+
+	private void calibrateColors()
+	{
+		calibrateBlack();
+		calibrateBrown();
+		calibrateWhite();
+		
+	}
 
 	public void turn(int degrees)
 	{
@@ -103,18 +107,18 @@ public class MoverLayer
 		System.out.println("Sending to calibrate BLACK");
 		pcc.sendCommando(new Commando(Action.CALIBRATEBLACK,0, "Calibrate black"));
 		while(!buttonIsPushed()) ;
-		getBarcodeReader().setBlack(getLightSensor());
+		this._colorStack.calibrate(PanelColor.BLACK, getLightSensor());
 		button = false;
 	}
 
-	public BarcodeReader getBarcodeReader() {
-		return barcodeReader;
+	public ColorTransitionStack getBarcodeReader() {
+		return _colorStack;
 	}
 
 	public void calibrateWhite() {
 		pcc.sendCommando(new Commando(Action.CALIBRATEWHITE,0, "Calibrate white"));
 		while(!buttonIsPushed()) ;
-		getBarcodeReader().setWhite(getLightSensor());
+		this._colorStack.calibrate(PanelColor.WHITE, getLightSensor());
 		button = false;
 		
 	}
@@ -122,7 +126,7 @@ public class MoverLayer
 	public void calibrateBrown() {
 		pcc.sendCommando(new Commando(Action.CALIBRATEBROWN,0, "Calibrate brown"));
 		while(!buttonIsPushed()) ;
-		getBarcodeReader().setBrown(getLightSensor());
+		this._colorStack.calibrate(PanelColor.BROWN, getLightSensor());
 		button = false;
 	}
 	
@@ -141,8 +145,9 @@ public class MoverLayer
 		
 	}
 
-
+	
 	public void setLightSensor(Integer value) {
+		
 		System.out.println("Dit is de lightsensorwaarde van de robot:" + value);
 		this.lightSensor = value;
 	}
