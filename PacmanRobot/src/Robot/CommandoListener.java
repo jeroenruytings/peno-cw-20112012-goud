@@ -56,11 +56,22 @@ public class CommandoListener implements Runnable {
 				case 7:
 					calibrateBrown();
 					break;
+				case 8:
+					break;
+				case 9:
+					goGetLightSensorValue();
 				default:;
 			}
 		}
 		
 		}
+
+	private void goGetLightSensorValue() {
+		
+		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.LightSensor, new SensorValue((byte) 1)); //XXX: welke value??
+		communicator.send(message);
+		
+	}
 
 	private void calibrateBrown() {
 		LCD.clear();

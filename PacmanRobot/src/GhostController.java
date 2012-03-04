@@ -54,28 +54,46 @@ public class GhostController {
 		
 //	}
 
-//	private static void right() {
-//		Motor.B.forward();
-//		Motor.A.backward();
-//	}
-//
-//	private static void left() {
-//		Motor.B.backward();
-//		Motor.A.forward();
-//	}
-//
-//	private static void backward() {
-//		Motor.B.backward();
-//		Motor.A.backward();
-//	}
-//
-//	private static void forward() {
-//		Motor.B.forward();
-//		Motor.A.forward();
-//	}
-//
-//	private static void stop() {
-//		Motor.A.stop();
-//		Motor.B.stop();
-//	}
+	private static void right() {
+		Motor.B.forward();
+		Motor.A.backward();
+	}
+
+	private static void left() {
+		Motor.B.backward();
+		Motor.A.forward();
+	}
+
+	private static void backward() {
+		Motor.B.backward();
+		Motor.A.backward();
+	}
+
+	private static void forward() {
+		Motor.B.forward();
+		Motor.A.forward();
+	}
+
+	private static void stop() {
+		Motor.A.stop();
+		Motor.B.stop();
+	}
+	
+	private static void driveForward(int distance){
+		p.travel(distance);
+	}
+	
+	private static void driveBackward(int distance){
+		p.backward();
+		p.travel(distance);
+		p.forward();
+	}
+	
+	private static void turnLeft(int degrees) {
+		p.rotate(-degrees);
+	}
+	
+	private static void turnRight(int degrees) {
+		p.rotate(degrees);
+	}
 }
