@@ -36,4 +36,13 @@ public class ColorSegment
 		rv.push(segment);
 		return rv;
 	}
+	public String toString()
+	{
+		String rv = "[";
+		rv+=getColor();
+		rv+=", ";
+		rv+=getLength();
+		rv+="]";
+		return rv;
+	}
 }

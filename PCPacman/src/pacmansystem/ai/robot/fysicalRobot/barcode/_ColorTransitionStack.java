@@ -8,7 +8,7 @@ import pacmansystem.ai.robot.fysicalRobot.PanelColor;
 
 public class _ColorTransitionStack
 {
-	private void standardCalibrate(ColorTransitionStack stack)
+	public static void standardCalibrate(ColorTransitionStack stack)
 	{
 		stack.calibrate(PanelColor.BLACK, 100);
 		stack.calibrate(PanelColor.BROWN, 50);
