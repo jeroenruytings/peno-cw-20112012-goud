@@ -5,10 +5,18 @@ public class Barcode
 	
 	int barcode;
 	
-	private Barcode (int barcode){
+	public Barcode (int barcode){
 		this.barcode = barcode;
 	}
-	
+	public Barcode(int[] code) throws Exception
+	{
+		String s = "";
+		if(code.length!=8)
+			throw new Exception("barcode length wrong");
+		for(int i : code)
+			s+=i;
+		this.barcode = (Integer.parseInt(s));
+	}
 	/**
 	 * @return This barcode read in the other direction.
 	 */
