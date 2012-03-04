@@ -145,9 +145,11 @@ public class MoverLayer
 		
 	}
 
+	public void goGetLightSensorValue(){
+		pcc.sendCommando(new Commando(Action.LIGHTSENSORVALUE, 0, "Get lightsensorvalue"));
+	}
 	
 	public void setLightSensor(Integer value) {
-		
 		System.out.println("Dit is de lightsensorwaarde van de robot:" + value);
 		this.lightSensor = value;
 	}
