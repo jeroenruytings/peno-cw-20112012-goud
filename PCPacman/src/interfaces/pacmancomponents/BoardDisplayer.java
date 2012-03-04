@@ -67,25 +67,25 @@ public class BoardDisplayer
 			switch (Orientation)
 			{
 			case NORTH:
-				g.drawLine(initialposition.x + (width / AWAYFROMBORDER),
+				g.drawLine(initialposition.x + ((width / AWAYFROMBORDER) - 2),
 						initialposition.y, initialposition.x + width
-								- (width / AWAYFROMBORDER), initialposition.y);
+								- ((width / AWAYFROMBORDER) - 2), initialposition.y);
 				break;
 			case EAST:
 				g.drawLine(initialposition.x + width, initialposition.y
-						+ (height / AWAYFROMBORDER), initialposition.x + width,
-						initialposition.y + height - (height / AWAYFROMBORDER));
+						+ ((height / AWAYFROMBORDER) - 2), initialposition.x + width,
+						initialposition.y + height - ((height / AWAYFROMBORDER) - 2));
 				break;
 			case SOUTH:
-				g.drawLine(initialposition.x + (width / AWAYFROMBORDER),
+				g.drawLine(initialposition.x + ((width / AWAYFROMBORDER) -2),
 						initialposition.y + height, initialposition.x + width
-								- (width / AWAYFROMBORDER), initialposition.y
+								- ((width / AWAYFROMBORDER) - 2), initialposition.y
 								+ height);
 				break;
 			case WEST:
 				g.drawLine(initialposition.x, initialposition.y
-						+ (height / AWAYFROMBORDER), initialposition.x,
-						initialposition.y + height - (height / AWAYFROMBORDER));
+						+ ((height / AWAYFROMBORDER) -2), initialposition.x,
+						initialposition.y + height - ((height / AWAYFROMBORDER) - 2));
 				break;
 			}
 			g.setColor(original);
@@ -193,6 +193,17 @@ public class BoardDisplayer
 							&& (tmp != null))
 						drawLineFinish(g, t, initialCoordinate, panelCoordinate,
 								panelHeight, panelWidth, tmpBorder, tmp, true);
+				}
+			}
+		}
+		
+		// Draw reverse corners
+		for (Orientation tmpBorder : noBorder) {
+			if (tmpBorder != null) {
+				for (Orientation tmp : noBorder) {
+					if ((tmpBorder.opposite() != tmp) && (tmp != tmpBorder)
+							&& (tmp != null))
+						drawReverseCorner(g, t, initialCoordinate, panelCoordinate, panelHeight, panelWidth, tmp, tmpBorder);
 				}
 			}
 		}
@@ -314,8 +325,7 @@ public class BoardDisplayer
 
 	public static void drawReverseCorner(Graphics g, Board t,
 			Point initialCoord, Point panelCoord, int panelHeight,
-			int panelWidth, Orientation Orientation1, Orientation Orientation2,
-			boolean nullCorner)
+			int panelWidth, Orientation Orientation1, Orientation Orientation2)
 	{
 		Color original = g.getColor();
 		g.setColor(color);
@@ -324,44 +334,42 @@ public class BoardDisplayer
 		if ((Orientation1 == Orientation.NORTH && Orientation2 == Orientation.WEST)
 				|| (Orientation1 == Orientation.WEST && Orientation2 == Orientation.NORTH)) {
 			startCoord = new Point(initialCoord.x + (panelCoord.x * panelWidth)
-					- (panelWidth / AWAYFROMBORDER), initialCoord.y
+					- SPACE, initialCoord.y
 					+ (panelCoord.y * panelHeight)
-					- (panelHeight / AWAYFROMBORDER));
+					- SPACE);
 			startAngle = 0;
 		}
 		if ((Orientation1 == Orientation.NORTH && Orientation2 == Orientation.EAST)
 				|| (Orientation1 == Orientation.EAST && Orientation2 == Orientation.NORTH)) {
 			startCoord = new Point(initialCoord.x
-					+ (panelWidth - (panelWidth / AWAYFROMBORDER))
+					+ (panelWidth - SPACE)
 					+ (panelCoord.x * panelWidth), initialCoord.y
 					+ (panelCoord.y * panelHeight)
-					- (panelHeight / AWAYFROMBORDER));
+					- SPACE);
 			startAngle = 270;
 		}
 		if ((Orientation1 == Orientation.SOUTH && Orientation2 == Orientation.WEST)
 				|| (Orientation1 == Orientation.WEST && Orientation2 == Orientation.SOUTH)) {
 			startCoord = new Point(initialCoord.x + (panelCoord.x * panelWidth)
-					- (panelWidth / AWAYFROMBORDER), initialCoord.y
-					+ panelHeight - ((panelHeight / AWAYFROMBORDER))
+					- SPACE, initialCoord.y
+					+ panelHeight - (SPACE)
 					+ (panelCoord.y * panelHeight));
 			startAngle = 90;
 		}
 		if ((Orientation1 == Orientation.SOUTH && Orientation2 == Orientation.EAST)
 				|| (Orientation1 == Orientation.EAST && Orientation2 == Orientation.SOUTH)) {
 			startCoord = new Point(initialCoord.x
-					+ (panelWidth - (panelWidth / AWAYFROMBORDER))
-					+ (panelCoord.x * panelWidth), initialCoord.y + panelHeight
-					- ((panelHeight / AWAYFROMBORDER))
+					+ (panelWidth - (SPACE)
+					+ (panelCoord.x * panelWidth)), initialCoord.y + panelHeight
+					- (SPACE)
 					+ (panelCoord.y * panelHeight));
 			startAngle = 180;
 		}
-		if (nullCorner)
-			g.drawArc(startCoord.x, startCoord.y,
-					2 * (panelWidth / AWAYFROMBORDER),
-					2 * (panelHeight / AWAYFROMBORDER), startAngle, -90);
-		g.drawArc(startCoord.x - SPACE, startCoord.y - SPACE,
-				2 * ((panelWidth / AWAYFROMBORDER) + SPACE),
-				2 * ((panelHeight / AWAYFROMBORDER) + SPACE), startAngle, -90);
+		g.drawArc(startCoord.x, startCoord.y,
+				(2 * SPACE),
+				(2 * SPACE), startAngle, -90);
+		
+		
 		g.setColor(original);
 
 		// TODO
