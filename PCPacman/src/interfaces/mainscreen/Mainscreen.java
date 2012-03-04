@@ -146,6 +146,7 @@ public class Mainscreen
 		btnRobot3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cnvRobot3.setRobotColor(JColorChooser.showDialog(frmPacman, "Kies een Kleur", cnvRobot3.getRobotColor()));
+				Mainscreen.playSound("pacman_eatghost.wav");
 				cnvRobot3.repaint();
 			}
 		});
@@ -168,6 +169,7 @@ public class Mainscreen
 		btnRobot4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cnvRobot4.setRobotColor(JColorChooser.showDialog(frmPacman, "Kies een Kleur", cnvRobot4.getRobotColor()));
+				Mainscreen.playSound("pacman_eatghost.wav");
 				cnvRobot4.repaint();
 			}
 		});
@@ -205,6 +207,7 @@ public class Mainscreen
 		btnColortest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// TEST KNOP!
+				Mainscreen.playSound("pacman_intermission.wav");
 			}
 		});
 		splitPane_5.setRightComponent(btnColortest);
@@ -213,6 +216,7 @@ public class Mainscreen
 		btnGlobal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cnvGlobal.setRobotColor(JColorChooser.showDialog(frmPacman, "Kies een Kleur", cnvGlobal.getRobotColor()));
+				Mainscreen.playSound("pacman_eatghost.wav");
 				cnvGlobal.repaint();
 			}
 		});
@@ -284,6 +288,7 @@ public class Mainscreen
 		btnRobot2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cnvRobot2.setRobotColor(JColorChooser.showDialog(frmPacman, "Kies een Kleur", cnvRobot2.getRobotColor()));
+				Mainscreen.playSound("pacman_eatghost.wav");
 				cnvRobot2.repaint();
 			}
 		});
@@ -306,6 +311,7 @@ public class Mainscreen
 		btnRobot1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cnvRobot1.setRobotColor(JColorChooser.showDialog(frmPacman, "Kies een Kleur", cnvRobot1.getRobotColor()));
+				Mainscreen.playSound("pacman_eatghost.wav");
 				cnvRobot1.repaint();
 			}
 		});
