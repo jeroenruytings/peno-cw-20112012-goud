@@ -3,9 +3,7 @@ package interfaces.pacmancomponents;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.List;
 import java.awt.Point;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import pacmansystem.board.Board;
