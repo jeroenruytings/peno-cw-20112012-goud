@@ -52,11 +52,11 @@ public class CommandDiscover implements Command
 	}
 
 	@Override
-	public void execute(World simulator)
+	public void execute(World world)
 	{
 		Panel p = getPanel();
-		Board b = simulator.getRobot(_name).getBoard();
-		b.add(p, simulator.getRobot(_name).getPosition());
+		Board b = world.getRobot(_name).getBoard();
+		b.add(p, world.getRobot(_name).getPosition());
 	}
 
 }

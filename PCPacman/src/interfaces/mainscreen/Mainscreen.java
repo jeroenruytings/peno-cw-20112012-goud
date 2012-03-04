@@ -1,6 +1,5 @@
 package interfaces.mainscreen;
 
-import interfaces.pacmancomponents.Barcodeframe;
 import interfaces.pacmancomponents.SimRobotDataDisplay;
 
 import java.awt.BorderLayout;
@@ -15,6 +14,11 @@ import java.awt.Point;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JFrame;
@@ -36,6 +40,8 @@ import javax.swing.JMenu;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.ButtonGroup;
 import java.awt.Cursor;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class Mainscreen
 {
@@ -80,7 +86,6 @@ public class Mainscreen
 		} catch (IOException e) {
 			throw new RuntimeException("Font-file niet kunnen lezen!");
 		} catch (FontFormatException e) {
-			// TODO Auto-generated catch block
 			throw new RuntimeException(
 					"Font niet kunnen omzetten naar java-Font!");
 		}
@@ -94,6 +99,12 @@ public class Mainscreen
 	private void initialize()
 	{
 		frmPacman = new JFrame();
+		frmPacman.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				Mainscreen.playSound("pacman_beginning.wav");
+			}
+		});
 		frmPacman.setMinimumSize(new Dimension(1200, 800));
 		frmPacman.setSize(new Dimension(1200, 800));
 		frmPacman.setPreferredSize(new Dimension(1200, 800));
@@ -193,7 +204,7 @@ public class Mainscreen
 		JButton btnColortest = new JButton("ColorTest");
 		btnColortest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Barcodeframe.showBarcode(10010101);
+				// TEST KNOP!
 			}
 		});
 		splitPane_5.setRightComponent(btnColortest);
@@ -417,9 +428,22 @@ public class Mainscreen
 		 one.add(p14, new Point(1,3));
 		 one.add(p15, new Point(2,3));
 		 one.add(p16, new Point(3,3));
-		
-
-
+	}
+	
+	public synchronized static void playSound(String name){
+		try {
+		InputStream sound = Mainscreen.class.getResourceAsStream("/resources/sound/" + name);
+		AudioInputStream as = AudioSystem.getAudioInputStream(sound);
+		Clip track = AudioSystem.getClip(null);
+		track.open(as);
+		track.start();
+		} catch (UnsupportedAudioFileException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
