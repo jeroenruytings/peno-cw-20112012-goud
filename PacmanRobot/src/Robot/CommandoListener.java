@@ -118,6 +118,10 @@ public class CommandoListener implements Runnable {
 			return new Commando(Action.CALIBRATEWHITE,comm-(k*1000),"");
 		case 7:
 			return new Commando(Action.CALIBRATEBROWN,comm-(k*1000),"");
+		case 8:
+			return null;
+		case 9:
+			return new Commando(Action.LIGHTSENSORVALUE, comm-(k*1000), "");
 		//nog extra commando's invoegen;
 		default:
 			return null;
