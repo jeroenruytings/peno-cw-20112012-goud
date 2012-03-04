@@ -15,14 +15,19 @@ public class _BarcodeReaderTest0
 	
 	ColorTransitionStack stack;
 	private Map<int[], Barcode> barcodes;
+	int[] r=  {0,0,0,0,1,1,1,1};;
+	Barcode one ;
 	@Before
 	public void before()
 	{
 		stack = new ColorTransitionStack(null);
 	_ColorTransitionStack.standardCalibrate(stack);
 	barcodes = new HashMap<int[], Barcode>();
-	int[] r = {0,0,0,1,1,1,1};
-	barcodes.put(r, Barcode.one);
+	try {
+		one = new Barcode(r);
+	} catch (Exception e1) {
+	}
+	barcodes.put(r, one);
 	}
 	@Test
 	public void ezpz()
@@ -32,7 +37,7 @@ public class _BarcodeReaderTest0
 		stack.pushColor(50, 150);
 		
 		BarCodeReader reader = new BarCodeReader(stack,barcodes);
-		assertTrue(reader.searchForCode().equals(Barcode.one));
+		assertTrue(reader.searchForCode().equals(one));
 	
 	}
 	private void prettyPrint(int[] v)

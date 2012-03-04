@@ -8,7 +8,7 @@ public class Barcode
 	public Barcode (int barcode){
 		this.barcode = barcode;
 	}
-	public Barcode(int[] code) throws Exception
+	public Barcode(int... code) throws Exception
 	{
 		String s = "";
 		if(code.length!=8)
@@ -17,6 +17,7 @@ public class Barcode
 			s+=i;
 		this.barcode = (Integer.parseInt(s));
 	}
+	
 	/**
 	 * @return This barcode read in the other direction.
 	 */
