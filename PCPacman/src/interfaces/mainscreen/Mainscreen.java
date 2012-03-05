@@ -1,6 +1,7 @@
 package interfaces.mainscreen;
 
 import interfaces.pacmancomponents.SimRobotDataDisplay;
+import interfaces.pacmancomponents.UltrasonicValuePanel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -228,10 +229,11 @@ public class Mainscreen
 		btnGlobal.setBackground(Color.BLACK);
 		panel_5.add(btnGlobal, BorderLayout.NORTH);
 
-		JPanel panel = new JPanel();
+		UltrasonicValuePanel panel = new UltrasonicValuePanel(null);
+		Thread t = new Thread(panel);
+		t.start();
 		panel.setBackground(Color.BLACK);
 		splitPane_4.setLeftComponent(panel);
-		panel.setLayout(new BorderLayout(0, 0));
 
 		JToolBar toolBar = new JToolBar();
 		toolBar.setBorder(new LineBorder(Color.BLUE, 2));
