@@ -6,6 +6,7 @@ import java.io.IOException;
 import be.kuleuven.cs.peno.MessageSender;
 
 import pacmansystem.ai.robot.Barcode;
+import pacmansystem.ai.robot.DirectionLayer;
 import pacmansystem.ai.robot.PathLayer;
 import pacmansystem.board.Board;
 import pacmansystem.board.Panel;
@@ -185,7 +186,7 @@ public class RobotController extends RobotData
 		pathLayer = layer;
 	}
 
-	public RobotController(Board board, PathLayer layer)
+	public RobotController(Board board, DirectionLayer layer)
 
 	{
 		sender = null;
@@ -199,7 +200,7 @@ public class RobotController extends RobotData
 		currentX = 0;
 		currentY = 0;
 		currentOrientation = Orientation.NORTH;
-		pathLayer = layer;
+		pathLayer = new PathLayer(getBoard(), layer);
 	}
 	
 	public RobotController(RealWorld realworld, int rows, int columns) 
