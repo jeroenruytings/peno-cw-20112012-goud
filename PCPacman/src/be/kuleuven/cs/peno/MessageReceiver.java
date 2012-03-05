@@ -1,8 +1,6 @@
 package be.kuleuven.cs.peno;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.text.ParseException;
 
 import pacmansystem.parser.Command;
@@ -15,43 +13,37 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 
-/**
- * A program that monitors "race.*" messages
- * 
- * @author bart.vanbrabant@cs.kuleuven.be
- *
- */
-public class SubscribeMonitor {
-	public static final String MONITOR_KEY = "race.*";
+public class MessageReceiver implements Runnable{
 	
-	public static void main(String[] main) {
-		try {
-			final ProtocolDecoder decoder = new ProtocolDecoder();
-			
-			final Connection conn = MQ.createConnection();
-			final Channel channel = MQ.createChannel(conn);
-			BufferedReader stdin = new BufferedReader(new InputStreamReader(
-					System.in));
+	private static final String MONITOR_KEY = "race.*";
+	final private ProtocolDecoder decoder;
+	final private Channel channel;
+	final private Connection conn;
+	final AMQP.Queue.DeclareOk queue;
 
-			System.out.println(String.format("Subscribbed to topic '%s'. Exit with ENTER",
-					MONITOR_KEY));
-			
-			// create a queue for this program
-			final AMQP.Queue.DeclareOk queue = channel.queueDeclare();
-			System.out.println("Create queue " + queue.getQueue());
-			
-			// bind the queue to all routing keys that match MONITOR_KEY
-			channel.queueBind(queue.getQueue(), Config.EXCHANGE_NAME, MONITOR_KEY);
-			System.out.println(String.format("Bound queue %s to all keys that match '%s' on exchange %s",
-					queue.getQueue(), MONITOR_KEY, Config.EXCHANGE_NAME));
-			
-			boolean noAck = false;
-			
-			// ask the server to notify us of new message and do not send ack message automatically
-			// WARNING: This code is called from the thread that does the communication with the 
-			// server so sufficient locking is required. Also do not use any blocking calls to
-			// the server such as queueDeclare, txCommit, or basicCancel. Basicly only "basicAck"
-			// should be called here!!!
+	public static void main(String[] args) {
+		try {
+			MessageReceiver test = new MessageReceiver();
+			test.run();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public MessageReceiver() throws IOException{
+		
+		decoder = new ProtocolDecoder();
+		conn = MQ.createConnection();
+		channel = MQ.createChannel(conn);
+		queue = channel.queueDeclare();
+		channel.queueBind(queue.getQueue(), Config.EXCHANGE_NAME, MONITOR_KEY);
+	}
+
+	@Override
+	public void run() {
+		boolean noAck = false;
+		try {
 			channel.basicConsume(queue.getQueue(), noAck, new DefaultConsumer(channel) {
 				@Override
 				public void handleDelivery(String consumerTag, Envelope envelope, 
@@ -70,6 +62,7 @@ public class SubscribeMonitor {
 							new String(body))); //boodschap
 					
 					String message = new String(body);
+					System.out.println(message);
 					try {
 						Command command = decoder.parse(message);
 						command.execute(new World());
@@ -84,14 +77,10 @@ public class SubscribeMonitor {
 					channel.basicAck(deliveryTag, false);
 				}
 			});
-
-			// wait here until a newline is entered
-			stdin.readLine();
-
-			channel.close();
-			conn.close();
 		} catch (IOException e) {
-			e.printStackTrace(System.err);
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
 	}
 }

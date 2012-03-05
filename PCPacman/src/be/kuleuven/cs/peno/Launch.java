@@ -16,6 +16,11 @@ import com.rabbitmq.client.Connection;
  *
  */
 public class Launch {
+	
+	private Connection conn;
+	private Channel channel;
+
+		
 	public static void main(String[] args) {
 		try {
 			Connection conn = MQ.createConnection();
@@ -41,10 +46,6 @@ public class Launch {
 				String message = null;
 				if (line.equals("exit")) {
 					running = false;
-				} else if (line.equals("start")) {
-					message = "start";
-				} else if (line.equals("stop")) {
-					message = "stop";
 				} else {
 					message = line;
 				}
