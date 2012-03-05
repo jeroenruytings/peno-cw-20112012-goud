@@ -55,5 +55,17 @@ public class Panel
 		//TODO: CREATE BARCODE CLASS!!!!
 
 	}
+	
+	public String bordersToString(){
+		String result = "";
+		for (Orientation d : Orientation.values()){
+			if(hasBorder(d))
+				result = result + " 1";
+			else
+				result = result + " 0";
+		}		
+		return result;
+		
+	}
 
 }

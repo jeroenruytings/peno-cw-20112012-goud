@@ -1,7 +1,11 @@
 package pacmansystem.ai;
 
 import java.awt.Point;
+import java.io.IOException;
 
+import be.kuleuven.cs.peno.MessageSender;
+
+import pacmansystem.ai.robot.Barcode;
 import pacmansystem.ai.robot.PathLayer;
 import pacmansystem.board.Board;
 import pacmansystem.board.Panel;
@@ -20,6 +24,11 @@ public class RobotController
 	}
 
 	private PathLayer pathLayer;
+	private MessageSender sender;
+
+	public MessageSender getSender() {
+		return sender;
+	}
 
 	public PathLayer getPathLayer() {
 		return pathLayer;
@@ -29,7 +38,8 @@ public class RobotController
 	{
 		int rows = Integer.parseInt(args[0]);
 		int columns = Integer.parseInt(args[1]);
-		RobotController main = new RobotController(rows, columns);
+		RobotController main = new RobotController(new RealWorld(),rows, columns);
+		main.join();
 		Point destination = null;
 		boolean finished = false;
 		while (!finished) {
@@ -49,8 +59,70 @@ public class RobotController
 			}
 			main.getPathLayer().go(main.getCurrentPoint(), destination); //gaat naar volgend punt
 			main.setCurrentPoint(destination); //verandert huidig punt
+			try {
+				main.getSender().sendMessage("goud DISCOVER "+ main.getCurrentX() + "," + main.getCurrentY()+ " " +
+						main.getBoard().getPanelAt(main.getCurrentPoint()).bordersToString() +"\n");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 		//hoera!
+	}
+
+	private void join() {
+		try {
+			getSender().sendMessage("JOIN\n");
+			getSender().sendMessage("goud NAME\n");
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	private void explore(){
+		Point destination = null;
+		boolean finished = false;
+		while (!finished) {
+			Panel p1 = getPathLayer().getDirectionLayer().getPanel(getCurrentOrientation()); //getPanel() moet om zich heen kijken
+			if(p1.hasBarcode()){
+				sendBarcode(p1.getBarcode());
+			}
+			
+			
+			getBoard().add(p1, getCurrentPoint()); //voegt panel toe aan board
+			for (Orientation orientation : Orientation.values()) { //voegt omliggende punten toe indien ze geen tussenmuur hebben
+				if(! p1.hasBorder(orientation)){
+					Panel p2 = new Panel();
+					p2.setBorder(orientation.opposite(), true);
+					getBoard().add(p2, new Point(getCurrentX()+orientation.getXPlus(),getCurrentY()+orientation.getYPlus()));
+				}
+			}
+			try {
+				destination = lookForDestination(); //zoekt volgend punt om naartoe te gaan
+			} catch (NullPointerException e) {
+				finished = true;
+			}
+			getPathLayer().go(getCurrentPoint(), destination); //gaat naar volgend punt
+			setCurrentPoint(destination); //verandert huidig punt
+			try {
+				getSender().sendMessage("goud DISCOVER "+ getCurrentX() + "," + getCurrentY()+ " " +
+						getBoard().getPanelAt(getCurrentPoint()).bordersToString() +"\n");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
+	}
+
+	
+	
+	private void sendBarcode(Barcode barcode) {
+		try {
+			getSender().sendMessage("\n"); //TODO
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public Orientation getCurrentOrientation() {
@@ -133,6 +205,13 @@ public class RobotController
 
 	public RobotController(int rows, int columns)
 	{
+		sender = null;
+		try {
+			sender = new MessageSender();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		currentX = 0;
 		currentY = 0;
 		currentOrientation = Orientation.NORTH;
@@ -142,8 +221,15 @@ public class RobotController
 		pathLayer = new PathLayer(board);
 	}
 
-	public RobotController(Board board)
+	public RobotController(Board board) 
 	{
+		sender = null;
+		try {
+			sender = new MessageSender();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.board = board;
 		currentX = 0;
 		currentY = 0;
@@ -151,8 +237,15 @@ public class RobotController
 		pathLayer = new PathLayer(board);
 	}
 	
-	public RobotController(RealWorld realworld, int rows, int columns)
+	public RobotController(RealWorld realworld, int rows, int columns) 
 	{
+		sender = null;
+		try {
+			sender = new MessageSender();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		currentX = 0;
 		currentY = 0;
 		currentOrientation = Orientation.NORTH;
@@ -164,6 +257,13 @@ public class RobotController
 	
 	public RobotController(RealWorld realworld, Board board)
 	{
+		sender = null;
+		try {
+			sender = new MessageSender();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.board = board;
 		currentX = 0;
 		currentY = 0;

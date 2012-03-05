@@ -9,6 +9,7 @@ import org.junit.Test;
 import pacmansystem.board.Board;
 import pacmansystem.board.Panel;
 import pacmansystem.board.enums.Orientation;
+import pacmansystem.world.RealWorld;
 
 public class _RobotControllerTest
 {
@@ -66,7 +67,7 @@ public class _RobotControllerTest
 		// one.add(p15, new Point(2,3));
 		// one.add(p16, new Point(3,3));
 
-		RobotController main = new RobotController(one);
+		RobotController main = new RobotController(new RealWorld(),one);
 		System.out.println(main.lookForDestination());
 		assertEquals(main.lookForDestination(), new Point(0, 1));
 

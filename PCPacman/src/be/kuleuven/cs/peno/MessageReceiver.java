@@ -5,6 +5,7 @@ import java.text.ParseException;
 
 import pacmansystem.parser.Command;
 import pacmansystem.parser.ProtocolDecoder;
+import pacmansystem.world.RealWorld;
 import pacmansystem.world.World;
 
 import com.rabbitmq.client.AMQP;
@@ -20,10 +21,11 @@ public class MessageReceiver implements Runnable{
 	final private Channel channel;
 	final private Connection conn;
 	final AMQP.Queue.DeclareOk queue;
+	private World world;
 
 	public static void main(String[] args) {
 		try {
-			MessageReceiver test = new MessageReceiver();
+			MessageReceiver test = new MessageReceiver(new World());
 			test.run();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -31,8 +33,8 @@ public class MessageReceiver implements Runnable{
 		}
 	}
 	
-	public MessageReceiver() throws IOException{
-		
+	public MessageReceiver(World world) throws IOException{
+		this.world = world;
 		decoder = new ProtocolDecoder();
 		conn = MQ.createConnection();
 		channel = MQ.createChannel(conn);
@@ -65,7 +67,7 @@ public class MessageReceiver implements Runnable{
 					System.out.println(message);
 					try {
 						Command command = decoder.parse(message);
-						command.execute(new World());
+						command.execute(world);
 					} catch (ParseException e) {
 						System.out.println("fail");
 					}

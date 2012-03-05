@@ -1,6 +1,11 @@
 package pacmansystem.world;
 
+import interfaces.mainscreen.Mainscreen;
+
+import java.io.IOException;
 import java.util.Map;
+
+import be.kuleuven.cs.peno.MessageReceiver;
 
 public class World extends RealWorld
 {
@@ -16,7 +21,13 @@ public class World extends RealWorld
 
 	public World()
 	{
-
+		MessageReceiver rec;
+		try {
+			rec = new MessageReceiver(this);
+			rec.run();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public RobotData getRobot(String name)
