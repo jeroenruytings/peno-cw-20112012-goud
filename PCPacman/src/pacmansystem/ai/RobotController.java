@@ -203,6 +203,23 @@ public class RobotController extends RobotData
 		pathLayer = new PathLayer(getBoard(), layer);
 	}
 	
+	public RobotController(Board b,DirectionLayer layer)
+
+	{
+		super(b);
+		sender = null;
+		try {
+			sender = new MessageSender();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		currentX = 0;
+		currentY = 0;
+		currentOrientation = Orientation.NORTH;
+		pathLayer = new PathLayer(getBoard(), layer);
+	}
+	
 //	public RobotController(RealWorld realworld, int rows, int columns) 
 //	{
 //		sender = null;
