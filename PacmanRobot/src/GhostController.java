@@ -3,6 +3,7 @@
 import Robot.CommandoListener;
 import Robot.RobotCommunicator;
 import Robot.SensorListener;
+import lejos.nxt.Button;
 import lejos.nxt.Motor;
 import lejos.robotics.proposal.DifferentialPilot;
 

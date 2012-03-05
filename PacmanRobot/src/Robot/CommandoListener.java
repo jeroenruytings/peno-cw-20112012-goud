@@ -6,8 +6,14 @@ import lejos.robotics.proposal.DifferentialPilot;
 
 public class CommandoListener implements Runnable {
 	
-	private RobotCommunicator communicator = RobotCommunicator.instance();
-	DifferentialPilot pilot = new DifferentialPilot(0, 0, 0, null, null, false);
+	private RobotCommunicator communicator;
+	DifferentialPilot pilot;
+	
+	public CommandoListener(){
+		
+		communicator = RobotCommunicator.instance();
+		pilot = new DifferentialPilot(54.25f, 54.75f, 148.35f, Motor.A, Motor.B, false);
+	}
 	
 	public void start(){
 		Thread listener = new Thread(this);
@@ -133,35 +139,32 @@ public class CommandoListener implements Runnable {
 		//TODO
 	}
 	
-private static void right(int i) {
+private void right(int i) {
 	
 	System.out.println("distance = " + i);
-	Motor.B.forward();
-	Motor.A.backward();
+	pilot.rotate(i);
 }
 
-private static void left(int i) {
+private void left(int i) {
 	
 	System.out.println("distance = " + i);
-	Motor.B.backward();
-	Motor.A.forward();
+	pilot.rotate(-i);
 }
 
-private static void backward(int i) {
+private void backward(int i) {
 	
 	System.out.println("distance = " + i);
-	Motor.B.backward();
-	Motor.A.backward();
+	pilot.travel(-i);
 }
 
-private static void forward(int i) {
+private void forward(int i) {
 	
 	System.out.println("distance = " + i);
-	Motor.B.forward();
-	Motor.A.forward();
+	pilot.travel(i);
+	
 }
 
-private static void stop() {
+private void stop() {
 	Motor.A.stop();
 	Motor.B.stop();
 }
