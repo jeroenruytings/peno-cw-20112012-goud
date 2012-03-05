@@ -1,5 +1,6 @@
 package Robot;
 
+import lejos.nxt.Button;
 import lejos.nxt.LCD;
 import lejos.nxt.Motor;
 import lejos.robotics.proposal.DifferentialPilot;
@@ -63,21 +64,34 @@ public class CommandoListener implements Runnable {
 					calibrateBrown();
 					break;
 				case 8:
+					readBarcode();
 					break;
 				case 9:
-					goGetLightSensorValue();
+					turnHeadRight(receivedCommando.getArgument());
+					break;
+				case 10:
+					turnHeadLeft(receivedCommando.getArgument());
 				default:;
 			}
 		}
 		
 		}
 
-	private void goGetLightSensorValue() {
+	private void turnHeadLeft(int argument) {
 		
-		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.LightSensor, new SensorValue((byte) 1)); //XXX: welke value??
+		Motor.C.rotate(-argument);
+		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
+		communicator.send(message);
+	}
+
+	private void turnHeadRight(int argument) {
+		
+		Motor.C.rotate(argument);
+		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
 		communicator.send(message);
 		
 	}
+
 
 	private void calibrateBrown() {
 		LCD.clear();
@@ -125,9 +139,11 @@ public class CommandoListener implements Runnable {
 		case 7:
 			return new Commando(Action.CALIBRATEBROWN,comm-(k*1000),"");
 		case 8:
-			return null;
+			return new Commando(Action.READBARCODE,comm-(k*1000),"");
 		case 9:
-			return new Commando(Action.LIGHTSENSORVALUE, comm-(k*1000), "");
+			return new Commando(Action.HEADRIGHT,comm-(k*1000), "");
+		case 10:
+			return new Commando(Action.HEADLEFT, comm-(k*1000), "");
 		//nog extra commando's invoegen;
 		default:
 			return null;
@@ -136,7 +152,11 @@ public class CommandoListener implements Runnable {
 	}
 	
 	public void readBarcode(){
-		//TODO
+		pilot.travel(-160);
+		pilot.travel(320);
+		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
+		communicator.send(message);
+		pilot.travel(-160);
 	}
 	
 private void right(int i) {
