@@ -67,7 +67,8 @@ public class _RobotControllerTest
 		// one.add(p15, new Point(2,3));
 		// one.add(p16, new Point(3,3));
 
-		RobotController main = new RobotController(new RealWorld(),one);
+		RobotController main = new RobotController(one, null);
+
 		System.out.println(main.lookForDestination());
 		assertEquals(main.lookForDestination(), new Point(0, 1));
 

@@ -17,8 +17,8 @@ public class PathLayer {
 
 	private ShortestPathFinder finder;
 	
-	public PathLayer(Board board){
-		directionLayer = new DirectionLayer();
+	public PathLayer(Board board, DirectionLayer layer){
+		directionLayer = layer;
 		finder = new ShortestPathFinder(board);
 	}
 	

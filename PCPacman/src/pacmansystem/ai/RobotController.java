@@ -10,9 +10,12 @@ import pacmansystem.ai.robot.PathLayer;
 import pacmansystem.board.Board;
 import pacmansystem.board.Panel;
 import pacmansystem.board.enums.Orientation;
+import pacmansystem.world.RobotData;
+
 import pacmansystem.world.RealWorld;
 
-public class RobotController
+
+public class RobotController extends RobotData
 {
 
 	private int currentX;
@@ -32,43 +35,6 @@ public class RobotController
 
 	public PathLayer getPathLayer() {
 		return pathLayer;
-	}
-
-	public static void main(String[] args)
-	{
-		int rows = Integer.parseInt(args[0]);
-		int columns = Integer.parseInt(args[1]);
-		RobotController main = new RobotController(new RealWorld(),rows, columns);
-		main.join();
-		Point destination = null;
-		boolean finished = false;
-		while (!finished) {
-			Panel p1 = main.getPathLayer().getDirectionLayer().getPanel(main.getCurrentOrientation()); //getPanel() moet om zich heen kijken
-			main.getBoard().add(p1, main.getCurrentPoint()); //voegt panel toe aan board
-			for (Orientation orientation : Orientation.values()) { //voegt omliggende punten toe indien ze geen tussenmuur hebben
-				if(! p1.hasBorder(orientation)){
-					Panel p2 = new Panel();
-					p2.setBorder(orientation.opposite(), true);
-					main.getBoard().add(p2, new Point(main.getCurrentX()+orientation.getXPlus(),main.getCurrentY()+orientation.getYPlus()));
-				}
-			}
-			try {
-				destination = main.lookForDestination(); //zoekt volgend punt om naartoe te gaan
-			} catch (Exception e) {
-				finished = true;
-			}
-			main.getPathLayer().go(main.getCurrentPoint(), destination); //gaat naar volgend punt
-			main.setCurrentPoint(destination); //verandert huidig punt
-			try {
-				main.getSender().sendMessage("goud DISCOVER "+ main.getCurrentX() + "," + main.getCurrentY()+ " " +
-						main.getBoard().getPanelAt(main.getCurrentPoint()).bordersToString() +"\n");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
-		//hoera!
 	}
 
 	private void join() {
@@ -201,7 +167,7 @@ public class RobotController
 				.abs(destination.getY() - currentY));
 	}
 
-	public RobotController(int rows, int columns)
+	public RobotController(int rows, int columns,PathLayer layer)
 	{
 		sender = null;
 		try {
@@ -216,10 +182,11 @@ public class RobotController
 		board = new Board(rows, columns);
 		Panel p1 = new Panel();
 		board.add(p1, new Point(0,0));
-		pathLayer = new PathLayer(board);
+		pathLayer = layer;
 	}
 
-	public RobotController(Board board) 
+	public RobotController(Board board, PathLayer layer)
+
 	{
 		sender = null;
 		try {
@@ -232,7 +199,7 @@ public class RobotController
 		currentX = 0;
 		currentY = 0;
 		currentOrientation = Orientation.NORTH;
-		pathLayer = new PathLayer(board);
+		pathLayer = layer;
 	}
 	
 	public RobotController(RealWorld realworld, int rows, int columns) 

@@ -21,9 +21,9 @@ public class DirectionLayer
 	 * 
 	 * @param layer
 	 */
-	public DirectionLayer()
+	public DirectionLayer(PanelLayerInterface layer)
 	{
-		layer = new PanelLayer();
+		this.layer = layer;
 	}
 	
 	public DirectionLayer(RealWorld realworld){

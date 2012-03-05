@@ -4,7 +4,6 @@ import java.awt.Point;
 
 import javax.naming.OperationNotSupportedException;
 
-import pacmansystem.ai.robot.BarcodeReader.color;
 import pacmansystem.ai.robot.fysicalRobot.PanelColor;
 import pacmansystem.ai.robot.fysicalRobot.connector.MoverLayer;
 import pacmansystem.board.Panel;
@@ -18,9 +17,9 @@ public class PanelLayer implements PanelLayerInterface
 	public final static int distance = 40;
 	Panel panel;
 
-	public PanelLayer()
+	public PanelLayer(MoverLayer mover)
 	{
-		mover = new MoverLayer();
+		this.mover = mover;
 		panel = new Panel();
 	}
 
