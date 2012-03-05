@@ -9,7 +9,7 @@ import pacmansystem.ai.robot.fysicalRobot.connector.MoverLayer;
 
 public class ColorTransitionStack
 {
-
+	
 	private Map<PanelColor, Integer> _colorCalibration;
 	private Stack<ColorNode> _nodes = new Stack<ColorNode>();
 	private static final int FILTER_OFFSET = 10;
@@ -56,7 +56,7 @@ public class ColorTransitionStack
 		_nodes.push(new ColorNode(color, distance));
 		cleanHeap();
 	}
-	
+
 	private boolean isBlack(int value)
 	{
 		return (value > (_colorCalibration.get(PanelColor.BLACK) + _colorCalibration
@@ -87,14 +87,14 @@ public class ColorTransitionStack
 		if (nodes.size() <= 2)
 			return nodes;
 		ColorNode current = nodes.pop();
+		
 		if (current.get_color().equals(nodes.peek().get_color())) {
 			return cleanHeap(nodes);
 		}
 		if (distance(current, nodes.peek()) < FILTER_OFFSET) {
+			nodes.pop();
+			nodes.push(current);
 			return cleanHeap(nodes);
-		}else
-		{
-			
 		}
 		nodes.push(current);
 		return nodes;
@@ -110,5 +110,6 @@ public class ColorTransitionStack
 	{
 		return _colorCalibration.get(key);
 	}
+	
 
 }

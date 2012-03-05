@@ -46,6 +46,7 @@ public class ShortestPathFinder
 
 	public Iterable<Point> shortestPath(Point start, Point end)
 	{
+		
 		PriorityQueue<Node> pq = new PriorityQueue<ShortestPathFinder.Node>();
 		pq.add(new Node(0, null, start));
 		Node current = pq.poll();
