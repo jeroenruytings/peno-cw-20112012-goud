@@ -1,7 +1,11 @@
 package pacmansystem.ai.robot.fysicalRobot.connector;
 
-import pacmansystem.ai.robot.BarcodeReader;
+import java.util.HashMap;
+import java.util.Map;
+
+import pacmansystem.ai.robot.Barcode;
 import pacmansystem.ai.robot.fysicalRobot.PanelColor;
+import pacmansystem.ai.robot.fysicalRobot.barcode.BarCodeReader;
 import pacmansystem.ai.robot.fysicalRobot.barcode.ColorTransitionStack;
 
 public class MoverLayer
@@ -14,23 +18,40 @@ public class MoverLayer
 	private int infraRedSensorValue;
 	private PCCommunicator pcc;
 	boolean button = false;
-	private int tachoCount;
-	private ColorTransitionStack _colorStack = new ColorTransitionStack(this);
-	
+	private int tachoCount = 1;
+	private ColorTransitionStack _colorStack ;
+	private BarCodeReader _reader;
+	private Map<int[], Barcode> _map;
 	public MoverLayer()
 	{
 		initialiseMoverLayer();
 	}
+	
 	
 	private void initialiseMoverLayer(){
 		
 		pcc = new PCCommunicator(this);
 		Thread communicator = new Thread(pcc);
 		communicator.start();
+		_colorStack = new ColorTransitionStack(this);
+		_map = initbarcodes();
+		_reader = new BarCodeReader(_colorStack, _map);
 		calibrateColors();
+		
 		
 	}
 	
+
+	private Map<int[], Barcode> initbarcodes() {
+		Map<int[], Barcode> rv = new HashMap<int[], Barcode>();
+		int[] k = {1,1,0,0,1,1,0};
+		try {
+			rv.put(k, new Barcode(k));
+		} catch (Exception e) {
+		}
+		// TODO Auto-generated method stub
+		return rv;
+	}
 
 	private void calibrateColors()
 	{
@@ -73,9 +94,11 @@ public class MoverLayer
 	{
 		if (degrees>=0){
 			pcc.sendCommando(new Commando(Action.HEADRIGHT,degrees,""));
+			while(!buttonIsPushed());
 		}
 		else{
 			pcc.sendCommando(new Commando(Action.HEADLEFT, (-1*degrees), ""));
+			while(!buttonIsPushed());
 		}
 	}
 
@@ -118,7 +141,7 @@ public class MoverLayer
 
 	public int getTachoCount()
 	{
-		//TODO set tachocount
+		
 		return this.tachoCount;
 		
 	}
@@ -132,7 +155,7 @@ public class MoverLayer
 		button = false;
 	}
 
-	public ColorTransitionStack getBarcodeReader() {
+	public ColorTransitionStack getColorStack() {
 		return _colorStack;
 	}
 
@@ -148,9 +171,15 @@ public class MoverLayer
 		pcc.sendCommando(new Commando(Action.CALIBRATEBROWN,0, "Calibrate brown"));
 		while(!buttonIsPushed()) ;
 		this._colorStack.calibrate(PanelColor.BROWN, getLightSensor());
-		button = false;
+		releaseButton();
 	}
 	
+	public void releaseButton() {
+		button = false;
+		
+	}
+
+
 	public void pushButton(){
 		button = true;
 	}
@@ -169,6 +198,8 @@ public class MoverLayer
 
 	public void setLightSensor(Integer value) {
 		this.lightSensor = value;
+		if(_colorStack.sufficientlyCalibrated())
+			_colorStack.pushColor(value, getTachoCount());
 	}
 
 
@@ -182,6 +213,10 @@ public class MoverLayer
 
 	public int getInfraRedSensorValue() {
 		return infraRedSensorValue;
+	}
+
+	public BarCodeReader getBarcodeReader() {
+		return _reader;
 	}
 
 

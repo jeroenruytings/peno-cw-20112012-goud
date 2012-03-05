@@ -74,7 +74,8 @@ public class PCCommunicator implements Runnable
 			}
 
 		} catch (Exception e) {
-			System.out.println("things went bananas QQ!");
+			e.printStackTrace();
+			System.out.println("things went bananas QQ2!");
 		}
 	}
 

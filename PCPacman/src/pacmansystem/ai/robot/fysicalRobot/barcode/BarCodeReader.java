@@ -19,7 +19,7 @@ public class BarCodeReader
 
 	public Barcode searchForCode()
 	{
-		BarcodeFinder finder = new BarcodeFinder(_stack.getColors(), 8);
+		BarcodeFinder finder = new BarcodeFinder(_stack.getColors(), 7);
 		return closestHamming(finder.getCode());
 
 	}

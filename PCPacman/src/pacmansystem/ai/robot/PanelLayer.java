@@ -5,6 +5,8 @@ import java.awt.Point;
 import javax.naming.OperationNotSupportedException;
 
 import pacmansystem.ai.robot.fysicalRobot.PanelColor;
+import pacmansystem.ai.robot.fysicalRobot.connector.Action;
+import pacmansystem.ai.robot.fysicalRobot.connector.Commando;
 import pacmansystem.ai.robot.fysicalRobot.connector.MoverLayer;
 import pacmansystem.board.Panel;
 import pacmansystem.board.enums.Direction;
@@ -21,6 +23,18 @@ public class PanelLayer implements PanelLayerInterface
 	{
 		this.mover = mover;
 		panel = new Panel();
+	}
+
+	public MoverLayer getMover() {
+		return mover;
+	}
+
+	public static int getDistance() {
+		return distance;
+	}
+
+	public Panel getPanel() {
+		return panel;
 	}
 
 	/*
@@ -99,7 +113,7 @@ public class PanelLayer implements PanelLayerInterface
 	{
 		
 		// verantwoordelijkheid van barcode reader?
-		PanelColor color = mover.getBarcodeReader().getColor(mover.getLightSensor());
+		PanelColor color = mover.getColorStack().getColor(mover.getLightSensor());
 		if (color != color.BROWN)
 			return true;
 		else
@@ -113,9 +127,17 @@ public class PanelLayer implements PanelLayerInterface
 	 * @see panel.PanelLayerInterface#getBarcode()
 	 */
 	@Override
-	public Barcode getBarcode() throws OperationNotSupportedException
+	public Barcode getBarcode()
 	{
-		throw new OperationNotSupportedException();
+		if(hasBarcode()){
+			mover.getPcc().sendCommando(new Commando(Action.READBARCODE, 0, ""));
+			while(!mover.buttonIsPushed());
+			mover.releaseButton();
+			return mover.getBarcodeReader().searchForCode();
+		}
+		else{
+			return null;
+		}
 	}
 
 	/*

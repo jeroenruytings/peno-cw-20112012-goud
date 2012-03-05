@@ -1,6 +1,12 @@
 package pacmansystem.ai.robot.fysicalRobot.connector;
 
+import java.io.IOException;
+
+import pacmansystem.ai.robot.Barcode;
+import pacmansystem.ai.robot.PanelLayer;
 import pacmansystem.ai.robot.fysicalRobot.PanelColor;
+import pacmansystem.board.Panel;
+import pacmansystem.board.enums.Orientation;
 
 public class TestClass {
 	
@@ -14,23 +20,55 @@ public class TestClass {
 		
 		MoverLayer mover = new MoverLayer();
 		
-		System.out.println("Pcc: " + mover.getPcc());
-		System.out.println("Virtu:" + mover.getPcc().getVirtu());	
+		PanelLayer panel = new PanelLayer(mover);
+
+		
+		System.out.println("Pcc: " + panel.getMover().getPcc());
+		System.out.println("Virtu:" + panel.getMover().getPcc().getVirtu());	
 		
 	
-			System.out.println("BarcodeReader BLACK: " + mover.getBarcodeReader().getColor(PanelColor.BLACK));
-			System.out.println("BarcodeReader WHITE: " + mover.getBarcodeReader().getColor(PanelColor.WHITE));
-			System.out.println("BarcodeReader BROWN: " + mover.getBarcodeReader().getColor(PanelColor.BROWN));
+			System.out.println("BarcodeReader BLACK: " + panel.getMover().getColorStack().getColor(PanelColor.BLACK));
+			System.out.println("BarcodeReader WHITE: " + panel.getMover().getColorStack().getColor(PanelColor.WHITE));
+			System.out.println("BarcodeReader BROWN: " + panel.getMover().getColorStack().getColor(PanelColor.BROWN));
 		
+		Panel paneel = panel.getPanel(Orientation.NORTH);
+		System.out.println(paneel);
+		System.out.println(paneel.hasBorder(Orientation.NORTH));
+		System.out.println(paneel.hasBorder(Orientation.EAST));
+		System.out.println(paneel.hasBorder(Orientation.SOUTH));
+		System.out.println(paneel.hasBorder(Orientation.WEST));
 
-		mover.drive(100);
-		mover.turn(-90);
-		mover.drive(-100);
-		mover.turn(90);
-		mover.turnHead(-90);
-		mover.turnHead(180);
-		mover.turnHead(-90);
+
+		
+		
+			try {
+				System.in.read();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println(panel.getBarcode().getValue());
 			
+//			for (int i = 0 ; i<50000; i++);
+//			mover.drive(100);
+//			mover.drive(100);
+//			mover.drive(100);
+//			mover.drive(100);
+//			mover.drive(100);
+//		try {
+//			System.in.read();
+//		} catch (IOException e) {
+//			
+//		}
+//		Barcode c=		mover.getBarcodeReader().searchForCode();
+//		System.out.println(c.getValue());
+//		mover.turn(-90);
+//		mover.drive(-100);
+//		mover.turn(90);
+//		mover.turnHead(-90);
+//		mover.turnHead(180);
+//		mover.turnHead(-90);
+//		
 //		mover.getPcc().sendCommando(new Commando(Action.FORWARD, "BarcodeTest"));
 		
 //		while (true){

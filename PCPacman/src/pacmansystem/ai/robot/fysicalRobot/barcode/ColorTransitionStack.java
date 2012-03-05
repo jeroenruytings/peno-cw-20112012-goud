@@ -35,6 +35,7 @@ public class ColorTransitionStack
 	public void pushColor(int lightValue, int distance)
 	{
 		addColorNode(getColor(lightValue), distance);
+	
 	}
 
 	public void calibrate(PanelColor color, int lightValue)
@@ -69,7 +70,7 @@ public class ColorTransitionStack
 				.get(PanelColor.BROWN)) / 2);
 	}
 
-	private boolean sufficientlyCalibrated()
+	public boolean sufficientlyCalibrated()
 	{
 		for (PanelColor c : PanelColor.values())
 			if (!_colorCalibration.containsKey(c))
