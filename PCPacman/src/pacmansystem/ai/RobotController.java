@@ -186,9 +186,10 @@ public class RobotController extends RobotData
 		pathLayer = layer;
 	}
 
-	public RobotController(Board board, DirectionLayer layer)
+	public RobotController(DirectionLayer layer)
 
 	{
+		super();
 		sender = null;
 		try {
 			sender = new MessageSender();
@@ -196,46 +197,45 @@ public class RobotController extends RobotData
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.board = board;
 		currentX = 0;
 		currentY = 0;
 		currentOrientation = Orientation.NORTH;
 		pathLayer = new PathLayer(getBoard(), layer);
 	}
 	
-	public RobotController(RealWorld realworld, int rows, int columns) 
-	{
-		sender = null;
-		try {
-			sender = new MessageSender();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		currentX = 0;
-		currentY = 0;
-		currentOrientation = Orientation.NORTH;
-		board = new Board(rows, columns);
-		Panel p1 = new Panel();
-		board.add(p1, new Point(0,0));
-		pathLayer = new PathLayer(board,realworld);
-	}
-	
-	public RobotController(RealWorld realworld, Board board)
-	{
-		sender = null;
-		try {
-			sender = new MessageSender();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		this.board = board;
-		currentX = 0;
-		currentY = 0;
-		currentOrientation = Orientation.NORTH;
-		pathLayer = new PathLayer(board, realworld);
-	}
+//	public RobotController(RealWorld realworld, int rows, int columns) 
+//	{
+//		sender = null;
+//		try {
+//			sender = new MessageSender();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		currentX = 0;
+//		currentY = 0;
+//		currentOrientation = Orientation.NORTH;
+//		board = new Board(rows, columns);
+//		Panel p1 = new Panel();
+//		board.add(p1, new Point(0,0));
+//		pathLayer = new PathLayer(board,realworld);
+//	}
+//	
+//	public RobotController(RealWorld realworld, Board board)
+//	{
+//		sender = null;
+//		try {
+//			sender = new MessageSender();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		this.board = board;
+//		currentX = 0;
+//		currentY = 0;
+//		currentOrientation = Orientation.NORTH;
+//		pathLayer = new PathLayer(board, realworld);
+//	}
 
 	public int getCurrentX()
 	{
