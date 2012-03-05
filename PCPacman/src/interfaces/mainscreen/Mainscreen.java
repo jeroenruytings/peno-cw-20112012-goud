@@ -32,6 +32,7 @@ import javax.swing.border.MatteBorder;
 import pacmansystem.board.Board;
 import pacmansystem.board.Panel;
 import pacmansystem.board.enums.Orientation;
+import pacmansystem.world.RealWorld;
 import pacmansystem.world.RobotData;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -450,6 +451,11 @@ public class Mainscreen
 		} catch (LineUnavailableException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static RealWorld getRealWorld(){
+		//TODO: MAAK!
+		return null;
 	}
 
 }
