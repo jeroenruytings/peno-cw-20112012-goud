@@ -87,9 +87,7 @@ public class RobotController
 			Panel p1 = getPathLayer().getDirectionLayer().getPanel(getCurrentOrientation()); //getPanel() moet om zich heen kijken
 			if(p1.hasBarcode()){
 				sendBarcode(p1.getBarcode());
-			}
-			
-			
+			}			
 			getBoard().add(p1, getCurrentPoint()); //voegt panel toe aan board
 			for (Orientation orientation : Orientation.values()) { //voegt omliggende punten toe indien ze geen tussenmuur hebben
 				if(! p1.hasBorder(orientation)){
