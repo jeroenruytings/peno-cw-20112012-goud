@@ -40,22 +40,43 @@ public class MoverLayer
 		
 	}
 
+	/**
+	 * 
+	 * @param degrees (negative = left)
+	 */
 	public void turn(int degrees)
 	{
+		if (degrees>=0){
+			pcc.sendCommando(new Commando(Action.RIGHT,degrees,""));
+		}
+		else{
+			pcc.sendCommando(new Commando(Action.LEFT, (-1*degrees), ""));
+		}
 
 	}
 
 	public void drive(int distance)
 	{
-		pcc.sendCommando(new Commando(Action.FORWARD,distance, "test"));
-		for (int i = 0; i<100; i++);
-		pcc.sendCommando(new Commando(Action.STOP,0, "test"));
-
+		if (distance>=0){
+			pcc.sendCommando(new Commando(Action.FORWARD, distance, ""));
+		}
+		else{
+			pcc.sendCommando(new Commando(Action.BACKWARD, (-1*distance), ""));
+		}
 	}
-
+	
+	/**
+	 * 
+	 * @param degrees (negative = right)
+	 */
 	public void turnHead(int degrees)
 	{
-
+		if (degrees>=0){
+			pcc.sendCommando(new Commando(Action.HEADRIGHT,degrees,""));
+		}
+		else{
+			pcc.sendCommando(new Commando(Action.HEADLEFT, (-1*degrees), ""));
+		}
 	}
 
 	
@@ -145,12 +166,8 @@ public class MoverLayer
 		
 	}
 
-	public void goGetLightSensorValue(){
-		pcc.sendCommando(new Commando(Action.LIGHTSENSORVALUE, 0, "Get lightsensorvalue"));
-	}
-	
+
 	public void setLightSensor(Integer value) {
-		System.out.println("Dit is de lightsensorwaarde van de robot:" + value);
 		this.lightSensor = value;
 	}
 
