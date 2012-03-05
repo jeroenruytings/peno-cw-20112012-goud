@@ -6,6 +6,7 @@ import java.util.Iterator;
 import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
 import pacmansystem.board.Board;
 import pacmansystem.board.ShortestPathFinder;
+import pacmansystem.world.RealWorld;
 
 public class PathLayer {
 	
@@ -18,6 +19,11 @@ public class PathLayer {
 	
 	public PathLayer(Board board){
 		directionLayer = new DirectionLayer();
+		finder = new ShortestPathFinder(board);
+	}
+	
+	public PathLayer(Board board, RealWorld realworld){
+		directionLayer = new DirectionLayer(realworld);
 		finder = new ShortestPathFinder(board);
 	}
 	
