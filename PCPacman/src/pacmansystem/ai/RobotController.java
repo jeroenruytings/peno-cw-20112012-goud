@@ -6,6 +6,7 @@ import pacmansystem.ai.robot.PathLayer;
 import pacmansystem.board.Board;
 import pacmansystem.board.Panel;
 import pacmansystem.board.enums.Orientation;
+import pacmansystem.world.RealWorld;
 
 public class RobotController
 {
@@ -148,6 +149,26 @@ public class RobotController
 		currentY = 0;
 		currentOrientation = Orientation.NORTH;
 		pathLayer = new PathLayer(board);
+	}
+	
+	public RobotController(RealWorld realworld, int rows, int columns)
+	{
+		currentX = 0;
+		currentY = 0;
+		currentOrientation = Orientation.NORTH;
+		board = new Board(rows, columns);
+		Panel p1 = new Panel();
+		board.add(p1, new Point(0,0));
+		pathLayer = new PathLayer(board,realworld);
+	}
+	
+	public RobotController(RealWorld realworld, Board board)
+	{
+		this.board = board;
+		currentX = 0;
+		currentY = 0;
+		currentOrientation = Orientation.NORTH;
+		pathLayer = new PathLayer(board, realworld);
 	}
 
 	public int getCurrentX()
