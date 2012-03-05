@@ -4,15 +4,18 @@ import java.awt.Point;
 import java.util.PriorityQueue;
 import java.util.Stack;
 
+import pacmansystem.board.dijkstra.DijkstraSP;
 import pacmansystem.board.enums.Orientation;
 
 public class ShortestPathFinder
 {
-	private Board board;
-
+	protected Board board;
+	private DijkstraSP finder;
 	public ShortestPathFinder(Board board)
 	{
 		this.board = board;
+	
+		
 	}
 
 	private class Node implements Comparable<Node>
@@ -62,7 +65,7 @@ public class ShortestPathFinder
 			return makePath(current);
 		return null;
 	}
-
+	
 	private Iterable<Point> makePath(Node current)
 	{
 		Stack<Point> rv = new Stack<Point>();

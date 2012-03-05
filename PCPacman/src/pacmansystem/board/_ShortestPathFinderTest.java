@@ -4,6 +4,7 @@ import java.awt.Point;
 
 import org.junit.Test;
 
+import pacmansystem.board.dijkstra.DijkstraFinder;
 import pacmansystem.board.enums.Orientation;
 
 public class _ShortestPathFinderTest
@@ -55,7 +56,7 @@ public class _ShortestPathFinderTest
 		one.add(p7, new Point(0, 2));
 		one.add(p8, new Point(1, 2));
 		one.add(p9, new Point(2, 2));
-		ShortestPathFinder finder = new ShortestPathFinder(one);
+		ShortestPathFinder finder = new DijkstraFinder(one);
 		Iterable<Point> r = finder.shortestPath(new Point(1, 2),
 				new Point(1, 0));
 		for (Point p : r)
@@ -69,7 +70,7 @@ public class _ShortestPathFinderTest
 		for(int i = 0; i < 50;i++)
 			for(int j=0;j<50;j++)
 				one.add(new Panel(), new Point(i,j));
-		ShortestPathFinder f = new ShortestPathFinder(one);
+		ShortestPathFinder f = new DijkstraFinder(one);
 	for(Point p:	f.shortestPath(new Point(0,0),new Point(49,49)))
 		System.out.println(p);
 	
