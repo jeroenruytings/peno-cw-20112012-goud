@@ -20,4 +20,5 @@ public class ProtocolDecoder
 			current = current.next();
 		return current.parse(string);
 	}
+
 }

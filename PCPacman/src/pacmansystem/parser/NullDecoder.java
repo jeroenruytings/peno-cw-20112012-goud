@@ -12,7 +12,7 @@ public class NullDecoder extends Decoder
 
 	public NullDecoder()
 	{
-		super(null);
+		super(null,"");
 	}
 
 	@Override
