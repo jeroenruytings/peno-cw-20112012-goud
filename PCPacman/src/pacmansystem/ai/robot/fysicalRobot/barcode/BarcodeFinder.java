@@ -52,7 +52,7 @@ public class BarcodeFinder
 	public int[] getCode()
 	{
 		ColorSegment[] segments = this.topSegment();
-		segments = filter(segments);
+		//segments = filter(segments);
 		return toCode(segments);
 
 	}
@@ -75,7 +75,7 @@ public class BarcodeFinder
 					(int) Math.max(segments[segments.length - 1].getLength()
 							- offset, 0))));
 		}
-		return null;
+		return segments;
 	}
 
 	/**
