@@ -2,10 +2,14 @@ package pacmansystem.ai;
 
 import static org.junit.Assert.*;
 
+import interfaces.mainscreen.Mainscreen;
+
 import java.awt.Point;
 
 import org.junit.Test;
 
+import pacmansystem.ai.robot.DirectionLayer;
+import pacmansystem.ai.robot.simulatedRobot.SimulatedRobot;
 import pacmansystem.board.Board;
 import pacmansystem.board.Panel;
 import pacmansystem.board.enums.Orientation;
@@ -67,7 +71,7 @@ public class _RobotControllerTest
 		// one.add(p15, new Point(2,3));
 		// one.add(p16, new Point(3,3));
 
-		RobotController main = new RobotController(one, null);
+		RobotController main = new RobotController(one, new DirectionLayer(new SimulatedRobot(Mainscreen.getRealWorld())));
 
 		System.out.println(main.lookForDestination());
 		assertEquals(main.lookForDestination(), new Point(0, 1));

@@ -23,9 +23,6 @@ public class RobotController extends RobotData
 	private int currentY;
 	private Orientation currentOrientation;
 	private Board board;
-	public Board getBoard() {
-		return board;
-	}
 
 	private PathLayer pathLayer;
 	private MessageSender sender;
@@ -214,6 +211,7 @@ public class RobotController extends RobotData
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		this.board = getBoard();
 		currentX = 0;
 		currentY = 0;
 		currentOrientation = Orientation.NORTH;
