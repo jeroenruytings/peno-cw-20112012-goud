@@ -9,6 +9,7 @@ import pacmansystem.ai.robot.fysicalRobot.PanelColor;
 import pacmansystem.board.Panel;
 import pacmansystem.board.enums.Direction;
 import pacmansystem.board.enums.Orientation;
+import pacmansystem.world.RealWorld;
 
 public class TestClass {
 	
@@ -23,9 +24,6 @@ public class TestClass {
 		MoverLayer mover = new MoverLayer();
 		
 		PanelLayer panel = new PanelLayer(mover);
-		
-		DirectionLayer direct = new DirectionL
-
 		
 		System.out.println("Pcc: " + panel.getMover().getPcc());
 		System.out.println("Virtu:" + panel.getMover().getPcc().getVirtu());	
