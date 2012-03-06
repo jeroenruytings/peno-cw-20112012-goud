@@ -1,5 +1,7 @@
 package interfaces.mainscreen;
 
+import interfaces.pacmancomponents.BarcodePanel;
+import interfaces.pacmancomponents.EnhancedRadioButton;
 import interfaces.pacmancomponents.SimRobotDataDisplay;
 import interfaces.pacmancomponents.UltrasonicValuePanel;
 
@@ -10,11 +12,14 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.FontFormatException;
-import java.awt.Insets;
+import java.awt.Image;
 import java.awt.Point;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -26,8 +31,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
-import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
 import pacmansystem.board.Board;
@@ -44,8 +47,11 @@ import javax.swing.ButtonGroup;
 import java.awt.Cursor;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.image.BufferedImage;
+import javax.swing.ImageIcon;
+import java.awt.CardLayout;
 
-public class Mainscreen
+public class Mainscreen implements ActionListener
 {
 
 	private JFrame frmPacman;
@@ -228,44 +234,59 @@ public class Mainscreen
 		btnGlobal.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.BLUE));
 		btnGlobal.setBackground(Color.BLACK);
 		panel_5.add(btnGlobal, BorderLayout.NORTH);
-
-		UltrasonicValuePanel panel = new UltrasonicValuePanel(null);
-		Thread t = new Thread(panel);
-		t.start();
-		panel.setBackground(Color.BLACK);
-		splitPane_4.setLeftComponent(panel);
-
+		
+		JPanel pnlSensors = new JPanel();
+		pnlSensors.setBackground(Color.BLACK);
+		pnlSensors.setFont(getPacmanFont());
+		splitPane_4.setLeftComponent(pnlSensors);
+		pnlSensors.setLayout(new BorderLayout(0, 0));
+		
+		
 		JToolBar toolBar = new JToolBar();
-		toolBar.setBorder(new LineBorder(Color.BLUE, 2));
+		toolBar.setFloatable(false);
+		toolBar.setForeground(Color.WHITE);
 		toolBar.setBackground(Color.BLACK);
-		panel.add(toolBar, BorderLayout.NORTH);
-
-		JButton btnUltrasonic = new JButton("Ultrasonic");
-		btnUltrasonic.setFont(this.getPacmanFont());
-		btnUltrasonic.setMargin(new Insets(4, 20, 4, 20));
-		btnUltrasonic.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnUltrasonic.setAlignmentX(Component.CENTER_ALIGNMENT);
-		btnUltrasonic.setForeground(Color.WHITE);
-		btnUltrasonic
-				.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.BLUE));
-		btnUltrasonic.setBackground(Color.BLACK);
-		toolBar.add(btnUltrasonic);
-
-		JButton btnBarcode = new JButton("Barcode");
-		btnBarcode.setFont(getPacmanFont());
-		btnBarcode.setAlignmentX(Component.CENTER_ALIGNMENT);
-		btnBarcode.setForeground(Color.WHITE);
-		btnBarcode.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.BLUE));
-		btnBarcode.setBackground(Color.BLACK);
-		toolBar.add(btnBarcode);
-
-		JButton btnIrsensor = new JButton("IR-sensor");
-		btnIrsensor.setFont(getPacmanFont());
-		btnIrsensor.setAlignmentX(Component.CENTER_ALIGNMENT);
-		btnIrsensor.setForeground(Color.WHITE);
-		btnIrsensor.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.BLUE));
-		btnIrsensor.setBackground(Color.BLACK);
-		toolBar.add(btnIrsensor);
+		
+		JPanel panel = new JPanel();
+		panel.setForeground(Color.WHITE);
+		panel.setBackground(Color.BLACK);
+		pnlSensors.add(panel, BorderLayout.CENTER);
+		panel.setLayout(new CardLayout(0, 0));
+		
+		UltrasonicValuePanel pnlUltrasonic = new UltrasonicValuePanel(null);
+		panel.add(pnlUltrasonic);
+		pnlUltrasonic.setBackground(Color.BLACK);
+		pnlUltrasonic.setFont(getPacmanFont());
+		Thread t = new Thread(pnlUltrasonic);
+		t.start();
+		
+		BarcodePanel pnlBarcode = new BarcodePanel(10011101);
+		panel.add(pnlBarcode);
+		
+		radioButtonList.add(pnlUltrasonic);
+		EnhancedRadioButton rdbtnUltrasonic = new EnhancedRadioButton("Ultrasonic", pnlUltrasonic, this, radioButtonList.indexOf(pnlUltrasonic));
+		pnlSensors.add(toolBar, BorderLayout.NORTH);
+		rdbtnUltrasonic.setBorderPainted(true);
+		rdbtnUltrasonic.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 255)));
+		buttonGroup_1.add(rdbtnUltrasonic);
+		ImageIcon imgSelected = getImageIcon("ghostDown.png", Color.RED);
+		ImageIcon imgNotSelected = getImageIcon("ghostUP.png", Color.DARK_GRAY);
+		rdbtnUltrasonic.setSelectedIcon(imgSelected);
+		rdbtnUltrasonic.setIcon(imgNotSelected);
+		rdbtnUltrasonic.setForeground(Color.WHITE);
+		rdbtnUltrasonic.setBackground(Color.BLACK);
+		toolBar.add(rdbtnUltrasonic);
+		
+		radioButtonList.add(pnlBarcode);
+		EnhancedRadioButton rdbtnBarcode = new EnhancedRadioButton("Barcode",pnlBarcode,this, radioButtonList.indexOf(pnlBarcode));
+		rdbtnBarcode.setBorderPainted(true);
+		rdbtnBarcode.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.BLUE));
+		buttonGroup_1.add(rdbtnBarcode);
+		rdbtnBarcode.setIcon(imgNotSelected);
+		rdbtnBarcode.setSelectedIcon(imgSelected);
+		rdbtnBarcode.setForeground(Color.WHITE);
+		rdbtnBarcode.setBackground(Color.BLACK);
+		toolBar.add(rdbtnBarcode);
 
 		JSplitPane splitPane_2 = new JSplitPane();
 		splitPane_2.setBackground(Color.WHITE);
@@ -345,6 +366,14 @@ public class Mainscreen
 
 	}
 
+	private ImageIcon getImageIcon(String image, Color color) {
+		Image selected = new BufferedImage(20, 20, BufferedImage.TYPE_INT_RGB);
+		selected.getGraphics().drawImage(getImage(image).getScaledInstance(20, 20, Image.SCALE_DEFAULT), 0, 0, 20, 20, color,frmPacman);
+		ImageIcon imgSelected = (new ImageIcon(selected));
+		return imgSelected;
+	}
+	
+
 	Board board = new Board(5, 5);
 	Board one = new Board(4, 4);
 	Panel panel1 = new Panel();
@@ -352,6 +381,7 @@ public class Mainscreen
 	Panel panel3 = new Panel();
 	RobotData srd = new RobotData(one);
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
 	{
 		panel1.setBorder(Orientation.NORTH, true);
 		panel1.setBorder(Orientation.WEST, true);
@@ -458,6 +488,35 @@ public class Mainscreen
 	public static RealWorld getRealWorld(){
 		//TODO: MAAK!
 		return null;
+	}
+	
+	/**
+	 * Read an image from the resources.
+	 * 
+	 * @param name
+	 *            Name of the image (with the extention). The file must be in
+	 *            the resources package, of this project.
+	 * @return Image object, representing the file.
+	 */
+	public static Image getImage(String name)
+	{
+		Image img = null;
+		try {
+			img = ImageIO.read(RobotData.class
+					.getResource("/resources/" + name).openStream());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return img;
+	}
+
+	private List<Component> radioButtonList = new ArrayList<Component>();
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		 for (Component tmp : radioButtonList)
+			 tmp.setVisible(false);
+		radioButtonList.get(Integer.parseInt(e.getActionCommand())).setVisible(true);
 	}
 
 }
