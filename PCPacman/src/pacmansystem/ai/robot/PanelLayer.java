@@ -17,7 +17,7 @@ public class PanelLayer implements PanelLayerInterface
 {
 
 	MoverLayer mover;
-	public final static int distance = 40;
+	public final static int distance = 400;
 	Panel panel;
 
 	public PanelLayer(MoverLayer mover)
@@ -49,18 +49,18 @@ public class PanelLayer implements PanelLayerInterface
 		switch (d.ordinal())
 		{
 		case 0:
-			mover.turn(-90);
 			mover.drive(distance);
 			break;
 		case 1:
-			mover.turn(90);
+			mover.turn(180);
 			mover.drive(distance);
 			break;
 		case 2:
+			mover.turn(-90);
 			mover.drive(distance);
 			break;
 		case 3:
-			mover.turn(180);
+			mover.turn(90);
 			mover.drive(distance);
 		}
 	}
@@ -77,15 +77,19 @@ public class PanelLayer implements PanelLayerInterface
 		switch (d.ordinal())
 		{
 		case 0:
-			try {
-				System.in.read();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			System.out.println(mover.buttonIsPushed());
+			mover.turnHead(0);
+			
+
+//			try {
+//				System.in.read();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 			distanceToWall = mover.getUltrasonic();
 			System.out.println("Hasborder up: " + distanceToWall);
-			if (distanceToWall < 15)
+			if (distanceToWall < 40)
 				return true;
 			else
 				return false;
@@ -94,33 +98,37 @@ public class PanelLayer implements PanelLayerInterface
 			return false;
 			
 		case 2:
-			mover.turnHead(90);
-			try {
-				System.in.read();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			//LEFT
+			mover.turnHead(-90);
+			
+//			try {
+//				System.in.read();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+	//		}
 			distanceToWall = mover.getUltrasonic();
 			System.out.println("Hasborder left: " + distanceToWall);
-			mover.turnHead(-90);
-			if (distanceToWall < 15)
+			mover.turnHead(90);
+			if (distanceToWall < 40)
 				return true;
 			else
 				return false;
 		
 		case 3:
-			mover.turnHead(-90);
-			try {
-				System.in.read();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			//RIGHT
+			mover.turnHead(90);
+			
+//			try {
+//				System.in.read();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 			distanceToWall = mover.getUltrasonic();
 			System.out.println("Hasborder right: " + distanceToWall);
-			mover.turnHead(90);
-			if (distanceToWall < 15)
+			mover.turnHead(-90);
+			if (distanceToWall < 40)
 				return true;
 			else
 				return false;

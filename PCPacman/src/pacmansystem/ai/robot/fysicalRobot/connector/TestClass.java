@@ -35,9 +35,43 @@ public class TestClass {
 		
 			
 		System.out.println("Up: " + panel.hasBorder(Direction.UP));
+		System.out.println("Left: " + panel.hasBorder(Direction.LEFT));
+
+		System.out.println("Right: " + panel.hasBorder(Direction.RIGHT));
+		System.out.println("Down: " + panel.hasBorder(Direction.DOWN));
+		
+		panel.go(Direction.UP);
+		
+		System.out.println("SECOND");
+		System.out.println("Up: " + panel.hasBorder(Direction.UP));
 		System.out.println("Right: " + panel.hasBorder(Direction.RIGHT));
 		System.out.println("Down: " + panel.hasBorder(Direction.DOWN));
 		System.out.println("Left: " + panel.hasBorder(Direction.LEFT));
+		
+		panel.go(Direction.UP);
+		
+		System.out.println("THIRD");
+		System.out.println("Up: " + panel.hasBorder(Direction.UP));
+		System.out.println("Right: " + panel.hasBorder(Direction.RIGHT));
+		System.out.println("Down: " + panel.hasBorder(Direction.DOWN));
+		System.out.println("Left: " + panel.hasBorder(Direction.LEFT));
+		
+		panel.go(Direction.RIGHT);
+		
+		System.out.println("THIRD");
+		System.out.println("Up: " + panel.hasBorder(Direction.UP));
+		System.out.println("Right: " + panel.hasBorder(Direction.RIGHT));
+		System.out.println("Down: " + panel.hasBorder(Direction.DOWN));
+		System.out.println("Left: " + panel.hasBorder(Direction.LEFT));
+
+		panel.go(Direction.LEFT);
+		
+		System.out.println("THIRD");
+		System.out.println("Up: " + panel.hasBorder(Direction.UP));
+		System.out.println("Right: " + panel.hasBorder(Direction.RIGHT));
+		System.out.println("Down: " + panel.hasBorder(Direction.DOWN));
+		System.out.println("Left: " + panel.hasBorder(Direction.LEFT));
+		
 
 
 		

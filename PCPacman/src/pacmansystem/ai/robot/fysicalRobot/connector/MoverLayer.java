@@ -88,17 +88,21 @@ public class MoverLayer
 	
 	/**
 	 * 
-	 * @param degrees (negative = right)
+	 * @param degrees (negative = left)
 	 */
 	public void turnHead(int degrees)
 	{
 		if (degrees>=0){
 			pcc.sendCommando(new Commando(Action.HEADRIGHT,degrees,""));
-			while(!buttonIsPushed());
+			while(!buttonIsPushed()){
+			}
+			releaseButton();
 		}
 		else{
 			pcc.sendCommando(new Commando(Action.HEADLEFT, (-1*degrees), ""));
-			while(!buttonIsPushed());
+			while(!buttonIsPushed()){
+			}
+			releaseButton();
 		}
 	}
 
@@ -152,7 +156,7 @@ public class MoverLayer
 		pcc.sendCommando(new Commando(Action.CALIBRATEBLACK,0, "Calibrate black"));
 		while(!buttonIsPushed()) ;
 		this._colorStack.calibrate(PanelColor.BLACK, getLightSensor());
-		button = false;
+		releaseButton();
 	}
 
 	public ColorTransitionStack getColorStack() {
@@ -163,7 +167,7 @@ public class MoverLayer
 		pcc.sendCommando(new Commando(Action.CALIBRATEWHITE,0, "Calibrate white"));
 		while(!buttonIsPushed()) ;
 		this._colorStack.calibrate(PanelColor.WHITE, getLightSensor());
-		button = false;
+		releaseButton();
 		
 	}
 	
