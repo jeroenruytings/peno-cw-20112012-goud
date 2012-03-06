@@ -16,6 +16,13 @@ public class SensorListener implements Runnable {
 	TouchSensor push = new TouchSensor(SensorPort.S4);	//check
 	IRSeeker ir = new IRSeeker(SensorPort.S2);	//check
 	Motor motor = new Motor(MotorPort.A);
+	RobotCommunicator communicator;
+	
+	public SensorListener(){
+		
+		communicator = RobotCommunicator.instance();
+		
+	}
 	
 	int sonarValue;
 	int lightValue;
@@ -73,12 +80,12 @@ public class SensorListener implements Runnable {
 			}
 		Thread.yield();
 		
-		// send sonar value
-			if(irValue != getIrValue()){
-				irValue = getIrValue();
-		sendValue(irValue, SensorIdentifier.ValueIrSensor);
-			}
-		Thread.yield();
+//		// send sonar value
+//			if(irValue != getIrValue()){
+//				irValue = getIrValue();
+//		sendValue(irValue, SensorIdentifier.ValueIrSensor);
+//			}
+//		Thread.yield();
 		
 		//sent Tachocount
 			if(tachoCount != getTachoCount()){
@@ -101,7 +108,8 @@ public class SensorListener implements Runnable {
 		return ir.getDirection();
 	}
 
-	public int getSonarValue() {	
+	public int getSonarValue() {
+		sonar.ping();
 		return sonar.getDistance();
 	}
 
@@ -116,7 +124,7 @@ public class SensorListener implements Runnable {
 	private void sendValue(int Value, SensorIdentifier sensorID) {
 		
         Message mes = new Message(Monitor.SensorMonitor, sensorID, new SensorValue((byte)Value));
-        RobotCommunicator.instance().send(mes);	
+        communicator.send(mes);	
 	}
 
 	public int getPushValue() {

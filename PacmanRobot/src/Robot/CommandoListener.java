@@ -1,9 +1,7 @@
 package Robot;
 
-import lejos.nxt.Button;
 import lejos.nxt.LCD;
 import lejos.nxt.Motor;
-import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.proposal.DifferentialPilot;
 
 public class CommandoListener implements Runnable {
@@ -80,19 +78,33 @@ public class CommandoListener implements Runnable {
 		
 		}
 
-	private void turnHeadLeft(int argument) {
+	private void turnHeadLeft(int argument){
 		
-		Motor.C.rotate(-argument);
+		Motor.C.rotate(argument);
 		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.UltrasonicSensor, new SensorValue((byte) listener.getSonarValue()));
 		communicator.send(message);
+//		try {
+//			Thread.sleep(1000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			System.out.println("ii");
+//		}
 		message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
 		communicator.send(message);
 	}
 
-	private void turnHeadRight(int argument) {
+	private void turnHeadRight(int argument){
 		
-		Motor.C.rotate(argument);
-		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
+		Motor.C.rotate(-argument);
+		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.UltrasonicSensor, new SensorValue((byte) listener.getSonarValue()));
+		communicator.send(message);
+//		try {
+//			Thread.sleep(1000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			System.out.println("iiii");
+//		}
+		message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
 		communicator.send(message);
 		
 	}

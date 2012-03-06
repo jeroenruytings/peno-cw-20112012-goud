@@ -23,6 +23,7 @@ public class GhostController {
 		Thread listen = new Thread(listener);
 		System.out.println("listener opstarten");
 		listen.start();
+		
 		CommandoListener executer = new CommandoListener(listener);
 		Thread execute = new Thread(executer);
 		execute.start();
