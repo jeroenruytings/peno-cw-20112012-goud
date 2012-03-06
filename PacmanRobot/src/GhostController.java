@@ -17,15 +17,17 @@ public class GhostController {
 	public static void main(String[] args) {
 		
 		//start Threads
-		CommandoListener executer = new CommandoListener();
-		Thread execute = new Thread(executer);
-		execute.start();
+
 		SensorListener listener = new SensorListener();
 		System.out.println("listener aanmaken");
 		Thread listen = new Thread(listener);
 		System.out.println("listener opstarten");
 		listen.start();
+		CommandoListener executer = new CommandoListener(listener);
+		Thread execute = new Thread(executer);
+		execute.start();
 		System.out.println("opgestart");
+		
 		while (true);
 		
 		

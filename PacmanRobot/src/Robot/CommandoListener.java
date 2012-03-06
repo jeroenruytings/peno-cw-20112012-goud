@@ -3,17 +3,20 @@ package Robot;
 import lejos.nxt.Button;
 import lejos.nxt.LCD;
 import lejos.nxt.Motor;
+import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.proposal.DifferentialPilot;
 
 public class CommandoListener implements Runnable {
 	
 	private RobotCommunicator communicator;
 	DifferentialPilot pilot;
+	SensorListener listener;
 	
-	public CommandoListener(){
+	public CommandoListener(SensorListener listener){
 		
 		communicator = RobotCommunicator.instance();
 		pilot = new DifferentialPilot(54.25f, 54.75f, 148.35f, Motor.A, Motor.B, false);
+		this.listener = listener;
 	}
 	
 	public void start(){
@@ -80,7 +83,9 @@ public class CommandoListener implements Runnable {
 	private void turnHeadLeft(int argument) {
 		
 		Motor.C.rotate(-argument);
-		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
+		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.UltrasonicSensor, new SensorValue((byte) listener.getSonarValue()));
+		communicator.send(message);
+		message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
 		communicator.send(message);
 	}
 

@@ -92,24 +92,24 @@ public class SensorListener implements Runnable {
 		
 	}
 
-	private int getTachoCount() {
+	public int getTachoCount() {
 		return motor.getTachoCount();
 	}
 
-	private int getIrDirection() {
+	public int getIrDirection() {
 		
 		return ir.getDirection();
 	}
 
-	private int getSonarValue() {	
+	public int getSonarValue() {	
 		return sonar.getDistance();
 	}
 
-	private int getLightValue() {
+	public int getLightValue() {
 		return light.readValue();
 	}
 
-	private int getIrValue() {
+	public int getIrValue() {
 		return ir.getSensorValue(getIrDirection());
 	}
 
@@ -119,7 +119,7 @@ public class SensorListener implements Runnable {
         RobotCommunicator.instance().send(mes);	
 	}
 
-	private int getPushValue() {
+	public int getPushValue() {
 		if (push.isPressed()){
 			return 1;
 		}
