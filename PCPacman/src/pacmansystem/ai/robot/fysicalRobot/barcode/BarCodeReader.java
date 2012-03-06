@@ -16,7 +16,7 @@ public class BarCodeReader
 		_stack = stack;
 		_codes = codes;
 	}
-
+	
 	public Barcode searchForCode()
 	{
 		BarcodeFinder finder = new BarcodeFinder(_stack.getColors(), 7);

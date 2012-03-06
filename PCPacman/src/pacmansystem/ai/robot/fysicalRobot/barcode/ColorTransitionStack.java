@@ -26,7 +26,7 @@ public class ColorTransitionStack
 		return (Stack<ColorNode>) _nodes.clone();
 
 	}
-
+	
 	/**
 	 * 
 	 * @param lightValue

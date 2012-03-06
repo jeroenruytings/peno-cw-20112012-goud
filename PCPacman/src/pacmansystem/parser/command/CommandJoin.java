@@ -8,12 +8,13 @@ public class CommandJoin implements Command
 
 	public CommandJoin()
 	{
-
+		
 	}
 
 	@Override
 	public void execute(World simulator)
 	{
+		simulator.register();
 	}
 
 	@Override

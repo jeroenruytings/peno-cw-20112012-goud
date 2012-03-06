@@ -1,6 +1,7 @@
 package pacmansystem.parser.command;
 
 import pacmansystem.parser.Command;
+import pacmansystem.world.InsufficientJoinsException;
 import pacmansystem.world.RobotData;
 import pacmansystem.world.World;
 
@@ -29,7 +30,11 @@ public class CommandName implements Command
 	@Override
 	public void execute(World simulator)
 	{
-		simulator.get_robots().put(getNameFrom(), new RobotData());
+		try {
+			simulator.addRobot(getNameFrom());
+		} catch (InsufficientJoinsException e) {
+			System.err.print("Zoek de schuldige, er zijn niet genoeg robots.");
+		}
 	}
 
 }

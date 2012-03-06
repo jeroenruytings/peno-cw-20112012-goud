@@ -13,17 +13,15 @@ import pacmansystem.board.Panel;
 import pacmansystem.board.enums.Orientation;
 import pacmansystem.world.RobotData;
 
-import pacmansystem.world.RealWorld;
 
-
-public class RobotController extends RobotData
+public class RobotController
 {
 
 	private int currentX;
 	private int currentY;
 	private Orientation currentOrientation;
-	private Board board;
-
+	private RobotData data = new RobotData();
+	
 	private PathLayer pathLayer;
 	private MessageSender sender;
 
@@ -79,6 +77,10 @@ public class RobotController extends RobotData
 
 	
 	
+	private Board getBoard()
+	{	return data.getBoard();
+	}
+
 	private void sendBarcode(Barcode barcode) {
 		try {
 			getSender().sendMessage("\n"); //TODO
@@ -123,12 +125,12 @@ public class RobotController extends RobotData
 		Orientation best = null;
 		int nbUnknowns = 0;
 		for (Orientation orientation : Orientation.values()) {
-			if (board.wallBetween(position, orientation))
+			if (getBoard().wallBetween(position, orientation))
 				continue;
 			Point possibleDest = new Point(getCurrentX()
 					+ orientation.getXPlus(), getCurrentY()
 					+ orientation.getYPlus());
-			int temp = board.nbOfUnknowns(possibleDest);
+			int temp = getBoard().nbOfUnknowns(possibleDest);
 			if (temp > nbUnknowns) {
 				best = orientation;
 				nbUnknowns = temp;
@@ -146,8 +148,8 @@ public class RobotController extends RobotData
 	{
 		Point best = null;
 		int waarde = 1000;
-		for (Point point : board.getPanels().keySet()) {
-			int nbKnown = 4 - board.nbOfUnknowns(point);
+		for (Point point : getBoard().getPanels().keySet()) {
+			int nbKnown = 4 - getBoard().nbOfUnknowns(point);
 			if (nbKnown == 4)
 				continue;
 			int temp = nbKnown + heuristiek(point);
@@ -177,9 +179,9 @@ public class RobotController extends RobotData
 		currentX = 0;
 		currentY = 0;
 		currentOrientation = Orientation.NORTH;
-		board = new Board(rows, columns);
+		
 		Panel p1 = new Panel();
-		board.add(p1, new Point(0,0));
+		getBoard().add(p1, new Point(0,0));
 		pathLayer = layer;
 	}
 
@@ -203,7 +205,6 @@ public class RobotController extends RobotData
 	public RobotController(Board b,DirectionLayer layer)
 
 	{
-		super(b);
 		sender = null;
 		try {
 			sender = new MessageSender();
@@ -211,46 +212,12 @@ public class RobotController extends RobotData
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.board = getBoard();
 		currentX = 0;
 		currentY = 0;
 		currentOrientation = Orientation.NORTH;
 		pathLayer = new PathLayer(getBoard(), layer);
 	}
-	
-//	public RobotController(RealWorld realworld, int rows, int columns) 
-//	{
-//		sender = null;
-//		try {
-//			sender = new MessageSender();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		currentX = 0;
-//		currentY = 0;
-//		currentOrientation = Orientation.NORTH;
-//		board = new Board(rows, columns);
-//		Panel p1 = new Panel();
-//		board.add(p1, new Point(0,0));
-//		pathLayer = new PathLayer(board,realworld);
-//	}
-//	
-//	public RobotController(RealWorld realworld, Board board)
-//	{
-//		sender = null;
-//		try {
-//			sender = new MessageSender();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		this.board = board;
-//		currentX = 0;
-//		currentY = 0;
-//		currentOrientation = Orientation.NORTH;
-//		pathLayer = new PathLayer(board, realworld);
-//	}
+
 
 	public int getCurrentX()
 	{
