@@ -36,10 +36,6 @@ public class DirectionLayer
 			go(orient);
 	}
 
-	public Panel getPanel(Orientation orientation)
-	{
-		return layer.getPanel(orientation);
-	}
 
 	/**
 	 * @throws IllegalDriveException

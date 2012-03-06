@@ -6,6 +6,7 @@ import pacmansystem.ai.robot.Barcode;
 import pacmansystem.ai.robot.PanelLayer;
 import pacmansystem.ai.robot.fysicalRobot.PanelColor;
 import pacmansystem.board.Panel;
+import pacmansystem.board.enums.Direction;
 import pacmansystem.board.enums.Orientation;
 
 public class TestClass {
@@ -27,16 +28,15 @@ public class TestClass {
 		System.out.println("Virtu:" + panel.getMover().getPcc().getVirtu());	
 		
 	
-			System.out.println("BarcodeReader BLACK: " + panel.getMover().getColorStack().getColor(PanelColor.BLACK));
-			System.out.println("BarcodeReader WHITE: " + panel.getMover().getColorStack().getColor(PanelColor.WHITE));
-			System.out.println("BarcodeReader BROWN: " + panel.getMover().getColorStack().getColor(PanelColor.BROWN));
+		System.out.println("BarcodeReader BLACK: " + panel.getMover().getColorStack().getColor(PanelColor.BLACK));
+		System.out.println("BarcodeReader WHITE: " + panel.getMover().getColorStack().getColor(PanelColor.WHITE));
+		System.out.println("BarcodeReader BROWN: " + panel.getMover().getColorStack().getColor(PanelColor.BROWN));
 		
-		Panel paneel = panel.getPanel(Orientation.NORTH);
-		System.out.println(paneel);
-		System.out.println(paneel.hasBorder(Orientation.NORTH));
-		System.out.println(paneel.hasBorder(Orientation.EAST));
-		System.out.println(paneel.hasBorder(Orientation.SOUTH));
-		System.out.println(paneel.hasBorder(Orientation.WEST));
+			
+		System.out.println(panel.hasBorder(Direction.UP));
+		System.out.println(panel.hasBorder(Direction.RIGHT));
+		System.out.println(panel.hasBorder(Direction.DOWN));
+		System.out.println(panel.hasBorder(Direction.LEFT));
 
 
 		
