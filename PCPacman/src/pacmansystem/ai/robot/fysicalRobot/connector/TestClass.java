@@ -3,6 +3,7 @@ package pacmansystem.ai.robot.fysicalRobot.connector;
 import java.io.IOException;
 
 import pacmansystem.ai.robot.Barcode;
+import pacmansystem.ai.robot.DirectionLayer;
 import pacmansystem.ai.robot.PanelLayer;
 import pacmansystem.ai.robot.fysicalRobot.PanelColor;
 import pacmansystem.board.Panel;
@@ -22,6 +23,8 @@ public class TestClass {
 		MoverLayer mover = new MoverLayer();
 		
 		PanelLayer panel = new PanelLayer(mover);
+		
+		DirectionLayer direct = new DirectionL
 
 		
 		System.out.println("Pcc: " + panel.getMover().getPcc());
