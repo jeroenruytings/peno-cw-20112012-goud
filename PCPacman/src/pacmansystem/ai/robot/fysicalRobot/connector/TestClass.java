@@ -33,21 +33,21 @@ public class TestClass {
 		System.out.println("BarcodeReader BROWN: " + panel.getMover().getColorStack().getColor(PanelColor.BROWN));
 		
 			
-		System.out.println(panel.hasBorder(Direction.UP));
-		System.out.println(panel.hasBorder(Direction.RIGHT));
-		System.out.println(panel.hasBorder(Direction.DOWN));
-		System.out.println(panel.hasBorder(Direction.LEFT));
+		System.out.println("Up: " + panel.hasBorder(Direction.UP));
+		System.out.println("Right: " + panel.hasBorder(Direction.RIGHT));
+		System.out.println("Down: " + panel.hasBorder(Direction.DOWN));
+		System.out.println("Left: " + panel.hasBorder(Direction.LEFT));
 
 
 		
 		
-			try {
-				System.in.read();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			System.out.println(panel.getBarcode().getValue());
+//			try {
+//				System.in.read();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			System.out.println(panel.getBarcode().getValue());
 			
 //			for (int i = 0 ; i<50000; i++);
 //			mover.drive(100);

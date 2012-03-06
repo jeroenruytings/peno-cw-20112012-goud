@@ -1,6 +1,7 @@
 package pacmansystem.ai.robot;
 
 import java.awt.Point;
+import java.io.IOException;
 
 import javax.naming.OperationNotSupportedException;
 
@@ -76,29 +77,53 @@ public class PanelLayer implements PanelLayerInterface
 		switch (d.ordinal())
 		{
 		case 0:
-			mover.turnHead(-90);
+			try {
+				System.in.read();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			distanceToWall = mover.getUltrasonic();
-			mover.turnHead(90);
+			System.out.println("Hasborder up: " + distanceToWall);
 			if (distanceToWall < 15)
 				return true;
 			else
 				return false;
+			
 		case 1:
+			return false;
+			
+		case 2:
 			mover.turnHead(90);
+			try {
+				System.in.read();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			distanceToWall = mover.getUltrasonic();
+			System.out.println("Hasborder left: " + distanceToWall);
 			mover.turnHead(-90);
 			if (distanceToWall < 15)
 				return true;
 			else
 				return false;
-		case 2:
+		
+		case 3:
+			mover.turnHead(-90);
+			try {
+				System.in.read();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			distanceToWall = mover.getUltrasonic();
+			System.out.println("Hasborder right: " + distanceToWall);
+			mover.turnHead(90);
 			if (distanceToWall < 15)
 				return true;
 			else
 				return false;
-		case 3:
-			return false;
 		}
 		return false;
 	}

@@ -1,6 +1,7 @@
 package pacmansystem.ai.robot;
 
 import java.awt.Point;
+import java.io.IOException;
 
 import javax.naming.OperationNotSupportedException;
 
@@ -14,7 +15,7 @@ public interface PanelLayerInterface
 
 	public abstract void go(Direction d) throws IllegalDriveException;
 
-	public abstract boolean hasBorder(Direction d);
+	public abstract boolean hasBorder(Direction d) throws IOException;
 
 	/**
 	 * @pre robot is on middlepoint of panel Checks if this panel has a barcode
