@@ -4,7 +4,9 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+import pacmansystem.ai.robot.Barcode;
 import pacmansystem.board.Board;
 
 public class RobotData
@@ -21,6 +23,12 @@ public class RobotData
 	private Point position = new Point(0, 0);
 
 	private ArrayList<Point> plan;
+	
+	private Map<Barcode,Point> barcodes;
+
+	public Map<Barcode, Point> getBarcodes() {
+		return barcodes;
+	}
 
 	private boolean capturedPacman;
 

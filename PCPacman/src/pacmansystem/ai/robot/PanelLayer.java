@@ -199,7 +199,10 @@ public class PanelLayer implements PanelLayerInterface
 				panel.setBorder(currentOrientation.addTo(direction), false);
 			}
 		}
-		//TODO: barcode toevoegen aan paneel
+		if(hasBarcode()){
+			panel.setBarcode(getBarcode());
+			panel.setBarcodeOrientation(currentOrientation);
+		}
 		return panel;
 	}
 }

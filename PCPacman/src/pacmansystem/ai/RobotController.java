@@ -2,6 +2,9 @@ package pacmansystem.ai;
 
 import java.awt.Point;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import be.kuleuven.cs.peno.MessageSender;
 
@@ -10,8 +13,10 @@ import pacmansystem.ai.robot.DirectionLayer;
 import pacmansystem.ai.robot.PathLayer;
 import pacmansystem.board.Board;
 import pacmansystem.board.Panel;
+import pacmansystem.board.PointConvertor;
 import pacmansystem.board.enums.Orientation;
 import pacmansystem.world.RobotData;
+import pacmansystem.world.World;
 
 
 public class RobotController
@@ -22,8 +27,19 @@ public class RobotController
 	private Orientation currentOrientation;
 	private RobotData data = new RobotData();
 	
+	public RobotData getData() {
+		return data;
+	}
+
 	private PathLayer pathLayer;
 	private MessageSender sender;
+	private World world;
+	
+	private Map<RobotData,PointConvertor> convertors;
+
+	public Map<RobotData, PointConvertor> getConvertors() {
+		return convertors;
+	}
 
 	public MessageSender getSender() {
 		return sender;
@@ -46,9 +62,16 @@ public class RobotController
 		Point destination = null;
 		boolean finished = false;
 		while (!finished) {
+			checkForNewInfo();
 			Panel p1 = getPathLayer().getDirectionLayer().getPanel(getCurrentOrientation()); //getPanel() moet om zich heen kijken
 			if(p1.hasBarcode()){
 				sendBarcode(p1.getBarcode());
+				HashMap<RobotData,Point> robotsWithBarcode = (HashMap<RobotData, Point>) getRobotsWithSameBarcode(p1.getBarcode());
+				if(robotsWithBarcode != null){
+					for(RobotData robot : robotsWithBarcode.keySet()){
+						mergeBoard(robot,robotsWithBarcode.get(robot));
+					}
+				}
 			}			
 			getBoard().add(p1, getCurrentPoint()); //voegt panel toe aan board
 			for (Orientation orientation : Orientation.values()) { //voegt omliggende punten toe indien ze geen tussenmuur hebben
@@ -77,13 +100,59 @@ public class RobotController
 
 	
 	
+	private void checkForNewInfo() {
+		for(RobotData robot : getConvertors().keySet()){
+			for(Point pointFromBoard : robot.getBoard().getPanels().keySet()){
+				Point pointBoard = getConvertors().get(robot).convert(pointFromBoard);
+				if(getBoard().getPanelAt(pointBoard) != null){
+					try {
+						Panel p = robot.getBoard().getPanelAt(pointFromBoard);
+						Panel q = new Panel();
+						if(p.hasBarcode()){
+							q.setBarcode(p.getBarcode());
+						}
+						for(Orientation orientation : getConvertors().get(robot).getOrientations().keySet()){
+							q.setBorder(orientation, p.hasBorder(getConvertors().get(robot).getOrientations().get(orientation)));
+						}
+						getBoard().add(q, pointBoard);
+					} catch (Exception e) {
+					}
+				}
+			}
+		}
+	}
+
+	private void mergeBoard(RobotData robot, Point point) {
+		HashMap<Orientation,Orientation> orientations = (HashMap<Orientation, Orientation>) getRelativeOrientationAfterBarcode(getData(), robot, getCurrentPoint(), point);
+		PointConvertor convertor = new PointConvertor(getCurrentPoint(), point, orientations);
+		getConvertors().put(robot, convertor);
+		for(Point pointFromBoard : robot.getBoard().getPanels().keySet()){
+			Point pointBoard = convertor.convert(pointFromBoard);
+			if(getBoard().getPanelAt(pointBoard) != null){
+				try {
+					Panel p = robot.getBoard().getPanelAt(pointFromBoard);
+					Panel q = new Panel();
+					if(p.hasBarcode()){
+						q.setBarcode(p.getBarcode());
+					}
+					for(Orientation orientation : orientations.keySet()){
+						q.setBorder(orientation, p.hasBorder(orientations.get(orientation)));
+					}
+					getBoard().add(q, pointBoard);
+				} catch (Exception e) {
+				}
+			}
+		}
+		
+	}
+
 	private Board getBoard()
 	{	return data.getBoard();
 	}
 
 	private void sendBarcode(Barcode barcode) {
 		try {
-			getSender().sendMessage("\n"); //TODO
+			getSender().sendMessage("goud BARCODE "+barcode.getValue()+" "+getCurrentOrientation()+"\n");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -167,8 +236,9 @@ public class RobotController
 				.abs(destination.getY() - currentY));
 	}
 
-	public RobotController(int rows, int columns,PathLayer layer)
+	public RobotController(int rows, int columns,DirectionLayer layer,World world)
 	{
+		data = new RobotData();
 		sender = null;
 		try {
 			sender = new MessageSender();
@@ -182,13 +252,13 @@ public class RobotController
 		
 		Panel p1 = new Panel();
 		getBoard().add(p1, new Point(0,0));
-		pathLayer = layer;
+		pathLayer = new PathLayer(getBoard(),layer);
+		this.world = world;
 	}
 
-	public RobotController(DirectionLayer layer)
-
+	public RobotController(DirectionLayer layer, World world)
 	{
-		super();
+		data = new RobotData();
 		sender = null;
 		try {
 			sender = new MessageSender();
@@ -200,11 +270,13 @@ public class RobotController
 		currentY = 0;
 		currentOrientation = Orientation.NORTH;
 		pathLayer = new PathLayer(getBoard(), layer);
+		this.world = world;
 	}
 	
-	public RobotController(Board b,DirectionLayer layer)
+	public RobotController(Board b,DirectionLayer layer, World world)
 
 	{
+		data = new RobotData(b);
 		sender = null;
 		try {
 			sender = new MessageSender();
@@ -216,6 +288,8 @@ public class RobotController
 		currentY = 0;
 		currentOrientation = Orientation.NORTH;
 		pathLayer = new PathLayer(getBoard(), layer);
+		this.world = world;
+
 	}
 
 
@@ -238,5 +312,40 @@ public class RobotController
 	{
 		this.currentY = currentY;
 	}
+	
+	public Map<RobotData,Point> getRobotsWithSameBarcode(Barcode barcode){
+		
+		if(barcode == null)
+			return null;
+		Map<RobotData,Point> robots = new HashMap<RobotData, Point>();
+		for(RobotData robot : world.get_robots().values()){
+			if(robot.getBarcodes().equals(barcode)){
+				robots.put(robot, robot.getBarcodes().get(barcode));
+			}
+		}
+		return robots;
+	}
+	
+	public Map<Orientation,Orientation> getRelativeOrientationAfterBarcode(RobotData firstRobot, RobotData secondRobot,
+			Point barcodePointFirstRobot, Point barcodePointSecondRobot){
+		Panel p1 = firstRobot.getBoard().getPanelAt(barcodePointFirstRobot);
+		Panel p2 = firstRobot.getBoard().getPanelAt(barcodePointSecondRobot);
+		Orientation orientationBarcodeFirstPanel = p1.getBarcodeOrientation();
+		Orientation orientationBarcodeSecondPanel = p2.getBarcodeOrientation();
+		Map<Orientation, Orientation> orientations = new HashMap<Orientation, Orientation>();
+		int ordinalFirst = orientationBarcodeFirstPanel.ordinal();
+		int ordinalSecond = orientationBarcodeFirstPanel.ordinal();
+		orientations.put(orientationBarcodeFirstPanel, orientationBarcodeSecondPanel);
+		orientations.put(orientationBarcodeFirstPanel.opposite(),orientationBarcodeSecondPanel.opposite());
+		ordinalFirst = (ordinalFirst+1) % 4;
+		ordinalSecond = (ordinalSecond+1) % 4;
+		orientationBarcodeFirstPanel = Orientation.fromOrdinal(ordinalFirst);
+		orientationBarcodeSecondPanel = Orientation.fromOrdinal(ordinalSecond);
+		orientations.put(orientationBarcodeFirstPanel, orientationBarcodeSecondPanel);
+		orientations.put(orientationBarcodeFirstPanel.opposite(),orientationBarcodeSecondPanel.opposite());
+		return orientations;
+	}
 
+	
+	
 }

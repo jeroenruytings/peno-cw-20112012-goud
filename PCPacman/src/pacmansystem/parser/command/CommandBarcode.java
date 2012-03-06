@@ -1,6 +1,8 @@
 package pacmansystem.parser.command;
 
+import pacmansystem.ai.robot.Barcode;
 import pacmansystem.board.Panel;
+import pacmansystem.board.enums.Orientation;
 import pacmansystem.parser.Command;
 import pacmansystem.world.World;
 
@@ -39,7 +41,8 @@ public class CommandBarcode implements Command
 	{
 		Panel p = simulator.getRobot(_name).getBoard()
 				.getPanelAt(simulator.getRobot(_name).getPosition());
-		p.setBarcode(_barcode);
+		p.setBarcode(new Barcode(_barcode));
+		p.setBarcodeOrientation(Orientation.fromOrdinal(getDirection()-1));
 	}
 
 }

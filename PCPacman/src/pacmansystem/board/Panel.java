@@ -9,11 +9,17 @@ public class Panel
 
 	private final boolean[] borders;
 
+	private Orientation barcodeOrientation;
+
 	public Panel()
 	{
 		borders = new boolean[4];
 		for (Orientation d : Orientation.values())
 			setBorder(d, false);
+	}
+
+	public Orientation getBarcodeOrientation() {
+		return barcodeOrientation;
 	}
 
 	public Panel(Panel panel)
@@ -50,10 +56,9 @@ public class Panel
 		return barcode;
 	}
 
-	public void setBarcode(int barcode)
+	public void setBarcode(Barcode barcode)
 	{
-		//TODO: CREATE BARCODE CLASS!!!!
-
+		this.barcode = barcode;
 	}
 	
 	public String bordersToString(){
@@ -66,6 +71,10 @@ public class Panel
 		}		
 		return result;
 		
+	}
+
+	public void setBarcodeOrientation(Orientation currentOrientation) {
+		barcodeOrientation = currentOrientation;
 	}
 
 }
