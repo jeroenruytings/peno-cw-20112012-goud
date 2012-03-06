@@ -510,12 +510,13 @@ public class Mainscreen implements ActionListener
 		while(scr.hasNext()){
 			tmp.add(scr.nextLine());
 		}
+		RealWorld result = null;
 		try {
-			BoardCreator.createBoard(((String[])tmp.toArray()));
+			result = BoardCreator.createBoard(((String[])tmp.toArray()));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return result;
 	}
 	
 	/**

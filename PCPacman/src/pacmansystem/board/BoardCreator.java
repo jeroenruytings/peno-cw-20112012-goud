@@ -74,7 +74,7 @@ public class BoardCreator
 	 * @throws	IllegalStateException
 	 * 				If the version number does not match.
 	 */
-	public static void createBoard(String[] mazeProtocol) throws ParseException {
+	public static RealWorld createBoard(String[] mazeProtocol) throws ParseException {
 		ProtocolDecoder pdc = new ProtocolDecoder();
 		Command tmp;
 		RealWorld realWorld = new RealWorld();
@@ -95,11 +95,10 @@ public class BoardCreator
 			}
 			else if (tmp instanceof CommandPosition){
 				CommandPosition cmd = ((CommandPosition)tmp);
-				//TODO: Starting points? 
+				//TODO: Starting points?
 			}
 		}
-		
-		
+		return realWorld;
 		
 	}
 }
