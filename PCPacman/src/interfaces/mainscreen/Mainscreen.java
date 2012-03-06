@@ -14,10 +14,13 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Image;
 import java.awt.Point;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
@@ -27,6 +30,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
@@ -34,10 +38,13 @@ import javax.swing.JToolBar;
 import javax.swing.border.MatteBorder;
 
 import pacmansystem.board.Board;
+import pacmansystem.board.BoardCreator;
 import pacmansystem.board.Panel;
 import pacmansystem.board.enums.Orientation;
 import pacmansystem.world.RealWorld;
 import pacmansystem.world.RobotData;
+import pacmansystem.world.World;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
@@ -217,7 +224,8 @@ public class Mainscreen implements ActionListener
 		btnColortest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// TEST KNOP!
-				Mainscreen.playSound("pacman_intermission.wav");
+				//Mainscreen.playSound("pacman_intermission.wav");
+				Mainscreen.getRealWorld();
 			}
 		});
 		splitPane_5.setRightComponent(btnColortest);
@@ -490,6 +498,23 @@ public class Mainscreen implements ActionListener
 	
 	public static RealWorld getRealWorld(){
 		//TODO: MAAK!
+		JFileChooser fileWindow = new JFileChooser();
+		fileWindow.showOpenDialog(null);
+		Scanner scr = null;
+		try {
+			scr = new Scanner(fileWindow.getSelectedFile());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		List<String> tmp = new ArrayList<String>();
+		while(scr.hasNext()){
+			tmp.add(scr.nextLine());
+		}
+		try {
+			BoardCreator.createBoard(((String[])tmp.toArray()));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 	
