@@ -82,15 +82,16 @@ public class SimRobotDataDisplay extends Canvas
 	@Override
 	public void paint(Graphics g)
 	{
-		if (bufferedImage == null){
 			bufferedImage = createImage(getWidth(), getHeight());
 			bufferedGraphics = bufferedImage.getGraphics();
-		}
 		
 		bufferedGraphics.clearRect(0, 0, getWidth(), getHeight());
 		drawBoard(bufferedGraphics);
 		drawRobot(bufferedGraphics);
 		drawPacman(bufferedGraphics);
+//		drawBoard(g);
+//		drawRobot(g);
+//		drawPacman(g);
 		
 		
 		g.drawImage(bufferedImage, 0,0,this);

@@ -212,6 +212,8 @@ public class Mainscreen implements ActionListener
 		cnvGlobal.setBackground(Color.BLACK);
 		panel_5.add(cnvGlobal, BorderLayout.CENTER);
 		JButton btnColortest = new JButton("ColorTest");
+		btnColortest.setForeground(Color.WHITE);
+		btnColortest.setBackground(Color.BLACK);
 		btnColortest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// TEST KNOP!
@@ -261,6 +263,7 @@ public class Mainscreen implements ActionListener
 		t.start();
 		
 		BarcodePanel pnlBarcode = new BarcodePanel(10011101);
+		pnlBarcode.setFont(getPacmanFont());
 		panel.add(pnlBarcode);
 		
 		radioButtonList.add(pnlUltrasonic);

@@ -17,7 +17,9 @@ public class BarcodePanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	private JLabel lblBarcode;
 	private int barcode;
+	
 	public BarcodePanel(int barcode){
 	
 		this.barcode = barcode;
@@ -25,11 +27,10 @@ public class BarcodePanel extends JPanel {
 	this.setBackground(Color.GRAY);
 	this.setLayout(new BorderLayout(0, 0));
 	
-	JLabel lblBarcode = new JLabel("\"" + String.valueOf(barcode) + "\"");
+	lblBarcode = new JLabel("\"" + String.valueOf(barcode) + "\"");
 	lblBarcode.setForeground(Color.WHITE);
 	lblBarcode.setBackground(Color.GRAY);
 	lblBarcode.setHorizontalAlignment(SwingConstants.CENTER);
-	lblBarcode.setFont(new Font("Dialog", Font.BOLD, 20));
 	this.add(lblBarcode, BorderLayout.NORTH);
 	JPanel p = new JPanel() {
 		/**
@@ -43,6 +44,12 @@ public class BarcodePanel extends JPanel {
 		}
 	};
 	this.add(p,BorderLayout.CENTER);
+	}
+	
+	public void setFont(Font font){
+		super.setFont(font);
+		if (lblBarcode != null)
+			lblBarcode.setFont(font);
 	}
 
 	private void drawBarcode(Graphics g, Component c){
