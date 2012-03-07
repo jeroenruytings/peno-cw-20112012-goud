@@ -32,7 +32,6 @@ public class RobotController
 	}
 
 	private PathLayer pathLayer;
-	private MessageSender sender;
 	private World world;
 	
 	private Map<RobotData,PointConvertor> convertors;
@@ -41,9 +40,6 @@ public class RobotController
 		return convertors;
 	}
 
-	public MessageSender getSender() {
-		return sender;
-	}
 
 	public PathLayer getPathLayer() {
 		return pathLayer;
@@ -51,8 +47,8 @@ public class RobotController
 
 	private void join() {
 		try {
-			getSender().sendMessage("JOIN\n");
-			getSender().sendMessage("goud NAME\n");
+			MessageSender.getInstance().sendMessage("JOIN\n");
+			MessageSender.getInstance().sendMessage("goud NAME\n");
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -91,7 +87,7 @@ public class RobotController
 			try {
 				Point pointCorrected = getCurrentPoint();
 				pointCorrected.setLocation(pointCorrected.getX(), -pointCorrected.getY());
-				getSender().sendMessage("goud DISCOVER "+ pointCorrected + "," + getCurrentY()+ " " +
+				MessageSender.getInstance().sendMessage("goud DISCOVER "+ pointCorrected + "," + getCurrentY()+ " " +
 						getBoard().getPanelAt(getCurrentPoint()).bordersToString() +"\n");
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -155,7 +151,7 @@ public class RobotController
 
 	private void sendBarcode(Barcode barcode) {
 		try {
-			getSender().sendMessage("goud BARCODE "+barcode.getValue()+" "+getCurrentOrientation()+"\n");
+			MessageSender.getInstance().sendMessage("goud BARCODE "+barcode.getValue()+" "+getCurrentOrientation()+"\n");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -242,13 +238,6 @@ public class RobotController
 	public RobotController(int rows, int columns,DirectionLayer layer,World world)
 	{
 		data = new RobotData();
-		sender = null;
-		try {
-			sender = new MessageSender();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		currentX = 0;
 		currentY = 0;
 		currentOrientation = Orientation.NORTH;
@@ -262,13 +251,6 @@ public class RobotController
 	public RobotController(DirectionLayer layer, World world)
 	{
 		data = new RobotData();
-		sender = null;
-		try {
-			sender = new MessageSender();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		currentX = 0;
 		currentY = 0;
 		currentOrientation = Orientation.NORTH;
@@ -280,13 +262,6 @@ public class RobotController
 
 	{
 		data = new RobotData(b);
-		sender = null;
-		try {
-			sender = new MessageSender();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		currentX = 0;
 		currentY = 0;
 		currentOrientation = Orientation.NORTH;

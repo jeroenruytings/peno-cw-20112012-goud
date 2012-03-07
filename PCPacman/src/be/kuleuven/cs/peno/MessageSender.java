@@ -10,15 +10,23 @@ import com.rabbitmq.client.Connection;
 
 public class MessageSender{
 	
+	private static MessageSender instance;
 	private Connection conn;
 	private Channel channel;
 
 
-	public MessageSender() throws IOException{
+	protected MessageSender() throws IOException{
 			conn = MQ.createConnection();
 			channel = MQ.createChannel(conn);
 	}
 		
+	
+	public static MessageSender getInstance() throws IOException{
+		if(instance == null){
+			instance = new MessageSender();
+		}
+		return instance;
+	}
 	
 	public void sendMessage(String message) throws IOException{
 		if (message != null) {
