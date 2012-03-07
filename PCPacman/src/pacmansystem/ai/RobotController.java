@@ -142,6 +142,7 @@ public class RobotController
 					}
 					getBoard().add(q, pointBoard);
 				} catch (Exception e) {
+					//paneel geeft conflict => niet toevoegen
 				}
 			}
 		}
