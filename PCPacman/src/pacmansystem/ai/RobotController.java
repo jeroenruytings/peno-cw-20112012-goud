@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import be.kuleuven.cs.peno.MessageReceiver;
 import be.kuleuven.cs.peno.MessageSender;
 
 import pacmansystem.ai.robot.Barcode;
@@ -25,6 +26,11 @@ public class RobotController
 	private int currentX;
 	private int currentY;
 	private Orientation currentOrientation;
+	
+	public void setCurrentOrientation(Orientation currentOrientation) {
+		this.currentOrientation = currentOrientation;
+	}
+
 	private RobotData data = new RobotData();
 	
 	public RobotData getData() {
@@ -83,6 +89,7 @@ public class RobotController
 				finished = true;
 			}
 			getPathLayer().go(getCurrentPoint(), destination); //gaat naar volgend punt
+			setCurrentOrientation(Board.getOrientationBetween(getCurrentPoint(), destination)); //verandert orientatie
 			setCurrentPoint(destination); //verandert huidig punt
 			try {
 				Point pointCorrected = getCurrentPoint();
@@ -217,6 +224,8 @@ public class RobotController
 		Point best = null;
 		int waarde = 1000;
 		for (Point point : getBoard().getPanels().keySet()) {
+			if(point.equals(getCurrentPoint()))
+				continue;
 			int nbKnown = 4 - getBoard().nbOfUnknowns(point);
 			if (nbKnown == 4)
 				continue;
@@ -246,6 +255,14 @@ public class RobotController
 		getBoard().add(p1, new Point(0,0));
 		pathLayer = new PathLayer(getBoard(),layer);
 		this.world = world;
+		MessageReceiver rec;
+		try {
+			rec = new MessageReceiver(world);
+			rec.run();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	public RobotController(DirectionLayer layer, World world)
@@ -257,6 +274,13 @@ public class RobotController
 		currentOrientation = Orientation.NORTH;
 		pathLayer = new PathLayer(getBoard(), layer);
 		this.world = world;
+		MessageReceiver rec;
+		try {
+			rec = new MessageReceiver(world);
+			rec.run();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public RobotController(Board b,DirectionLayer layer, World world)
@@ -268,7 +292,13 @@ public class RobotController
 		currentOrientation = Orientation.NORTH;
 		pathLayer = new PathLayer(getBoard(), layer);
 		this.world = world;
-
+		MessageReceiver rec;
+		try {
+			rec = new MessageReceiver(world);
+			rec.run();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 

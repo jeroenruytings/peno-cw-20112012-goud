@@ -21,13 +21,7 @@ public class World extends RealWorld
 
 	public World()
 	{
-		MessageReceiver rec;
-		try {
-			rec = new MessageReceiver(this);
-			rec.run();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
 	}
 
 	public RobotData getRobot(String name)
