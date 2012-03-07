@@ -251,6 +251,7 @@ public class RobotController
 	public RobotController(DirectionLayer layer, World world)
 	{
 		data = new RobotData();
+
 		currentX = 0;
 		currentY = 0;
 		currentOrientation = Orientation.NORTH;

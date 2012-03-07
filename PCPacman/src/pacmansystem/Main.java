@@ -17,7 +17,7 @@ public class Main
 		init(w);
 		PanelLayerInterface p= new SimulatedRobot(w);
 		DirectionLayer directionlayer = new DirectionLayer(p);
-		RobotController controller = new RobotController(directionlayer);
+		RobotController controller = new RobotController(directionlayer,world);
 		
 		System.out.println("succes");
 	}

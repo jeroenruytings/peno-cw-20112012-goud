@@ -3,6 +3,7 @@ package pacmansystem.board;
 import java.awt.Point;
 import java.text.ParseException;
 
+import pacmansystem.ai.robot.Barcode;
 import pacmansystem.board.enums.Orientation;
 import pacmansystem.parser.Command;
 import pacmansystem.parser.ProtocolDecoder;
@@ -92,7 +93,7 @@ public class BoardCreator
 			}
 			else if (tmp instanceof CommandBarcodeAt){
 				CommandBarcodeAt cmd = ((CommandBarcodeAt)tmp);
-				b.getPanelAt(cmd.getCoordinate()).setBarcode(cmd.getBarcode());
+				b.getPanelAt(cmd.getCoordinate()).setBarcode(new Barcode(cmd.getBarcode()));
 			}
 			else if (tmp instanceof CommandPacman){
 				CommandPacman cmd = ((CommandPacman)tmp);
