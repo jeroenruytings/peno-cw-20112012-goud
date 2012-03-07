@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -43,7 +44,6 @@ import pacmansystem.board.Panel;
 import pacmansystem.board.enums.Orientation;
 import pacmansystem.world.RealWorld;
 import pacmansystem.world.RobotData;
-import pacmansystem.world.World;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -506,13 +506,17 @@ public class Mainscreen implements ActionListener
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		List<String> tmp = new ArrayList<String>();
+		ArrayList<String> tmp = new ArrayList<String>();
 		while(scr.hasNext()){
-			tmp.add(scr.nextLine());
+			String command = scr.nextLine();
+			System.out.println(command);
+			tmp.add(command);
 		}
 		RealWorld result = null;
+		String[] commands = new String[10];
 		try {
-			result = BoardCreator.createBoard(((String[])tmp.toArray()));
+			System.out.println(Arrays.toString(tmp.toArray(commands)));
+			result = BoardCreator.createBoard(tmp.toArray(commands));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

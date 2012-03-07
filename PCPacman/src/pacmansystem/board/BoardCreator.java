@@ -6,6 +6,7 @@ import java.text.ParseException;
 import pacmansystem.board.enums.Orientation;
 import pacmansystem.parser.Command;
 import pacmansystem.parser.ProtocolDecoder;
+import pacmansystem.parser.command.CommandBarcodeAt;
 import pacmansystem.parser.command.CommandDiscover;
 import pacmansystem.parser.command.CommandName;
 import pacmansystem.parser.command.CommandPacman;
@@ -78,7 +79,7 @@ public class BoardCreator
 		ProtocolDecoder pdc = new ProtocolDecoder();
 		Command tmp;
 		RealWorld realWorld = new RealWorld();
-		Board b = new Board();
+		Board b = realWorld.getGlobalBoard();
 		for (int i = 1; i < mazeProtocol.length; i++){
 			tmp = pdc.parse(mazeProtocol[i]);
 			if (tmp instanceof CommandName){
@@ -89,6 +90,10 @@ public class BoardCreator
 				CommandDiscover cmd = ((CommandDiscover)tmp);
 				b.add(cmd.getPanel(), cmd.getCoordinate());
 			}
+			else if (tmp instanceof CommandBarcodeAt){
+				CommandBarcodeAt cmd = ((CommandBarcodeAt)tmp);
+				b.getPanelAt(cmd.getCoordinate()).setBarcode(cmd.getBarcode());
+			}
 			else if (tmp instanceof CommandPacman){
 				CommandPacman cmd = ((CommandPacman)tmp);
 				realWorld.setPacman(cmd.getPosition());
@@ -98,6 +103,7 @@ public class BoardCreator
 				//TODO: Starting points?
 			}
 		}
+		
 		return realWorld;
 		
 	}

@@ -5,12 +5,17 @@ import java.text.ParseException;
 
 import pacmansystem.parser.Command;
 import pacmansystem.parser.Decoder;
+import pacmansystem.parser.command.CommandBarcodeAt;
 
 public class BARCODEAT extends Decoder {
 
 	public BARCODEAT()
 	{
 		super("BARCODEAT");
+	}
+	
+	protected BARCODEAT(Decoder next){
+		super(next,"BARCODE");
 	}
 
 	@Override

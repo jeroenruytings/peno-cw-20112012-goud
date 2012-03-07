@@ -1,4 +1,4 @@
-package pacmansystem.parser.decoder;
+package pacmansystem.parser.command;
 
 import java.awt.Point;
 

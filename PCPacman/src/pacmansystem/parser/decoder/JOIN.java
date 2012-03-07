@@ -2,19 +2,27 @@ package pacmansystem.parser.decoder;
 
 import pacmansystem.parser.Command;
 import pacmansystem.parser.Decoder;
+import pacmansystem.parser.NullDecoder;
 import pacmansystem.parser.command.CommandJoin;
 
 public class JOIN extends Decoder
 {
 
-	public JOIN(Decoder next)
-	{
-		super(next, "JOIN");
-	}
-
 	public JOIN()
 	{
-		super("JOIN");
+		super(new NAME
+				(new POSITION
+						(new DISCOVER
+								(new BARCODE
+										(new BARCODEAT
+												(new PACMAN
+														(new CAPTURED
+																(new PLAN
+																		(new CANCELPLAN
+																				(new PING
+																						(new PONG
+																								(new NullDecoder())))))))))))
+				, "JOIN");
 	}
 
 	@Override

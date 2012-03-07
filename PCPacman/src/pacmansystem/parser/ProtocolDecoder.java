@@ -2,7 +2,8 @@ package pacmansystem.parser;
 
 import java.text.ParseException;
 
-import pacmansystem.parser.decoder.JOIN;
+
+import pacmansystem.parser.decoder.*;
 
 public class ProtocolDecoder
 {

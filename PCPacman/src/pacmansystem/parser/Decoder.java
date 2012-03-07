@@ -1,6 +1,7 @@
 package pacmansystem.parser;
 
 import java.text.ParseException;
+import java.util.Scanner;
 
 public abstract class Decoder
 {
@@ -30,8 +31,8 @@ public abstract class Decoder
 	 * @return
 	 * 			The stripped message.
 	 */
-	public String stripMessage(String message){
-		return message.replaceAll("\n", "");
+	public static String stripMessage(String message){
+		return message.replace("\\n", "");
 	}
 
 	public Decoder next()
@@ -49,8 +50,16 @@ public abstract class Decoder
 	protected boolean correctKey(String message)
 	{
 		String[] mes = message.split(" ");
-		if (!mes[1].equals("_key"))
+		if (!mes[1].equals(_key))
 			return false;
 		return true;
+	}
+	
+	public static void main(String[] args){
+		System.out.print(Decoder.stripMessage("maze DISCOVER 3,1 1 1 0 0\n"));
+		//Scanner scr = new Scanner(System.in);
+		//String message = "\n";
+		//System.out.println(message.replaceAll("\\n", "").equals("\n"));
+		//System.out.println(message);
 	}
 }

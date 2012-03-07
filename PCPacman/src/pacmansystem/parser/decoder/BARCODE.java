@@ -12,6 +12,10 @@ public class BARCODE extends Decoder
 	{
 		super("BARCODE");
 	}
+	
+	protected BARCODE(Decoder next){
+		super(next,"BARCODE");
+	}
 
 	@Override
 	public boolean canDecode(String message)
