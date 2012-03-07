@@ -89,7 +89,9 @@ public class RobotController
 			getPathLayer().go(getCurrentPoint(), destination); //gaat naar volgend punt
 			setCurrentPoint(destination); //verandert huidig punt
 			try {
-				getSender().sendMessage("goud DISCOVER "+ getCurrentX() + "," + getCurrentY()+ " " +
+				Point pointCorrected = getCurrentPoint();
+				pointCorrected.setLocation(pointCorrected.getX(), -pointCorrected.getY());
+				getSender().sendMessage("goud DISCOVER "+ pointCorrected + "," + getCurrentY()+ " " +
 						getBoard().getPanelAt(getCurrentPoint()).bordersToString() +"\n");
 			} catch (IOException e) {
 				e.printStackTrace();
