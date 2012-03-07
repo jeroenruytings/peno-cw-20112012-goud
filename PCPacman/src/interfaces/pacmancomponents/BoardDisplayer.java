@@ -6,9 +6,9 @@ import java.awt.Image;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import pacmansystem.board.Board;
-import pacmansystem.board.Panel;
-import pacmansystem.board.enums.Orientation;
+import util.board.Board;
+import util.board.Panel;
+import util.enums.Orientation;
 
 public class BoardDisplayer
 {

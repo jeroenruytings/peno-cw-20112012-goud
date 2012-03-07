@@ -38,12 +38,12 @@ import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
 import javax.swing.border.MatteBorder;
 
-import pacmansystem.board.Board;
-import pacmansystem.board.BoardCreator;
-import pacmansystem.board.Panel;
-import pacmansystem.board.enums.Orientation;
-import pacmansystem.world.RealWorld;
-import pacmansystem.world.RobotData;
+import util.board.Board;
+import util.board.BoardCreator;
+import util.board.Panel;
+import util.enums.Orientation;
+import util.world.RealWorld;
+import util.world.RobotData;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

@@ -8,13 +8,13 @@ import java.awt.Point;
 
 import org.junit.Test;
 
-import pacmansystem.ai.robot.DirectionLayer;
+import pacmansystem.ai.robot.OrientationLayer;
 import pacmansystem.ai.robot.simulatedRobot.SimulatedRobot;
-import pacmansystem.board.Board;
-import pacmansystem.board.Panel;
-import pacmansystem.board.enums.Orientation;
-import pacmansystem.world.RealWorld;
-import pacmansystem.world.World;
+import util.board.Board;
+import util.board.Panel;
+import util.enums.Orientation;
+import util.world.RealWorld;
+import util.world.World;
 
 public class _RobotControllerTest
 {
@@ -24,7 +24,7 @@ public class _RobotControllerTest
 	{
 		Board one = new Board(4, 4);
 
-		RobotController main = new RobotController(one, new DirectionLayer(new SimulatedRobot(null)),new World());
+		RobotController main = new RobotController(one, new OrientationLayer(new SimulatedRobot(null)),new World());
 
 		Panel p1 = new Panel();
 		p1.setBorder(Orientation.NORTH, true);

@@ -6,18 +6,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import be.kuleuven.cs.peno.MessageReceiver;
-import be.kuleuven.cs.peno.MessageSender;
+import communicator.be.kuleuven.cs.peno.MessageReceiver;
+import communicator.be.kuleuven.cs.peno.MessageSender;
+
 
 import pacmansystem.ai.robot.Barcode;
-import pacmansystem.ai.robot.DirectionLayer;
+import pacmansystem.ai.robot.OrientationLayer;
 import pacmansystem.ai.robot.PathLayer;
-import pacmansystem.board.Board;
-import pacmansystem.board.Panel;
-import pacmansystem.board.PointConvertor;
-import pacmansystem.board.enums.Orientation;
-import pacmansystem.world.RobotData;
-import pacmansystem.world.World;
+import util.board.Board;
+import util.board.Panel;
+import util.board.PointConvertor;
+import util.enums.Orientation;
+import util.world.RobotData;
+import util.world.World;
 
 
 public class RobotController
@@ -242,7 +243,7 @@ public class RobotController
 				.abs(destination.getY() - currentY));
 	}
 
-	public RobotController(int rows, int columns,DirectionLayer layer,World world)
+	public RobotController(int rows, int columns,OrientationLayer layer,World world)
 	{
 		data = new RobotData();
 		currentX = 0;
@@ -263,7 +264,7 @@ public class RobotController
 		
 	}
 
-	public RobotController(DirectionLayer layer, World world)
+	public RobotController(OrientationLayer layer, World world)
 	{
 		data = new RobotData();
 
@@ -281,7 +282,7 @@ public class RobotController
 		}
 	}
 	
-	public RobotController(Board b,DirectionLayer layer, World world)
+	public RobotController(Board b,OrientationLayer layer, World world)
 
 	{
 		data = new RobotData(b);

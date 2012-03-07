@@ -6,9 +6,9 @@ import java.io.IOException;
 import javax.naming.OperationNotSupportedException;
 
 import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
-import pacmansystem.board.Panel;
-import pacmansystem.board.enums.Direction;
-import pacmansystem.board.enums.Orientation;
+import util.board.Panel;
+import util.enums.Direction;
+import util.enums.Orientation;
 
 public interface PanelLayerInterface
 {

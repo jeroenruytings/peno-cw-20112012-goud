@@ -7,9 +7,9 @@ import java.awt.Image;
 import java.awt.Point;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import pacmansystem.board.Board;
-import pacmansystem.board.enums.Orientation;
-import pacmansystem.world.RobotData;
+import util.board.Board;
+import util.enums.Orientation;
+import util.world.RobotData;
 
 public class SimRobotDataDisplay extends Canvas
 {

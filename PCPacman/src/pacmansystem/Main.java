@@ -2,11 +2,11 @@ package pacmansystem;
 
 
 import pacmansystem.ai.RobotController;
-import pacmansystem.ai.robot.DirectionLayer;
+import pacmansystem.ai.robot.OrientationLayer;
 import pacmansystem.ai.robot.PanelLayerInterface;
 import pacmansystem.ai.robot.simulatedRobot.SimulatedRobot;
-import pacmansystem.world.RealWorld;
-import pacmansystem.world.World;
+import util.world.RealWorld;
+import util.world.World;
 
 public class Main
 {
@@ -16,7 +16,7 @@ public class Main
 	{
 		init(w);
 		PanelLayerInterface p= new SimulatedRobot(w);
-		DirectionLayer directionlayer = new DirectionLayer(p);
+		OrientationLayer directionlayer = new OrientationLayer(p);
 		RobotController controller = new RobotController(directionlayer,world);
 		
 		System.out.println("succes");

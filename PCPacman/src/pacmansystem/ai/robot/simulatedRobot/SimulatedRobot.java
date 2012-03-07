@@ -4,10 +4,10 @@ import java.awt.Point;
 
 import pacmansystem.ai.robot.Barcode;
 import pacmansystem.ai.robot.PanelLayerInterface;
-import pacmansystem.board.Panel;
-import pacmansystem.board.enums.Direction;
-import pacmansystem.board.enums.Orientation;
-import pacmansystem.world.RealWorld;
+import util.board.Panel;
+import util.enums.Direction;
+import util.enums.Orientation;
+import util.world.RealWorld;
 
 public class SimulatedRobot implements PanelLayerInterface
 {

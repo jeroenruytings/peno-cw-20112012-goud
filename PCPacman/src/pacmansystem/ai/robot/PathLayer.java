@@ -4,26 +4,26 @@ import java.awt.Point;
 import java.util.Iterator;
 
 import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
-import pacmansystem.board.Board;
-import pacmansystem.board.ShortestPathFinder;
-import pacmansystem.world.RealWorld;
+import util.board.Board;
+import util.board.shortestpathfinder.ShortestPathFinder;
+import util.world.RealWorld;
 
 public class PathLayer {
 	
-	DirectionLayer directionLayer;
-	public DirectionLayer getDirectionLayer() {
+	OrientationLayer directionLayer;
+	public OrientationLayer getDirectionLayer() {
 		return directionLayer;
 	}
 
 	private ShortestPathFinder finder;
 	
-	public PathLayer(Board board, DirectionLayer layer){
+	public PathLayer(Board board, OrientationLayer layer){
 		directionLayer = layer;
 		finder = new ShortestPathFinder(board);
 	}
 	
 	public PathLayer(Board board, RealWorld realworld){
-		directionLayer = new DirectionLayer(realworld);
+		directionLayer = new OrientationLayer(realworld);
 		finder = new ShortestPathFinder(board);
 	}
 	

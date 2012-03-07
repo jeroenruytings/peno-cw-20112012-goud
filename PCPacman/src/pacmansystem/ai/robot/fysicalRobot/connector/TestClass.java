@@ -3,13 +3,13 @@ package pacmansystem.ai.robot.fysicalRobot.connector;
 import java.io.IOException;
 
 import pacmansystem.ai.robot.Barcode;
-import pacmansystem.ai.robot.DirectionLayer;
-import pacmansystem.ai.robot.PanelLayer;
+import pacmansystem.ai.robot.OrientationLayer;
 import pacmansystem.ai.robot.fysicalRobot.PanelColor;
-import pacmansystem.board.Panel;
-import pacmansystem.board.enums.Direction;
-import pacmansystem.board.enums.Orientation;
-import pacmansystem.world.RealWorld;
+import pacmansystem.ai.robot.fysicalRobot.PanelLayer;
+import util.board.Panel;
+import util.enums.Direction;
+import util.enums.Orientation;
+import util.world.RealWorld;
 
 public class TestClass {
 	
