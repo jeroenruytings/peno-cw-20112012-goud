@@ -92,9 +92,7 @@ public class RobotController
 			setCurrentOrientation(Board.getOrientationBetween(getCurrentPoint(), destination)); //verandert orientatie
 			setCurrentPoint(destination); //verandert huidig punt
 			try {
-				Point pointCorrected = getCurrentPoint();
-				pointCorrected.setLocation(pointCorrected.getX(), -pointCorrected.getY());
-				MessageSender.getInstance().sendMessage("goud DISCOVER "+ pointCorrected + "," + getCurrentY()+ " " +
+				MessageSender.getInstance().sendMessage("goud DISCOVER "+ getCurrentPoint()+ " " +
 						getBoard().getPanelAt(getCurrentPoint()).bordersToString() +"\n");
 			} catch (IOException e) {
 				e.printStackTrace();
