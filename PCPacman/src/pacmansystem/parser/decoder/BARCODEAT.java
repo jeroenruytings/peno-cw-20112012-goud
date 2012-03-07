@@ -29,7 +29,7 @@ public class BARCODEAT extends Decoder {
 		String[] coord = mes[2].split(",");
 		Point coordinate = new Point(Integer.parseInt(coord[0]),Integer.parseInt(coord[1]));
 		return new CommandBarcodeAt(mes[0], coordinate,Integer.parseInt(mes[3]),
-				(Integer.parseInt(mes[4])+2)%4);
+				Integer.parseInt(mes[4]));
 	}
 
 }

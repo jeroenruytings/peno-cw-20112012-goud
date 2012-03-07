@@ -33,9 +33,8 @@ public class DISCOVER extends Decoder
 		Point discovered = new Point(Integer.parseInt(coord[0]),
 				Integer.parseInt(coord[1]));
 		//TODO: draaiing fixen
-		return new CommandDiscover(mes[0], discovered, Byte.parseByte(mes[5]),
-				Byte.parseByte(mes[6]),Byte.parseByte(mes[3]),
-				Byte.parseByte(mes[4]));
+		return new CommandDiscover(mes[0], discovered, Byte.parseByte(mes[3]),Byte.parseByte(mes[4]),
+				Byte.parseByte(mes[5]),Byte.parseByte(mes[6]));
 	}
 
 }
