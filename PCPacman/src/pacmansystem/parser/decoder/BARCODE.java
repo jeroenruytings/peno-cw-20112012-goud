@@ -8,10 +8,7 @@ import pacmansystem.parser.command.CommandBarcode;
 
 public class BARCODE extends Decoder
 {
-	public BARCODE()
-	{
-		super("BARCODE");
-	}
+
 	
 	protected BARCODE(Decoder next){
 		super(next,"BARCODE");

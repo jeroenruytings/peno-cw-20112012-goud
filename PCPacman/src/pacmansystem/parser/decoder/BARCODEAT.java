@@ -9,11 +9,6 @@ import pacmansystem.parser.command.CommandBarcodeAt;
 
 public class BARCODEAT extends Decoder {
 
-	public BARCODEAT()
-	{
-		super("BARCODEAT");
-	}
-	
 	protected BARCODEAT(Decoder next){
 		super(next,"BARCODE");
 	}

@@ -3,16 +3,18 @@ package pacmansystem.parser;
 import java.text.ParseException;
 import java.util.Scanner;
 
+import pacmansystem.board.PointConvertor;
+
 public abstract class Decoder
 {
 	protected String _key;
 	private Decoder _next;
 
-	public Decoder(String key)
-	{
-		this._key = key;
-		_next = new NullDecoder();
-	}
+//	public Decoder(String key)
+//	{
+//		this._key = key;
+//		_next = new NullDecoder();
+//	}
 
 	protected Decoder(Decoder next, String key)
 	{

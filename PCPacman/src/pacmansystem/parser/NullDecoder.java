@@ -5,11 +5,7 @@ import pacmansystem.parser.command.NullCommand;
 public class NullDecoder extends Decoder
 {
 
-	public NullDecoder(Decoder next)
-	{
-		super(null);
-	}
-
+	
 	public NullDecoder()
 	{
 		super(null,"");
