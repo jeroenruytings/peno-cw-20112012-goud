@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -87,6 +86,10 @@ public class Mainscreen implements ActionListener
 	public Mainscreen()
 	{
 		initialize();
+	}
+	
+	public void start(){
+		this.frmPacman.setVisible(true);
 	}
 
 	/**
@@ -163,12 +166,10 @@ public class Mainscreen implements ActionListener
 		pnlSensors.add(toolBar, BorderLayout.NORTH);
 		createRadioButtonTab("Barcode", pnlBarcode, toolBar,buttonGroup_1);
 	}
+	
 	JPanel[] robotPanel = new JPanel[5];
-
 	JButton[] robotButton = new JButton[5];
-
 	SimRobotDataDisplay[] robotDisplay = new SimRobotDataDisplay[5];
-
 	private void initialiseRobotDataDisplays() {
 		for (int i = 0; i < 5; i++){
 		robotPanel[i] = new JPanel();
@@ -176,6 +177,8 @@ public class Mainscreen implements ActionListener
 		robotPanel[i].setLayout(new BorderLayout(0, 0));
 		robotDisplay[i] = new SimRobotDataDisplay(srd);
 		robotButton[i] = new JButton("Robot " + (i + 1));
+		if (i == 4)
+			robotButton[i].setText("Global");
 		robotButton[i].setFont(getPacmanFont());
 		robotButton[i].setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		robotButton[i].setForeground(Color.WHITE);
@@ -193,6 +196,11 @@ public class Mainscreen implements ActionListener
 		robotPanel[i].add(robotButton[i], BorderLayout.NORTH);
 		}
 	}
+	
+	public void setRobotData(RobotData data, int robotNumber){
+		robotDisplay[robotNumber - 1].setRobotData(data);
+	}
+	
 	JSplitPane splitPane;
 
 	JSplitPane splitPane_1;
@@ -372,7 +380,7 @@ public class Mainscreen implements ActionListener
 	/**
 	 * @return	The font of Pac-man.
 	 */
-	private static Font getPacmanFont()
+	public static Font getPacmanFont()
 	{
 		if (pacmanFont == null){
 			InputStream input = null;
@@ -401,7 +409,7 @@ public class Mainscreen implements ActionListener
 	 *            the resources package, of this project.
 	 * @return Image object, representing the file.
 	 */
-	private static Image getImage(String name)
+	public static Image getImage(String name)
 	{
 		Image img = null;
 		try {
@@ -459,13 +467,11 @@ public class Mainscreen implements ActionListener
 		ArrayList<String> tmp = new ArrayList<String>();
 		while(scr.hasNext()){
 			String command = scr.nextLine();
-			System.out.println(command);
 			tmp.add(command);
 		}
 		RealWorld result = null;
 		String[] commands = new String[10];
 		try {
-			System.out.println(Arrays.toString(tmp.toArray(commands)));
 			result = BoardCreator.createBoard(tmp.toArray(commands));
 		} catch (ParseException e) {
 			e.printStackTrace();

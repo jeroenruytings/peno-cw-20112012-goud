@@ -32,10 +32,11 @@ public class Main
 				robot[i] = initNewRobot(robotType);
 			}
 		}
-
-		
-		
-		System.out.println("succes");
+		Mainscreen gui = new Mainscreen();
+		for (int i = 0; i < robot.length; i++) {
+			gui.setRobotData(robot[i].getData(), i+1);
+		}
+		gui.start();
 	}
 
 	private RobotController initNewRobot(RobotType robotType) {

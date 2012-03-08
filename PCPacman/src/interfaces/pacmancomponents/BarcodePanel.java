@@ -1,5 +1,7 @@
 package interfaces.pacmancomponents;
 
+import interfaces.mainscreen.Mainscreen;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -32,6 +34,7 @@ public class BarcodePanel extends JPanel {
 	lblBarcode.setBackground(Color.GRAY);
 	lblBarcode.setHorizontalAlignment(SwingConstants.CENTER);
 	this.add(lblBarcode, BorderLayout.NORTH);
+	setFont(Mainscreen.getPacmanFont());
 	JPanel p = new JPanel() {
 		/**
 		 * 
