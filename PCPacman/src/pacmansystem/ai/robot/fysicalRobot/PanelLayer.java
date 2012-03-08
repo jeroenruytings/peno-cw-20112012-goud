@@ -19,12 +19,11 @@ public class PanelLayer implements PanelLayerInterface
 
 	MoverLayer mover;
 	public final static int distance = 400;
-	Panel panel;
 
 	public PanelLayer(MoverLayer mover)
 	{
 		this.mover = mover;
-		panel = new Panel();
+	
 	}
 
 	public MoverLayer getMover() {
@@ -35,9 +34,6 @@ public class PanelLayer implements PanelLayerInterface
 		return distance;
 	}
 
-	public Panel getPanel() {
-		return panel;
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -90,9 +86,14 @@ public class PanelLayer implements PanelLayerInterface
 //			}
 			distanceToWall = mover.getUltrasonic();
 			System.out.println("Hasborder up: " + distanceToWall);
+			if(distanceToWall == 255){	
+			mover.turnHead(0);
+			distanceToWall = mover.getUltrasonic();
+			System.out.println("Hasborder up: " + distanceToWall);
+			}
 			if (distanceToWall < 40)
 				return true;
-			else
+			else 
 				return false;
 			
 		case 1:
@@ -110,6 +111,11 @@ public class PanelLayer implements PanelLayerInterface
 	//		}
 			distanceToWall = mover.getUltrasonic();
 			System.out.println("Hasborder left: " + distanceToWall);
+			if(distanceToWall == 255){	
+				mover.turnHead(0);
+				distanceToWall = mover.getUltrasonic();
+				System.out.println("Hasborder left: " + distanceToWall);
+				}
 			mover.turnHead(90);
 			if (distanceToWall < 40)
 				return true;
@@ -128,6 +134,11 @@ public class PanelLayer implements PanelLayerInterface
 //			}
 			distanceToWall = mover.getUltrasonic();
 			System.out.println("Hasborder right: " + distanceToWall);
+			if(distanceToWall == 255){	
+				mover.turnHead(0);
+				distanceToWall = mover.getUltrasonic();
+				System.out.println("Hasborder right: " + distanceToWall);
+				}
 			mover.turnHead(-90);
 			if (distanceToWall < 40)
 				return true;
@@ -187,19 +198,27 @@ public class PanelLayer implements PanelLayerInterface
 
 	/**
 	 * Geeft het paneel terug waarop de robot zich bevindt. Hij voegt muren toe en een eventuele barcode.
+	 *	Na controleren van de borders wordt de kop indien nodig gecorrigeerd om terug recht te staan
 	 *
 	 */
 	@Override
 	public Panel getPanel(Orientation currentOrientation)
 	{
+		Panel panel = new Panel();
 		for (Direction direction : Direction.values()) {
-			if(hasBorder(direction)){
-				panel.setBorder(currentOrientation.addTo(direction), true);
+			if(currentOrientation.addTo(direction).equals(currentOrientation)){
+				panel.setBorder(currentOrientation.opposite().addTo(direction), false);
 			}
-			else{
-				panel.setBorder(currentOrientation.addTo(direction), false);
+			else{	
+				if(hasBorder(direction)){
+					panel.setBorder(currentOrientation.addTo(direction), true);
+				}
+				else{
+					panel.setBorder(currentOrientation.addTo(direction), false);
+				}
 			}
 		}
+		mover.setHead(0);
 		if(hasBarcode()){
 			panel.setBarcode(getBarcode());
 			panel.setBarcodeOrientation(currentOrientation);

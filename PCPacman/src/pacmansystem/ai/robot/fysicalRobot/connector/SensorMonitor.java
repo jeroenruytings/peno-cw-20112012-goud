@@ -66,6 +66,9 @@ public class SensorMonitor extends LeoMonitor
 //			System.out.println("tachocount: " + decoder.value());
 			virtu.setTachoCount(decoder.value());
 			break;
+		case HEADTACHO:
+			virtu.setHeadTacho(decoder.value());
+			break;
 			
 		}
 

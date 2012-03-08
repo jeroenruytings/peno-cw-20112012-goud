@@ -22,6 +22,8 @@ public class MoverLayer
 	private ColorTransitionStack _colorStack ;
 	private BarCodeReader _reader;
 	private Map<int[], Barcode> _map;
+	private int headTacho;
+	
 	public MoverLayer()
 	{
 		initialiseMoverLayer();
@@ -222,6 +224,26 @@ public class MoverLayer
 
 	public BarCodeReader getBarcodeReader() {
 		return _reader;
+	}
+
+
+	public void setHeadTacho(Integer value) {
+		headTacho = value;
+		
+	}
+	
+	public int getHeadTacho(){
+		return headTacho;
+	}
+
+
+	public void setHead(int i) {
+		int currentPosition = getHeadTacho();
+		System.out.println("CurrentPosition is " + currentPosition);
+		int degrees = i - currentPosition;
+		System.out.println("Head turned " + degrees);
+		turnHead(degrees);
+		
 	}
 
 

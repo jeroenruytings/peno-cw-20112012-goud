@@ -21,8 +21,9 @@ public class BarcodeFinder
 	{
 		if (_colors.peek().getColor() != PanelColor.BROWN)
 			return false;
-
-		return false;
+		if(getCode()==null)
+			return false;
+		return true;
 	}
 
 	private ColorSegment[] topSegment()
@@ -32,6 +33,8 @@ public class BarcodeFinder
 		if (colors.peek().getColor() == PanelColor.BROWN) {
 			colors.pop();
 		}
+		if(colors.isEmpty())
+			return new ColorSegment[0];
 		ColorSegment current = colors.pop();
 		while (!endOfBarcode(current)) {
 			rv.push(current);
@@ -53,6 +56,8 @@ public class BarcodeFinder
 	{
 		ColorSegment[] segments = this.topSegment();
 		//segments = filter(segments);
+		if(segments.length==0)
+			return new int[0];
 		return toCode(segments);
 
 	}
