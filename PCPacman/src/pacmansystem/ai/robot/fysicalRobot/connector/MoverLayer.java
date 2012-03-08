@@ -1,9 +1,11 @@
 package pacmansystem.ai.robot.fysicalRobot.connector;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import pacmansystem.ai.robot.Barcode;
+import pacmansystem.ai.robot.BarcodeReader;
 import pacmansystem.ai.robot.fysicalRobot.PanelColor;
 import pacmansystem.ai.robot.fysicalRobot.barcode.BarCodeReader;
 import pacmansystem.ai.robot.fysicalRobot.barcode.ColorTransitionStack;
@@ -45,13 +47,14 @@ public class MoverLayer
 
 	private Map<int[], Barcode> initbarcodes() {
 		Map<int[], Barcode> rv = new HashMap<int[], Barcode>();
-		int[] k = {1,1,0,0,1,1,0};
-	
-		try {
-			rv.put(k, new Barcode(k));
-		} catch (Exception e) {
+		for(BarcodeReader.barcode bar: BarcodeReader.barcode.values()){
+			int[] k = bar.getCode();
+			try {
+				rv.put(k, new Barcode(k));
+			} catch (Exception e) {
+			}
+			// TODO Auto-generated method stub
 		}
-		// TODO Auto-generated method stub
 		return rv;
 	}
 
@@ -60,6 +63,12 @@ public class MoverLayer
 		calibrateBlack();
 		calibrateBrown();
 		calibrateWhite();
+		try {
+			System.in.read();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 

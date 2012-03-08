@@ -88,18 +88,18 @@ public class BarcodeReader implements Runnable
 		}
 	};
 	// Barcodes pacman
-	enum barcode	//TODO barcodes van 8 bits ingeven
+	public enum barcode	//TODO barcodes van 8 bits ingeven
 	{
-		one(0, 0, 0, 0, 0, 1), two(0, 0, 0, 0,
-				1, 0), three(0, 0, 0, 0, 1, 1), four(0, 0, 0, 1, 0, 0), five(
-				0, 0, 0, 1, 0, 1), six(0, 0, 0, 0, 1, 1, 0), seven(0, 0,
-				0, 1, 1, 1), eight(0, 0, 1, 0, 0, 1), nine(0, 0, 1, 0, 1,
-				1), ten(0, 0, 1, 0, 1, 1), eleven(0, 0, 1, 1, 0, 1), twelf(0, 0,
-				1, 1, 1, 0), thirteen(0, 0, 1, 1, 1, 1), fourteen(0, 1, 0, 0, 0, 1), fifteen(
-				0, 1, 0, 0, 1, 1), sixteen(0, 1, 0, 1, 0, 1), seventeen(0, 1, 0, 1, 1, 0), eighteen(0, 1, 0, 1, 1, 1),
-				nineteen(0, 1, 1, 0, 0, 1), twenty(0, 1, 1, 0, 1, 1), twentyone(0, 1, 1, 1, 0, 1),twentytwo(0, 1, 1, 1, 1, 1),
-				twentythree(1, 0, 0, 0, 1, 1), twentyfour(1, 0, 0, 1, 0, 1), twentyfive(1, 0, 0, 1, 1, 1), twentysix(1, 0, 1, 0, 1, 1),
-				twentyseven(1, 0, 1, 1, 1, 1), twentyeight(1, 1, 0, 1, 1, 1);
+		one(1, 0, 0, 0, 0, 0, 1, 1), two(1, 0, 0, 0, 0,
+				1, 0, 1), three(1, 0, 0, 0, 0, 1, 1, 1), four(1, 0, 0, 0, 1, 0, 0, 1), five(1, 
+				0, 0, 0, 1, 0, 1, 1), six(1, 0, 0, 0, 0, 1, 1, 0, 1), seven(1, 0, 0,
+				0, 1, 1, 1, 1), eight(1, 0, 0, 1, 0, 0, 1, 1), nine(1, 0, 0, 1, 0, 1,
+				1, 1), ten(1, 0, 0, 1, 0, 1, 1, 1), eleven(1, 0, 0, 1, 1, 0, 1, 1), twelf(1, 0, 0,
+				1, 1, 1, 0, 1), thirteen(1, 0, 0, 1, 1, 1, 1, 1), fourteen(1, 0, 1, 0, 0, 0, 1, 1), fifteen(1, 
+				0, 1, 0, 0, 1, 1, 1), sixteen(1, 0, 1, 0, 1, 0, 1, 1), seventeen(1, 0, 1, 0, 1, 1, 0, 1), eighteen(1, 0, 1, 0, 1, 1, 1, 1),
+				nineteen(1, 0, 1, 1, 0, 0, 1, 1), twenty(1, 0, 1, 1, 0, 1, 1, 1), twentyone(1, 0, 1, 1, 1, 0, 1, 1),twentytwo(1, 0, 1, 1, 1, 1, 1, 1),
+				twentythree(1, 1, 0, 0, 0, 1, 1, 1), twentyfour(1, 1, 0, 0, 1, 0, 1, 1), twentyfive(1, 1, 0, 0, 1, 1, 1, 1), twentysix(1, 1, 0, 1, 0, 1, 1, 1),
+				twentyseven(1, 1, 0, 1, 1, 1, 1, 1), twentyeight(1, 1, 1, 0, 1, 1, 1, 1);
 				
 		private final int[] code;
 
@@ -132,6 +132,10 @@ public class BarcodeReader implements Runnable
 		barcode(int... arg)
 		{
 			code = arg;
+		}
+
+		public int[] getCode() {
+			return code;
 		}
 	};
 

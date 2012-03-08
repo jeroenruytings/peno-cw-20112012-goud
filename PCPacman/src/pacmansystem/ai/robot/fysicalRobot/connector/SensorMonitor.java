@@ -51,7 +51,7 @@ public class SensorMonitor extends LeoMonitor
 		case LIGHTSENSOR:
 			// gevolg invullen
 //			System.out.println("lichtsensor: " + decoder.value());
-			virtu.setLightSensor(decoder.value());
+			virtu.setLightSensor(decoder.value()*4);
 			break;
 		case ULTRASONIC:
 			// gevolg invullen
