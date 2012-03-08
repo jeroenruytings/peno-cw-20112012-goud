@@ -1,10 +1,6 @@
 package pacmansystem.ai.robot.fysicalRobot;
 
 import java.awt.Point;
-import java.io.IOException;
-
-import javax.naming.OperationNotSupportedException;
-
 import pacmansystem.ai.robot.Barcode;
 import pacmansystem.ai.robot.PanelLayerInterface;
 import pacmansystem.ai.robot.fysicalRobot.connector.Action;
@@ -19,11 +15,11 @@ public class PanelLayer implements PanelLayerInterface
 
 	MoverLayer mover;
 	public final static int distance = 400;
+	
 
 	public PanelLayer(MoverLayer mover)
 	{
 		this.mover = mover;
-	
 	}
 
 	public MoverLayer getMover() {
@@ -147,7 +143,6 @@ public class PanelLayer implements PanelLayerInterface
 		}
 		return false;
 	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -198,7 +193,6 @@ public class PanelLayer implements PanelLayerInterface
 
 	/**
 	 * Geeft het paneel terug waarop de robot zich bevindt. Hij voegt muren toe en een eventuele barcode.
-	 *	Na controleren van de borders wordt de kop indien nodig gecorrigeerd om terug recht te staan
 	 *
 	 */
 	@Override
@@ -206,7 +200,7 @@ public class PanelLayer implements PanelLayerInterface
 	{
 		Panel panel = new Panel();
 		for (Direction direction : Direction.values()) {
-			if(currentOrientation.addTo(direction).equals(currentOrientation)){
+			if(currentOrientation.addTo(direction).equals(currentOrientation.opposite())){
 				panel.setBorder(currentOrientation.opposite().addTo(direction), false);
 			}
 			else{	
