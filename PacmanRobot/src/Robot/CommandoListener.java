@@ -1,5 +1,6 @@
 package Robot;
 
+import lejos.nxt.Button;
 import lejos.nxt.LCD;
 import lejos.nxt.Motor;
 import lejos.robotics.proposal.DifferentialPilot;
@@ -72,15 +73,18 @@ public class CommandoListener implements Runnable {
 					break;
 				case 10:
 					turnHeadLeft(receivedCommando.getArgument());
+					break;
 				default:;
 			}
 		}
 		
 		}
 
+
 	private void turnHeadLeft(int argument){
 		
 		Motor.C.rotate(argument);
+		System.out.println("L: " + Motor.C.getTachoCount());
 		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.UltrasonicSensor, new SensorValue((byte) listener.getSonarValue()));
 		communicator.send(message);
 //		try {
@@ -96,6 +100,7 @@ public class CommandoListener implements Runnable {
 	private void turnHeadRight(int argument){
 		
 		Motor.C.rotate(-argument);
+		System.out.println("R: " + Motor.C.getTachoCount());
 		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.UltrasonicSensor, new SensorValue((byte) listener.getSonarValue()));
 		communicator.send(message);
 //		try {
