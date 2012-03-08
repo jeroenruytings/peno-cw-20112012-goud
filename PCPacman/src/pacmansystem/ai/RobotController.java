@@ -288,7 +288,8 @@ public class RobotController
 		MessageReceiver rec;
 		try {
 			rec = new MessageReceiver(world);
-			rec.run();
+			Thread t = new Thread(rec);
+			t.start();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

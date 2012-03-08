@@ -3,7 +3,6 @@ package communicator.be.kuleuven.cs.peno;
 import java.io.IOException;
 import java.text.ParseException;
 
-import util.world.RealWorld;
 import util.world.World;
 
 import com.rabbitmq.client.AMQP;
@@ -26,9 +25,9 @@ public class MessageReceiver implements Runnable{
 	public static void main(String[] args) {
 		try {
 			MessageReceiver test = new MessageReceiver(new World());
-			test.run();
+			Thread t = new Thread(test);
+			t.start();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -80,7 +79,6 @@ public class MessageReceiver implements Runnable{
 				}
 			});
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
