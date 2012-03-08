@@ -1,6 +1,5 @@
 package Robot;
 
-import lejos.nxt.Button;
 import lejos.nxt.LightSensor;
 import lejos.nxt.Motor;
 import lejos.nxt.MotorPort;
@@ -12,33 +11,28 @@ import lejos.nxt.addon.IRSeeker;
 
 public class SensorListener implements Runnable {
 	
-	UltrasonicSensor sonar;
-	LightSensor light;
-	TouchSensor push;
-	IRSeeker ir;
-	Motor motor;
-	Motor head;
+	UltrasonicSensor sonar = new UltrasonicSensor(SensorPort.S3); //check
+	LightSensor light = new LightSensor(SensorPort.S1);	//check
+	TouchSensor push = new TouchSensor(SensorPort.S4);	//check
+	IRSeeker ir = new IRSeeker(SensorPort.S2);	//check
+	Motor motor = new Motor(MotorPort.A);
+	Motor head = new Motor(MotorPort.C);
 	RobotCommunicator communicator;
 	
 	public SensorListener(){
 		
-		 sonar = new UltrasonicSensor(SensorPort.S3); //check
-		 light = new LightSensor(SensorPort.S1);	//check
-		 push = new TouchSensor(SensorPort.S4);	//check
-		 ir = new IRSeeker(SensorPort.S2);	//check
-		 motor = new Motor(MotorPort.A);
-		 head = new Motor(MotorPort.C);
 		communicator = RobotCommunicator.instance();
 		
 	}
 	
-	int sonarValue;
-	int lightValue;
-	int pushValue; 
-	int irValue; 
-	int irDirection;
-	int tachoCount; 
-	int headTacho;
+	private int sonarValue;
+	private int lightValue;
+	private int pushValue; 
+	private int irValue; 
+	private int irDirection;
+	private int tachoCount;
+	private int headTacho;
+	
 
 
 	
@@ -61,6 +55,8 @@ public class SensorListener implements Runnable {
 	public void run() {
 		
 		while (true){
+			
+			System.out.println("Motor " + MotorPort.C.getTachoCount());
 			
 		//send push value
 			if(pushValue != getPushValue()){
@@ -90,6 +86,14 @@ public class SensorListener implements Runnable {
 			}
 		Thread.yield();
 		
+		//send head tacho
+		if(headTacho != getHeadTacho()){
+			headTacho = getHeadTacho();
+			System.out.println(headTacho);
+	sendValue(headTacho, SensorIdentifier.HeadTacho);
+		}
+	Thread.yield();
+		
 //		// send sonar value
 //			if(irValue != getIrValue()){
 //				irValue = getIrValue();
@@ -97,34 +101,23 @@ public class SensorListener implements Runnable {
 //			}
 //		Thread.yield();
 		
-		//send Tachocount
+		//sent Tachocount
 			if(tachoCount != getTachoCount()){
 				tachoCount = getTachoCount();
 		sendValue(tachoCount, SensorIdentifier.TachoCount);
 			}
 		Thread.yield();
 		
-//		//send HeadTachoCount
-//			if(headTacho != getHeadTacho()){
-//				headTacho = getHeadTacho();
-//		sendValue(headTacho, SensorIdentifier.HeadTacho);
-//			}
-//			Thread.yield();
-		
 		
 		}	
 		
 	}
 
-//	private int getHeadTacho() {
-//		System.out.println("head " + head.getTachoCount());
-//		Button.ENTER.waitForPressAndRelease();
-//		return head.getTachoCount();
-//	}
+	private int getHeadTacho() {
+		return head.getTachoCount();
+	}
 
 	public int getTachoCount() {
-		System.out.println("tacho");
-		Button.ENTER.waitForPressAndRelease();
 		return motor.getTachoCount();
 	}
 
@@ -139,8 +132,6 @@ public class SensorListener implements Runnable {
 	}
 
 	public int getLightValue() {
-		System.out.println("sonar");
-	Button.ENTER.waitForPressAndRelease();
 		return light.readValue();
 	}
 
