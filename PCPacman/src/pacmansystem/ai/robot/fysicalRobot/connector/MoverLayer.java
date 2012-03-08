@@ -45,6 +45,7 @@ public class MoverLayer
 	private Map<int[], Barcode> initbarcodes() {
 		Map<int[], Barcode> rv = new HashMap<int[], Barcode>();
 		int[] k = {1,1,0,0,1,1,0};
+	
 		try {
 			rv.put(k, new Barcode(k));
 		} catch (Exception e) {
