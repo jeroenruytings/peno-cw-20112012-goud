@@ -3,6 +3,7 @@ package Robot;
 import lejos.nxt.Button;
 import lejos.nxt.LCD;
 import lejos.nxt.Motor;
+import lejos.nxt.SensorPort;
 import lejos.robotics.proposal.DifferentialPilot;
 
 public class CommandoListener implements Runnable {
@@ -120,6 +121,8 @@ public class CommandoListener implements Runnable {
 		LCD.drawString("BRUIN (enter)", 0, 0);
 		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
 		lejos.nxt.Button.ENTER.waitForPressAndRelease();
+		System.out.println("Bruin:" + listener.getLightValue());
+		lejos.nxt.Button.ENTER.waitForPressAndRelease();
 		communicator.send(message);
 	}
 
@@ -128,6 +131,8 @@ public class CommandoListener implements Runnable {
 		LCD.drawString("WIT (enter)", 0, 0);
 		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
 		lejos.nxt.Button.ENTER.waitForPressAndRelease();
+		System.out.println("Wit:" + listener.getLightValue());
+		lejos.nxt.Button.ENTER.waitForPressAndRelease();
 		communicator.send(message);
 	}
 
@@ -135,6 +140,8 @@ public class CommandoListener implements Runnable {
 		LCD.clear();
 		LCD.drawString("BLACK (enter)", 0, 0);
 		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
+		lejos.nxt.Button.ENTER.waitForPressAndRelease();
+		System.out.println("Zwart:" + listener.getLightValue());
 		lejos.nxt.Button.ENTER.waitForPressAndRelease();
 		communicator.send(message);
 	}

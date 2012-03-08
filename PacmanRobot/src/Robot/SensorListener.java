@@ -56,8 +56,6 @@ public class SensorListener implements Runnable {
 		
 		while (true){
 			
-			System.out.println("Motor " + MotorPort.C.getTachoCount());
-			
 		//send push value
 			if(pushValue != getPushValue()){
 				pushValue = getPushValue();
@@ -132,7 +130,7 @@ public class SensorListener implements Runnable {
 	}
 
 	public int getLightValue() {
-		return light.readValue();
+		return (SensorPort.S1.readRawValue()/4);
 	}
 
 	public int getIrValue() {
