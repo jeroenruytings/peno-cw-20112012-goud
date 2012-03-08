@@ -1,17 +1,15 @@
 package util.world;
 
 
-import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
-import communicator.be.kuleuven.cs.peno.MessageReceiver;
 
 
 public class World extends RealWorld
 {
 	private Map<String, RobotData> _robots;
 	private int registeredRobots;
-
 	/**
 	 * @return The data of the robots on this world.
 	 */
@@ -22,7 +20,7 @@ public class World extends RealWorld
 
 	public World()
 	{
-		
+		_robots = new HashMap<String, RobotData>();
 	}
 
 	public RobotData getRobot(String name)
@@ -46,6 +44,10 @@ public class World extends RealWorld
 		if (registeredRobots != 4)
 			throw new InsufficientJoinsException();
 		_robots.put(name, new RobotData());
+	}
+	
+	public void addRobot(RobotData robot, String name){
+		_robots.put(name, robot);
 	}
 
 }

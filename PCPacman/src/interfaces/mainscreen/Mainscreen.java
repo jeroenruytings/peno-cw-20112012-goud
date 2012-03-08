@@ -47,9 +47,6 @@ import util.world.RobotData;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JRadioButtonMenuItem;
 import javax.swing.ButtonGroup;
 import java.awt.Cursor;
 import java.awt.event.ComponentAdapter;
@@ -62,7 +59,9 @@ public class Mainscreen implements ActionListener
 {
 
 	private JFrame frmPacman;
-
+	private static final float FONT_SIZE = 11;
+	private static Font pacmanFont = null;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -90,24 +89,6 @@ public class Mainscreen implements ActionListener
 		initialize();
 	}
 
-	private Font getPacmanFont()
-	{
-		InputStream input = null;
-		Font result;
-		try {
-			input = Mainscreen.class.getResource("/resources/emulogic.ttf")
-					.openStream();
-			result = Font.createFont(Font.TRUETYPE_FONT, input);
-		} catch (IOException e) {
-			throw new RuntimeException("Font-file niet kunnen lezen!");
-		} catch (FontFormatException e) {
-			throw new RuntimeException(
-					"Font niet kunnen omzetten naar java-Font!");
-		}
-		result = result.deriveFont((float) 11);
-		return result;
-	}
-
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -128,96 +109,15 @@ public class Mainscreen implements ActionListener
 		frmPacman.setBounds(100, 100, 1200, 600);
 		frmPacman.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		JSplitPane splitPane = new JSplitPane();
-		splitPane.setEnabled(false);
-		splitPane.setDividerSize(5);
-		splitPane.setContinuousLayout(true);
-		splitPane.setResizeWeight(0.33);
-		frmPacman.getContentPane().add(splitPane, BorderLayout.CENTER);
-
-		JSplitPane splitPane_1 = new JSplitPane();
-		splitPane_1.setDividerSize(5);
-		splitPane_1.setEnabled(false);
-		splitPane_1.setResizeWeight(0.5);
-		splitPane.setRightComponent(splitPane_1);
-
-		JSplitPane splitPane_3 = new JSplitPane();
-		splitPane_3.setDividerSize(5);
-		splitPane_3.setEnabled(false);
-		splitPane_3.setResizeWeight(0.5);
-		splitPane_3.setOrientation(JSplitPane.VERTICAL_SPLIT);
-		splitPane_1.setRightComponent(splitPane_3);
-
-		java.awt.Panel panel_3 = new java.awt.Panel();
-		panel_3.setBackground(Color.BLACK);
-		splitPane_3.setLeftComponent(panel_3);
-		panel_3.setLayout(new BorderLayout(0, 0));
-
-		final SimRobotDataDisplay cnvRobot3 = new SimRobotDataDisplay(srd);
-		cnvRobot3.setBackground(Color.BLACK);
-		panel_3.add(cnvRobot3, BorderLayout.CENTER);
+		initialiseSplitPanes();
+		initialiseRobotDataDisplays();
 		
-		JButton btnRobot3 = new JButton("Robot 3");
-		btnRobot3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cnvRobot3.setRobotColor(JColorChooser.showDialog(frmPacman, "Kies een Kleur", cnvRobot3.getRobotColor()));
-				Mainscreen.playSound("pacman_eatghost.wav");
-				cnvRobot3.repaint();
-			}
-		});
-		btnRobot3.setFont(getPacmanFont());
-		btnRobot3.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		btnRobot3.setForeground(Color.WHITE);
-		btnRobot3.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.BLUE));
-		btnRobot3.setBackground(Color.BLACK);
-		panel_3.add(btnRobot3, BorderLayout.NORTH);
-
-		java.awt.Panel panel_4 = new java.awt.Panel();
-		panel_4.setBackground(Color.BLACK);
-		splitPane_3.setRightComponent(panel_4);
-		panel_4.setLayout(new BorderLayout(0, 0));
-
-		final SimRobotDataDisplay cnvRobot4 = new SimRobotDataDisplay(srd);
-		panel_4.add(cnvRobot4, BorderLayout.CENTER);
-
-		JButton btnRobot4 = new JButton("Robot 4");
-		btnRobot4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cnvRobot4.setRobotColor(JColorChooser.showDialog(frmPacman, "Kies een Kleur", cnvRobot4.getRobotColor()));
-				Mainscreen.playSound("pacman_eatghost.wav");
-				cnvRobot4.repaint();
-			}
-		});
-		btnRobot4.setFont(getPacmanFont());
-		btnRobot4.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		btnRobot4.setForeground(Color.WHITE);
-		btnRobot4.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.BLUE));
-		btnRobot4.setBackground(Color.BLACK);
-		panel_4.add(btnRobot4, BorderLayout.NORTH);
+		splitPane_2.setLeftComponent(robotPanel[0]);
+		splitPane_2.setRightComponent(robotPanel[1]);
+		splitPane_3.setLeftComponent(robotPanel[2]);
+		splitPane_3.setRightComponent(robotPanel[3]);
+		splitPane_5.setLeftComponent(robotPanel[4]);
 		
-		JSplitPane splitPane_4 = new JSplitPane();
-		splitPane_4.setEnabled(false);
-		splitPane_4.setDividerSize(5);
-		splitPane_4.setResizeWeight(0.4);
-		splitPane_4.setOrientation(JSplitPane.VERTICAL_SPLIT);
-		splitPane_1.setLeftComponent(splitPane_4);
-
-		JSplitPane splitPane_5 = new JSplitPane();
-		splitPane_5.setDividerSize(8);
-		splitPane_5.setEnabled(false);
-		splitPane_5.setOneTouchExpandable(true);
-		splitPane_5.setOrientation(JSplitPane.VERTICAL_SPLIT);
-		splitPane_5.setResizeWeight(0.6);
-		splitPane_4.setRightComponent(splitPane_5);
-
-		JPanel panel_5 = new JPanel();
-		panel_5.setBackground(Color.BLACK);
-		splitPane_5.setLeftComponent(panel_5);
-		panel_5.setLayout(new BorderLayout(0, 0));
-
-		final SimRobotDataDisplay cnvGlobal = new SimRobotDataDisplay(srd);
-		cnvGlobal.setBackground(Color.BLACK);
-		panel_5.add(cnvGlobal, BorderLayout.CENTER);
 		JButton btnColortest = new JButton("");
 		btnColortest.setForeground(Color.WHITE);
 		btnColortest.setBackground(Color.BLACK);
@@ -229,21 +129,6 @@ public class Mainscreen implements ActionListener
 			}
 		});
 		splitPane_5.setRightComponent(btnColortest);
-		
-		JButton btnGlobal = new JButton("Global");
-		btnGlobal.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cnvGlobal.setRobotColor(JColorChooser.showDialog(frmPacman, "Kies een Kleur", cnvGlobal.getRobotColor()));
-				Mainscreen.playSound("pacman_eatghost.wav");
-				cnvGlobal.repaint();
-			}
-		});
-		btnGlobal.setFont(getPacmanFont());
-		btnGlobal.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		btnGlobal.setForeground(Color.WHITE);
-		btnGlobal.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.BLUE));
-		btnGlobal.setBackground(Color.BLACK);
-		panel_5.add(btnGlobal, BorderLayout.NORTH);
 		
 		JPanel pnlSensors = new JPanel();
 		pnlSensors.setBackground(Color.BLACK);
@@ -274,32 +159,74 @@ public class Mainscreen implements ActionListener
 		pnlBarcode.setFont(getPacmanFont());
 		panel.add(pnlBarcode);
 		
-		radioButtonList.add(pnlUltrasonic);
-		EnhancedRadioButton rdbtnUltrasonic = new EnhancedRadioButton("Ultrasonic", pnlUltrasonic, this, radioButtonList.indexOf(pnlUltrasonic));
+		createRadioButtonTab("Ultrasonic", pnlUltrasonic, toolBar, buttonGroup_1);
 		pnlSensors.add(toolBar, BorderLayout.NORTH);
-		rdbtnUltrasonic.setBorderPainted(true);
-		rdbtnUltrasonic.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 255)));
-		buttonGroup_1.add(rdbtnUltrasonic);
-		ImageIcon imgSelected = getImageIcon("ghostDown.png", Color.RED);
-		ImageIcon imgNotSelected = getImageIcon("ghostUP.png", Color.DARK_GRAY);
-		rdbtnUltrasonic.setSelectedIcon(imgSelected);
-		rdbtnUltrasonic.setIcon(imgNotSelected);
-		rdbtnUltrasonic.setForeground(Color.WHITE);
-		rdbtnUltrasonic.setBackground(Color.BLACK);
-		toolBar.add(rdbtnUltrasonic);
-		
-		radioButtonList.add(pnlBarcode);
-		EnhancedRadioButton rdbtnBarcode = new EnhancedRadioButton("Barcode",pnlBarcode,this, radioButtonList.indexOf(pnlBarcode));
-		rdbtnBarcode.setBorderPainted(true);
-		rdbtnBarcode.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.BLUE));
-		buttonGroup_1.add(rdbtnBarcode);
-		rdbtnBarcode.setIcon(imgNotSelected);
-		rdbtnBarcode.setSelectedIcon(imgSelected);
-		rdbtnBarcode.setForeground(Color.WHITE);
-		rdbtnBarcode.setBackground(Color.BLACK);
-		toolBar.add(rdbtnBarcode);
+		createRadioButtonTab("Barcode", pnlBarcode, toolBar,buttonGroup_1);
+	}
+	JPanel[] robotPanel = new JPanel[5];
 
-		JSplitPane splitPane_2 = new JSplitPane();
+	JButton[] robotButton = new JButton[5];
+
+	SimRobotDataDisplay[] robotDisplay = new SimRobotDataDisplay[5];
+
+	private void initialiseRobotDataDisplays() {
+		for (int i = 0; i < 5; i++){
+		robotPanel[i] = new JPanel();
+		robotPanel[i].setBackground(Color.BLACK);
+		robotPanel[i].setLayout(new BorderLayout(0, 0));
+		robotDisplay[i] = new SimRobotDataDisplay(srd);
+		robotButton[i] = new JButton("Robot " + (i + 1));
+		robotButton[i].setFont(getPacmanFont());
+		robotButton[i].setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+		robotButton[i].setForeground(Color.WHITE);
+		robotButton[i].setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.BLUE));
+		robotButton[i].setBackground(Color.BLACK);
+		final int index = i;
+		robotButton[i].addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				robotDisplay[index].setRobotColor(JColorChooser.showDialog(frmPacman, "Kies een Kleur", robotDisplay[index].getRobotColor()));
+				Mainscreen.playSound("pacman_eatghost.wav");
+				robotDisplay[index].repaint();
+			}
+		});
+		robotPanel[i].add(robotDisplay[i], BorderLayout.CENTER);
+		robotPanel[i].add(robotButton[i], BorderLayout.NORTH);
+		}
+	}
+	JSplitPane splitPane;
+
+	JSplitPane splitPane_1;
+
+	JSplitPane splitPane_2;
+
+	JSplitPane splitPane_3;
+
+	JSplitPane splitPane_4;
+
+	JSplitPane splitPane_5;
+
+	private void initialiseSplitPanes(){
+		splitPane = new JSplitPane();
+		splitPane.setEnabled(false);
+		splitPane.setDividerSize(5);
+		splitPane.setContinuousLayout(true);
+		splitPane.setResizeWeight(0.33);
+		frmPacman.getContentPane().add(splitPane, BorderLayout.CENTER);
+	
+		splitPane_1 = new JSplitPane();
+		splitPane_1.setDividerSize(5);
+		splitPane_1.setEnabled(false);
+		splitPane_1.setResizeWeight(0.5);
+		splitPane.setRightComponent(splitPane_1);
+	
+		splitPane_3 = new JSplitPane();
+		splitPane_3.setDividerSize(5);
+		splitPane_3.setEnabled(false);
+		splitPane_3.setResizeWeight(0.5);
+		splitPane_3.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		splitPane_1.setRightComponent(splitPane_3);
+		
+		splitPane_2 = new JSplitPane();
 		splitPane_2.setBackground(Color.WHITE);
 		splitPane_2.setForeground(Color.GRAY);
 		splitPane_2.setDividerSize(5);
@@ -307,92 +234,54 @@ public class Mainscreen implements ActionListener
 		splitPane_2.setResizeWeight(0.5);
 		splitPane_2.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		splitPane.setLeftComponent(splitPane_2);
-
-		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(Color.BLACK);
-		splitPane_2.setRightComponent(panel_2);
-		panel_2.setLayout(new BorderLayout(0, 0));
-
 		
-
-		final SimRobotDataDisplay cnvRobot2 = new SimRobotDataDisplay(srd);
-		cnvRobot2.setBackground(Color.BLACK);
-		panel_2.add(cnvRobot2, BorderLayout.CENTER);
-		
-		JButton btnRobot2 = new JButton("Robot 2");
-		btnRobot2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cnvRobot2.setRobotColor(JColorChooser.showDialog(frmPacman, "Kies een Kleur", cnvRobot2.getRobotColor()));
-				Mainscreen.playSound("pacman_eatghost.wav");
-				cnvRobot2.repaint();
-			}
-		});
-		btnRobot2.setFont(getPacmanFont());
-		btnRobot2.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		btnRobot2.setForeground(Color.WHITE);
-		btnRobot2.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.BLUE));
-		btnRobot2.setBackground(Color.BLACK);
-		panel_2.add(btnRobot2, BorderLayout.NORTH);
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.BLACK);
-		splitPane_2.setLeftComponent(panel_1);
-		panel_1.setLayout(new BorderLayout(0, 0));
-
-		final SimRobotDataDisplay cnvRobot1 = new SimRobotDataDisplay(srd);
-		panel_1.add(cnvRobot1, BorderLayout.CENTER);
-		
-		JButton btnRobot1 = new JButton("Robot 1");
-		btnRobot1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cnvRobot1.setRobotColor(JColorChooser.showDialog(frmPacman, "Kies een Kleur", cnvRobot1.getRobotColor()));
-				Mainscreen.playSound("pacman_eatghost.wav");
-				cnvRobot1.repaint();
-			}
-		});
-		btnRobot1.setFont(getPacmanFont());
-		btnRobot1.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		btnRobot1.setForeground(Color.WHITE);
-		btnRobot1.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.BLUE));
-		btnRobot1.setBackground(Color.BLACK);
-		panel_1.add(btnRobot1, BorderLayout.NORTH);
-		
-		JMenuBar menuBar = new JMenuBar();
-		frmPacman.setJMenuBar(menuBar);
-		
-		JMenu mnNewMenu = new JMenu("Simulator");
-		menuBar.add(mnNewMenu);
-		
-		JRadioButtonMenuItem rdbtnmntmVirtueel = new JRadioButtonMenuItem("Virtueel");
-		buttonGroup.add(rdbtnmntmVirtueel);
-		mnNewMenu.add(rdbtnmntmVirtueel);
-		
-		JRadioButtonMenuItem rdbtnmntmHybride = new JRadioButtonMenuItem("Hybride");
-		buttonGroup.add(rdbtnmntmHybride);
-		mnNewMenu.add(rdbtnmntmHybride);
-		
-		JRadioButtonMenuItem rdbtnmntmGedistribueerd = new JRadioButtonMenuItem("Gedistribueerd");
-		buttonGroup.add(rdbtnmntmGedistribueerd);
-		mnNewMenu.add(rdbtnmntmGedistribueerd);
-
-	}
-
-	private ImageIcon getImageIcon(String image, Color color) {
-		Image selected = new BufferedImage(20, 20, BufferedImage.TYPE_INT_RGB);
-		selected.getGraphics().drawImage(getImage(image).getScaledInstance(20, 20, Image.SCALE_DEFAULT), 0, 0, 20, 20, color,frmPacman);
-		ImageIcon imgSelected = (new ImageIcon(selected));
-		return imgSelected;
-	}
+		splitPane_4 = new JSplitPane();
+		splitPane_4.setEnabled(false);
+		splitPane_4.setDividerSize(5);
+		splitPane_4.setResizeWeight(0.4);
+		splitPane_4.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		splitPane_1.setLeftComponent(splitPane_4);
 	
+		splitPane_5 = new JSplitPane();
+		splitPane_5.setDividerSize(8);
+		splitPane_5.setEnabled(false);
+		splitPane_5.setOneTouchExpandable(true);
+		splitPane_5.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		splitPane_5.setResizeWeight(0.6);
+		splitPane_4.setRightComponent(splitPane_5);
+	}
+	private ImageIcon imgSelected = getImageIcon("ghostDown.png", Color.RED);
+	private ImageIcon imgNotSelected = getImageIcon("ghostUP.png", Color.DARK_GRAY);
+	
+	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
 
+	private final List<Component> radioButtonList = new ArrayList<Component>();
+
+	private void createRadioButtonTab(String tabName, Component componentToShow, JToolBar toolbarToAddTo, ButtonGroup group){
+		radioButtonList.add(componentToShow);
+		EnhancedRadioButton rdbtn = new EnhancedRadioButton(tabName, componentToShow, this, radioButtonList.indexOf(componentToShow));
+		rdbtn.setBorderPainted(true);
+		rdbtn.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.BLUE));
+		rdbtn.setIcon(imgNotSelected);
+		group.add(rdbtn);
+		rdbtn.setSelectedIcon(imgSelected);
+		rdbtn.setForeground(Color.WHITE);
+		rdbtn.setBackground(Color.BLACK);
+		toolbarToAddTo.add(rdbtn);
+	}
+		
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		 for (Component tmp : radioButtonList)
+			 tmp.setVisible(false);
+		radioButtonList.get(Integer.parseInt(e.getActionCommand())).setVisible(true);
+	}
 	Board board = new Board(5, 5);
 	Board one = new Board(4, 4);
 	Panel panel1 = new Panel();
 	Panel panel2 = new Panel();
 	Panel panel3 = new Panel();
 	RobotData srd = new RobotData(one);
-	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
 	{
 		panel1.setBorder(Orientation.NORTH, true);
 		panel1.setBorder(Orientation.WEST, true);
@@ -480,6 +369,65 @@ public class Mainscreen implements ActionListener
 //		 one.add(p16, new Point(3,3));
 	}
 	
+	/**
+	 * @return	The font of Pac-man.
+	 */
+	private static Font getPacmanFont()
+	{
+		if (pacmanFont == null){
+			InputStream input = null;
+			Font result;
+			try {
+				input = Mainscreen.class.getResource("/resources/emulogic.ttf")
+						.openStream();
+				result = Font.createFont(Font.TRUETYPE_FONT, input);
+			} catch (IOException e) {
+				throw new RuntimeException("Font-file niet kunnen lezen!");
+			} catch (FontFormatException e) {
+				throw new RuntimeException(
+						"Font niet kunnen omzetten naar java-Font!");
+			}
+			result = result.deriveFont(FONT_SIZE);
+			return result;
+		}
+		else return pacmanFont;
+	}
+
+	/**
+	 * Read an image from the resources.
+	 * 
+	 * @param name
+	 *            Name of the image (with the extention). The file must be in
+	 *            the resources package, of this project.
+	 * @return Image object, representing the file.
+	 */
+	private static Image getImage(String name)
+	{
+		Image img = null;
+		try {
+			img = ImageIO.read(RobotData.class
+					.getResource("/resources/" + name).openStream());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return img;
+	}
+
+	/**
+	 * Get imageicon for the tab menu.
+	 * @param 	image
+	 * 				The image to create an icon from.
+	 * @param 	color
+	 * 				The background color.
+	 * @return	An ImageIcon from the given Image with the given background color.
+	 */
+	private ImageIcon getImageIcon(String image, Color color) {
+		Image selected = new BufferedImage(20, 20, BufferedImage.TYPE_INT_RGB);
+		selected.getGraphics().drawImage(getImage(image).getScaledInstance(20, 20, Image.SCALE_DEFAULT), 0, 0, 20, 20, color,frmPacman);
+		ImageIcon imgSelected = (new ImageIcon(selected));
+		return imgSelected;
+	}
+
 	public synchronized static void playSound(String name){
 		try {
 		InputStream sound = Mainscreen.class.getResourceAsStream("/resources/sound/" + name);
@@ -496,8 +444,10 @@ public class Mainscreen implements ActionListener
 		}
 	}
 	
+	/**
+	 * Ask a RealWorld from the user.
+	 */
 	public static RealWorld getRealWorld(){
-		//TODO: MAAK!
 		JFileChooser fileWindow = new JFileChooser();
 		fileWindow.showOpenDialog(null);
 		Scanner scr = null;
@@ -521,35 +471,6 @@ public class Mainscreen implements ActionListener
 			e.printStackTrace();
 		}
 		return result;
-	}
-	
-	/**
-	 * Read an image from the resources.
-	 * 
-	 * @param name
-	 *            Name of the image (with the extention). The file must be in
-	 *            the resources package, of this project.
-	 * @return Image object, representing the file.
-	 */
-	public static Image getImage(String name)
-	{
-		Image img = null;
-		try {
-			img = ImageIO.read(RobotData.class
-					.getResource("/resources/" + name).openStream());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return img;
-	}
-
-	private List<Component> radioButtonList = new ArrayList<Component>();
-	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		 for (Component tmp : radioButtonList)
-			 tmp.setVisible(false);
-		radioButtonList.get(Integer.parseInt(e.getActionCommand())).setVisible(true);
 	}
 
 }

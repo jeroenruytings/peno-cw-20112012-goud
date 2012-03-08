@@ -2,7 +2,6 @@ package pacmansystem.ai;
 
 import java.awt.Point;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,8 +23,8 @@ import util.world.World;
 public class RobotController
 {
 
-	private int currentX;
-	private int currentY;
+	//private int currentX;
+	//private int currentY;
 	private Orientation currentOrientation;
 	
 	public void setCurrentOrientation(Orientation currentOrientation) {
@@ -61,7 +60,7 @@ public class RobotController
 		}
 	}
 	
-	private void explore(){
+	public void explore(){
 		Point destination = null;
 		boolean finished = false;
 		while (!finished) {
@@ -239,40 +238,36 @@ public class RobotController
 
 	private int heuristiek(Point destination)
 	{
-		return (int) (Math.abs(destination.getX() - currentX) + Math
-				.abs(destination.getY() - currentY));
+		return (int) (Math.abs(destination.getX() - getCurrentX()) + Math
+				.abs(destination.getY() - getCurrentY()));
 	}
 
-	public RobotController(int rows, int columns,OrientationLayer layer,World world)
-	{
-		data = new RobotData();
-		currentX = 0;
-		currentY = 0;
-		currentOrientation = Orientation.NORTH;
-		
-		Panel p1 = new Panel();
-		getBoard().add(p1, new Point(0,0));
-		pathLayer = new PathLayer(getBoard(),layer);
-		this.world = world;
-		MessageReceiver rec;
-		try {
-			rec = new MessageReceiver(world);
-			rec.run();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-	}
+//	public RobotController(int rows, int columns,OrientationLayer layer)
+//	{
+//		world = new World();
+//		data = new RobotData();
+//		currentX = 0;
+//		currentY = 0;
+//		currentOrientation = Orientation.NORTH;
+//		
+//		Panel p1 = new Panel();
+//		getBoard().add(p1, new Point(0,0));
+//		pathLayer = new PathLayer(getBoard(),layer);
+//		MessageReceiver rec;
+//		try {
+//			rec = new MessageReceiver(world);
+//			rec.run();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		
+//	}
 
-	public RobotController(OrientationLayer layer, World world)
+	public RobotController(OrientationLayer layer)
 	{
-		data = new RobotData();
-
-		currentX = 0;
-		currentY = 0;
+		initWorld();
 		currentOrientation = Orientation.NORTH;
 		pathLayer = new PathLayer(getBoard(), layer);
-		this.world = world;
 		MessageReceiver rec;
 		try {
 			rec = new MessageReceiver(world);
@@ -282,15 +277,14 @@ public class RobotController
 		}
 	}
 	
-	public RobotController(Board b,OrientationLayer layer, World world)
+	public RobotController(Board b,OrientationLayer layer)
 
 	{
+		world = new World();
 		data = new RobotData(b);
-		currentX = 0;
-		currentY = 0;
+		world.addRobot(data, "Goud");
 		currentOrientation = Orientation.NORTH;
 		pathLayer = new PathLayer(getBoard(), layer);
-		this.world = world;
 		MessageReceiver rec;
 		try {
 			rec = new MessageReceiver(world);
@@ -303,22 +297,22 @@ public class RobotController
 
 	public int getCurrentX()
 	{
-		return currentX;
+		return data.getPosition().x;
 	}
 
-	public void setCurrentX(int currentX)
+	public void setCurrentX(int x)
 	{
-		this.currentX = currentX;
+		data.getPosition().setLocation(x, getCurrentY());
 	}
 
 	public int getCurrentY()
 	{
-		return currentY;
+		return data.getPosition().y;
 	}
 
-	public void setCurrentY(int currentY)
+	public void setCurrentY(int y)
 	{
-		this.currentY = currentY;
+		data.getPosition().setLocation(getCurrentX(), y);
 	}
 	
 	public Map<RobotData,Point> getRobotsWithSameBarcode(Barcode barcode){
@@ -354,6 +348,12 @@ public class RobotController
 		return orientations;
 	}
 
+	
+	private void initWorld(){
+		data = new RobotData();
+		world = new World();
+		world.addRobot(getData(), "Goud" + Math.random());
+	}
 	
 	
 }

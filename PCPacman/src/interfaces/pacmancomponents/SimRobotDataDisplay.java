@@ -82,19 +82,16 @@ public class SimRobotDataDisplay extends Canvas
 	@Override
 	public void paint(Graphics g)
 	{
+		if (myRobotData != null){
 			bufferedImage = createImage(getWidth(), getHeight());
 			bufferedGraphics = bufferedImage.getGraphics();
-		
-		bufferedGraphics.clearRect(0, 0, getWidth(), getHeight());
-		drawBoard(bufferedGraphics);
-		drawRobot(bufferedGraphics);
-		drawPacman(bufferedGraphics);
-//		drawBoard(g);
-//		drawRobot(g);
-//		drawPacman(g);
-		
-		
-		g.drawImage(bufferedImage, 0,0,this);
+
+			bufferedGraphics.clearRect(0, 0, getWidth(), getHeight());
+			drawBoard(bufferedGraphics);
+			drawRobot(bufferedGraphics);
+			drawPacman(bufferedGraphics);
+			g.drawImage(bufferedImage, 0,0,this);
+		}
 	}
 	
 	@Override
@@ -202,6 +199,10 @@ public class SimRobotDataDisplay extends Canvas
 					calculatePanelWidth() - 2 * getSpacing(), 50, -80);
 			g.setColor(original);
 		}
+	}
+	
+	public void setRobotData(RobotData  robot){
+		myRobotData = robot;
 	}
 
 }

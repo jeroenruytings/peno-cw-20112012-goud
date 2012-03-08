@@ -97,7 +97,7 @@ public class BoardDisplayer
 	 *            The graphics to draw on.
 	 * @param t
 	 *            The Track the panel belongs to.
-	 * @param panelCoordinate
+	 * @param panelConvertedAxisCoordinate
 	 *            The coordinate of the panel on the track.
 	 * @param panelHeight
 	 *            The height of the panel in pixels.
@@ -107,6 +107,7 @@ public class BoardDisplayer
 	public static void drawPanel(Graphics g, Board t, Point initialCoordinate,
 			Point panelCoordinate, int panelHeight, int panelWidth)
 	{
+		Point panelConvertedAxisCoordinate = new Point(panelCoordinate.x,t.maxY() - panelCoordinate.y);
 		// Get the borders.
 		Orientation[] borderOrientations = new Orientation[4];
 		for (Orientation border : Orientation.values()) {
@@ -132,8 +133,8 @@ public class BoardDisplayer
 		
 		// Draw the null Orientations.
 		Point initialCoord = new Point(initialCoordinate.x
-				+ (panelCoordinate.x * panelWidth), initialCoordinate.y
-				+ (panelCoordinate.y * panelHeight));
+				+ (panelConvertedAxisCoordinate.x * panelWidth), initialCoordinate.y
+				+ (panelConvertedAxisCoordinate.y * panelHeight));
 		for (Orientation tmpOrientation : nullOrientations) {
 			if (tmpOrientation != null) {
 				drawLine(g, initialCoord, panelHeight, panelWidth,
@@ -141,7 +142,7 @@ public class BoardDisplayer
 				for (Orientation tmp : nullOrientations) {
 					if ((tmpOrientation.opposite() != tmp)
 							&& (tmp != tmpOrientation) && (tmp != null))
-						drawCorner(g, t, initialCoordinate, panelCoordinate,
+						drawCorner(g, t, initialCoordinate, panelConvertedAxisCoordinate,
 								panelHeight, panelWidth, tmp, tmpOrientation,
 								false);
 				}
@@ -154,7 +155,7 @@ public class BoardDisplayer
 				for (Orientation tmp : noNullBorder) {
 					if ((tmpOrientation.opposite() != tmp)
 							&& (tmp != tmpOrientation) && (tmp != null))
-						drawLineFinish(g, t, initialCoordinate, panelCoordinate,
+						drawLineFinish(g, t, initialCoordinate, panelConvertedAxisCoordinate,
 								panelHeight, panelWidth, tmpOrientation, tmp, false);
 				}
 			}
@@ -178,7 +179,7 @@ public class BoardDisplayer
 				for (Orientation tmp : borderOrientations) {
 					if ((tmpBorder.opposite() != tmp) && (tmp != tmpBorder)
 							&& (tmp != null))
-						drawCorner(g, t, initialCoordinate, panelCoordinate,
+						drawCorner(g, t, initialCoordinate, panelConvertedAxisCoordinate,
 								panelHeight, panelWidth, tmp, tmpBorder, true);
 				}
 			}
@@ -189,7 +190,7 @@ public class BoardDisplayer
 				for (Orientation tmp : noBorder) {
 					if ((tmpBorder.opposite() != tmp) && (tmp != tmpBorder)
 							&& (tmp != null))
-						drawLineFinish(g, t, initialCoordinate, panelCoordinate,
+						drawLineFinish(g, t, initialCoordinate, panelConvertedAxisCoordinate,
 								panelHeight, panelWidth, tmpBorder, tmp, true);
 				}
 			}
@@ -201,7 +202,7 @@ public class BoardDisplayer
 				for (Orientation tmp : noBorder) {
 					if ((tmpBorder.opposite() != tmp) && (tmp != tmpBorder)
 							&& (tmp != null))
-						drawReverseCorner(g, t, initialCoordinate, panelCoordinate, panelHeight, panelWidth, tmp, tmpBorder);
+						drawReverseCorner(g, t, initialCoordinate, panelConvertedAxisCoordinate, panelHeight, panelWidth, tmp, tmpBorder);
 				}
 			}
 		}
@@ -397,9 +398,9 @@ public class BoardDisplayer
 		switch (Orientation)
 		{
 		case NORTH:
-			return t.getPanelAt(new Point(panelCoord.x, (panelCoord.y - 1)));
-		case SOUTH:
 			return t.getPanelAt(new Point(panelCoord.x, (panelCoord.y + 1)));
+		case SOUTH:
+			return t.getPanelAt(new Point(panelCoord.x, (panelCoord.y - 1)));
 		case EAST:
 			return t.getPanelAt(new Point((panelCoord.x + 1), panelCoord.y));
 		case WEST:
