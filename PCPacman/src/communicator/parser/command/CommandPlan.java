@@ -3,9 +3,9 @@ package communicator.parser.command;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import communicator.parser.Command;
-
 import util.world.World;
+
+import communicator.parser.Command;
 
 public class CommandPlan implements Command
 {

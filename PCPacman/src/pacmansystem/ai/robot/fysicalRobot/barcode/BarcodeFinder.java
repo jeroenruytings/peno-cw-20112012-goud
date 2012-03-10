@@ -28,6 +28,7 @@ public class BarcodeFinder
 
 	private ColorSegment[] topSegment()
 	{
+		@SuppressWarnings("unchecked")
 		Stack<ColorSegment> colors = (Stack<ColorSegment>) _colors.clone();
 		Stack<ColorSegment> rv = new Stack<ColorSegment>();
 		if (colors.peek().getColor() == PanelColor.BROWN) {

@@ -5,13 +5,11 @@ import java.util.PriorityQueue;
 import java.util.Stack;
 
 import util.board.Board;
-import util.board.shortestpathfinder.dijkstra.DijkstraSP;
 import util.enums.Orientation;
 
 public class ShortestPathFinder
 {
 	protected Board board;
-	private DijkstraSP finder;
 	public ShortestPathFinder(Board board)
 	{
 		this.board = board;

@@ -3,6 +3,10 @@ package util.board;
 import java.awt.Point;
 import java.text.ParseException;
 
+import pacmansystem.ai.robot.Barcode;
+import util.enums.Orientation;
+import util.world.RealWorld;
+
 import communicator.parser.Command;
 import communicator.parser.ProtocolDecoder;
 import communicator.parser.command.CommandBarcodeAt;
@@ -10,10 +14,6 @@ import communicator.parser.command.CommandDiscover;
 import communicator.parser.command.CommandName;
 import communicator.parser.command.CommandPacman;
 import communicator.parser.command.CommandPosition;
-
-import pacmansystem.ai.robot.Barcode;
-import util.enums.Orientation;
-import util.world.RealWorld;
 
 public class BoardCreator
 {

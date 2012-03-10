@@ -1,8 +1,8 @@
 package communicator.parser.command;
 
-import communicator.parser.Command;
-
 import util.world.World;
+
+import communicator.parser.Command;
 
 public class NullCommand implements Command
 {

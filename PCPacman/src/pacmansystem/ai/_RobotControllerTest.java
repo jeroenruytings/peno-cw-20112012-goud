@@ -1,6 +1,9 @@
 package pacmansystem.ai;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import interfaces.mainscreen.Mainscreen;
+
 import java.awt.Point;
 
 import org.junit.Test;
@@ -14,12 +17,13 @@ import util.enums.Orientation;
 public class _RobotControllerTest
 {
 
+	
 	@Test
 	public void nextMoveTest()
 	{
 		Board one = new Board(4, 4);
 
-		RobotController main = new RobotController(one, new OrientationLayer(new SimulatedRobot(null)));
+		RobotController main = new RobotController(one, new OrientationLayer(new SimulatedRobot(null,new Point(0,0))));
 
 		Panel p1 = new Panel();
 		p1.setBorder(Orientation.NORTH, true);
@@ -144,4 +148,14 @@ public class _RobotControllerTest
 		System.out.println(main.lookForDestination());
 		assertNull(main.lookForDestination());
 	}
+	
+	@Test
+	public void nextMoveTest2()
+	{
+		Board one = Mainscreen.getRealWorld().getGlobalBoard();
+
+		RobotController main = new RobotController(one, new OrientationLayer(new SimulatedRobot(null,new Point(0,0))));
+		assertNull(main.lookForDestination());
+	}
+	
 }

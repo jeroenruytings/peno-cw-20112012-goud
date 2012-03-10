@@ -5,27 +5,26 @@ import java.util.Iterator;
 
 import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
 import util.board.Board;
-import util.board.shortestpathfinder.ShortestPathFinder;
-import util.world.RealWorld;
+import util.board.shortestpathfinder.dijkstra.DijkstraFinder;
 
 public class PathLayer {
 	
-	OrientationLayer directionLayer;
-	public OrientationLayer getDirectionLayer() {
-		return directionLayer;
+	OrientationLayer orientationLayer;
+	public OrientationLayer getOrientationLayer() {
+		return orientationLayer;
 	}
 
-	private ShortestPathFinder finder;
+	private DijkstraFinder finder;
 	
 	public PathLayer(Board board, OrientationLayer layer){
-		directionLayer = layer;
-		finder = new ShortestPathFinder(board);
+		orientationLayer = layer;
+		finder = new DijkstraFinder(board);
 	}
 	
-	public PathLayer(Board board, RealWorld realworld){
-		directionLayer = new OrientationLayer(realworld);
-		finder = new ShortestPathFinder(board);
-	}
+//	public PathLayer(Board board, RealWorld realworld){
+//		directionLayer = new OrientationLayer(realworld);
+//		finder = new ShortestPathFinder(board);
+//	}
 	
 	public void go(Point start, Point end){
 		Iterable<Point> r = finder.shortestPath(start,end);
@@ -36,7 +35,7 @@ public class PathLayer {
 				break;
 			Point nextPoint = s.next();
 			try {
-				directionLayer.go(Board.getOrientationBetween(currentPoint, nextPoint));
+				orientationLayer.go(Board.getOrientationBetween(currentPoint, nextPoint));
 				currentPoint = nextPoint;
 			} catch (IllegalDriveException e) {
 				//Dit kan nooit gebeuren

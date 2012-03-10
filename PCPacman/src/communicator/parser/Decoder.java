@@ -1,9 +1,6 @@
 package communicator.parser;
 
 import java.text.ParseException;
-import java.util.Scanner;
-
-import util.board.PointConvertor;
 
 public abstract class Decoder
 {

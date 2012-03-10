@@ -2,9 +2,9 @@ package communicator.parser.command;
 
 import java.awt.Point;
 
-import communicator.parser.Command;
-
 import util.world.World;
+
+import communicator.parser.Command;
 
 public class CommandPacman implements Command
 {

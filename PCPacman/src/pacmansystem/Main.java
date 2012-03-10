@@ -3,6 +3,9 @@ package pacmansystem;
 import interfaces.mainscreen.Mainscreen;
 import interfaces.mainscreen.ModeChooser;
 import interfaces.pacmancomponents.RobotType;
+
+import java.awt.Point;
+
 import pacmansystem.ai.RobotController;
 import pacmansystem.ai.robot.OrientationLayer;
 import pacmansystem.ai.robot.PanelLayerInterface;
@@ -37,6 +40,7 @@ public class Main
 			gui.setRobotData(robot[i].getData(), i+1);
 		}
 		gui.start();
+		robot[0].explore();
 	}
 
 	private RobotController initNewRobot(RobotType robotType) {
@@ -50,7 +54,8 @@ public class Main
 			return controller;
 
 		case VIRTUALROBOT:
-			PanelLayerInterface p= new SimulatedRobot(getSimulatorWorld());
+			//TODO: Change the starting points.
+			PanelLayerInterface p= new SimulatedRobot(getSimulatorWorld(), new Point(0,0));
 			OrientationLayer directionlayer = new OrientationLayer(p);
 			controller = new RobotController(directionlayer);
 			return controller;

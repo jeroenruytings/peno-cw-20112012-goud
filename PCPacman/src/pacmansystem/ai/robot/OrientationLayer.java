@@ -1,11 +1,9 @@
 package pacmansystem.ai.robot;
 
 import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
-import pacmansystem.ai.robot.simulatedRobot.SimulatedRobot;
 import util.board.Panel;
 import util.enums.Direction;
 import util.enums.Orientation;
-import util.world.RealWorld;
 
 public class OrientationLayer
 {
@@ -26,9 +24,9 @@ public class OrientationLayer
 		this.layer = layer;
 	}
 	
-	public OrientationLayer(RealWorld realworld){
-		layer = new SimulatedRobot(realworld);
-	}
+//	public OrientationLayer(RealWorld realworld){
+//		layer = new SimulatedRobot(realworld);
+//	}
 
 	public void go(Orientation... o) throws IllegalDriveException
 	{
@@ -55,7 +53,7 @@ public class OrientationLayer
 			}
 	}
 
-	public Orientation getDirection()
+	public Orientation getOrientation()
 	{
 		return currentOrientation;
 	}

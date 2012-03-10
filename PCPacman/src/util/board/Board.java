@@ -67,8 +67,8 @@ public class Board
 	 */
 	public void add(Panel panel, Point p)
 	{
-		if (conflicting(p, panel))
-			throw new IllegalArgumentException("Paneel fout: " + p);
+//		if (conflicting(p, panel))
+//			throw new IllegalArgumentException("Paneel fout: " + p);
 		panels.put(p, panel);
 	}
 
@@ -137,7 +137,7 @@ public class Board
 		ArrayList<Point> rv = new ArrayList<Point>();
 		for (Orientation d : Orientation.values()) {
 			Point newPoint = d.addTo(p);
-			if (!outOfCoords(newPoint))
+			//if (!outOfCoords(newPoint))
 				rv.add(newPoint);
 		}
 		return rv;
@@ -145,9 +145,14 @@ public class Board
 
 	private boolean outOfCoords(Point point)
 	{
-		if (point.getX() >= columns || point.getX() < 0)
+		// TODO: check!
+//		if (point.getX() >= columns || point.getX() < 0)
+//			return true;
+//		if (point.getY() >= rows || point.getY() < 0)
+//			return true;
+		if (point.getX() >= (maxX() - minX()))
 			return true;
-		if (point.getY() >= rows || point.getY() < 0)
+		if (point.getY() >= (maxY() - minY()))
 			return true;
 		return false;
 	}
@@ -175,6 +180,22 @@ public class Board
 			if (p.y > max)
 				max = p.y;
 		return max;
+	}
+	
+	public int minX(){
+		int min = 0;
+		for (Point p : panels.keySet())
+			if (p.x < min)
+				min = p.x;
+		return min;
+	}
+	
+	public int minY(){
+		int min = 0;
+		for (Point p : panels.keySet())
+			if (p.y < min)
+				min = p.y;
+		return min;
 	}
 
 	/**

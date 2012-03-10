@@ -6,14 +6,21 @@ import interfaces.pacmancomponents.SimRobotDataDisplay;
 import interfaces.pacmancomponents.UltrasonicValuePanel;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,6 +35,8 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
@@ -44,17 +53,7 @@ import util.enums.Orientation;
 import util.world.RealWorld;
 import util.world.RobotData;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.ButtonGroup;
-import java.awt.Cursor;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.image.BufferedImage;
-import javax.swing.ImageIcon;
-import java.awt.CardLayout;
-
-public class Mainscreen implements ActionListener
+public class Mainscreen implements ActionListener, Runnable
 {
 
 	private JFrame frmPacman;
@@ -90,8 +89,29 @@ public class Mainscreen implements ActionListener
 	
 	public void start(){
 		this.frmPacman.setVisible(true);
+		Thread t = new Thread(this);
+		t.start();	
 	}
-
+	
+	public void run(){
+		while(frmPacman.isVisible()){
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.repaint();
+		}
+	}
+	
+	public void repaint(){
+		frmPacman.repaint();
+		for (JButton btn : robotButton)
+			btn.repaint();
+		for (SimRobotDataDisplay sim : robotDisplay)
+			sim.repaint();
+	}
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */

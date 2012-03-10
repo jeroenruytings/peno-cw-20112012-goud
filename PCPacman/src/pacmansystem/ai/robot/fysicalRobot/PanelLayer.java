@@ -1,6 +1,7 @@
 package pacmansystem.ai.robot.fysicalRobot;
 
 import java.awt.Point;
+
 import pacmansystem.ai.robot.Barcode;
 import pacmansystem.ai.robot.PanelLayerInterface;
 import pacmansystem.ai.robot.fysicalRobot.connector.Action;
@@ -154,7 +155,7 @@ public class PanelLayer implements PanelLayerInterface
 		
 		// verantwoordelijkheid van barcode reader?
 		PanelColor color = mover.getColorStack().getColor(mover.getLightSensor());
-		if (color != color.BROWN)
+		if (color != PanelColor.BROWN)
 			return true;
 		else
 			return false;

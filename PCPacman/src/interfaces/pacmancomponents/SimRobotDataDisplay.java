@@ -6,7 +6,9 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
+
 import util.board.Board;
 import util.enums.Orientation;
 import util.world.RobotData;

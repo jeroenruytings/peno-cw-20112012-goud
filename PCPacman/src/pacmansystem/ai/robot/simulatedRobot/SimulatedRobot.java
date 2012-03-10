@@ -12,12 +12,13 @@ import util.world.RealWorld;
 public class SimulatedRobot implements PanelLayerInterface
 {
 	private Point _currentLocation;
-	private Orientation _currentOrientation;
+	private Orientation _currentOrientation = Orientation.NORTH;
 	private RealWorld _realWorld;
 
-	public SimulatedRobot(RealWorld realworld)
+	public SimulatedRobot(RealWorld realworld, Point startLocation)
 	{
 		_realWorld = realworld;
+		_currentLocation = startLocation;
 	}
 
 	@Override

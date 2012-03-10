@@ -2,12 +2,12 @@ package communicator.parser.command;
 
 import java.awt.Point;
 
-import communicator.parser.Command;
-
 import util.board.Board;
 import util.board.Panel;
 import util.enums.Orientation;
 import util.world.World;
+
+import communicator.parser.Command;
 
 public class CommandDiscover implements Command
 {
@@ -56,8 +56,10 @@ public class CommandDiscover implements Command
 	public void execute(World world)
 	{
 		Panel p = getPanel();
-		Board b = world.getRobot(_name).getBoard();
-		b.add(p, world.getRobot(_name).getPosition());
+		if (world.getRobot(_name) != null){
+			Board b = world.getRobot(_name).getBoard();
+			b.add(p, world.getRobot(_name).getPosition());
+		}
 	}
 
 }

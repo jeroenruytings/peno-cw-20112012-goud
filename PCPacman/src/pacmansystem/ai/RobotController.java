@@ -5,10 +5,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import communicator.be.kuleuven.cs.peno.MessageReceiver;
-import communicator.be.kuleuven.cs.peno.MessageSender;
-
-
 import pacmansystem.ai.robot.Barcode;
 import pacmansystem.ai.robot.OrientationLayer;
 import pacmansystem.ai.robot.PathLayer;
@@ -19,18 +15,22 @@ import util.enums.Orientation;
 import util.world.RobotData;
 import util.world.World;
 
+import communicator.be.kuleuven.cs.peno.MessageReceiver;
+import communicator.be.kuleuven.cs.peno.MessageSender;
+
 
 public class RobotController
 {
 
 	//private int currentX;
 	//private int currentY;
-	private Orientation currentOrientation;
+//	private Orientation currentOrientation;
 	
-	public void setCurrentOrientation(Orientation currentOrientation) {
-		this.currentOrientation = currentOrientation;
-	}
-
+//	private void setCurrentOrientation(Orientation currentOrientation) {
+//		this.currentOrientation = currentOrientation;
+//	}
+	// TODO: In deze klasse?
+	private String name;
 	private RobotData data = new RobotData();
 	
 	public RobotData getData() {
@@ -40,7 +40,7 @@ public class RobotController
 	private PathLayer pathLayer;
 	private World world;
 	
-	private Map<RobotData,PointConvertor> convertors;
+	private Map<RobotData,PointConvertor> convertors = new HashMap<RobotData, PointConvertor>();
 
 	public Map<RobotData, PointConvertor> getConvertors() {
 		return convertors;
@@ -65,7 +65,7 @@ public class RobotController
 		boolean finished = false;
 		while (!finished) {
 			checkForNewInfo();
-			Panel p1 = getPathLayer().getDirectionLayer().getPanel(getCurrentOrientation()); //getPanel() moet om zich heen kijken
+			Panel p1 = getPathLayer().getOrientationLayer().getPanel(getCurrentOrientation()); //getPanel() moet om zich heen kijken
 			if(p1.hasBarcode()){
 				sendBarcode(p1.getBarcode());
 				HashMap<RobotData,Point> robotsWithBarcode = (HashMap<RobotData, Point>) getRobotsWithSameBarcode(p1.getBarcode());
@@ -74,13 +74,25 @@ public class RobotController
 						mergeBoard(robot,robotsWithBarcode.get(robot));
 					}
 				}
-			}			
+			}		
 			getBoard().add(p1, getCurrentPoint()); //voegt panel toe aan board
+			try {
+				MessageSender.getInstance().sendMessage(getName() + " DISCOVER "+ pointToString(getCurrentPoint())+ "" +
+						getBoard().getPanelAt(getCurrentPoint()).bordersToString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			for (Orientation orientation : Orientation.values()) { //voegt omliggende punten toe indien ze geen tussenmuur hebben
-				if(! p1.hasBorder(orientation)){
-					Panel p2 = new Panel();
+				if(p1.hasBorder(orientation)){
+					Point location = new Point(getCurrentX()+orientation.getXPlus(),getCurrentY()+orientation.getYPlus());
+					Panel p2;
+					if (getBoard().getPanelAt(location) == null){
+						p2 = new Panel();
+						getBoard().add(p2, location);
+					}
+					else
+						p2 = getBoard().getPanelAt(location);
 					p2.setBorder(orientation.opposite(), true);
-					getBoard().add(p2, new Point(getCurrentX()+orientation.getXPlus(),getCurrentY()+orientation.getYPlus()));
 				}
 			}
 			try {
@@ -89,18 +101,15 @@ public class RobotController
 				finished = true;
 			}
 			getPathLayer().go(getCurrentPoint(), destination); //gaat naar volgend punt
-			setCurrentOrientation(Board.getOrientationBetween(getCurrentPoint(), destination)); //verandert orientatie
+			//setCurrentOrientation(Board.getOrientationBetween(getCurrentPoint(), destination)); //verandert orientatie
 			setCurrentPoint(destination); //verandert huidig punt
-			try {
-				MessageSender.getInstance().sendMessage("goud DISCOVER "+ getCurrentPoint()+ " " +
-						getBoard().getPanelAt(getCurrentPoint()).bordersToString() +"\n");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 			
 		}
 	}
 
+	private String pointToString(Point p){
+		return p.x + "," + p.y;
+	}
 	
 	
 	private void checkForNewInfo() {
@@ -119,6 +128,7 @@ public class RobotController
 						}
 						getBoard().add(q, pointBoard);
 					} catch (Exception e) {
+						e.printStackTrace();
 					}
 				}
 			}
@@ -144,6 +154,7 @@ public class RobotController
 					getBoard().add(q, pointBoard);
 				} catch (Exception e) {
 					//paneel geeft conflict => niet toevoegen
+					e.printStackTrace();
 				}
 			}
 		}
@@ -163,7 +174,8 @@ public class RobotController
 	}
 
 	public Orientation getCurrentOrientation() {
-		return currentOrientation;
+		
+		return getPathLayer().getOrientationLayer().getOrientation();
 	}
 
 	private Point getCurrentPoint() {
@@ -171,8 +183,8 @@ public class RobotController
 	}
 	
 	private void setCurrentPoint(Point p){
-		setCurrentX((int) p.getX());
-		setCurrentY((int) p.getY());
+		setCurrentX( p.x );
+		setCurrentY( p.y );
 	}
 
 	public Point lookForDestination()
@@ -266,12 +278,13 @@ public class RobotController
 	public RobotController(OrientationLayer layer)
 	{
 		initWorld();
-		currentOrientation = Orientation.NORTH;
+		//currentOrientation = Orientation.NORTH;
 		pathLayer = new PathLayer(getBoard(), layer);
 		MessageReceiver rec;
 		try {
 			rec = new MessageReceiver(world);
-			rec.run();
+			Thread t = new Thread(rec);
+			t.start();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -283,7 +296,7 @@ public class RobotController
 		world = new World();
 		data = new RobotData(b);
 		world.addRobot(data, "Goud");
-		currentOrientation = Orientation.NORTH;
+		//currentOrientation = Orientation.NORTH;
 		pathLayer = new PathLayer(getBoard(), layer);
 		MessageReceiver rec;
 		try {
@@ -314,6 +327,10 @@ public class RobotController
 	public void setCurrentY(int y)
 	{
 		data.getPosition().setLocation(getCurrentX(), y);
+	}
+	
+	public String getName(){
+		return name;
 	}
 	
 	public Map<RobotData,Point> getRobotsWithSameBarcode(Barcode barcode){
@@ -353,7 +370,8 @@ public class RobotController
 	private void initWorld(){
 		data = new RobotData();
 		world = new World();
-		world.addRobot(getData(), "Goud" + Math.random());
+		name = "Goud" + Math.random();
+		world.addRobot(getData(), name);
 	}
 	
 	

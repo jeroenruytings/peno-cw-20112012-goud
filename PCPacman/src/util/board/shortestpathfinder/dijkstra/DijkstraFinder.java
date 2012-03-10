@@ -3,7 +3,6 @@ package util.board.shortestpathfinder.dijkstra;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import util.board.Board;
@@ -47,6 +46,11 @@ public class DijkstraFinder extends ShortestPathFinder
 		_m1 = new HashMap<Point, Integer>();
 		v = 0;
 		for (Point p : board.getPanels().keySet()) {
+			if (! _m1.containsKey(p)){
+				_m1.put(p, v);
+				_m2.put(v, p);
+				v++;
+				}
 			for(Point point:board.getSurrounding(p))
 			{
 				if(_m1.containsKey(point))
@@ -55,9 +59,7 @@ public class DijkstraFinder extends ShortestPathFinder
 				_m2.put(v, point);
 				v++;
 			}
-			_m1.put(p, v);
-			_m2.put(v, p);
-			v++;
+			
 		}
 	}
 
@@ -76,7 +78,6 @@ public class DijkstraFinder extends ShortestPathFinder
 		return _m2.get(v);
 	}
 
-	@Override
 	public Iterable<Point> shortestPath(Point one, Point two)
 	{
 		ArrayList<Point> rv = new ArrayList<Point>();

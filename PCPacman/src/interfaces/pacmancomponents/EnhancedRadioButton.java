@@ -2,6 +2,7 @@ package interfaces.pacmancomponents;
 
 import java.awt.Component;
 import java.awt.event.ActionListener;
+
 import javax.swing.JRadioButton;
 
 public class EnhancedRadioButton extends JRadioButton {

@@ -1,13 +1,14 @@
 package interfaces.pacmancomponents;
 
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import java.awt.GridLayout;
 import java.awt.BorderLayout;
-import javax.swing.JSplitPane;
-import javax.swing.JLabel;
-import java.awt.Font;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
+import javax.swing.JTextArea;
 
 public class RabbitHistory extends JPanel {
 

@@ -3,7 +3,6 @@ package pacmansystem.ai.robot.fysicalRobot.connector;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.Random;
 
 public class PCCommunicator implements Runnable
 {

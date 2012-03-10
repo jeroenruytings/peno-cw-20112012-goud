@@ -2,7 +2,6 @@ package pacmansystem.ai.robot.fysicalRobot.barcode;
 
 import java.util.Stack;
 
-
 import pacmansystem.ai.robot.fysicalRobot.PanelColor;
 
 public class ColorSegment

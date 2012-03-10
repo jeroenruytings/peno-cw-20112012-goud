@@ -2,7 +2,7 @@ package communicator.parser;
 
 import java.text.ParseException;
 
-import communicator.parser.decoder.*;
+import communicator.parser.decoder.JOIN;
 
 
 
