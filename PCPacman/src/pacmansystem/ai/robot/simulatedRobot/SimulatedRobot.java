@@ -8,12 +8,14 @@ import util.board.Panel;
 import util.enums.Direction;
 import util.enums.Orientation;
 import util.world.RealWorld;
+import util.world.RobotData;
 
 public class SimulatedRobot implements PanelLayerInterface
 {
 	private Point _currentLocation;
 	private Orientation _currentOrientation = Orientation.NORTH;
 	private RealWorld _realWorld;
+	private RobotData _robotData;
 
 	public SimulatedRobot(RealWorld realworld, Point startLocation)
 	{
