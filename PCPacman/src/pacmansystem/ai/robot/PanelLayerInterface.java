@@ -32,7 +32,7 @@ public interface PanelLayerInterface
 	public abstract Barcode getBarcode() throws OperationNotSupportedException;
 
 	/**
-	 * Return estimated location of pacman
+	 * Return estimated location of pacman relative to your position (you are at 0,0 and NORTH is forward)
 	 * 
 	 * @return
 	 */
