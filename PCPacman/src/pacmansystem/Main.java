@@ -43,7 +43,19 @@ public class Main
 		}
 		gui.setRobotData(new RobotData(simulatorWorld.getGlobalBoard()), 5);
 		gui.start();
-		robot[0].explore();
+		for(RobotController r:robot)
+			gogo(r);}
+	void gogo(final RobotController c)
+	{
+		new Thread(new Runnable()
+		{
+			
+			@Override
+			public void run()
+			{
+				c.explore();
+			}
+		}).start();
 	}
 
 	private RobotController initNewRobot(RobotType robotType) {
