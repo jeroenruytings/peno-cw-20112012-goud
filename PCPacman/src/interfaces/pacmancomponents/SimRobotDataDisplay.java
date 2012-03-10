@@ -140,13 +140,14 @@ public class SimRobotDataDisplay extends Canvas
 	private void drawRobot(Graphics g)
 	{
 		if (myRobotData.getPosition() != null) {
+			Point panelConvertedAxisCoordinate = new Point(myRobotData.getPosition().x,myRobotData.getBoard().maxY() - myRobotData.getPosition().y);
+			int xDraw = (calculateInitialPosition().x
+					+ (calculatePanelWidth() * panelConvertedAxisCoordinate.x) + getSpacing());
+			int yDraw = (calculateInitialPosition().y
+					+ (calculatePanelWidth() * (panelConvertedAxisCoordinate.y)) + getSpacing());
 			g.drawImage(getGhostImage(robotOrientation ),
-					(int) (calculateInitialPosition().getX()
-							+ (calculatePanelWidth() * myRobotData
-									.getPosition().getX()) + getSpacing()),
-					(int) (calculateInitialPosition().getY()
-							+ (calculatePanelWidth() * myRobotData
-									.getPosition().getY()) + getSpacing()),
+					xDraw,
+					yDraw,
 
 					calculatePanelWidth() - 2 * getSpacing(),
 					calculatePanelWidth() - 2 * getSpacing(), robotColor, this);
@@ -177,26 +178,22 @@ public class SimRobotDataDisplay extends Canvas
 	private void drawPacman(Graphics g)
 	{
 		if (myRobotData.getPacmanLastSighted() != null) {
-
+			Point panelConvertedAxisCoordinate = new Point(myRobotData.getPacmanLastSighted().x,myRobotData.getBoard().maxY() - myRobotData.getPacmanLastSighted().y);
 			Color original = g.getColor();
 			g.setColor(Color.YELLOW);
 			g.fillOval(
-					(int) (calculateInitialPosition().getX()
-							+ (calculatePanelWidth() * myRobotData
-									.getPacmanLastSighted().getX()) + getSpacing()),
-					(int) (calculateInitialPosition().getY()
-							+ (calculatePanelWidth() * myRobotData
-									.getPacmanLastSighted().getY()) + getSpacing()),
+					(calculateInitialPosition().x
+							+ (calculatePanelWidth() * panelConvertedAxisCoordinate.x) + getSpacing()),
+					(calculateInitialPosition().y
+							+ (calculatePanelWidth() * panelConvertedAxisCoordinate.y) + getSpacing()),
 					calculatePanelWidth() - 2 * getSpacing(),
 					calculatePanelWidth() - 2 * getSpacing());
 			g.setColor(getBackground());
 			g.fillArc(
-					(int) (calculateInitialPosition().getX()
-							+ (calculatePanelWidth() * myRobotData
-									.getPacmanLastSighted().getX()) + getSpacing()),
-					(int) (calculateInitialPosition().getY()
-							+ (calculatePanelWidth() * myRobotData
-									.getPacmanLastSighted().getY()) + getSpacing()),
+					(calculateInitialPosition().x
+							+ (calculatePanelWidth() * panelConvertedAxisCoordinate.x) + getSpacing()),
+					(calculateInitialPosition().y
+							+ (calculatePanelWidth() * panelConvertedAxisCoordinate.y) + getSpacing()),
 					calculatePanelWidth() - 2 * getSpacing(),
 					calculatePanelWidth() - 2 * getSpacing(), 50, -80);
 			g.setColor(original);

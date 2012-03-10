@@ -79,6 +79,7 @@ public class DijkstraFinder implements ShortestPathFinderInterface
 		return _m2.get(v);
 	}
 
+	@Override
 	public Iterable<Point> shortestPath(Point one, Point two)
 	{
 		ArrayList<Point> rv = new ArrayList<Point>();
