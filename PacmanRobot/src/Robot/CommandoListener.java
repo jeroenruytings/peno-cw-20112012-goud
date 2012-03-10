@@ -129,7 +129,13 @@ public class CommandoListener implements Runnable {
 	private void calibrateWhite() {
 		LCD.clear();
 		LCD.drawString("WIT (enter)", 0, 0);
+	//	Button.ENTER.waitForPressAndRelease();
+	//	System.out.println("Wit:" + listener.getLightValue()*4);
+	//	Button.ENTER.waitForPressAndRelease();
+	//	Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.LightSensor, new SensorValue((byte)listener.getLightValue()));
+	//	communicator.send(message);
 		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
+	//	System.out.println("send message enter");
 		lejos.nxt.Button.ENTER.waitForPressAndRelease();
 		System.out.println("Wit:" + listener.getLightValue());
 		lejos.nxt.Button.ENTER.waitForPressAndRelease();
