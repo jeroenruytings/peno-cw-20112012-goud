@@ -44,11 +44,23 @@ public class SimRobotDataDisplay extends Canvas
 		}
 	}
 
-	public Board getBoard()
+	private Board getBoard()
 	{
-		return myRobotData.getBoard();
+		return fix(myRobotData.getBoard());
 	}
 	
+	private Board fix(Board board)
+	{
+		Board rv = new Board();
+		int minx = board.minX();
+		int miny=board.minY();
+		for(Point point:board.getFilledPoints())
+		{
+			rv.add(board.getPanelAt(point), new Point(point.x-minx,point.y-miny));
+		}
+		return rv;
+	}
+
 	public int getDrawHeight(){
 		return super.getHeight() - super.getHeight() / 10;
 	}
