@@ -59,7 +59,7 @@ public class RobotController
 	{
 		try {
 			MessageSender.getInstance().sendMessage("JOIN\n");
-			MessageSender.getInstance().sendMessage("goud NAME\n");
+			MessageSender.getInstance().sendMessage(getName() + " NAME\n");
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}

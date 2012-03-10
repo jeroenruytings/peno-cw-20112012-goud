@@ -1,6 +1,7 @@
 package interfaces.mainscreen;
 
 import interfaces.pacmancomponents.BarcodePanel;
+import interfaces.pacmancomponents.BoardDisplay;
 import interfaces.pacmancomponents.EnhancedRadioButton;
 import interfaces.pacmancomponents.SimRobotDataDisplay;
 import interfaces.pacmancomponents.UltrasonicValuePanel;
@@ -15,7 +16,6 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
@@ -108,7 +108,7 @@ public class Mainscreen implements ActionListener, Runnable
 		frmPacman.repaint();
 		for (JButton btn : robotButton)
 			btn.repaint();
-		for (SimRobotDataDisplay sim : robotDisplay)
+		for (BoardDisplay sim : robotDisplay)
 			sim.repaint();
 	}
 	
@@ -148,7 +148,6 @@ public class Mainscreen implements ActionListener, Runnable
 			public void actionPerformed(ActionEvent e) {
 				// TEST KNOP!
 				//Mainscreen.playSound("pacman_intermission.wav");
-				srd.setBoard(Mainscreen.getRealWorld().getGlobalBoard());
 			}
 		});
 		splitPane_5.setRightComponent(btnColortest);
@@ -195,7 +194,7 @@ public class Mainscreen implements ActionListener, Runnable
 		robotPanel[i] = new JPanel();
 		robotPanel[i].setBackground(Color.BLACK);
 		robotPanel[i].setLayout(new BorderLayout(0, 0));
-		robotDisplay[i] = new SimRobotDataDisplay(srd);
+		robotDisplay[i] = new SimRobotDataDisplay();
 		robotButton[i] = new JButton("Robot " + (i + 1));
 		if (i == 4)
 			robotButton[i].setText("Global");
@@ -218,7 +217,7 @@ public class Mainscreen implements ActionListener, Runnable
 	}
 	
 	public void setRobotData(RobotData data, int robotNumber){
-		robotDisplay[robotNumber - 1].setRobotData(data);
+		robotDisplay[robotNumber - 1].addRobotData(data);
 	}
 	
 	JSplitPane splitPane;
@@ -304,27 +303,27 @@ public class Mainscreen implements ActionListener, Runnable
 			 tmp.setVisible(false);
 		radioButtonList.get(Integer.parseInt(e.getActionCommand())).setVisible(true);
 	}
-	Board board = new Board(5, 5);
-	Board one = new Board(4, 4);
-	Panel panel1 = new Panel();
-	Panel panel2 = new Panel();
-	Panel panel3 = new Panel();
-	RobotData srd = new RobotData(one);
-	{
-		panel1.setBorder(Orientation.NORTH, true);
-		panel1.setBorder(Orientation.WEST, true);
-		panel2.setBorder(Orientation.WEST, true);
-		panel2.setBorder(Orientation.EAST, true);
-		panel2.setBorder(Orientation.SOUTH, true);
-		panel3.setBorder(Orientation.NORTH, true);
-		panel3.setBorder(Orientation.EAST, true);
-		panel3.setBorder(Orientation.SOUTH, true);
-		board.add(panel1, new Point(0, 0));
-		board.add(panel2, new Point(0, 1));
-		board.add(panel3, new Point(1, 0));
-		srd.setPosition(new Point(0, 1));
-		srd.setPacman(new Point(0, 0));
-	}
+//	Board board = new Board(5, 5);
+//	Board one = new Board(4, 4);
+//	Panel panel1 = new Panel();
+//	Panel panel2 = new Panel();
+//	Panel panel3 = new Panel();
+//	RobotData srd = new RobotData(one);
+//	{
+//		panel1.setBorder(Orientation.NORTH, true);
+//		panel1.setBorder(Orientation.WEST, true);
+//		panel2.setBorder(Orientation.WEST, true);
+//		panel2.setBorder(Orientation.EAST, true);
+//		panel2.setBorder(Orientation.SOUTH, true);
+//		panel3.setBorder(Orientation.NORTH, true);
+//		panel3.setBorder(Orientation.EAST, true);
+//		panel3.setBorder(Orientation.SOUTH, true);
+//		board.add(panel1, new Point(0, 0));
+//		board.add(panel2, new Point(0, 1));
+//		board.add(panel3, new Point(1, 0));
+//		srd.setPosition(new Point(0, 1));
+//		srd.setPacman(new Point(0, 0));
+//	}
 	
 	{
 		

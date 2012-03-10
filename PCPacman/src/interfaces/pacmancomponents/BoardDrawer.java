@@ -10,7 +10,7 @@ import util.board.Board;
 import util.board.Panel;
 import util.enums.Orientation;
 
-public class BoardDisplayer
+public class BoardDrawer
 {
 
 	private static final int AWAYFROMBORDER = 5;

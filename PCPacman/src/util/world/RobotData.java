@@ -136,8 +136,7 @@ public class RobotData
 		plan = newPlan;
 	}
 
-	public void setBoard(Board globalBoard) {
-		this.board = globalBoard;
-		
-	}
+//	public void setBoard(Board globalBoard) {
+//		this.board = globalBoard;
+//	}
 }
