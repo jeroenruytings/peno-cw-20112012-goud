@@ -73,7 +73,7 @@ public class _ShortestPathFinderTest
 		for(int i = 0; i < size;i++)
 			for(int j=0;j<size;j++)
 				one.add(new Panel(), new Point(i,j));
-		ShortestPathFinder f = new DijkstraFinder(one);
+		ShortestPathFinderInterface f = new DijkstraFinder(one);
 		Iterable<Point > points = f.shortestPath(new Point(0,0),new Point(3,3));
 	for(Point p:	points)
 		System.out.println(p);

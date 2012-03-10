@@ -6,18 +6,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 import util.board.Board;
-import util.board.shortestpathfinder.ShortestPathFinder;
+import util.board.shortestpathfinder.ShortestPathFinderInterface;
 
-public class DijkstraFinder extends ShortestPathFinder
+public class DijkstraFinder implements ShortestPathFinderInterface
 {
 
 	private Map<Point, Integer> _m1;
 	private Map<Integer, Point> _m2;
 	int v;
+	private Board board;
 
 	public DijkstraFinder(Board board)
 	{
-		super(board);
+		this.board=board;
 
 	}
 
