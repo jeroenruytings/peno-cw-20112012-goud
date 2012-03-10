@@ -84,9 +84,17 @@ public class DijkstraFinder extends ShortestPathFinder
 		EdgeWeightedDigraph graph = make();
 		DijkstraSP f = new DijkstraSP(graph, linearize(one));
 		Iterable<DirectedEdge> edges = f.pathTo(linearize(two));
-		rv.add(delinearize(edges.iterator().next().from()));
 		for (DirectedEdge e : edges)
 			rv.add(delinearize(e.to()));
+		rv.add(one);
+		return invert(rv);
+	}
+
+	private Iterable<Point> invert(ArrayList<Point> arg)
+	{
+		ArrayList<Point> rv= new ArrayList<Point>();
+		for(int i = arg.size()-1;i>=0;i--)
+			rv.add(arg.get(i));
 		return rv;
 	}
 

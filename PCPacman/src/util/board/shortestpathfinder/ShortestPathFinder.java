@@ -60,6 +60,7 @@ public class ShortestPathFinder
 			}
 			current = pq.poll();
 		} while (!current.getPoint().equals(end));
+		
 		if (current.getPoint().equals(end))
 			return makePath(current);
 		return null;
