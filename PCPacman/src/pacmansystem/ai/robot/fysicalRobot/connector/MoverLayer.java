@@ -49,10 +49,12 @@ public class MoverLayer
 		Map<int[], Barcode> rv = new HashMap<int[], Barcode>();
 		for(BarcodeReader.barcode bar: BarcodeReader.barcode.values()){
 			int[] k = bar.getCode();
+			System.out.println(k);
 			try {
 				rv.put(k, new Barcode(k));
 			} catch (Exception e) {
 				System.out.println("probleem met map van barcodes");
+				e.printStackTrace();
 			}
 			// TODO Auto-generated method stub
 		}

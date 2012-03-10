@@ -101,10 +101,10 @@ public class BarcodeFinder
 			switch (rulingColor(array, offset * i, offset * (i + 1)))
 			{
 			case BLACK:
-				rv[i] = 1;
+				rv[i] = 0;
 				break;
 			case WHITE:
-				rv[i] = 0;
+				rv[i] = 1;
 				break;
 			default:
 				break;

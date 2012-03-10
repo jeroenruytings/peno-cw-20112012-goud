@@ -90,16 +90,16 @@ public class BarcodeReader implements Runnable
 	// Barcodes pacman
 	public enum barcode	//TODO barcodes van 8 bits ingeven
 	{
-		one(1, 0, 0, 0, 0, 0, 1, 1), two(1, 0, 0, 0, 0,
-				1, 0, 1), three(1, 0, 0, 0, 0, 1, 1, 1), four(1, 0, 0, 0, 1, 0, 0, 1), five(1, 
-				0, 0, 0, 1, 0, 1, 1), six(1, 0, 0, 0, 0, 1, 1, 0, 1), seven(1, 0, 0,
-				0, 1, 1, 1, 1), eight(1, 0, 0, 1, 0, 0, 1, 1), nine(1, 0, 0, 1, 0, 1,
-				1, 1), ten(1, 0, 0, 1, 0, 1, 1, 1), eleven(1, 0, 0, 1, 1, 0, 1, 1), twelf(1, 0, 0,
-				1, 1, 1, 0, 1), thirteen(1, 0, 0, 1, 1, 1, 1, 1), fourteen(1, 0, 1, 0, 0, 0, 1, 1), fifteen(1, 
-				0, 1, 0, 0, 1, 1, 1), sixteen(1, 0, 1, 0, 1, 0, 1, 1), seventeen(1, 0, 1, 0, 1, 1, 0, 1), eighteen(1, 0, 1, 0, 1, 1, 1, 1),
-				nineteen(1, 0, 1, 1, 0, 0, 1, 1), twenty(1, 0, 1, 1, 0, 1, 1, 1), twentyone(1, 0, 1, 1, 1, 0, 1, 1),twentytwo(1, 0, 1, 1, 1, 1, 1, 1),
-				twentythree(1, 1, 0, 0, 0, 1, 1, 1), twentyfour(1, 1, 0, 0, 1, 0, 1, 1), twentyfive(1, 1, 0, 0, 1, 1, 1, 1), twentysix(1, 1, 0, 1, 0, 1, 1, 1),
-				twentyseven(1, 1, 0, 1, 1, 1, 1, 1), twentyeight(1, 1, 1, 0, 1, 1, 1, 1);
+		one(0, 0, 0, 0, 0, 0, 1, 0), two(0, 0, 0, 0, 0,
+				1, 0, 0), three(0, 0, 0, 0, 0, 1, 1, 0), four(0, 0, 0, 0, 1, 0, 0, 0), five(0, 
+				0, 0, 0, 1, 0, 1, 0), six(0, 0, 0, 0, 1, 1, 0, 0), seven(0, 0, 0,
+				0, 1, 1, 1, 0), eight(0, 0, 0, 1, 0, 0, 1, 0), nine(0, 0, 0, 1, 0, 1,
+				1, 0), ten(0, 0, 0, 1, 0, 1, 1, 0), eleven(0, 0, 0, 1, 1, 0, 1, 0), twelf(0, 0, 0,
+				1, 1, 1, 0, 0), thirteen(0, 0, 0, 1, 1, 1, 1, 0), fourteen(0, 0, 1, 0, 0, 0, 1, 0), fifteen(0, 
+				0, 1, 0, 0, 1, 1, 0), sixteen(0, 0, 1, 0, 1, 0, 1, 0), seventeen(0, 0, 1, 0, 1, 1, 0, 0), eighteen(0, 0, 1, 0, 1, 1, 1, 0),
+				nineteen(0, 0, 1, 1, 0, 0, 1, 0), twenty(0, 0, 1, 1, 0, 1, 1, 0), twentyone(0, 0, 1, 1, 1, 0, 1, 0),twentytwo(0, 0, 1, 1, 1, 1, 1, 0),
+				twentythree(0, 1, 0, 0, 0, 1, 1, 0), twentyfour(0, 1, 0, 0, 1, 0, 1, 0), twentyfive(0, 1, 0, 0, 1, 1, 1, 0), twentysix(0, 1, 0, 1, 0, 1, 1, 0),
+				twentyseven(0, 1, 0, 1, 1, 1, 1, 0), twentyeight(0, 1, 1, 0, 1, 1, 1, 0);
 				
 		private final int[] code;
 
