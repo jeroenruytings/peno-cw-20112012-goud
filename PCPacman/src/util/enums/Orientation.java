@@ -1,6 +1,7 @@
 package util.enums;
 
 import java.awt.Point;
+import java.util.Random;
 
 public enum Orientation
 {
@@ -124,5 +125,10 @@ public enum Orientation
 			return WEST;
 		}
 		return null;
+	}
+
+	public static Orientation random()
+	{
+		return fromOrdinal(new Random().nextInt(3));
 	}
 }

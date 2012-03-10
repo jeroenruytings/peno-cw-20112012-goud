@@ -102,7 +102,7 @@ public class BoardCreator
 			}
 			else if (tmp instanceof CommandPosition){
 				CommandPosition cmd = ((CommandPosition)tmp);
-				//TODO: Starting points?
+				realWorld.addStartingPoint(cmd.getPosition());
 			}
 		}
 		

@@ -58,7 +58,7 @@ public class Main
 
 		case VIRTUALROBOT:
 			//TODO: Change the starting points.
-			PanelLayerInterface p= new SimulatedRobot(getSimulatorWorld(), new Point(9,5), Orientation.WEST);
+			PanelLayerInterface p= new SimulatedRobot(getSimulatorWorld(),getSimulatorWorld().getStartingPoint(), Orientation.random());
 			OrientationLayer directionlayer = new OrientationLayer(p);
 			controller = new RobotController(directionlayer);
 			return controller;

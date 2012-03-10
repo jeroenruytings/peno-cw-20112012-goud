@@ -1,6 +1,21 @@
 package pacmansystem.ai.robot;
 
-class _OrientationLayerTest
+import org.junit.Test;
+
+import util.enums.Direction;
+import util.enums.Orientation;
+
+public class _OrientationLayerTest
 {
-	// TODO: test direcion adding
+	@Test
+	public void test()
+	{
+		Orientation start = Orientation.WEST;
+		Orientation current = Orientation.SOUTH;
+		Direction d=Direction.DOWN;
+		for(Direction dir : Direction.values())
+			if(start == current.addTo(dir))
+				d=dir;
+		System.out.println(d);
+	}
 }
