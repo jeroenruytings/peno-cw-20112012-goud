@@ -65,11 +65,17 @@ public class SimulatedRobot implements PanelLayerInterface
 	}
 
 	@Override
-	public Panel getPanel(Orientation orientation)
+	public Panel getPanel(Orientation currentOrientation)
 	{
 		sleep(2);
-		return _realWorld.getGlobalBoard().getPanelAt(_currentLocation);
-
+		Panel rv = _realWorld.getGlobalBoard().getPanelAt(_currentLocation);
+		Panel returnValue = new Panel();
+		returnValue.setBarcode(rv.getBarcode());
+		for(Direction d:Direction.values())
+		{
+		returnValue.setBorder(currentOrientation.addTo(d), rv.hasBorder(_currentOrientation.addTo(d)));
+		}
+		return returnValue;
 	}
 
 	private static void sleep(int sec)
