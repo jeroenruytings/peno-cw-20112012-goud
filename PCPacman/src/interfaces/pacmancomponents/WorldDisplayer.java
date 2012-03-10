@@ -9,15 +9,22 @@ public class WorldDisplayer extends BoardDisplay {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	public WorldDisplayer() {
-		super(null);
+	private World myworld;
+	
+	public WorldDisplayer(World w) {
+		super(w.getGlobalBoard());
+		myworld = w;
 	}
 	
 	public void setWorld(World w){
+		myworld = w;
 		setBoard(w.getGlobalBoard());
 		for (RobotData r : w.get_robots().values())
 			addRobotData(r);
+	}
+	
+	public World getWorld(){
+		return myworld;
 	}
 
 }

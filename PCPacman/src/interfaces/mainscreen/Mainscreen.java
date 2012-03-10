@@ -1,16 +1,14 @@
 package interfaces.mainscreen;
 
 import interfaces.pacmancomponents.BarcodePanel;
-import interfaces.pacmancomponents.BoardDisplay;
 import interfaces.pacmancomponents.EnhancedRadioButton;
-import interfaces.pacmancomponents.SimRobotDataDisplay;
+import interfaces.pacmancomponents.BoardPanel;
 import interfaces.pacmancomponents.UltrasonicValuePanel;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -38,7 +36,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -46,12 +43,10 @@ import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
 import javax.swing.border.MatteBorder;
 
-import util.board.Board;
 import util.board.BoardCreator;
-import util.board.Panel;
-import util.enums.Orientation;
 import util.world.RealWorld;
 import util.world.RobotData;
+import util.world.World;
 
 public class Mainscreen implements ActionListener, Runnable
 {
@@ -106,10 +101,8 @@ public class Mainscreen implements ActionListener, Runnable
 	
 	public void repaint(){
 		frmPacman.repaint();
-		for (JButton btn : robotButton)
-			btn.repaint();
-		for (BoardDisplay sim : robotDisplay)
-			sim.repaint();
+		for (BoardPanel p : boards)
+			p.repaint();
 	}
 	
 	/**
@@ -132,14 +125,7 @@ public class Mainscreen implements ActionListener, Runnable
 		frmPacman.setBounds(100, 100, 1200, 600);
 		frmPacman.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		initialiseSplitPanes();
-		initialiseRobotDataDisplays();
-		
-		splitPane_2.setLeftComponent(robotPanel[0]);
-		splitPane_2.setRightComponent(robotPanel[1]);
-		splitPane_3.setLeftComponent(robotPanel[2]);
-		splitPane_3.setRightComponent(robotPanel[3]);
-		splitPane_5.setLeftComponent(robotPanel[4]);
+		initialiseSplitPanes();;
 		
 		JButton btnColortest = new JButton("");
 		btnColortest.setForeground(Color.WHITE);
@@ -186,50 +172,46 @@ public class Mainscreen implements ActionListener, Runnable
 		createRadioButtonTab("Barcode", pnlBarcode, toolBar,buttonGroup_1);
 	}
 	
-	JPanel[] robotPanel = new JPanel[5];
-	JButton[] robotButton = new JButton[5];
-	SimRobotDataDisplay[] robotDisplay = new SimRobotDataDisplay[5];
-	private void initialiseRobotDataDisplays() {
-		for (int i = 0; i < 5; i++){
-		robotPanel[i] = new JPanel();
-		robotPanel[i].setBackground(Color.BLACK);
-		robotPanel[i].setLayout(new BorderLayout(0, 0));
-		robotDisplay[i] = new SimRobotDataDisplay();
-		robotButton[i] = new JButton("Robot " + (i + 1));
-		if (i == 4)
-			robotButton[i].setText("Global");
-		robotButton[i].setFont(getPacmanFont());
-		robotButton[i].setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		robotButton[i].setForeground(Color.WHITE);
-		robotButton[i].setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.BLUE));
-		robotButton[i].setBackground(Color.BLACK);
-		final int index = i;
-		robotButton[i].addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				robotDisplay[index].setRobotColor(JColorChooser.showDialog(frmPacman, "Kies een Kleur", robotDisplay[index].getRobotColor()));
-				Mainscreen.playSound("pacman_eatghost.wav");
-				robotDisplay[index].repaint();
-			}
-		});
-		robotPanel[i].add(robotDisplay[i], BorderLayout.CENTER);
-		robotPanel[i].add(robotButton[i], BorderLayout.NORTH);
+	
+	public void setRobotData(RobotData data){
+		setRobotPanel(new BoardPanel(data));
+	}
+	List<BoardPanel> boards = new ArrayList<BoardPanel>();
+	
+	private int robotPanels = 0;
+	private void setRobotPanel(BoardPanel panel) {
+		switch(robotPanels){
+		case 0:
+			splitPane_2.setLeftComponent(panel);
+			break;
+		case 1: 
+			splitPane_2.setRightComponent(panel);
+			break;
+		case 2:
+			splitPane_3.setLeftComponent(panel);
+			break;
+		case 3: 
+			splitPane_3.setRightComponent(panel);
+			break;
+		default:
+			return;
 		}
+		robotPanels++;
+		boards.add(panel);
+
 	}
 	
-	public void setRobotData(RobotData data, int robotNumber){
-		robotDisplay[robotNumber - 1].addRobotData(data);
+	public void setWorld(World world){
+		BoardPanel panel = new BoardPanel(world);
+			splitPane_5.setLeftComponent(panel);
+			boards.add(panel);
 	}
 	
 	JSplitPane splitPane;
-
 	JSplitPane splitPane_1;
-
 	JSplitPane splitPane_2;
-
 	JSplitPane splitPane_3;
-
 	JSplitPane splitPane_4;
-
 	JSplitPane splitPane_5;
 
 	private void initialiseSplitPanes(){

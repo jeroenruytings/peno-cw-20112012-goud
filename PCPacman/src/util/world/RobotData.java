@@ -21,6 +21,8 @@ public class RobotData
 	// The amount of previous data to be hold.
 	private int pacmanhistorylength;
 	private Orientation orientation = Orientation.NORTH;
+	
+	private String name;
 
 	private Point position = new Point(0, 0);
 
@@ -32,6 +34,14 @@ public class RobotData
 		return barcodes;
 	}
 
+	public void setName(String name){
+		this.name = name;
+	}
+	
+	public String getName(){
+		return name;
+	}
+	
 	private boolean capturedPacman;
 
 	public boolean isCapturedPacman()

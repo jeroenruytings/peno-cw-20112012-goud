@@ -13,7 +13,6 @@ public class NAME extends Decoder
 	protected NAME(Decoder next)
 	{
 		super(next, "NAME");
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

@@ -29,7 +29,7 @@ public class JOIN extends Decoder
 	@Override
 	public boolean canDecode(String message)
 	{
-		return message.equals("JOIN");
+		return message.equals("JOIN\n");
 	}
 
 	@Override

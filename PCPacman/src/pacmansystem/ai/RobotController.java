@@ -31,8 +31,6 @@ public class RobotController
 	// private void setCurrentOrientation(Orientation currentOrientation) {
 	// this.currentOrientation = currentOrientation;
 	// }
-	// TODO: In deze klasse?
-	private String name;
 	private RobotData data = new RobotData();
 
 	public RobotData getData()
@@ -54,14 +52,25 @@ public class RobotController
 	{
 		return pathLayer;
 	}
+	
+	public World getWorld(){
+		return world;
+	}
 
-	private void join()
+	public void join()
 	{
 		try {
 			MessageSender.getInstance().sendMessage("JOIN\n");
-			MessageSender.getInstance().sendMessage(getName() + " NAME\n");
 		} catch (IOException e1) {
 			e1.printStackTrace();
+		}
+	}
+	
+	public void sendName(){
+		try {
+			MessageSender.getInstance().sendMessage(getName() + " NAME 1.0\n");
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -200,7 +209,7 @@ public class RobotController
 	{
 		try {
 			MessageSender.getInstance().sendMessage(
-					"goud BARCODE " + barcode.getValue() + " "
+					getName() + " BARCODE " + barcode.getValue() + " "
 							+ getCurrentOrientation() + "\n");
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -425,7 +434,7 @@ public class RobotController
 
 	public String getName()
 	{
-		return name;
+		return data.getName();
 	}
 
 	public Map<RobotData, Point> getRobotsWithSameBarcode(Barcode barcode)
@@ -468,12 +477,14 @@ public class RobotController
 		return orientations;
 	}
 
+	
+	private static int robotNumber = 0;
 	private void initWorld()
 	{
 		data = new RobotData();
 		world = new World();
-		name = "Goud" + Math.random();
-		world.addRobot(getData(), name);
+		data.setName("Goud" + robotNumber++);
+		world.addRobot(getData(), getData().getName());
 	}
 
 	public Point getLocation()

@@ -17,8 +17,8 @@ import com.rabbitmq.client.Connection;
  */
 public class Launch {
 	
-	private Connection conn;
-	private Channel channel;
+	//private Connection conn;
+	//private Channel channel;
 
 		
 	public static void main(String[] args) {

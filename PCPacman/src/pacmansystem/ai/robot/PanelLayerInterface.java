@@ -1,6 +1,5 @@
 package pacmansystem.ai.robot;
 
-import java.awt.Point;
 import java.io.IOException;
 
 import javax.naming.OperationNotSupportedException;

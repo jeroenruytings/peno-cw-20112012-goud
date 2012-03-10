@@ -1,6 +1,7 @@
 package communicator.parser;
 
 import java.text.ParseException;
+import java.util.Arrays;
 
 public abstract class Decoder
 {
@@ -31,7 +32,9 @@ public abstract class Decoder
 	 * 			The stripped message.
 	 */
 	public static String stripMessage(String message){
-		return message.replace("\\n", "");
+		return message.replace("\\n", "").replace("\n", "");
+		//return message.substring(0, message.length() - 1).replace("\\", "");
+		
 	}
 
 	public Decoder next()
@@ -48,6 +51,7 @@ public abstract class Decoder
 
 	protected boolean correctKey(String message)
 	{
+		Decoder.stripMessage(message);
 		String[] mes = message.split(" ");
 		if (!mes[1].equals(_key))
 			return false;
@@ -55,7 +59,10 @@ public abstract class Decoder
 	}
 	
 	public static void main(String[] args){
-		System.out.print(Decoder.stripMessage("maze DISCOVER 3,1 1 1 0 0\n"));
+		String s = "Goud0.8831854161306725 NAME 1.0\n";
+		s = Decoder.stripMessage(s);
+		System.out.print(s);
+		System.out.print(Arrays.toString(s.split(" ")));
 		//Scanner scr = new Scanner(System.in);
 		//String message = "\n";
 		//System.out.println(message.replaceAll("\\n", "").equals("\n"));

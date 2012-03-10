@@ -7,7 +7,6 @@ import org.junit.Test;
 import util.board.Board;
 import util.board.Panel;
 import util.board.shortestpathfinder.dijkstra.DijkstraFinder;
-import util.enums.Orientation;
 
 public class _ShortestPathFinderTest
 {

@@ -3,8 +3,6 @@ package pacmansystem.ai.robot;
 import java.awt.Point;
 import java.util.Iterator;
 
-
-
 import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
 import util.board.Board;
 import util.board.shortestpathfinder.dijkstra.DijkstraFinder;

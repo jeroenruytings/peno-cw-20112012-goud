@@ -1,7 +1,5 @@
 package pacmansystem.ai.robot.fysicalRobot;
 
-import java.awt.Point;
-
 import pacmansystem.ai.robot.Barcode;
 import pacmansystem.ai.robot.PanelLayerInterface;
 import pacmansystem.ai.robot.fysicalRobot.connector.Action;

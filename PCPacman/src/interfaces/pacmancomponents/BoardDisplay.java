@@ -8,6 +8,7 @@ import java.awt.Point;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -22,7 +23,7 @@ public class BoardDisplay extends Canvas
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Color robotColor = Color.BLUE;
+	private Color robotColor = getRandomColor();
 	private Board board;
 	
 	private List<RobotData> robots = new ArrayList<RobotData>();
@@ -31,6 +32,11 @@ public class BoardDisplay extends Canvas
 	private Graphics bufferedGraphics;
 	private Image bufferedImage;
 	
+	
+	private static Color getRandomColor(){
+		Random r = new Random();
+		return new Color(r.nextInt(255),r.nextInt(255),r.nextInt(255));
+	}
 	public BoardDisplay(Board board)
 	{
 		super();
@@ -130,8 +136,10 @@ public class BoardDisplay extends Canvas
 	 */
 	private void drawBoard(Graphics g)
 	{
+		if (board != null){
 		BoardDrawer.drawBoard(g, getBoard(), calculateInitialPosition(),
 				calculatePanelWidth());
+		}
 	}
 
 	/**

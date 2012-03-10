@@ -3,7 +3,6 @@ package pacmansystem;
 import interfaces.mainscreen.Mainscreen;
 import interfaces.mainscreen.ModeChooser;
 import interfaces.pacmancomponents.RobotType;
-
 import pacmansystem.ai.RobotController;
 import pacmansystem.ai.robot.OrientationLayer;
 import pacmansystem.ai.robot.PanelLayerInterface;
@@ -12,7 +11,6 @@ import pacmansystem.ai.robot.fysicalRobot.connector.MoverLayer;
 import pacmansystem.ai.robot.simulatedRobot.SimulatedRobot;
 import util.enums.Orientation;
 import util.world.RealWorld;
-import util.world.RobotData;
 
 public class Main
 {
@@ -35,11 +33,18 @@ public class Main
 				robot[i] = initNewRobot(robotType);
 			}
 		}
+		
+		for (RobotController r : robot)
+			r.join();
+		for (RobotController r : robot)
+			r.sendName();
+		
 		Mainscreen gui = new Mainscreen();
 		for (int i = 0; i < robot.length; i++) {
-			gui.setRobotData(robot[i].getData(), i+1);
+			gui.setRobotData(robot[i].getData());
 		}
-		gui.setRobotData(new RobotData(simulatorWorld.getGlobalBoard()), 5);
+		
+		gui.setWorld(robot[0].getWorld());
 		gui.start();
 		for(RobotController r:robot)
 			gogo(r);}
