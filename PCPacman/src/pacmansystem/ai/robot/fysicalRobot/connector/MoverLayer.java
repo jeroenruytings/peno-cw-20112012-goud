@@ -52,6 +52,7 @@ public class MoverLayer
 			try {
 				rv.put(k, new Barcode(k));
 			} catch (Exception e) {
+				System.out.println("probleem met map van barcodes");
 			}
 			// TODO Auto-generated method stub
 		}
@@ -177,6 +178,7 @@ public class MoverLayer
 	public void calibrateWhite() {
 		pcc.sendCommando(new Commando(Action.CALIBRATEWHITE,0, "Calibrate white"));
 		while(!buttonIsPushed()) ;
+		System.out.println("getLightSensor: " + getLightSensor());
 		this._colorStack.calibrate(PanelColor.WHITE, getLightSensor());
 		releaseButton();
 		

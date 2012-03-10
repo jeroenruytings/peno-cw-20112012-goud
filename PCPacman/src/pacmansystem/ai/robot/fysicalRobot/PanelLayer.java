@@ -174,7 +174,12 @@ public class PanelLayer implements PanelLayerInterface
 			mover.getPcc().sendCommando(new Commando(Action.READBARCODE, 0, ""));
 			while(!mover.buttonIsPushed());
 			mover.releaseButton();
-			return mover.getBarcodeReader().searchForCode();
+			Barcode code = mover.getBarcodeReader().searchForCode();
+			if(code!=null)
+				System.out.println("CODE " + code.getValue());
+			else
+				System.out.println("niet kunnen lezen");
+			return code;
 		}
 		else{
 			return null;
@@ -187,9 +192,12 @@ public class PanelLayer implements PanelLayerInterface
 	 * @see panel.PanelLayerInterface#getPacman()
 	 */
 	@Override
-	public Point getPacman()
+	public boolean getPacman()
 	{
-		return null;
+		if (mover.getInfraredSensorDirection() >0 && mover.getInfraredSensorDirection() < 10)
+			return true;
+		else 
+			return false;
 	}
 
 	/**

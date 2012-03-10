@@ -112,5 +112,9 @@ public class ColorTransitionStack
 		return _colorCalibration.get(key);
 	}
 	
-
+	public void clear()
+	{
+		_nodes = new Stack<ColorNode>();
+		_nodes.add(new ColorNode(PanelColor.BROWN, 0));
+	}
 }

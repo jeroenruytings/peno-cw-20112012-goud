@@ -62,10 +62,10 @@ public class SimulatedRobot implements PanelLayerInterface
 	}
 
 	@Override
-	public Point getPacman()
+	public boolean getPacman()
 	{
 		sleep(1);
-		return _realWorld.getPacmanLocation();
+		return (_realWorld.getPacmanLocation().equals(_currentOrientation.addTo(_currentLocation)));
 	}
 
 	@Override

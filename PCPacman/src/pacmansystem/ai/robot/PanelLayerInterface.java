@@ -36,7 +36,7 @@ public interface PanelLayerInterface
 	 * 
 	 * @return
 	 */
-	public abstract Point getPacman();
+	public abstract boolean getPacman();
 
 	public abstract Panel getPanel(Orientation currentOrientation);
 
