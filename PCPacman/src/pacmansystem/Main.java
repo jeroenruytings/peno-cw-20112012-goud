@@ -13,6 +13,7 @@ import pacmansystem.ai.robot.fysicalRobot.PanelLayer;
 import pacmansystem.ai.robot.fysicalRobot.connector.MoverLayer;
 import pacmansystem.ai.robot.simulatedRobot.SimulatedRobot;
 import util.world.RealWorld;
+import util.world.RobotData;
 
 public class Main
 {
@@ -39,6 +40,7 @@ public class Main
 		for (int i = 0; i < robot.length; i++) {
 			gui.setRobotData(robot[i].getData(), i+1);
 		}
+		gui.setRobotData(new RobotData(simulatorWorld.getGlobalBoard()), 5);
 		gui.start();
 		robot[0].explore();
 	}

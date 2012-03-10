@@ -39,6 +39,7 @@ public class PathLayer {
 				currentPoint = nextPoint;
 			} catch (IllegalDriveException e) {
 				//Dit kan nooit gebeuren
+				e.printStackTrace();
 			}
 		}			
 		}

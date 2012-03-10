@@ -7,7 +7,7 @@ import util.enums.Orientation;
 
 public class OrientationLayer
 {
-	private Orientation currentOrientation;
+	private Orientation currentOrientation = Orientation.NORTH;
 
 	private PanelLayerInterface layer;
 
