@@ -8,6 +8,7 @@ import java.util.Map;
 import pacmansystem.ai.robot.Barcode;
 import pacmansystem.ai.robot.OrientationLayer;
 import pacmansystem.ai.robot.PathLayer;
+import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
 import util.board.Board;
 import util.board.Panel;
 import util.board.PointConvertor;
@@ -68,7 +69,7 @@ public class RobotController
 			Panel p1 = getPathLayer().getOrientationLayer().getPanel(getCurrentOrientation()); //getPanel() moet om zich heen kijken
 			if(p1.hasBarcode()){
 				sendBarcode(p1.getBarcode());
-				HashMap<RobotData,Point> robotsWithBarcode = (HashMap<RobotData, Point>) getRobotsWithSameBarcode(p1.getBarcode());
+				Map<RobotData,Point> robotsWithBarcode = getRobotsWithSameBarcode(p1.getBarcode());
 				if(robotsWithBarcode != null){
 					for(RobotData robot : robotsWithBarcode.keySet()){
 						mergeBoard(robot,robotsWithBarcode.get(robot));
@@ -82,6 +83,7 @@ public class RobotController
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			
 			for (Orientation orientation : Orientation.values()) { //voegt omliggende punten toe indien ze geen tussenmuur hebben
 				if(p1.hasBorder(orientation)){
 					Point location = new Point(getCurrentX()+orientation.getXPlus(),getCurrentY()+orientation.getYPlus());
@@ -100,7 +102,12 @@ public class RobotController
 			} catch (NullPointerException e) {
 				finished = true;
 			}
-			getPathLayer().go(getCurrentPoint(), destination); //gaat naar volgend punt
+			try {
+				getPathLayer().go(getCurrentPoint(), destination);
+			} catch (IllegalDriveException e) {
+				
+				e.printStackTrace();
+			} //gaat naar volgend punt
 			//setCurrentOrientation(Board.getOrientationBetween(getCurrentPoint(), destination)); //verandert orientatie
 			setCurrentPoint(destination); //verandert huidig punt
 			
@@ -110,6 +117,7 @@ public class RobotController
 	private String pointToString(Point p){
 		return p.x + "," + p.y;
 	}
+	
 	
 	
 	private void checkForNewInfo() {
@@ -286,7 +294,7 @@ public class RobotController
 			Thread t = new Thread(rec);
 			t.start();
 		} catch (IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 	
@@ -373,6 +381,9 @@ public class RobotController
 		name = "Goud" + Math.random();
 		world.addRobot(getData(), name);
 	}
-	
+	public Point getLocation()
+	{
+		return new Point(getCurrentX(),getCurrentY());
+	}
 	
 }

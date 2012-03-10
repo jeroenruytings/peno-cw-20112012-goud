@@ -26,20 +26,20 @@ public class PathLayer {
 //		finder = new ShortestPathFinder(board);
 //	}
 	
-	public void go(Point start, Point end){
+	public void go(Point start, Point end) throws IllegalDriveException{
 		Iterable<Point> r = finder.shortestPath(start,end);
 		Iterator<Point> s = r.iterator();
 		Point currentPoint = s.next();
 		while (s.hasNext()){
-			if(!s.hasNext())
-				break;
+//			if(!s.hasNext())
+//				break;
 			Point nextPoint = s.next();
 			try {
 				orientationLayer.go(Board.getOrientationBetween(currentPoint, nextPoint));
 				currentPoint = nextPoint;
 			} catch (IllegalDriveException e) {
-				//Dit kan nooit gebeuren
-				e.printStackTrace();
+				//fix things :D
+				throw new IllegalDriveException(e);
 			}
 		}			
 		}
