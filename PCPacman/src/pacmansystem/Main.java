@@ -12,6 +12,7 @@ import pacmansystem.ai.robot.PanelLayerInterface;
 import pacmansystem.ai.robot.fysicalRobot.PanelLayer;
 import pacmansystem.ai.robot.fysicalRobot.connector.MoverLayer;
 import pacmansystem.ai.robot.simulatedRobot.SimulatedRobot;
+import util.enums.Orientation;
 import util.world.RealWorld;
 import util.world.RobotData;
 
@@ -57,7 +58,7 @@ public class Main
 
 		case VIRTUALROBOT:
 			//TODO: Change the starting points.
-			PanelLayerInterface p= new SimulatedRobot(getSimulatorWorld(), new Point(0,0));
+			PanelLayerInterface p= new SimulatedRobot(getSimulatorWorld(), new Point(9,5), Orientation.WEST);
 			OrientationLayer directionlayer = new OrientationLayer(p);
 			controller = new RobotController(directionlayer);
 			return controller;

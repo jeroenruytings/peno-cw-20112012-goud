@@ -3,6 +3,7 @@ package pacmansystem.ai;
 import java.awt.Point;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import pacmansystem.ai.robot.Barcode;
@@ -12,6 +13,7 @@ import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
 import util.board.Board;
 import util.board.Panel;
 import util.board.PointConvertor;
+import util.board.shortestpathfinder.dijkstra.DijkstraFinder;
 import util.enums.Orientation;
 import util.world.RobotData;
 import util.world.World;
@@ -84,19 +86,19 @@ public class RobotController
 				e.printStackTrace();
 			}
 			
-			for (Orientation orientation : Orientation.values()) { //voegt omliggende punten toe indien ze geen tussenmuur hebben
-				if(p1.hasBorder(orientation)){
-					Point location = new Point(getCurrentX()+orientation.getXPlus(),getCurrentY()+orientation.getYPlus());
-					Panel p2;
-					if (getBoard().getPanelAt(location) == null){
-						p2 = new Panel();
-						getBoard().add(p2, location);
-					}
-					else
-						p2 = getBoard().getPanelAt(location);
-					p2.setBorder(orientation.opposite(), true);
-				}
-			}
+//			for (Orientation orientation : Orientation.values()) { //voegt omliggende punten toe indien ze geen tussenmuur hebben
+//				if(p1.hasBorder(orientation)){
+//					Point location = new Point(getCurrentX()+orientation.getXPlus(),getCurrentY()+orientation.getYPlus());
+//					Panel p2;
+//					if (getBoard().getPanelAt(location) == null){
+//						p2 = new Panel();
+//						getBoard().add(p2, location);
+//					}
+//					else
+//						p2 = getBoard().getPanelAt(location);
+//					p2.setBorder(orientation.opposite(), true);
+//				}
+//			}
 			try {
 				destination = lookForDestination(); //zoekt volgend punt om naartoe te gaan
 			} catch (NullPointerException e) {
@@ -105,7 +107,6 @@ public class RobotController
 			try {
 				getPathLayer().go(getCurrentPoint(), destination);
 			} catch (IllegalDriveException e) {
-				
 				e.printStackTrace();
 			} //gaat naar volgend punt
 			//setCurrentOrientation(Board.getOrientationBetween(getCurrentPoint(), destination)); //verandert orientatie
@@ -194,17 +195,28 @@ public class RobotController
 		setCurrentX( p.x );
 		setCurrentY( p.y );
 	}
-
+	
 	public Point lookForDestination()
 	{
-		Point destination;
-		Orientation orientation = nextMove();
-		if (orientation == null)
-			destination = searchNext();
-		else
-			destination = new Point(getCurrentX() + orientation.getXPlus(),
-					getCurrentY() + orientation.getYPlus());
-		return destination;
+		Point shortest = null;
+		int min = 10000;
+		DijkstraFinder f = new DijkstraFinder(getBoard());
+		for(Point point : getBoard().getUnfilledPoints())
+		{
+			List<Point> path =f.shortestPath(getCurrentPoint(),point);
+			if(min>path.size())
+			{
+				min=path.size();
+				shortest =  point;
+			}}
+		return shortest;
+//		Orientation orientation = nextMove();
+//		if (orientation == null)
+//			destination = searchNext();
+//		else
+//			destination = new Point(getCurrentX() + orientation.getXPlus(),
+//					getCurrentY() + orientation.getYPlus());
+//		return destination;
 	}
 
 	/**
@@ -287,7 +299,7 @@ public class RobotController
 	{
 		initWorld();
 		//currentOrientation = Orientation.NORTH;
-		pathLayer = new PathLayer(getBoard(), layer);
+		pathLayer = new PathLayer(getData(), layer);
 		MessageReceiver rec;
 		try {
 			rec = new MessageReceiver(world);
@@ -305,7 +317,7 @@ public class RobotController
 		data = new RobotData(b);
 		world.addRobot(data, "Goud");
 		//currentOrientation = Orientation.NORTH;
-		pathLayer = new PathLayer(getBoard(), layer);
+		pathLayer = new PathLayer(getData(), layer);
 		MessageReceiver rec;
 		try {
 			rec = new MessageReceiver(world);

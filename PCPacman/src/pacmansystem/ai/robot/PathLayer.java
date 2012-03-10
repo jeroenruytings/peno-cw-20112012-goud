@@ -9,6 +9,7 @@ import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
 import util.board.Board;
 import util.board.shortestpathfinder.dijkstra.DijkstraFinder;
 import util.enums.Orientation;
+import util.world.RobotData;
 
 public class PathLayer {
 	
@@ -18,10 +19,12 @@ public class PathLayer {
 	}
 
 	private DijkstraFinder finder;
+	private RobotData data;
 	
-	public PathLayer(Board board, OrientationLayer layer){
+	public PathLayer(RobotData data, OrientationLayer layer){
 		orientationLayer = layer;
-		finder = new DijkstraFinder(board);
+		finder = new DijkstraFinder(data.getBoard());
+		this.data = data;
 	}
 	
 //	public PathLayer(Board board, RealWorld realworld){
@@ -41,6 +44,7 @@ public class PathLayer {
 				Orientation o = Board.getOrientationBetween(currentPoint, nextPoint);
 				orientationLayer.go(o);
 				currentPoint = nextPoint;
+				data.setPosition(currentPoint);
 			} catch (IllegalDriveException e) {
 				//fix things :D
 				throw new IllegalDriveException(e);

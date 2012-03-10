@@ -279,4 +279,17 @@ public class Board
 		return null;
 	}
 
+	public Iterable<Point> getUnfilledPoints() {
+		ArrayList<Point> rv = new ArrayList<Point>();
+		for(Point p: getFilledPoints())
+		{
+			for(Orientation o : Orientation.values())
+			{
+				if(!wallBetween(p, o)&&getPanelAt(o.addTo(p))==null)
+					rv.add(o.addTo(p));
+			}
+		}
+		return rv;
+	}
+
 }

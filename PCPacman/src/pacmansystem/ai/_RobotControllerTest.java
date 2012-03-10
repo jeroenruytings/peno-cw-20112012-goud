@@ -23,7 +23,7 @@ public class _RobotControllerTest
 	{
 		Board one = new Board(4, 4);
 
-		RobotController main = new RobotController(one, new OrientationLayer(new SimulatedRobot(null,new Point(0,0))));
+		RobotController main = new RobotController(one, new OrientationLayer(new SimulatedRobot(null,new Point(0,0),Orientation.NORTH)));
 
 		Panel p1 = new Panel();
 		p1.setBorder(Orientation.NORTH, true);
@@ -154,7 +154,7 @@ public class _RobotControllerTest
 	{
 		Board one = Mainscreen.getRealWorld().getGlobalBoard();
 
-		RobotController main = new RobotController(one, new OrientationLayer(new SimulatedRobot(null,new Point(0,0))));
+		RobotController main = new RobotController(one, new OrientationLayer(new SimulatedRobot(null,new Point(0,0), Orientation.NORTH)));
 		assertNull(main.lookForDestination());
 	}
 	

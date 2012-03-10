@@ -3,6 +3,7 @@ package util.board.shortestpathfinder.dijkstra;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import util.board.Board;
@@ -80,7 +81,7 @@ public class DijkstraFinder implements ShortestPathFinderInterface
 	}
 
 	@Override
-	public Iterable<Point> shortestPath(Point one, Point two)
+	public List<Point> shortestPath(Point one, Point two)
 	{
 		ArrayList<Point> rv = new ArrayList<Point>();
 		EdgeWeightedDigraph graph = make();
@@ -92,7 +93,7 @@ public class DijkstraFinder implements ShortestPathFinderInterface
 		return invert(rv);
 	}
 
-	private Iterable<Point> invert(ArrayList<Point> arg)
+	private List<Point> invert(ArrayList<Point> arg)
 	{
 		ArrayList<Point> rv= new ArrayList<Point>();
 		for(int i = arg.size()-1;i>=0;i--)

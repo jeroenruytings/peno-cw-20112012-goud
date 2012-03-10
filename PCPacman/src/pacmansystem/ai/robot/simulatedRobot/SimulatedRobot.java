@@ -13,14 +13,15 @@ import util.world.RobotData;
 public class SimulatedRobot implements PanelLayerInterface
 {
 	private Point _currentLocation;
-	private Orientation _currentOrientation = Orientation.NORTH;
+	private Orientation _currentOrientation;
 	private RealWorld _realWorld;
 	private RobotData _robotData;
 
-	public SimulatedRobot(RealWorld realworld, Point startLocation)
+	public SimulatedRobot(RealWorld realworld, Point startLocation, Orientation startOrient)
 	{
 		_realWorld = realworld;
 		_currentLocation = startLocation;
+		_currentOrientation = startOrient;
 	}
 
 	@Override
@@ -32,6 +33,7 @@ public class SimulatedRobot implements PanelLayerInterface
 			throw new IllegalDriveException();
 		_currentLocation = _currentOrientation.addTo(d).addTo(_currentLocation);
 		_currentOrientation = _currentOrientation.addTo(d);
+		_realWorld.setPacman(_currentLocation);
 	}
 
 	@Override
