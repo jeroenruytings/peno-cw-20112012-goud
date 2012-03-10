@@ -83,7 +83,7 @@ public class SimulatedRobot implements PanelLayerInterface
 	private static void sleep(int sec)
 	{
 		try {
-			Thread.sleep(sec * 1000);
+			Thread.sleep(sec * 100);
 		} catch (Exception e) {
 			// silence will come
 		}
