@@ -3,9 +3,12 @@ package pacmansystem.ai.robot;
 import java.awt.Point;
 import java.util.Iterator;
 
+
+
 import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
 import util.board.Board;
 import util.board.shortestpathfinder.dijkstra.DijkstraFinder;
+import util.enums.Orientation;
 
 public class PathLayer {
 	
@@ -35,7 +38,8 @@ public class PathLayer {
 //				break;
 			Point nextPoint = s.next();
 			try {
-				orientationLayer.go(Board.getOrientationBetween(currentPoint, nextPoint));
+				Orientation o = Board.getOrientationBetween(currentPoint, nextPoint);
+				orientationLayer.go(o);
 				currentPoint = nextPoint;
 			} catch (IllegalDriveException e) {
 				//fix things :D

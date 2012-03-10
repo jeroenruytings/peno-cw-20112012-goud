@@ -46,7 +46,7 @@ public class OrientationLayer
 	public void go(Orientation o) throws IllegalDriveException
 	{
 		for (Direction d : Direction.values())
-			if (this.currentOrientation == o.addTo(d)) {
+			if (o == currentOrientation.addTo(d)) {
 				layer.go(d);
 				this.currentOrientation = o;
 				return;

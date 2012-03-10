@@ -75,7 +75,7 @@ public class RobotController
 						mergeBoard(robot,robotsWithBarcode.get(robot));
 					}
 				}
-			}		
+			}	
 			getBoard().add(p1, getCurrentPoint()); //voegt panel toe aan board
 			try {
 				MessageSender.getInstance().sendMessage(getName() + " DISCOVER "+ pointToString(getCurrentPoint())+ "" +
