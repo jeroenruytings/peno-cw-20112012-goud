@@ -25,7 +25,6 @@ public class SimRobotDataDisplay extends Canvas
 
 	private Graphics bufferedGraphics;
 	private Image bufferedImage;
-	private Orientation robotOrientation = Orientation.NORTH;
 	
 	public SimRobotDataDisplay(RobotData robot)
 	{
@@ -151,14 +150,13 @@ public class SimRobotDataDisplay extends Canvas
 	 */
 	private void drawRobot(Graphics g)
 	{
-		
 		if (myRobotData.getPosition() != null) {
-			Point panelConvertedAxisCoordinate = convert(new Point(myRobotData.getPosition().x,myRobotData.getBoard().maxY() - myRobotData.getPosition().y));
+			Point panelConvertedAxisCoordinate = new Point(convert(myRobotData.getPosition()).x,getBoard().maxY() - convert(myRobotData.getPosition()).y);
 			int xDraw = (calculateInitialPosition().x
 					+ (calculatePanelWidth() * panelConvertedAxisCoordinate.x) + getSpacing());
 			int yDraw = (calculateInitialPosition().y
 					+ (calculatePanelWidth() * (panelConvertedAxisCoordinate.y)) + getSpacing());
-			g.drawImage(getGhostImage(robotOrientation ),
+			g.drawImage(getGhostImage(myRobotData.getOrientation()),
 					xDraw,
 					yDraw,
 
@@ -199,7 +197,7 @@ public class SimRobotDataDisplay extends Canvas
 	private void drawPacman(Graphics g)
 	{
 		if (myRobotData.getPacmanLastSighted() != null) {
-			Point panelConvertedAxisCoordinate = new Point(myRobotData.getPacmanLastSighted().x,myRobotData.getBoard().maxY() - myRobotData.getPacmanLastSighted().y);
+			Point panelConvertedAxisCoordinate = new Point(convert(myRobotData.getPacmanLastSighted()).x,getBoard().maxY() - convert(myRobotData.getPacmanLastSighted()).y);
 			Color original = g.getColor();
 			g.setColor(Color.YELLOW);
 			g.fillOval(

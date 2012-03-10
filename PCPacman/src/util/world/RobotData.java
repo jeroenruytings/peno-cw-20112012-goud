@@ -8,6 +8,7 @@ import java.util.Map;
 
 import pacmansystem.ai.robot.Barcode;
 import util.board.Board;
+import util.enums.Orientation;
 
 public class RobotData
 {
@@ -19,6 +20,7 @@ public class RobotData
 	private List<Point> pacmanHistory;
 	// The amount of previous data to be hold.
 	private int pacmanhistorylength;
+	private Orientation orientation = Orientation.NORTH;
 
 	private Point position = new Point(0, 0);
 
@@ -94,6 +96,18 @@ public class RobotData
 	public Point getPosition()
 	{
 		return position;
+	}
+	
+	public Orientation getOrientation(){
+		return orientation;
+	}
+	
+	/**
+	 * @param 	orientation
+	 * 				New orientation of the robot.
+	 */
+	public void setOrientation(Orientation orientation){
+		this.orientation = orientation;
 	}
 
 	/**

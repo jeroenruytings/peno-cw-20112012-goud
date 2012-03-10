@@ -38,9 +38,11 @@ public class BoardDisplayer
 	public static void drawBoard(Graphics g, Board t, Point position,
 			int panelHeight)
 	{
+		//Board t = convertBoard(b);
 		for (Point tmp : t.getFilledPoints())
 			drawPanel(g, t, position, tmp, panelHeight, panelHeight);
 	}
+
 
 	/**
 	 * This method draws a wall on the given graphics object.

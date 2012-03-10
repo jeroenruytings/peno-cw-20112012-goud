@@ -45,6 +45,7 @@ public class PathLayer {
 				orientationLayer.go(o);
 				currentPoint = nextPoint;
 				data.setPosition(currentPoint);
+				data.setOrientation(o);
 			} catch (IllegalDriveException e) {
 				//fix things :D
 				throw new IllegalDriveException(e);

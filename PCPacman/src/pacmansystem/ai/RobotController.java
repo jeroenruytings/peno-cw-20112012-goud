@@ -65,8 +65,7 @@ public class RobotController
 	
 	public void explore(){
 		Point destination = null;
-		boolean finished = false;
-		while (!finished) {
+		while (true) {
 			checkForNewInfo();
 			Panel p1 = getPathLayer().getOrientationLayer().getPanel(getCurrentOrientation()); //getPanel() moet om zich heen kijken
 			if(p1.hasBarcode()){
@@ -99,11 +98,9 @@ public class RobotController
 //					p2.setBorder(orientation.opposite(), true);
 //				}
 //			}
-			try {
-				destination = lookForDestination(); //zoekt volgend punt om naartoe te gaan
-			} catch (NullPointerException e) {
-				finished = true;
-			}
+			destination = lookForDestination(); //zoekt volgend punt om naartoe te gaan
+			if(destination == null)
+				return;
 			try {
 				getPathLayer().go(getCurrentPoint(), destination);
 			} catch (IllegalDriveException e) {
