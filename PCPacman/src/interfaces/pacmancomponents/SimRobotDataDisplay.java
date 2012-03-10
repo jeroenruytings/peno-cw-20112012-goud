@@ -151,8 +151,9 @@ public class SimRobotDataDisplay extends Canvas
 	 */
 	private void drawRobot(Graphics g)
 	{
+		
 		if (myRobotData.getPosition() != null) {
-			Point panelConvertedAxisCoordinate = new Point(myRobotData.getPosition().x,myRobotData.getBoard().maxY() - myRobotData.getPosition().y);
+			Point panelConvertedAxisCoordinate = convert(new Point(myRobotData.getPosition().x,myRobotData.getBoard().maxY() - myRobotData.getPosition().y));
 			int xDraw = (calculateInitialPosition().x
 					+ (calculatePanelWidth() * panelConvertedAxisCoordinate.x) + getSpacing());
 			int yDraw = (calculateInitialPosition().y
@@ -167,6 +168,14 @@ public class SimRobotDataDisplay extends Canvas
 	}
 	
 	
+	private Point convert(Point position)
+	{
+		int minx = myRobotData.getBoard().minX();
+		int miny = myRobotData.getBoard().minY();
+		return new Point(position.x-minx,position.y-miny);
+		
+	}
+
 	public Image getGhostImage(Orientation direction){
 		switch (direction) {
 		case NORTH:

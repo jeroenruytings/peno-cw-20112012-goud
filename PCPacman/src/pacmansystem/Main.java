@@ -4,8 +4,6 @@ import interfaces.mainscreen.Mainscreen;
 import interfaces.mainscreen.ModeChooser;
 import interfaces.pacmancomponents.RobotType;
 
-import java.awt.Point;
-
 import pacmansystem.ai.RobotController;
 import pacmansystem.ai.robot.OrientationLayer;
 import pacmansystem.ai.robot.PanelLayerInterface;
