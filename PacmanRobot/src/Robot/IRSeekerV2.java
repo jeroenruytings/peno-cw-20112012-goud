@@ -1,5 +1,4 @@
 package Robot;
-
 import lejos.nxt.I2CPort; 
 import lejos.nxt.I2CSensor; 
 
@@ -33,6 +32,13 @@ public class IRSeekerV2 extends I2CSensor
       super(port);
       setMode(mode); 
       setAddress(ADDRESS2>>1);
+   } 
+   
+   public IRSeekerV2(I2CPort port) 
+   { 
+      super(port);
+      setMode(Mode.AC); 
+      setAddress(0x8);
    } 
 
    /** 

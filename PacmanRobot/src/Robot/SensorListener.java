@@ -6,7 +6,6 @@ import lejos.nxt.MotorPort;
 import lejos.nxt.SensorPort;
 import lejos.nxt.TouchSensor;
 import lejos.nxt.UltrasonicSensor;
-import lejos.nxt.addon.IRSeeker;
 
 
 public class SensorListener implements Runnable {
@@ -14,7 +13,7 @@ public class SensorListener implements Runnable {
 	UltrasonicSensor sonar = new UltrasonicSensor(SensorPort.S3); //check
 	LightSensor light = new LightSensor(SensorPort.S1);	//check
 	TouchSensor push = new TouchSensor(SensorPort.S4);	//check
-	IRSeeker ir = new IRSeeker(SensorPort.S2);	//check
+	IRSeekerV2 ir = new IRSeekerV2(SensorPort.S2);	//check
 	Motor motor = new Motor(MotorPort.A);
 	Motor head = new Motor(MotorPort.C);
 	RobotCommunicator communicator;
@@ -38,7 +37,6 @@ public class SensorListener implements Runnable {
 	
 	
 	public void start(){
-	ir.setAddress(0x8);
 	sonarValue = sonar.getDistance(); 
 	lightValue = light.getLightValue();
 	pushValue = 0;
