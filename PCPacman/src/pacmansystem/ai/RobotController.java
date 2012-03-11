@@ -89,11 +89,17 @@ public class RobotController
 				sendBarcode(p1.getBarcode());
 				for(RobotData data:world.get_robots().values())
 					{
+					if(data.getName().equals(this.getData().getName()))
+						continue;
 					new BoardUnifier();
 					Board newBoard = BoardUnifier.unify(getBoard(), data.getBoard());
 						for(Point point: newBoard.getFilledPoints())
-						{
+						{	
+							
+							if(!getBoard().hasPanelAt(point))
+								System.out.println("added new info!");
 							world.getGlobalBoard().add(newBoard.getPanelAt(point), point);
+							getBoard().add(newBoard.getPanelAt(point), point);
 						}
 					}
 			}
