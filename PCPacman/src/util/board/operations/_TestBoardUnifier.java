@@ -3,6 +3,8 @@ package util.board.operations;
 import static org.junit.Assert.*;
 
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.junit.Test;
 
@@ -18,6 +20,14 @@ public class _TestBoardUnifier
 	{
 		assertTrue(new Barcode(1).equals(new Barcode(1)));
 	}
+	@Test
+	public void barcodeEqualTestInSet()
+	{
+		HashMap<Barcode, String> h = new HashMap<Barcode,String>();
+		h.put(new Barcode(1), "abra");
+		assertTrue(h.keySet().contains(new Barcode(1)));
+	}
+	
 	@Test
 	public void simpleBoard()
 	{
@@ -54,8 +64,8 @@ public class _TestBoardUnifier
 		p1.setBarcode(new Barcode(1));
 		p2.setBarcode(new Barcode(2));
 		Board rv = new Board();
-		rv.add(p1, new Point(0,0));
-		rv.add(p2, new Point(1,0));
+		rv.add(p2, new Point(0,0));
+		rv.add(p1, new Point(1,0));
 		rv.add(p3, new Point(1,1));
 		rv.add(p4, new Point(1,2));
 		

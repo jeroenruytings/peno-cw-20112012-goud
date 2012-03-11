@@ -56,7 +56,11 @@ public class Barcode
 			return false;
 	}
 	
-	
+	@Override
+	public int hashCode()
+	{
+		return barcode;
+	}
 	/**
 	 * TEST MAIN!!!
 	 * @param args
@@ -68,4 +72,5 @@ public class Barcode
 		System.out.println(new Barcode(155).getBitString());
 		System.out.println(test.equals(new Barcode(test.getReverse())));
 	}
+	
 }

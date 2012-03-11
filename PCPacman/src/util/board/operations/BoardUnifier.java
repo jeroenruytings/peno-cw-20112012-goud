@@ -34,7 +34,7 @@ public class BoardUnifier
 		while(count<4&&!p2.equals(target))
 		{
 			count++;
-			target = Operations.turn(target,origin, Turn.LEFT);
+			p2 = Operations.turn(p2,origin, Turn.LEFT);
 		}
 		if(count==4)
 			return thiz;//something went wrong
