@@ -67,7 +67,7 @@ public class BoardUnifier
 			public boolean accepts(Barcode arg)
 			{
 				
-				return ((Set<Barcode>) this._objs[0]).contains(arg);
+				return new ArrayList<Barcode>((Set<Barcode>) this._objs[0]).contains(arg);
 			}
 		}));
 	}
