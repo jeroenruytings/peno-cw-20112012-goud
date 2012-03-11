@@ -170,7 +170,7 @@ public class Mainscreen implements ActionListener, Runnable
 		Thread t = new Thread(pnlUltrasonic);
 		t.start();
 		
-		BarcodePanel pnlBarcode = new BarcodePanel(10011101);
+		BarcodePanel pnlBarcode = new BarcodePanel(155);
 		pnlBarcode.setFont(getPacmanFont());
 		panel.add(pnlBarcode);
 		

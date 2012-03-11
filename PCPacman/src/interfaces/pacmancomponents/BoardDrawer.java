@@ -211,7 +211,7 @@ public class BoardDrawer
 			}
 		}
 		if (t.getPanelAt(panelCoordinate).hasBarcode())
-			drawBarcode(g, t, initialCoordinate, panelConvertedAxisCoordinate, panelHeight, panelWidth, t.getPanelAt(panelCoordinate).getBarcode());
+			drawBarcode(g, t, initialCoordinate, panelConvertedAxisCoordinate, panelHeight, panelWidth, t.getPanelAt(panelCoordinate).getBarcode(),t.getPanelAt(panelCoordinate).getBarcodeOrientation());
 	}
 	
 	public static void drawLineFinish(Graphics g, Board t, Point initialCoordinate,
@@ -377,8 +377,6 @@ public class BoardDrawer
 		
 		g.setColor(original);
 
-		// TODO
-
 	}
 
 	/**
@@ -419,17 +417,28 @@ public class BoardDrawer
 	
 	public static void drawBarcode(Graphics g, Board t,
 			Point initialCoord, Point panelCoord, int panelHeight,
-			int panelWidth, Barcode barcode)
+			int panelWidth, Barcode barcode, Orientation orient)
 	{
-		BarcodePanel.drawBarcode(g,
-				initialCoord.x + (panelCoord.x * panelWidth) + SPACE + 2,
-				initialCoord.y + (panelCoord.y * panelHeight) + ((panelHeight / AWAYFROMBORDER) + SPACE),
-				panelHeight - ((panelHeight / AWAYFROMBORDER) * 2), 
-				panelWidth - ((SPACE + 1) * 2), 
-				barcode,
-				Color.WHITE,
-				Color.BLUE,
-				Orientation.NORTH);	
+		if (orient == Orientation.NORTH || orient == Orientation.SOUTH)
+			BarcodePanel.drawBarcode(g,
+					initialCoord.x + (panelCoord.x * panelWidth) + SPACE + 2,
+					initialCoord.y + (panelCoord.y * panelHeight) + ((panelHeight / AWAYFROMBORDER) + SPACE),
+					panelHeight - ((panelHeight / AWAYFROMBORDER) * 2), 
+					panelWidth - ((SPACE + 1) * 2), 
+					barcode,
+					Color.WHITE,
+					Color.BLUE,
+					orient);
+		else
+			BarcodePanel.drawBarcode(g,
+					initialCoord.x + (panelCoord.x * panelWidth) + ((panelWidth / AWAYFROMBORDER) + SPACE),
+					initialCoord.y + (panelCoord.y * panelHeight) + SPACE + 2,
+					panelHeight - ((SPACE + 1)  * 2), 
+					panelWidth - ((panelHeight / AWAYFROMBORDER) * 2), 
+					barcode,
+					Color.WHITE,
+					Color.BLUE,
+					orient);
 	}
 
 }

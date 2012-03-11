@@ -83,8 +83,8 @@ public class RobotController
 			Panel p1 = getPathLayer().getOrientationLayer().getPanel(
 					getCurrentOrientation()); // getPanel() moet om zich heen
 												// kijken
-			getBoard().add(p1, getCurrentPoint());
 			
+			getBoard().add(p1, getCurrentPoint());
 			if (p1.hasBarcode()) {
 				sendBarcode(p1.getBarcode());
 				for(RobotData data:world.get_robots().values())
@@ -93,10 +93,9 @@ public class RobotController
 					Board newBoard = BoardUnifier.unify(getBoard(), data.getBoard());
 						for(Point point: newBoard.getFilledPoints())
 						{
-							getBoard().add(newBoard.getPanelAt(point), point);
+							world.getGlobalBoard().add(newBoard.getPanelAt(point), point);
 						}
 					}
-					
 			}
 			
 			 // voegt panel toe aan board
@@ -139,8 +138,7 @@ public class RobotController
 				// setCurrentOrientation(Board.getOrientationBetween(getCurrentPoint(),
 				// destination)); //verandert orientatie
 			setCurrentPoint(destination); // verandert huidig punt
-
-		}
+			}
 	}
 
 	private String pointToString(Point p)

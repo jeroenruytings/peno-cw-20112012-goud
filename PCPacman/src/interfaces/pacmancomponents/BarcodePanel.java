@@ -34,7 +34,7 @@ public class BarcodePanel extends JPanel {
 	this.setBackground(Color.GRAY);
 	this.setLayout(new BorderLayout(0, 0));
 	
-	lblBarcode = new JLabel("\"" + String.valueOf(barcode) + "\"");
+	lblBarcode = new JLabel("\"" + String.valueOf(this.barcode.getBitString()) + "\"");
 	lblBarcode.setForeground(Color.WHITE);
 	lblBarcode.setBackground(Color.GRAY);
 	lblBarcode.setHorizontalAlignment(SwingConstants.CENTER);
@@ -70,14 +70,28 @@ public class BarcodePanel extends JPanel {
 			barcodestring = Integer.toString(barcode.getBitString()).toCharArray();
 		else
 			barcodestring = (Integer.toString(new Barcode(barcode.getReverse()).getBitString())).toCharArray();
-		for(int i = 0; i < barcodestring.length; i++){
-			if (barcodestring[i] == '1'){
-				g.setColor(color1);
-				g.fillRect(x, y + (i * (height / barcodestring.length)), width, (height / barcodestring.length));
+		if (orient == Orientation.NORTH || orient == Orientation.SOUTH){
+			for(int i = 0; i < barcodestring.length; i++){
+				if (barcodestring[i] == '1'){
+					g.setColor(color1);
+					g.fillRect(x, y + (i * (height / barcodestring.length)), width, (height / barcodestring.length));
+				}
+				else if (barcodestring[i] == '0'){
+					g.setColor(color0);
+					g.fillRect(x, y +(i * (height / barcodestring.length)), width, (height / barcodestring.length));
+				}
 			}
-			else if (barcodestring[i] == '0'){
-				g.setColor(color0);
-				g.fillRect(x, y +(i * (height / barcodestring.length)), width, (height / barcodestring.length));
+		}
+		else{
+			for(int i = 0; i < barcodestring.length; i++){
+				if (barcodestring[i] == '1'){
+					g.setColor(color1);
+					g.fillRect(x + (i * (width / barcodestring.length)), y , (width / barcodestring.length), height);
+				}
+				else if (barcodestring[i] == '0'){
+					g.setColor(color0);
+					g.fillRect(x +(i * (width / barcodestring.length)), y, (width / barcodestring.length), height);
+				}
 			}
 		}
 	}

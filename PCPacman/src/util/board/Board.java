@@ -71,6 +71,7 @@ public class Board
 //		if (conflicting(p, panel))
 //			throw new IllegalArgumentException("Paneel fout: " + p);
 		panels.put(p, panel);
+		calcDimensions();
 	}
 
 	/**
@@ -95,11 +96,14 @@ public class Board
 	{
 		this.panels.remove(point);
 		this.panels.put(point, panel);
-		for (Orientation d : Orientation.values())
-			if (hasPanelAt(d.addTo(point)))
+		for (Orientation d : Orientation.values()){
+			if (hasPanelAt(d.addTo(point))){
 				panels.get(d.addTo(point)).setBorder(d.opposite(),
 						panel.hasBorder(d));
+			}
+		}
 		System.out.println("w");
+		calcDimensions();
 	}
 
 	public boolean hasPanelAt(Point p)
@@ -124,7 +128,7 @@ public class Board
 		p.setBarcodeOrientation(orient);
 	}
 
-	public Map<Point, Panel> getPanels()
+	public synchronized Map<Point, Panel> getPanels()
 	{
 		return new HashMap<Point,Panel>(this.panels);
 	}
@@ -138,9 +142,11 @@ public class Board
 	 * Return all the points that have a panel object set
 	 * @return
 	 */
-	public synchronized Iterable<Point> getFilledPoints()
+	public  Iterable<Point> getFilledPoints()
 	{
-		return new ArrayList<Point>(panels.keySet());
+		ArrayList<Point> rv ;
+			rv = new ArrayList<Point>(getPanels().keySet());
+		return rv;
 	}
 
 	public Collection<Point> getSurrounding(Point p)
@@ -156,11 +162,6 @@ public class Board
 
 	private boolean outOfCoords(Point point)
 	{
-		// TODO: check!
-//		if (point.getX() >= columns || point.getX() < 0)
-//			return true;
-//		if (point.getY() >= rows || point.getY() < 0)
-//			return true;
 		if (point.getX() >= (maxX() - minX()))
 			return true;
 		if (point.getY() >= (maxY() - minY()))
@@ -173,41 +174,69 @@ public class Board
 	{
 		return new Board(this);
 	}
+	
+	private synchronized void calcDimensions(){
+		calcMaxX();
+		calcMaxY();
+		calcMinX();
+		calcMinY();
+	}
 
+	private int maxX = Integer.MIN_VALUE;
 	public int maxX()
 	{
+		return maxX;
+	}
+	
+	private void calcMaxX(){
 		int max = 0;
 		for (Point p : getFilledPoints())
 			if (p.x > max)
 				max = p.x;
-		return max;
-
+		this.maxX = max;
 	}
 
 	public int maxY()
 	{
+		return maxY;
+	}
+	
+	private int maxY;
+	private void calcMaxY(){
 		int max = 0;
 		for (Point p : getFilledPoints())
 			if (p.y > max)
 				max = p.y;
-		return max;
+		maxY = max;
 	}
 	
 	public int minX(){
+		return minX;
+	}
+	
+	private int minX;
+	private void calcMinX(){
 		int min = 0;
 		for (Point p : getFilledPoints())
 			if (p.x < min)
 				min = p.x;
-		return min;
+		minX = min;
 	}
 	
+	
 	public int minY(){
+		return minY;
+	}
+	
+	private int minY;
+	private void calcMinY(){
 		int min = 0;
 		for (Point p : getFilledPoints())
 			if (p.y < min)
 				min = p.y;
-		return min;
+		minY = min;
 	}
+	
 
 	/**
 	 * 
