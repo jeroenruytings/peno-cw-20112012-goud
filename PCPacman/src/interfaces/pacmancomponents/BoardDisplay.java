@@ -23,7 +23,6 @@ public abstract class BoardDisplay extends Canvas
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Color robotColor = getRandomColor();
 	
 	private List<RobotData> robots = new ArrayList<RobotData>();
 	private Point pacman;
@@ -32,7 +31,7 @@ public abstract class BoardDisplay extends Canvas
 	private Image bufferedImage;
 	
 	
-	private static Color getRandomColor(){
+	public static Color getRandomColor(){
 		Random r = new Random();
 		return new Color(r.nextInt(255),r.nextInt(255),r.nextInt(255));
 	}
@@ -40,16 +39,6 @@ public abstract class BoardDisplay extends Canvas
 	{
 		super();
 		this.setBackground(Color.BLACK);
-	}
-	
-	public Color getRobotColor(){
-		return robotColor;
-	}
-	
-	public void setRobotColor(Color newColor){
-		if (newColor != null){
-			this.robotColor = newColor;
-		}
 	}
 
 	public abstract Board getBoard();
@@ -113,7 +102,7 @@ public abstract class BoardDisplay extends Canvas
 			bufferedGraphics.clearRect(0, 0, getWidth(), getHeight());
 			drawBoard(bufferedGraphics);
 			for (RobotData r : robots)
-				drawRobot(bufferedGraphics, r.getPosition(), r.getOrientation());
+				drawRobot(bufferedGraphics, r.getPosition(), r.getOrientation(), r.getRobotColor());
 			drawPacman(bufferedGraphics, getPacman());
 			g.drawImage(bufferedImage, 0,0,this);
 		
@@ -166,7 +155,7 @@ public abstract class BoardDisplay extends Canvas
 	 * @param 	g
 	 * 				Graphics to draw on.
 	 */
-	private void drawRobot(Graphics g, Point position, Orientation orient)
+	private void drawRobot(Graphics g, Point position, Orientation orient, Color robotColor)
 	{
 		if (position != null) {
 			Point panelConvertedAxisCoordinate = new Point(convert(position).x,getBoardToDraw().maxY() - convert(position).y);

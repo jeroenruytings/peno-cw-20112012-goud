@@ -1,5 +1,7 @@
 package interfaces.pacmancomponents;
 
+import java.awt.Color;
+
 import util.board.Board;
 import util.world.RobotData;
 
@@ -23,6 +25,11 @@ public class RobotDataCanvas extends BoardDisplay
 	@Override
 	public Board getBoard() {
 		return data.getBoard();
+	}
+
+
+	public void setRobotColor(Color robotColor) {
+		data.setRobotColor(robotColor);
 	}
 	
 	

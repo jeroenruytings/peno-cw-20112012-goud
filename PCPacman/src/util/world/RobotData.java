@@ -1,5 +1,8 @@
 package util.world;
 
+import interfaces.pacmancomponents.BoardDisplay;
+
+import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -152,5 +155,15 @@ public class RobotData
 	
 	public String toString(){
 		return getName();
+	}
+
+	private Color robotColor = BoardDisplay.getRandomColor();
+	public Color getRobotColor() {
+		return robotColor;
+	}
+
+	public void setRobotColor(Color robotColor) {
+		this.robotColor = robotColor;
+		
 	}
 }

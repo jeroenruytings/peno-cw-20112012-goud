@@ -1,5 +1,6 @@
 package util.world;
 
+import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,13 +59,26 @@ public class World
 //		_robots.put(name, robot);
 //	}
 	
+	
 
+	private Board globalBoard = new Board();
 	public Board getGlobalBoard()
 	{
-		Board b = new Board();
-		for(RobotData data:this._robots.values())
-			b = BoardUnifier.unify(b, data.getBoard());
-		return b;
+		//TODO: Werkt beter uit.
+		// Just trying to make is work.
+		// --> Dus ge moet ni komen klagen tegen mij (Jannes). K zal dit ooit wel is fixen :P
+		boolean first = true;
+		for(RobotData data:this._robots.values()){
+			if (first){
+				for (Point p : data.getBoard().getFilledPoints()){
+					globalBoard.add(data.getBoard().getPanelAt(p), p);
+				}
+				first = false;
+			}
+			else
+				globalBoard = BoardUnifier.unify(globalBoard, data.getBoard());
+		}
+		return globalBoard;
 	}
 	
 

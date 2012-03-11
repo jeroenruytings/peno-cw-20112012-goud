@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import pacmansystem.ai.robot.Barcode;
 import util.enums.Orientation;
@@ -19,13 +21,13 @@ import util.enums.Orientation;
  */
 public class Board  
 {
-	private Map<Point, Panel> panels;
+	private ConcurrentHashMap<Point, Panel> panels;
 	private int rows;
 	private int columns;
 
 	public Board(int rows, int columns)
 	{
-		panels = new HashMap<Point, Panel>();
+		panels = new ConcurrentHashMap<Point, Panel>();
 		this.rows = rows;
 		this.columns = columns;
 	}
@@ -55,7 +57,7 @@ public class Board
 
 	public Board(Board board)
 	{
-		this.panels = new HashMap<Point, Panel>();
+		this.panels = new ConcurrentHashMap<Point, Panel>();
 		for (Point p : board.getFilledPoints())
 			this.add(board.getPanelAt(p), p);
 
@@ -119,7 +121,7 @@ public class Board
 	{
 		if (!hasPanelAt(p))
 			return null;
-		return new Panel(panels.get(p));
+		return new Panel(getPanels().get(p));
 	}
 	
 	public void setBarcode(Point coordinate, Barcode barcode, Orientation orient){
@@ -128,14 +130,14 @@ public class Board
 		p.setBarcodeOrientation(orient);
 	}
 
-	public synchronized Map<Point, Panel> getPanels()
+	public Map<Point, Panel> getPanels()
 	{
-		return new HashMap<Point,Panel>(this.panels);
+			return new ConcurrentHashMap<Point,Panel>(this.panels);
 	}
 
 	public void clear()
 	{
-		this.panels = new HashMap<Point,Panel>();
+		this.panels = new ConcurrentHashMap<Point,Panel>();
 		
 	}
 	/**
@@ -144,8 +146,8 @@ public class Board
 	 */
 	public  Iterable<Point> getFilledPoints()
 	{
-		ArrayList<Point> rv ;
-			rv = new ArrayList<Point>(getPanels().keySet());
+		CopyOnWriteArrayList<Point> rv ;
+			rv = new CopyOnWriteArrayList<Point>(getPanels().keySet());
 		return rv;
 	}
 

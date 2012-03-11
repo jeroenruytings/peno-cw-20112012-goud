@@ -3,7 +3,6 @@ package util.board.operations;
 import static org.junit.Assert.*;
 
 import java.awt.Point;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.junit.Test;
@@ -45,8 +44,8 @@ public class _TestBoardUnifier
 		Panel p2 = new Panel();
 		Panel p3 = new Panel();
 		Panel p4 = new Panel();
-		p1.setBarcode(new Barcode(1));
-		p2.setBarcode(new Barcode(2));
+		p1.setBarcode(new Barcode(155));
+		p2.setBarcode(new Barcode(135));
 		Board rv = new Board();
 		rv.add(p1, new Point(1,1));
 		rv.add(p2, new Point(1,2));
@@ -61,8 +60,8 @@ public class _TestBoardUnifier
 		Panel p2 = new Panel();
 		Panel p3 = new Panel();
 		Panel p4 = new Panel();
-		p1.setBarcode(new Barcode(1));
-		p2.setBarcode(new Barcode(2));
+		p1.setBarcode(new Barcode(155));
+		p2.setBarcode(new Barcode(135));
 		Board rv = new Board();
 		rv.add(p2, new Point(0,0));
 		rv.add(p1, new Point(1,0));

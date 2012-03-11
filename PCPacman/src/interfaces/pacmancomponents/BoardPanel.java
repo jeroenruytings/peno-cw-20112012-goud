@@ -23,7 +23,7 @@ public class BoardPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	private RobotDataCanvas cnvrobot;
-	private WorldDisplayer cnvWorld;
+	private WorldDisplay cnvWorld;
 	private JButton btnRobot;
 	
 	public BoardPanel(RobotData robotData){
@@ -37,7 +37,7 @@ public class BoardPanel extends JPanel {
 		btnRobot.setBackground(Color.BLACK);
 		btnRobot.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cnvrobot.setRobotColor(JColorChooser.showDialog(BoardPanel.this, "Kies een Kleur", cnvrobot.getRobotColor()));
+				cnvrobot.setRobotColor(JColorChooser.showDialog(BoardPanel.this, "Kies een Kleur", cnvrobot.getRobots().get(0).getRobotColor()));
 				Mainscreen.playSound("pacman_eatghost.wav");
 				cnvrobot.repaint();
 			}
@@ -49,7 +49,7 @@ public class BoardPanel extends JPanel {
 	public BoardPanel(World world){
 		this.setBackground(Color.BLACK);
 		this.setLayout(new BorderLayout(0, 0));
-		cnvWorld = new WorldDisplayer(world);
+		cnvWorld = new WorldDisplay(world);
 		btnRobot = new JButton("Global");
 		btnRobot.setFont(Mainscreen.getPacmanFont());
 		btnRobot.setForeground(Color.WHITE);
