@@ -83,7 +83,7 @@ public class RobotController
 			Panel p1 = getPathLayer().getOrientationLayer().getPanel(
 					getCurrentOrientation()); // getPanel() moet om zich heen
 												// kijken
-			if (p1.hasBarcode()) {
+			
 				sendBarcode(p1.getBarcode());
 				for(RobotData data:world.get_robots().values())
 					{
@@ -92,7 +92,7 @@ public class RobotController
 						{
 							getBoard().add(newBoard.getPanelAt(point), point);
 						}
-					}
+					
 					;
 				//TODO Uncomment!
 //				Map<RobotData, Point> robotsWithBarcode = getRobotsWithSameBarcode(p1
