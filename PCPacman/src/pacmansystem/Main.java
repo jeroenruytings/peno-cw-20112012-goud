@@ -11,6 +11,7 @@ import pacmansystem.ai.robot.fysicalRobot.connector.MoverLayer;
 import pacmansystem.ai.robot.simulatedRobot.SimulatedRobot;
 import util.enums.Orientation;
 import util.world.RealWorld;
+import util.world.RobotData;
 
 public class Main
 {
@@ -40,9 +41,8 @@ public class Main
 			r.sendName();
 		
 		Mainscreen gui = new Mainscreen();
-		for (int i = 0; i < robot.length; i++) {
-			gui.setRobotData(robot[i].getData());
-		}
+		for (RobotData r : robot[0].getWorld().get_robots().values())
+			gui.setRobotData(r);
 		
 		gui.setWorld(robot[0].getWorld());
 		gui.start();

@@ -12,7 +12,7 @@ import util.world.RealWorld;
 public class SimulatedRobot implements PanelLayerInterface
 {
 	private Point _currentLocation;
-	private Orientation _currentOrientation;
+	private Orientation _currentRealOrientation;
 	private RealWorld _realWorld;
 
 
@@ -20,7 +20,7 @@ public class SimulatedRobot implements PanelLayerInterface
 	{
 		_realWorld = realworld;
 		_currentLocation = startLocation;
-		_currentOrientation = startOrient;
+		_currentRealOrientation = startOrient;
 	}
 
 	@Override
@@ -28,10 +28,10 @@ public class SimulatedRobot implements PanelLayerInterface
 	{
 		sleep(3);
 		if (_realWorld.getGlobalBoard().getPanelAt(_currentLocation)
-				.hasBorder(_currentOrientation.addTo(d)))
+				.hasBorder(_currentRealOrientation.addTo(d)))
 			throw new IllegalDriveException();
-		_currentLocation = _currentOrientation.addTo(d).addTo(_currentLocation);
-		_currentOrientation = _currentOrientation.addTo(d);
+		_currentLocation = _currentRealOrientation.addTo(d).addTo(_currentLocation);
+		_currentRealOrientation = _currentRealOrientation.addTo(d);
 		_realWorld.setPacman(_currentLocation);
 	}
 
@@ -40,7 +40,7 @@ public class SimulatedRobot implements PanelLayerInterface
 	{
 		sleep(1);
 		return _realWorld.getGlobalBoard().getPanelAt(_currentLocation)
-				.hasBorder(_currentOrientation.addTo(d));
+				.hasBorder(_currentRealOrientation.addTo(d));
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class SimulatedRobot implements PanelLayerInterface
 	public boolean getPacman()
 	{
 		sleep(1);
-		return (_realWorld.getPacmanLocation().equals(_currentOrientation.addTo(_currentLocation)));
+		return (_realWorld.getPacmanLocation().equals(_currentRealOrientation.addTo(_currentLocation)));
 	}
 
 	@Override
@@ -76,9 +76,9 @@ public class SimulatedRobot implements PanelLayerInterface
 		returnValue.setBarcode(rv.getBarcode());
 		for(Direction d:Direction.values())
 		{
-			returnValue.setBorder(currentOrientation.addTo(d), rv.hasBorder(_currentOrientation.addTo(d)));
+			returnValue.setBorder(currentOrientation.addTo(d), rv.hasBorder(_currentRealOrientation.addTo(d)));
 		}
-		returnValue.setBarcodeOrientation(_currentOrientation);
+		returnValue.setBarcodeOrientation(currentOrientation);
 		return returnValue;
 	}
 

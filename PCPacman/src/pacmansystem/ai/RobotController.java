@@ -80,41 +80,39 @@ public class RobotController
 		Point destination = null;
 		while (true) {
 			checkForNewInfo();
+			// voegt panel toe aan board
+			
 			Panel p1 = getPathLayer().getOrientationLayer().getPanel(
 					getCurrentOrientation()); // getPanel() moet om zich heen
-												// kijken
-			
+			// kijken
+
 			getBoard().add(p1, getCurrentPoint());
-			if (p1.hasBarcode()) {
-				sendBarcode(p1.getBarcode());
-				for(RobotData data: world.get_robots().values())
-					{
-					
-					new BoardUnifier();
-					Board newBoard = BoardUnifier.unify(getBoard(), data.getBoard());
-						for(Point point: newBoard.getFilledPoints())
-						{	
-							
-							if(!getBoard().hasPanelAt(point))
-								System.out.println("added new info!");
-							world.getGlobalBoard().add(newBoard.getPanelAt(point), point);
-							getBoard().add(newBoard.getPanelAt(point), point);
-						}
-					}
-			}
-			
-			 // voegt panel toe aan board
+			// voegt panel toe aan board
 			try {
 				MessageSender.getInstance().sendMessage(
 						getName()
-								+ " DISCOVER "
-								+ pointToString(getCurrentPoint())
-								+ ""
-								+ getBoard().getPanelAt(getCurrentPoint())
-										.bordersToString());
+						+ " DISCOVER "
+						+ pointToString(getCurrentPoint())
+						+ ""
+						+ getBoard().getPanelAt(getCurrentPoint())
+						.bordersToString());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			if (p1.hasBarcode()) 
+				sendBarcode(p1.getBarcode());
+
+//			for(RobotData data: world.get_robots().values())
+//			{
+//				Board newBoard = BoardUnifier.unify(getBoard(), data.getBoard());
+//				for(Point point: newBoard.getFilledPoints())
+//				{	
+//					getBoard().add(newBoard.getPanelAt(point), point);
+//				}
+//			}
+
+			
+			 
 
 			// for (Orientation orientation : Orientation.values()) { //voegt
 			// omliggende punten toe indien ze geen tussenmuur hebben
@@ -141,15 +139,17 @@ public class RobotController
 				e.printStackTrace();
 			} // gaat naar volgend punt
 				// setCurrentOrientation(Board.getOrientationBetween(getCurrentPoint(),
-				// destination)); //verandert orientatie
-			setCurrentPoint(destination); // verandert huidig punt
+				// destination)); //verandert orientatietry {
+			
 			}
 	}
-
+	
 	private String pointToString(Point p)
 	{
 		return p.x + "," + p.y;
 	}
+
+	
 
 	private void checkForNewInfo()
 	{
@@ -251,11 +251,7 @@ public class RobotController
 		return new Point(getCurrentX(), getCurrentY());
 	}
 
-	private void setCurrentPoint(Point p)
-	{
-		setCurrentX(p.x);
-		setCurrentY(p.y);
-	}
+
 
 	public Point lookForDestination()
 	{

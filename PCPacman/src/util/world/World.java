@@ -1,12 +1,16 @@
 package util.world;
 
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import util.board.Board;
+import util.board.operations.BoardUnifier;
 
 
-public class World extends RealWorld
+
+public class World
 {
 	private Map<String, RobotData> _robots;
 	private int registeredRobots;
@@ -48,6 +52,22 @@ public class World extends RealWorld
 	
 	public void addRobot(RobotData robot, String name){
 		_robots.put(name, robot);
+	}
+	
+	private Board globalBoard =new Board();
+	
+	public Board getGlobalBoard()
+	{
+		return globalBoard;
+	}
+	
+	public void calcBoard(){
+		Board b = globalBoard;
+		
+		for(RobotData data:this._robots.values())
+			for(RobotData data2 : this._robots.values())
+			b = BoardUnifier.unify(data2.getBoard(), data.getBoard());
+		
 	}
 
 }

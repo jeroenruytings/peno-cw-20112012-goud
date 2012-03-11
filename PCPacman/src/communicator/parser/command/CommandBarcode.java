@@ -44,6 +44,7 @@ public class CommandBarcode implements Command
 				.getPanelAt(simulator.getRobot(_name).getPosition());
 		p.setBarcode(new Barcode(_barcode));
 		p.setBarcodeOrientation(Orientation.fromOrdinal(getDirection()-1));
+		simulator.getRobot(_name).getBoard().add(p, simulator.getRobot(_name).getPosition());
 	}
 
 }

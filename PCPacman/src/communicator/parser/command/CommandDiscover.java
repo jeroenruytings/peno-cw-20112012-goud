@@ -60,6 +60,7 @@ public class CommandDiscover implements Command
 			Board b = world.getRobot(_name).getBoard();
 			b.add(p, world.getRobot(_name).getPosition());
 		}
+		world.calcBoard();
 	}
 
 }

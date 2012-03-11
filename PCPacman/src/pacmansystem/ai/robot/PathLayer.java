@@ -1,7 +1,10 @@
 package pacmansystem.ai.robot;
 
 import java.awt.Point;
+import java.io.IOException;
 import java.util.Iterator;
+
+import communicator.be.kuleuven.cs.peno.MessageSender;
 
 import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
 import util.board.Board;
@@ -43,6 +46,15 @@ public class PathLayer {
 				orientationLayer.go(o);
 				currentPoint = nextPoint;
 				data.setPosition(currentPoint);
+				try{
+					MessageSender.getInstance().sendMessage(
+							data.getName()
+							+ " POSITION "
+							+ pointToString(currentPoint)
+							+ "\n");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 				data.setOrientation(o);
 			} catch (IllegalDriveException e) {
 				//fix things :D
@@ -50,6 +62,11 @@ public class PathLayer {
 			}
 		}			
 		}
+	
+	private String pointToString(Point p)
+	{
+		return p.x + "," + p.y;
+	}
 	
 	
 }
