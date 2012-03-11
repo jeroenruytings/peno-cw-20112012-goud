@@ -1,8 +1,8 @@
 package interfaces.mainscreen;
 
 import interfaces.pacmancomponents.BarcodePanel;
-import interfaces.pacmancomponents.EnhancedRadioButton;
 import interfaces.pacmancomponents.BoardPanel;
+import interfaces.pacmancomponents.EnhancedRadioButton;
 import interfaces.pacmancomponents.RabbitHistory;
 import interfaces.pacmancomponents.UltrasonicValuePanel;
 
@@ -15,7 +15,6 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -41,6 +40,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
@@ -50,7 +50,6 @@ import util.board.BoardCreator;
 import util.world.RealWorld;
 import util.world.RobotData;
 import util.world.World;
-import javax.swing.JMenuBar;
 
 public class Mainscreen implements ActionListener, Runnable
 {

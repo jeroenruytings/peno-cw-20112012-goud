@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import pacmansystem.ai.robot.Barcode;
-
 import util.enums.Orientation;
 
 /**
@@ -139,7 +138,7 @@ public class Board
 	 * Return all the points that have a panel object set
 	 * @return
 	 */
-	public Iterable<Point> getFilledPoints()
+	public synchronized Iterable<Point> getFilledPoints()
 	{
 		return new ArrayList<Point>(panels.keySet());
 	}
@@ -178,7 +177,7 @@ public class Board
 	public int maxX()
 	{
 		int max = 0;
-		for (Point p : panels.keySet())
+		for (Point p : getFilledPoints())
 			if (p.x > max)
 				max = p.x;
 		return max;
@@ -188,7 +187,7 @@ public class Board
 	public int maxY()
 	{
 		int max = 0;
-		for (Point p : panels.keySet())
+		for (Point p : getFilledPoints())
 			if (p.y > max)
 				max = p.y;
 		return max;
@@ -196,7 +195,7 @@ public class Board
 	
 	public int minX(){
 		int min = 0;
-		for (Point p : panels.keySet())
+		for (Point p : getFilledPoints())
 			if (p.x < min)
 				min = p.x;
 		return min;
@@ -204,7 +203,7 @@ public class Board
 	
 	public int minY(){
 		int min = 0;
-		for (Point p : panels.keySet())
+		for (Point p : getFilledPoints())
 			if (p.y < min)
 				min = p.y;
 		return min;

@@ -37,6 +37,13 @@ public class Barcode
 		return Integer.parseInt(new String(result), 2);
 	}
 	
+	public int getBitString(){
+		char[] binairy = Integer.toBinaryString(barcode).toCharArray();
+		if (binairy.length != 8)
+			throw new BarcodeException("The given barcode-value does not exist!");
+		return Integer.parseInt((new String(binairy)));
+	}
+	
 	public int getValue(){
 		return barcode;
 	}
@@ -57,6 +64,8 @@ public class Barcode
 	public static void main(String[] args){
 		
 		Barcode test = new Barcode(Integer.parseInt("10011011", 2));
+		System.out.println(new Barcode(155).getReverse());
+		System.out.println(new Barcode(155).getBitString());
 		System.out.println(test.equals(new Barcode(test.getReverse())));
 	}
 }

@@ -84,13 +84,14 @@ public class RobotController
 												// kijken
 			if (p1.hasBarcode()) {
 				sendBarcode(p1.getBarcode());
-				Map<RobotData, Point> robotsWithBarcode = getRobotsWithSameBarcode(p1
-						.getBarcode());
-				if (robotsWithBarcode != null) {
-					for (RobotData robot : robotsWithBarcode.keySet()) {
-						mergeBoard(robot, robotsWithBarcode.get(robot));
-					}
-				}
+				//TODO Uncomment!
+//				Map<RobotData, Point> robotsWithBarcode = getRobotsWithSameBarcode(p1
+//						.getBarcode());
+//				if (robotsWithBarcode != null) {
+//					for (RobotData robot : robotsWithBarcode.keySet()) {
+//						mergeBoard(robot, robotsWithBarcode.get(robot));
+//					}
+//				}
 			}
 			getBoard().add(p1, getCurrentPoint()); // voegt panel toe aan board
 			try {
@@ -210,10 +211,24 @@ public class RobotController
 		try {
 			MessageSender.getInstance().sendMessage(
 					getName() + " BARCODE " + barcode.getValue() + " "
-							+ getCurrentOrientation() + "\n");
+							+ orientationToString(getCurrentOrientation()) + "\n");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private String orientationToString(Orientation o){
+		switch (o) {
+		case NORTH:
+			return "3";
+		case SOUTH:
+			return "1";
+		case WEST:
+			return "2";
+		case EAST:
+			return "4";
+		}
+		return null;
 	}
 
 	public Orientation getCurrentOrientation()

@@ -49,7 +49,7 @@ public class Panel
 
 	public boolean hasBarcode()
 	{
-		return getBarcode()!=null;
+		return getBarcode() != null;
 	}
 
 	public Barcode getBarcode()

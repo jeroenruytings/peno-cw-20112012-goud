@@ -6,6 +6,8 @@ import java.awt.Image;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import pacmansystem.ai.robot.Barcode;
+
 import util.board.Board;
 import util.board.Panel;
 import util.enums.Orientation;
@@ -208,6 +210,8 @@ public class BoardDrawer
 				}
 			}
 		}
+		if (t.getPanelAt(panelCoordinate).hasBarcode())
+			drawBarcode(g, t, initialCoordinate, panelConvertedAxisCoordinate, panelHeight, panelWidth, t.getPanelAt(panelCoordinate).getBarcode());
 	}
 	
 	public static void drawLineFinish(Graphics g, Board t, Point initialCoordinate,
@@ -411,6 +415,21 @@ public class BoardDrawer
 			return null;
 		}
 
+	}
+	
+	public static void drawBarcode(Graphics g, Board t,
+			Point initialCoord, Point panelCoord, int panelHeight,
+			int panelWidth, Barcode barcode)
+	{
+		BarcodePanel.drawBarcode(g,
+				initialCoord.x + (panelCoord.x * panelWidth) + SPACE + 2,
+				initialCoord.y + (panelCoord.y * panelHeight) + ((panelHeight / AWAYFROMBORDER) + SPACE),
+				panelHeight - ((panelHeight / AWAYFROMBORDER) * 2), 
+				panelWidth - ((SPACE + 1) * 2), 
+				barcode,
+				Color.WHITE,
+				Color.BLUE,
+				Orientation.NORTH);	
 	}
 
 }

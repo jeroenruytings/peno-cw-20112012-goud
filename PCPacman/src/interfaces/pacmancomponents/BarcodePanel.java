@@ -4,7 +4,6 @@ import interfaces.mainscreen.Mainscreen;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -14,6 +13,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import pacmansystem.ai.robot.Barcode;
+
+import util.enums.Orientation;
+
 public class BarcodePanel extends JPanel {
 
 	/**
@@ -22,11 +25,11 @@ public class BarcodePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	private JLabel lblBarcode;
-	private int barcode;
+	private Barcode barcode;
 	
 	public BarcodePanel(int barcode){
 	
-		this.barcode = barcode;
+		this.barcode = new Barcode(barcode);
 	this.setForeground(Color.BLACK);
 	this.setBackground(Color.GRAY);
 	this.setLayout(new BorderLayout(0, 0));
@@ -57,18 +60,25 @@ public class BarcodePanel extends JPanel {
 			lblBarcode.setFont(font);
 	}
 
-	private static void drawBarcode(Graphics g, int height, int width, int barcode){
-		char[] barcodestring = (Integer.toString(barcode)).toCharArray();
+	public static void drawBarcode(Graphics g, int height, int width, Barcode barcode){
+		drawBarcode(g,0,0, height, width, barcode, Color.WHITE,Color.BLACK, Orientation.NORTH);
+	}
+	
+	public static void drawBarcode(Graphics g, int x, int y, int height, int width,Barcode barcode, Color color0, Color color1, Orientation orient){
+		char[] barcodestring;
+		if (orient == Orientation.NORTH || orient == Orientation.EAST)
+			barcodestring = Integer.toString(barcode.getBitString()).toCharArray();
+		else
+			barcodestring = (Integer.toString(new Barcode(barcode.getReverse()).getBitString())).toCharArray();
 		for(int i = 0; i < barcodestring.length; i++){
 			if (barcodestring[i] == '1'){
-				g.setColor(Color.BLACK);
-				g.fillRect(0, (i * (height / barcodestring.length)), width, (height / barcodestring.length));
+				g.setColor(color1);
+				g.fillRect(x, y + (i * (height / barcodestring.length)), width, (height / barcodestring.length));
 			}
 			else if (barcodestring[i] == '0'){
-				g.setColor(Color.WHITE);
-				g.fillRect(0, (i * (height / barcodestring.length)), width, (height / barcodestring.length));
+				g.setColor(color0);
+				g.fillRect(x, y +(i * (height / barcodestring.length)), width, (height / barcodestring.length));
 			}
-			
 		}
 	}
 	
@@ -83,10 +93,12 @@ public class BarcodePanel extends JPanel {
 	 * 				Barcode to draw.
 	 * @return	The image with the barcode drawn on.
 	 */
-	public static Image getBarcodeImage(int height, int width, int barcode){
+	public static Image getBarcodeImage(int height, int width, Barcode barcode){
 		Image result = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
 		Graphics g = result.getGraphics();
 		BarcodePanel.drawBarcode(g, height,width, barcode);
 		return result;
 	}
+	
+	
 }
