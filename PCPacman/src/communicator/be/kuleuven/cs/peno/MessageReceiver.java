@@ -1,5 +1,7 @@
 package communicator.be.kuleuven.cs.peno;
 
+import interfaces.pacmancomponents.RabbitHistory;
+
 import java.io.IOException;
 import java.text.ParseException;
 
@@ -21,6 +23,7 @@ public class MessageReceiver implements Runnable{
 	final private Connection conn;
 	final AMQP.Queue.DeclareOk queue;
 	private World world;
+	
 
 	public static void main(String[] args) {
 		try {
@@ -57,15 +60,15 @@ public class MessageReceiver implements Runnable{
 					// time is the time on the sender and NOT the time on the 
 					// AMQP server. This implies that clients are possibly out of
 					// sync!
-					System.out.println(String.format("@%d: %s -> %s", //berichtnummer
-							properties.getTimestamp().getTime(), //tijdstip van verzenden
-							envelope.getRoutingKey(), //race.launch
-							new String(body))); //boodschap
+//					System.out.println(String.format("@%d: %s -> %s", //berichtnummer
+//							properties.getTimestamp().getTime(), //tijdstip van verzenden
+//							envelope.getRoutingKey(), //race.launch
+//							new String(body))); //boodschap
 					
 					String message = new String(body);
-					System.out.println(message);
 					try {
 						Command command = decoder.parse(message);
+						RabbitHistory.receiveMessage(message,command.getNameFrom());
 						command.execute(world);
 					} catch (ParseException e) {
 						System.out.println("fail");
@@ -83,4 +86,5 @@ public class MessageReceiver implements Runnable{
 		}
 		
 	}
+	
 }

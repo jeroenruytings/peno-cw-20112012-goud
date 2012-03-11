@@ -3,6 +3,7 @@ package interfaces.mainscreen;
 import interfaces.pacmancomponents.BarcodePanel;
 import interfaces.pacmancomponents.EnhancedRadioButton;
 import interfaces.pacmancomponents.BoardPanel;
+import interfaces.pacmancomponents.RabbitHistory;
 import interfaces.pacmancomponents.UltrasonicValuePanel;
 
 import java.awt.BorderLayout;
@@ -14,6 +15,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
@@ -47,6 +50,7 @@ import util.board.BoardCreator;
 import util.world.RealWorld;
 import util.world.RobotData;
 import util.world.World;
+import javax.swing.JMenuBar;
 
 public class Mainscreen implements ActionListener, Runnable
 {
@@ -83,7 +87,7 @@ public class Mainscreen implements ActionListener, Runnable
 	}
 	
 	public void start(){
-		this.frmPacman.setVisible(true);
+		frmPacman.setVisible(true);
 		Thread t = new Thread(this);
 		t.start();	
 	}
@@ -105,6 +109,11 @@ public class Mainscreen implements ActionListener, Runnable
 			p.repaint();
 	}
 	
+	public static Dimension getScreenSize(){
+		Toolkit t = Toolkit.getDefaultToolkit();
+		return new Dimension(t.getScreenSize().width,t.getScreenSize().height - 50);
+	}
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -117,12 +126,10 @@ public class Mainscreen implements ActionListener, Runnable
 				Mainscreen.playSound("pacman_beginning.wav");
 			}
 		});
-		frmPacman.setMinimumSize(new Dimension(1200, 800));
-		frmPacman.setSize(new Dimension(1200, 800));
-		frmPacman.setPreferredSize(new Dimension(1200, 800));
+		frmPacman.setMinimumSize(new Dimension(800, 400));
+		frmPacman.setBounds(0, 0, getScreenSize().width, getScreenSize().height);
 		frmPacman.setTitle("Pacman");
 		frmPacman.setFont(getPacmanFont());
-		frmPacman.setBounds(100, 100, 1200, 600);
 		frmPacman.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		initialiseSplitPanes();;
@@ -134,6 +141,7 @@ public class Mainscreen implements ActionListener, Runnable
 			public void actionPerformed(ActionEvent e) {
 				// TEST KNOP!
 				//Mainscreen.playSound("pacman_intermission.wav");
+				ComponentFrame.showFrame("RabbitMQ", new RabbitHistory());
 			}
 		});
 		splitPane_5.setRightComponent(btnColortest);
@@ -170,6 +178,17 @@ public class Mainscreen implements ActionListener, Runnable
 		createRadioButtonTab("Ultrasonic", pnlUltrasonic, toolBar, buttonGroup_1);
 		pnlSensors.add(toolBar, BorderLayout.NORTH);
 		createRadioButtonTab("Barcode", pnlBarcode, toolBar,buttonGroup_1);
+		
+		JMenuBar menuBar = new JMenuBar();
+		frmPacman.setJMenuBar(menuBar);
+		
+		JButton btnRabbitmqHistory = new JButton("RabbitMQ History");
+		btnRabbitmqHistory.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ComponentFrame.showFrame("RabbitMQ", new RabbitHistory());
+			}
+		});
+		menuBar.add(btnRabbitmqHistory);
 	}
 	
 	
@@ -274,6 +293,7 @@ public class Mainscreen implements ActionListener, Runnable
 		rdbtn.setIcon(imgNotSelected);
 		group.add(rdbtn);
 		rdbtn.setSelectedIcon(imgSelected);
+		rdbtn.setFont(getPacmanFont());
 		rdbtn.setForeground(Color.WHITE);
 		rdbtn.setBackground(Color.BLACK);
 		toolbarToAddTo.add(rdbtn);

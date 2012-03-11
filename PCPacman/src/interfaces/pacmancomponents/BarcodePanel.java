@@ -7,6 +7,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -43,7 +45,7 @@ public class BarcodePanel extends JPanel {
 
 		@Override
 		public void paint(Graphics g){
-			drawBarcode(g, this);
+			drawBarcode(g, getHeight(),getWidth(), BarcodePanel.this.barcode);
 		}
 	};
 	this.add(p,BorderLayout.CENTER);
@@ -55,19 +57,36 @@ public class BarcodePanel extends JPanel {
 			lblBarcode.setFont(font);
 	}
 
-	private void drawBarcode(Graphics g, Component c){
+	private static void drawBarcode(Graphics g, int height, int width, int barcode){
 		char[] barcodestring = (Integer.toString(barcode)).toCharArray();
 		for(int i = 0; i < barcodestring.length; i++){
 			if (barcodestring[i] == '1'){
 				g.setColor(Color.BLACK);
-				g.fillRect(0, (i * (c.getHeight() / barcodestring.length)), c.getWidth(), (c.getHeight() / barcodestring.length));
+				g.fillRect(0, (i * (height / barcodestring.length)), width, (height / barcodestring.length));
 			}
 			else if (barcodestring[i] == '0'){
 				g.setColor(Color.WHITE);
-				g.fillRect(0, (i * (c.getHeight() / barcodestring.length)), c.getWidth(), (c.getHeight() / barcodestring.length));
+				g.fillRect(0, (i * (height / barcodestring.length)), width, (height / barcodestring.length));
 			}
 			
 		}
 	}
 	
+	/**
+	 * This method will make an image of the given barcode with the given dimentions.
+	 * The barcode will be drawn from top to bottom.
+	 * @param 	height
+	 * 				Height of the image.
+	 * @param 	width
+	 * 				Width of the image.	
+	 * @param 	barcode
+	 * 				Barcode to draw.
+	 * @return	The image with the barcode drawn on.
+	 */
+	public static Image getBarcodeImage(int height, int width, int barcode){
+		Image result = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
+		Graphics g = result.getGraphics();
+		BarcodePanel.drawBarcode(g, height,width, barcode);
+		return result;
+	}
 }

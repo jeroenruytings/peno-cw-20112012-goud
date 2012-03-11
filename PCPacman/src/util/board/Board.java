@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import pacmansystem.ai.robot.Barcode;
+
 import util.enums.Orientation;
 
 /**
@@ -115,6 +117,12 @@ public class Board
 		if (!hasPanelAt(p))
 			return null;
 		return new Panel(panels.get(p));
+	}
+	
+	public void setBarcode(Point coordinate, Barcode barcode, Orientation orient){
+		Panel p = panels.get(coordinate); 
+		p.setBarcode(barcode);
+		p.setBarcodeOrientation(orient);
 	}
 
 	public Map<Point, Panel> getPanels()

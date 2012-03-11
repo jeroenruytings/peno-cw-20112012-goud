@@ -1,10 +1,10 @@
 package interfaces.mainscreen;
 
-import interfaces.pacmancomponents.BarcodePanel;
+
+import interfaces.pacmancomponents.RabbitHistory;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -28,7 +28,7 @@ public class ComponentFrame extends JFrame {
 			public void run()
 			{
 				try {
-					ComponentFrame.showFrame("Barcode",new BarcodePanel(10010111));
+					ComponentFrame.showFrame("RabbitMQ",new RabbitHistory());
 					
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -61,7 +61,9 @@ public class ComponentFrame extends JFrame {
 	
 	public static void showFrame(String name, Component component){
 		ComponentFrame tmp = new ComponentFrame(name, component);
-		tmp.setMinimumSize(new Dimension(600,400));
+		tmp.setMinimumSize(component.getMinimumSize());
+		tmp.setPreferredSize(component.getPreferredSize());
+		tmp.setSize(component.getPreferredSize());
 		tmp.setVisible(true);
 	}
 

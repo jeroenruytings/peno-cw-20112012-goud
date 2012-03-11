@@ -381,18 +381,27 @@ public class RobotController
 
 	public RobotController(OrientationLayer layer)
 	{
+		this(layer,false);
+	}
+	
+	public RobotController(OrientationLayer layer, boolean hasMessageReceiver){
 		initWorld();
 		// currentOrientation = Orientation.NORTH;
 		pathLayer = new PathLayer(getData(), layer);
-		MessageReceiver rec;
-		try {
-			rec = new MessageReceiver(world);
-			Thread t = new Thread(rec);
-			t.start();
-		} catch (IOException e) {
-			// e.printStackTrace();
+		if (hasMessageReceiver){
+			MessageReceiver rec;
+			try {
+				rec = new MessageReceiver(world);
+				Thread t = new Thread(rec);
+				t.start();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
+	
+	
+	
 
 	public RobotController(Board b, OrientationLayer layer)
 

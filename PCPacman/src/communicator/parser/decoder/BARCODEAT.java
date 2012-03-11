@@ -11,7 +11,7 @@ import communicator.parser.command.CommandBarcodeAt;
 public class BARCODEAT extends Decoder {
 
 	protected BARCODEAT(Decoder next){
-		super(next,"BARCODE");
+		super(next,"BARCODEAT");
 	}
 
 	@Override

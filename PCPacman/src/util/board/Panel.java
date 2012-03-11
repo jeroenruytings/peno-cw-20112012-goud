@@ -27,6 +27,8 @@ public class Panel
 		this.borders = new boolean[4];
 		for (Orientation d : Orientation.values())
 			this.setBorder(d, panel.hasBorder(d));
+		setBarcode(panel.getBarcode());
+		setBarcodeOrientation(panel.getBarcodeOrientation());
 	}
 
 	public void setBorder(Orientation d, Boolean b)

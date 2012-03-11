@@ -3,6 +3,7 @@ package interfaces.mainscreen;
 import interfaces.pacmancomponents.RobotType;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -35,6 +36,7 @@ public class ModeChooser extends JFrame implements ActionListener {
 				try {
 					ModeChooser frame = new ModeChooser();
 					frame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -47,7 +49,12 @@ public class ModeChooser extends JFrame implements ActionListener {
 	 */
 	public ModeChooser() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		
+		Dimension screenSize = Mainscreen.getScreenSize();
+		final int WIDTH = screenSize.width;
+		final int HEIGHT = screenSize.height;
+		setSize(450, 300);
+		this.setLocation((WIDTH / 2) - (getWidth() / 2), (HEIGHT / 2) - (getHeight() / 2));
 		getContentPane().setLayout(new BorderLayout(10, 10));
 		
 		JLabel lblHeader = new JLabel("Kies een modus voor elke robot:");

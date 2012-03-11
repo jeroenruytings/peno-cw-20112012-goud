@@ -94,7 +94,12 @@ public class BoardCreator
 			}
 			else if (tmp instanceof CommandBarcodeAt){
 				CommandBarcodeAt cmd = ((CommandBarcodeAt)tmp);
-				b.getPanelAt(cmd.getCoordinate()).setBarcode(new Barcode(cmd.getBarcode()));
+				try {
+					b.setBarcode(cmd.getCoordinate(),new Barcode(cmd.getBarcode()),cmd.getDirection());
+				} catch (org.apache.commons.cli.ParseException e) {
+					// If the orientation of the barcode isn't correctly read, then do nothing with the barcode.
+					e.printStackTrace();
+				}
 			}
 			else if (tmp instanceof CommandPacman){
 				CommandPacman cmd = ((CommandPacman)tmp);
