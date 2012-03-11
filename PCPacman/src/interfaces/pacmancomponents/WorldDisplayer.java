@@ -1,5 +1,6 @@
 package interfaces.pacmancomponents;
 
+import util.board.Board;
 import util.world.RobotData;
 import util.world.World;
 
@@ -12,19 +13,19 @@ public class WorldDisplayer extends BoardDisplay {
 	private World myworld;
 	
 	public WorldDisplayer(World w) {
-		super(w.getGlobalBoard());
+		super();
 		myworld = w;
-	}
-	
-	public void setWorld(World w){
-		myworld = w;
-		setBoard(w.getGlobalBoard());
 		for (RobotData r : w.get_robots().values())
 			addRobotData(r);
 	}
 	
 	public World getWorld(){
 		return myworld;
+	}
+
+	@Override
+	public Board getBoard() {
+		return myworld.getGlobalBoard();
 	}
 
 }

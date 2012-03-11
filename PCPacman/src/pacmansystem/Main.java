@@ -34,20 +34,30 @@ public class Main
 				robot[i] = initNewRobot(robotType);
 			}
 		}
-		
-		for (RobotController r : robot)
+
+		for (RobotController r : robot){
 			r.join();
-		for (RobotController r : robot)
+		}
+		for (RobotController r : robot){
 			r.sendName();
-		
+		}
+		synchronized (robot[0].getWorld()) {
+			try {
+				robot[0].getWorld().wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 		Mainscreen gui = new Mainscreen();
+
 		for (RobotData r : robot[0].getWorld().get_robots().values())
 			gui.setRobotData(r);
 		
 		gui.setWorld(robot[0].getWorld());
 		gui.start();
 		for(RobotController r:robot)
-			gogo(r);}
+			gogo(r);
+	}
 	void gogo(final RobotController c)
 	{
 		new Thread(new Runnable()

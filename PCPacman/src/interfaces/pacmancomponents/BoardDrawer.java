@@ -16,7 +16,7 @@ public class BoardDrawer
 {
 
 	private static final int AWAYFROMBORDER = 5;
-	private static final int SPACE = 4;
+	static final int SPACE = 4;
 	private static final Color color = Color.BLUE;
 
 

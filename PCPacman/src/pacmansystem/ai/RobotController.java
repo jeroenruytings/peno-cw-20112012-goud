@@ -428,7 +428,7 @@ public class RobotController
 	{
 		world = new World();
 		data = new RobotData(b);
-		world.addRobot(data, "Goud");
+		//world.addRobot(data, "Goud");
 		// currentOrientation = Orientation.NORTH;
 		pathLayer = new PathLayer(getData(), layer);
 		MessageReceiver rec;
@@ -513,7 +513,7 @@ public class RobotController
 		data = new RobotData();
 		world = new World();
 		data.setName("Goud" + robotNumber++);
-		world.addRobot(getData(), getData().getName());
+		//world.addRobot(getData(), getData().getName());
 	}
 
 	public Point getLocation()

@@ -149,4 +149,8 @@ public class RobotData
 //	public void setBoard(Board globalBoard) {
 //		this.board = globalBoard;
 //	}
+	
+	public String toString(){
+		return getName();
+	}
 }

@@ -1,7 +1,5 @@
 package util.world;
 
-
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +12,7 @@ public class World
 {
 	private Map<String, RobotData> _robots;
 	private int registeredRobots;
+	private int amountOfRobotsNeeded = 4;
 	/**
 	 * @return The data of the robots on this world.
 	 */
@@ -43,31 +42,31 @@ public class World
 	 * @param name
 	 * @throws InsufficientJoinsException
 	 */
-	public void addRobot(String name) throws InsufficientJoinsException
+	public synchronized void addRobot(String name) throws InsufficientJoinsException
 	{
-		if (registeredRobots != 4)
+		if (registeredRobots != amountOfRobotsNeeded)
 			throw new InsufficientJoinsException();
-		_robots.put(name, new RobotData());
+		RobotData r = new RobotData();
+		r.setName(name);
+		_robots.put(name, r);
+		
+		if (_robots.size() == amountOfRobotsNeeded)
+			this.notify();
 	}
 	
-	public void addRobot(RobotData robot, String name){
-		_robots.put(name, robot);
-	}
+//	public void addRobot(RobotData robot, String name){
+//		_robots.put(name, robot);
+//	}
 	
-	private Board globalBoard =new Board();
-	
+
 	public Board getGlobalBoard()
 	{
-		return globalBoard;
+		Board b = new Board();
+		for(RobotData data:this._robots.values())
+			b = BoardUnifier.unify(b, data.getBoard());
+		return b;
 	}
 	
-	public void calcBoard(){
-		Board b = globalBoard;
-		
-		for(RobotData data:this._robots.values())
-			for(RobotData data2 : this._robots.values())
-			b = BoardUnifier.unify(data2.getBoard(), data.getBoard());
-		
-	}
+
 
 }

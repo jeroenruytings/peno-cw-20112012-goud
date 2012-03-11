@@ -16,7 +16,7 @@ import util.board.Board;
 import util.enums.Orientation;
 import util.world.RobotData;
 
-public class BoardDisplay extends Canvas
+public abstract class BoardDisplay extends Canvas
 {
 
 	/**
@@ -24,7 +24,6 @@ public class BoardDisplay extends Canvas
 	 */
 	private static final long serialVersionUID = 1L;
 	private Color robotColor = getRandomColor();
-	private Board board;
 	
 	private List<RobotData> robots = new ArrayList<RobotData>();
 	private Point pacman;
@@ -37,19 +36,14 @@ public class BoardDisplay extends Canvas
 		Random r = new Random();
 		return new Color(r.nextInt(255),r.nextInt(255),r.nextInt(255));
 	}
-	public BoardDisplay(Board board)
+	public BoardDisplay()
 	{
 		super();
 		this.setBackground(Color.BLACK);
-		this.board = board; 
 	}
 	
 	public Color getRobotColor(){
 		return robotColor;
-	}
-	
-	protected void setBoard(Board board){
-		this.board = board;
 	}
 	
 	public void setRobotColor(Color newColor){
@@ -58,9 +52,11 @@ public class BoardDisplay extends Canvas
 		}
 	}
 
-	private Board getBoard()
+	public abstract Board getBoard();
+	
+	private Board getBoardToDraw()
 	{
-		return fix(board);
+		return fix(getBoard());
 	}
 	
 	private Board fix(Board boardToFix)
@@ -85,22 +81,23 @@ public class BoardDisplay extends Canvas
 
 	private int calculatePanelWidth()
 	{
-		if (getBoard() == null)
+		if (getBoardToDraw() == null)
 			throw new IllegalStateException("The track is not initialised!");
-		return Math.min(getDrawHeight() / (getBoard().maxY() + 1),
-				getDrawWidth() / (getBoard().maxX() + 1));
+		return Math.min(getDrawHeight() / (getBoardToDraw().maxY() + 1),
+				getDrawWidth() / (getBoardToDraw().maxX() + 1));
 	}
 
 	private int getSpacing()
 	{
 		return calculatePanelWidth() / 5;
+
 	}
 
 	private Point calculateInitialPosition()
 	{
 		Point result = new Point(
-				(getWidth() - (calculatePanelWidth() * (getBoard().maxX() + 1))) / 2,
-				(getHeight() - (calculatePanelWidth() * (getBoard().maxY() + 1))) / 2);
+				(getWidth() - (calculatePanelWidth() * (getBoardToDraw().maxX() + 1))) / 2,
+				(getHeight() - (calculatePanelWidth() * (getBoardToDraw().maxY() + 1))) / 2);
 		return result;
 	}
 
@@ -136,8 +133,8 @@ public class BoardDisplay extends Canvas
 	 */
 	private void drawBoard(Graphics g)
 	{
-		if (board != null){
-		BoardDrawer.drawBoard(g, getBoard(), calculateInitialPosition(),
+		if (getBoard() != null){
+		BoardDrawer.drawBoard(g, getBoardToDraw(), calculateInitialPosition(),
 				calculatePanelWidth());
 		}
 	}
@@ -172,7 +169,7 @@ public class BoardDisplay extends Canvas
 	private void drawRobot(Graphics g, Point position, Orientation orient)
 	{
 		if (position != null) {
-			Point panelConvertedAxisCoordinate = new Point(convert(position).x,getBoard().maxY() - convert(position).y);
+			Point panelConvertedAxisCoordinate = new Point(convert(position).x,getBoardToDraw().maxY() - convert(position).y);
 			int xDraw = (calculateInitialPosition().x
 					+ (calculatePanelWidth() * panelConvertedAxisCoordinate.x) + getSpacing());
 			int yDraw = (calculateInitialPosition().y
@@ -189,8 +186,8 @@ public class BoardDisplay extends Canvas
 	
 	private Point convert(Point position)
 	{
-		int minx = board.minX();
-		int miny = board.minY();
+		int minx = getBoard().minX();
+		int miny = getBoard().minY();
 		return new Point(position.x-minx,position.y-miny);
 		
 	}
@@ -218,7 +215,7 @@ public class BoardDisplay extends Canvas
 	private void drawPacman(Graphics g, Point position)
 	{
 		if (position != null) {
-			Point panelConvertedAxisCoordinate = new Point(convert(position).x,getBoard().maxY() - convert(position).y);
+			Point panelConvertedAxisCoordinate = new Point(convert(position).x,getBoardToDraw().maxY() - convert(position).y);
 			Color original = g.getColor();
 			g.setColor(Color.YELLOW);
 			g.fillOval(
