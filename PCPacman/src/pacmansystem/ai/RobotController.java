@@ -13,6 +13,7 @@ import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
 import util.board.Board;
 import util.board.Panel;
 import util.board.PointConvertor;
+import util.board.operations.BoardUnifier;
 import util.board.shortestpathfinder.dijkstra.DijkstraFinder;
 import util.enums.Orientation;
 import util.world.RobotData;
@@ -84,6 +85,15 @@ public class RobotController
 												// kijken
 			if (p1.hasBarcode()) {
 				sendBarcode(p1.getBarcode());
+				for(RobotData data:world.get_robots().values())
+					{
+					Board newBoard = new BoardUnifier().unify(getBoard(), data.getBoard());
+						for(Point point: newBoard.getFilledPoints())
+						{
+							getBoard().add(newBoard.getPanelAt(point), point);
+						}
+					}
+					;
 				//TODO Uncomment!
 //				Map<RobotData, Point> robotsWithBarcode = getRobotsWithSameBarcode(p1
 //						.getBarcode());
