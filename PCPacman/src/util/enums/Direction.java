@@ -36,4 +36,13 @@ public enum Direction
 			throw new RuntimeException();
 		}
 	}
+	public static Direction diff(Orientation one,Orientation two)
+	{
+		for(Direction d:values())
+		{
+			if(one.addTo(d).equals(two))
+				return d;
+		}
+		return UP;
+	}
 };

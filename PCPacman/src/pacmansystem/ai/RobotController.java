@@ -87,10 +87,9 @@ public class RobotController
 			getBoard().add(p1, getCurrentPoint());
 			if (p1.hasBarcode()) {
 				sendBarcode(p1.getBarcode());
-				for(RobotData data:world.get_robots().values())
+				for(RobotData data: world.get_robots().values())
 					{
-					if(data.getName().equals(this.getData().getName()))
-						continue;
+					
 					new BoardUnifier();
 					Board newBoard = BoardUnifier.unify(getBoard(), data.getBoard());
 						for(Point point: newBoard.getFilledPoints())
