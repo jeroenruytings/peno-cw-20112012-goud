@@ -18,7 +18,7 @@ import util.enums.Orientation;
  *         according to our coordinate system) have no conflicting borders:
  * 
  */
-public class Board
+public class Board  
 {
 	private Map<Point, Panel> panels;
 	private int rows;
@@ -127,14 +127,18 @@ public class Board
 
 	public Map<Point, Panel> getPanels()
 	{
-		return panels;
+		return new HashMap<Point,Panel>(this.panels);
 	}
 
 	public void clear()
 	{
-
+		this.panels = new HashMap<Point,Panel>();
+		
 	}
-
+	/**
+	 * Return all the points that have a panel object set
+	 * @return
+	 */
 	public Iterable<Point> getFilledPoints()
 	{
 		return new ArrayList<Point>(panels.keySet());

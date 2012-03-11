@@ -49,8 +49,7 @@ public class Panel
 
 	public boolean hasBarcode()
 	{
-		// TODO Auto-generated method stub
-		return false;
+		return getBarcode()!=null;
 	}
 
 	public Barcode getBarcode()
