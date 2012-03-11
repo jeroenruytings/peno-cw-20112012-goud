@@ -83,8 +83,10 @@ public class RobotController
 			Panel p1 = getPathLayer().getOrientationLayer().getPanel(
 					getCurrentOrientation()); // getPanel() moet om zich heen
 												// kijken
+			if (p1.hasBarcode()) 
+			sendBarcode(p1.getBarcode());
 			
-				sendBarcode(p1.getBarcode());
+			getBoard().add(p1, getCurrentPoint());
 				for(RobotData data:world.get_robots().values())
 					{
 					Board newBoard = new BoardUnifier().unify(getBoard(), data.getBoard());
@@ -92,7 +94,7 @@ public class RobotController
 						{
 							getBoard().add(newBoard.getPanelAt(point), point);
 						}
-					
+					}
 					;
 				//TODO Uncomment!
 //				Map<RobotData, Point> robotsWithBarcode = getRobotsWithSameBarcode(p1
@@ -102,8 +104,9 @@ public class RobotController
 //						mergeBoard(robot, robotsWithBarcode.get(robot));
 //					}
 //				}
-			}
-			getBoard().add(p1, getCurrentPoint()); // voegt panel toe aan board
+			
+			
+			 // voegt panel toe aan board
 			try {
 				MessageSender.getInstance().sendMessage(
 						getName()
