@@ -1,8 +1,8 @@
 package communicator.parser.command;
 
 import java.awt.Point;
+import java.text.ParseException;
 
-import org.apache.commons.cli.ParseException;
 
 import util.enums.Orientation;
 import util.world.World;
@@ -48,7 +48,7 @@ public class CommandBarcodeAt implements Command {
 		case 4:
 			return Orientation.EAST;
 		}
-		throw new ParseException("Orientatie is fout ingelezen!");
+		throw new ParseException("Orientatie is fout ingelezen!", 0);
 	}
 	
 	@Override

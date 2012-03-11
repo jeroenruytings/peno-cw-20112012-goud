@@ -96,7 +96,7 @@ public class BoardCreator
 				CommandBarcodeAt cmd = ((CommandBarcodeAt)tmp);
 				try {
 					b.setBarcode(cmd.getCoordinate(),new Barcode(cmd.getBarcode()),cmd.getDirection());
-				} catch (org.apache.commons.cli.ParseException e) {
+				} catch (ParseException e) {
 					// If the orientation of the barcode isn't correctly read, then do nothing with the barcode.
 					e.printStackTrace();
 				}

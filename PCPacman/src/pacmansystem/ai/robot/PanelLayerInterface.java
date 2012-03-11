@@ -27,6 +27,7 @@ public interface PanelLayerInterface
 	 * 
 	 * @return null if this.hasBarcode() == false;
 	 * @throws OperationNotSupportedException
+	 * 
 	 */
 	public abstract Barcode getBarcode() throws OperationNotSupportedException;
 

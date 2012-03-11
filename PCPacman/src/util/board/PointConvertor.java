@@ -3,6 +3,7 @@ package util.board;
 import java.awt.Point;
 import java.util.Map;
 
+import util.enums.Direction;
 import util.enums.Orientation;
 
 
@@ -40,4 +41,5 @@ public class PointConvertor {
 	public Point convert(Point point){
 		return new Point((int)(point.getX()+xPlus),(int)(point.getY()+yPlus));
 	}
+	
 }
