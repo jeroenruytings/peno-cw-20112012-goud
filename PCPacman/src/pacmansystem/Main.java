@@ -20,7 +20,7 @@ public class Main
 	public Main()
 	{
 		ModeChooser mc = new ModeChooser();
-		
+		simulatorWorld = Mainscreen.getRealWorld();
 		RobotType[] choice = mc.getChoice();
 		RobotController[] robot = new RobotController[4];
 		
@@ -29,8 +29,6 @@ public class Main
 			if (robotType == RobotType.PHYSICALROBOT)
 				robot[i] = initNewRobot(robotType);
 			else if (robotType == RobotType.VIRTUALROBOT){
-				if (simulatorWorld == null)
-					simulatorWorld = Mainscreen.getRealWorld();
 				robot[i] = initNewRobot(robotType);
 			}
 		}
