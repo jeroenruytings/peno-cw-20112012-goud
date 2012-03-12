@@ -56,7 +56,6 @@ public class MoverLayer
 				System.out.println("probleem met map van barcodes");
 				e.printStackTrace();
 			}
-			// TODO Auto-generated method stub
 		}
 		return rv;
 	}
@@ -69,7 +68,6 @@ public class MoverLayer
 		try {
 			System.in.read();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

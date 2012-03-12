@@ -14,7 +14,6 @@ public class DISCOVER extends Decoder
 	public DISCOVER(Decoder next)
 	{
 		super(next, "DISCOVER");
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

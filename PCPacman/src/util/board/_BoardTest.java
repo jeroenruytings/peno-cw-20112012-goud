@@ -63,7 +63,7 @@ public class _BoardTest
 	@Test
 	public void defaultBoardTest()
 	{
-		Board board = BoardCreator.createWithEdges(10, 10);
+		BoardCreator.createWithEdges(10, 10);
 
 		System.out.println("abra");
 	}

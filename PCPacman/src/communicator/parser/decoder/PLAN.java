@@ -14,7 +14,6 @@ public class PLAN extends Decoder
 	protected PLAN(Decoder next)
 	{
 		super(next, "PLAN");
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

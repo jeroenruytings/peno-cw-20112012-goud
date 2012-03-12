@@ -11,7 +11,6 @@ public class NullMonitor extends LeoMonitor
 	@Override
 	public void accept(byte[] message)
 	{
-		// TODO Auto-generated method stub
 
 	}
 

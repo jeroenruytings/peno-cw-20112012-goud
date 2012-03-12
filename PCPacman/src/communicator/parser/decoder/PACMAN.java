@@ -14,7 +14,6 @@ public class PACMAN extends Decoder
 	protected PACMAN(Decoder next)
 	{
 		super(next, "PACMAN");
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

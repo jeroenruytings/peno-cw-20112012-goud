@@ -31,7 +31,7 @@ public class CommandPing implements Command {
 
 	@Override
 	public void execute(World simulator) {
-		// TODO Auto-generated method stub
+		// TODO Stuur een pong terug als het jouw naam is.
 
 	}
 

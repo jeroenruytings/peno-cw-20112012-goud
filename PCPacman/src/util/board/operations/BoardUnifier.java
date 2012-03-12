@@ -62,6 +62,7 @@ public class BoardUnifier
 	{
 		return new ArrayList<Barcode>( Filter.filter(barcodesThiz.keySet(), new Filter<Barcode>(barcodesThat.keySet())
 		{
+			@SuppressWarnings("unchecked")
 			@Override
 			public boolean accepts(Barcode arg)
 			{

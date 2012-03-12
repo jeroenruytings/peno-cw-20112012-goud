@@ -13,7 +13,6 @@ public class CAPTURED extends Decoder
 	public CAPTURED(Decoder next)
 	{
 		super(next, "CAPTURED");
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

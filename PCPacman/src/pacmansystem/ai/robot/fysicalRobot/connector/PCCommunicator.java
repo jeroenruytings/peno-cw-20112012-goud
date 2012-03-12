@@ -21,7 +21,6 @@ public class PCCommunicator implements Runnable
 		try {
 			connection = new Connection("Goud");
 		} catch (ConnectionFailedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		streamOut = connection.getConnection().getDataOut();

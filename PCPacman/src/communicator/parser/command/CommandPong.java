@@ -38,7 +38,7 @@ public class CommandPong implements Command {
 
 	@Override
 	public void execute(World simulator) {
-		// TODO Auto-generated method stub
+		// TODO Hebben we zelf een ping uitgestuurt naar deze persoon?
 
 	}
 

@@ -53,7 +53,8 @@ public class CommandBarcodeAt implements Command {
 	
 	@Override
 	public void execute(World simulator) {
-		// TODO Auto-generated method stub
+		// Doe niets!
+		// Dit commando is alleen nodig voor het maken van een realWorld.
 
 	}
 

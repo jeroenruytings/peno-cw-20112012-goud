@@ -13,7 +13,6 @@ public class PONG extends Decoder
 	protected PONG(Decoder next)
 	{
 		super(next, "PONG");
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

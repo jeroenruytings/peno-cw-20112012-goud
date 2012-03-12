@@ -1,7 +1,6 @@
 package util.world;
 
 import java.awt.Point;
-import java.util.Map;
 import java.util.Stack;
 
 import util.board.Board;
@@ -11,7 +10,7 @@ public class RealWorld
 
 	private Board globalBoard;
 	private Point pacman;
-	private Map<String, Point> _startingLocations;
+	//private Map<String, Point> _startingLocations;
 	private Stack<Point> _startinpos = new Stack<Point>();
 
 	/**

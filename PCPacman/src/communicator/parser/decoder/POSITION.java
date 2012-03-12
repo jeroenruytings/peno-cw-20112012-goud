@@ -13,7 +13,6 @@ public class POSITION extends Decoder
 	protected POSITION(Decoder next)
 	{
 		super(next, "POSITION");
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

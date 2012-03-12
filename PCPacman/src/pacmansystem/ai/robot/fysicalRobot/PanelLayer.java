@@ -76,7 +76,6 @@ public class PanelLayer implements PanelLayerInterface
 //			try {
 //				System.in.read();
 //			} catch (IOException e) {
-//				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
 			distanceToWall = mover.getUltrasonic();
@@ -101,7 +100,6 @@ public class PanelLayer implements PanelLayerInterface
 //			try {
 //				System.in.read();
 //			} catch (IOException e) {
-//				// TODO Auto-generated catch block
 //				e.printStackTrace();
 	//		}
 			distanceToWall = mover.getUltrasonic();
@@ -124,7 +122,6 @@ public class PanelLayer implements PanelLayerInterface
 //			try {
 //				System.in.read();
 //			} catch (IOException e) {
-//				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
 			distanceToWall = mover.getUltrasonic();

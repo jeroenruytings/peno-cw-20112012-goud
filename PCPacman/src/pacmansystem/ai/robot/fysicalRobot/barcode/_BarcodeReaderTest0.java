@@ -40,7 +40,7 @@ public class _BarcodeReaderTest0
 		assertTrue(reader.searchForCode().equals(one));
 	
 	}
-	private void prettyPrint(int[] v)
+	public void prettyPrint(int[] v)
 	{
 		System.out.println("[");
 		for(int i : v)

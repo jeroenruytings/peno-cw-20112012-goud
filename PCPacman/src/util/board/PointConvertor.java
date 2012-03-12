@@ -2,8 +2,6 @@ package util.board;
 
 import java.awt.Point;
 import java.util.Map;
-
-import util.enums.Direction;
 import util.enums.Orientation;
 
 

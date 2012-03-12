@@ -13,7 +13,6 @@ import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
 import util.board.Board;
 import util.board.Panel;
 import util.board.PointConvertor;
-import util.board.operations.BoardUnifier;
 import util.board.shortestpathfinder.dijkstra.DijkstraFinder;
 import util.enums.Orientation;
 import util.world.RobotData;

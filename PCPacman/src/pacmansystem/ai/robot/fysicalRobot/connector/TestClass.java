@@ -187,7 +187,6 @@ public class TestClass {
 //			try {
 //				System.in.read();
 //			} catch (IOException e) {
-//				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
 //			System.out.println(panel.getBarcode().getValue());

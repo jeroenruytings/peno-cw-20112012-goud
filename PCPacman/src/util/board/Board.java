@@ -3,7 +3,6 @@ package util.board;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -162,14 +161,14 @@ public class Board
 		return rv;
 	}
 
-	private boolean outOfCoords(Point point)
-	{
-		if (point.getX() >= (maxX() - minX()))
-			return true;
-		if (point.getY() >= (maxY() - minY()))
-			return true;
-		return false;
-	}
+//	private boolean outOfCoords(Point point)
+//	{
+//		if (point.getX() >= (maxX() - minX()))
+//			return true;
+//		if (point.getY() >= (maxY() - minY()))
+//			return true;
+//		return false;
+//	}
 
 	@Override
 	public Object clone()

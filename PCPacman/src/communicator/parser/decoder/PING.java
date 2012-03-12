@@ -13,7 +13,6 @@ public class PING extends Decoder
 	protected PING(Decoder next)
 	{
 		super(next, "PING");
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
