@@ -235,6 +235,13 @@ public class MoverLayer
 	public BarCodeReader getBarcodeReader() {
 		return _reader;
 	}
+	
+	public void correctToMiddle(){
+		releaseButton();
+		pcc.sendCommando(new Commando(Action.CORRECT, 0, ""));
+		while(!buttonIsPushed()) ;
+		releaseButton();
+	}
 
 
 	public void setHeadTacho(int value) {
