@@ -1,9 +1,7 @@
 package Robot;
 
-import lejos.nxt.Button;
 import lejos.nxt.LCD;
 import lejos.nxt.Motor;
-import lejos.nxt.SensorPort;
 import lejos.robotics.proposal.DifferentialPilot;
 
 public class CommandoListener implements Runnable {
@@ -11,6 +9,33 @@ public class CommandoListener implements Runnable {
 	private RobotCommunicator communicator;
 	DifferentialPilot pilot;
 	SensorListener listener;
+	public int getBlack() {
+		return Black;
+	}
+
+	public void setBlack(int black) {
+		Black = black;
+	}
+
+	public int getWhite() {
+		return White;
+	}
+
+	public void setWhite(int white) {
+		White = white;
+	}
+
+	public int getBrown() {
+		return Brown;
+	}
+
+	public void setBrown(int brown) {
+		Brown = brown;
+	}
+
+	int Black;
+	int White;
+	int Brown;
 	
 	public CommandoListener(SensorListener listener){
 		
@@ -75,12 +100,35 @@ public class CommandoListener implements Runnable {
 				case 10:
 					turnHeadLeft(receivedCommando.getArgument());
 					break;
+				case 11:
+					correctToMiddle();
+					break;
 				default:;
 			}
 		}
 		
 		}
 
+	private void correctToMiddle() {
+		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
+		pilot.rotate(180);
+		while(isbrown(listener.getLightValue()))
+			pilot.forward();
+		pilot.stop();
+		
+		Motor.A.resetTachoCount();
+		
+		while(!isbrown(listener.getLightValue()))
+			pilot.forward();
+		pilot.stop();
+		int lineWidth = Motor.A.getTachoCount();
+		System.out.println(lineWidth);
+		
+		communicator.send(message);
+		
+		
+		
+	}
 
 	private void turnHeadLeft(int argument){
 		
@@ -88,12 +136,6 @@ public class CommandoListener implements Runnable {
 		System.out.println("L: " + Motor.C.getTachoCount());
 		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.UltrasonicSensor, new SensorValue((byte) listener.getSonarValue()));
 		communicator.send(message);
-//		try {
-//			Thread.sleep(1000);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			System.out.println("ii");
-//		}
 		message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
 		communicator.send(message);
 	}
@@ -104,12 +146,6 @@ public class CommandoListener implements Runnable {
 		System.out.println("R: " + Motor.C.getTachoCount());
 		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.UltrasonicSensor, new SensorValue((byte) listener.getSonarValue()));
 		communicator.send(message);
-//		try {
-//			Thread.sleep(1000);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			System.out.println("iiii");
-//		}
 		message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
 		communicator.send(message);
 		
@@ -121,9 +157,9 @@ public class CommandoListener implements Runnable {
 		LCD.drawString("BRUIN (enter)", 0, 0);
 		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
 		lejos.nxt.Button.ENTER.waitForPressAndRelease();
-		System.out.println("Bruin:" + listener.getLightValue());
-		lejos.nxt.Button.ENTER.waitForPressAndRelease();
+		setBrown(listener.getLightValue());
 		communicator.send(message);
+		System.out.println("OK");
 	}
 
 	private void calibrateWhite() {
@@ -137,9 +173,9 @@ public class CommandoListener implements Runnable {
 		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
 	//	System.out.println("send message enter");
 		lejos.nxt.Button.ENTER.waitForPressAndRelease();
-		System.out.println("Wit:" + listener.getLightValue());
-		lejos.nxt.Button.ENTER.waitForPressAndRelease();
+		setWhite(listener.getLightValue());
 		communicator.send(message);
+		System.out.println("OK");
 	}
 
 	private void calibrateBlack() {
@@ -147,9 +183,24 @@ public class CommandoListener implements Runnable {
 		LCD.drawString("BLACK (enter)", 0, 0);
 		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
 		lejos.nxt.Button.ENTER.waitForPressAndRelease();
-		System.out.println("Zwart:" + listener.getLightValue());
-		lejos.nxt.Button.ENTER.waitForPressAndRelease();
+		setBlack(listener.getLightValue());
 		communicator.send(message);
+		System.out.println("OK");
+	}
+	
+	public boolean iswhite(int value)
+	{
+		return value < getWhite() + (getBrown() - getWhite()) / 2;
+	}
+
+	public boolean isblack(int value)
+	{
+		return value > getBlack() - (getBlack() - getWhite()) / 2;
+	}
+
+	public boolean isbrown(int v)
+	{
+		return !isblack(v) && !iswhite(v);
 	}
 
 	public static Commando decodeCommando(int comm){
