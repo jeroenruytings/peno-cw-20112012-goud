@@ -14,6 +14,7 @@ public class PanelLayer implements PanelLayerInterface
 
 	MoverLayer mover;
 	public final static int distance = 400;
+	boolean isFirst = true;
 	
 
 	public PanelLayer(MoverLayer mover)
@@ -85,12 +86,17 @@ public class PanelLayer implements PanelLayerInterface
 			distanceToWall = mover.getUltrasonic();
 			System.out.println("Hasborder up: " + distanceToWall);
 			}
-			if (distanceToWall < 40)
+			if (distanceToWall < 25){
+				System.out.println("true");
 				return true;
-			else 
+			}
+			else {
+				System.out.println("false");
 				return false;
+			}
 			
 		case 1:
+			System.out.println("back = false");
 			return false;
 			
 		case 2:
@@ -110,10 +116,14 @@ public class PanelLayer implements PanelLayerInterface
 				System.out.println("Hasborder left: " + distanceToWall);
 				}
 			mover.turnHead(90);
-			if (distanceToWall < 40)
+			if (distanceToWall < 25){
+				System.out.println("true");
 				return true;
-			else
+			}
+			else{
+				System.out.println("false");
 				return false;
+			}
 		
 		case 3:
 			//RIGHT
@@ -132,10 +142,14 @@ public class PanelLayer implements PanelLayerInterface
 				System.out.println("Hasborder right: " + distanceToWall);
 				}
 			mover.turnHead(-90);
-			if (distanceToWall < 40)
+			if (distanceToWall < 25){
+				System.out.println("true");
 				return true;
-			else
+			}
+			else{
+				System.out.println("false");
 				return false;
+			}
 		}
 		return false;
 	}
@@ -171,7 +185,7 @@ public class PanelLayer implements PanelLayerInterface
 			mover.releaseButton();
 			Barcode code = mover.getBarcodeReader().searchForCode();
 			if(code!=null)
-				System.out.println("CODE " + code.getValue());
+				System.out.println("CODE " + code);
 			else
 				System.out.println("niet kunnen lezen");
 			return code;
@@ -204,18 +218,30 @@ public class PanelLayer implements PanelLayerInterface
 	{
 		Panel panel = new Panel();
 		for (Direction direction : Direction.values()) {
-			if(currentOrientation.addTo(direction).equals(currentOrientation.opposite())){
+			if(currentOrientation.addTo(direction).equals(currentOrientation.opposite())&&!isFirst){
 				panel.setBorder(currentOrientation.opposite().addTo(direction), false);
 			}
-			else{	
-				if(hasBorder(direction)){
-					panel.setBorder(currentOrientation.addTo(direction), true);
+			else{
+				if(!isFirst){
+					if(hasBorder(direction)){
+						panel.setBorder(currentOrientation.addTo(direction), true);
+					}
+					else{
+						panel.setBorder(currentOrientation.addTo(direction), false);
+					}
 				}
-				else{
-					panel.setBorder(currentOrientation.addTo(direction), false);
+				else {
+					if(hasFirstBorder(direction)){
+						panel.setBorder(currentOrientation.addTo(direction), true);
+					}
+					else{
+						panel.setBorder(currentOrientation.addTo(direction), false);
+					}
 				}
+					
 			}
 		}
+		isFirst = false;
 		mover.setHead(0);
 		if(hasBarcode()){
 			panel.setBarcode(getBarcode());
@@ -224,6 +250,103 @@ public class PanelLayer implements PanelLayerInterface
 		return panel;
 	}
 	
+	public boolean hasFirstBorder(Direction direction) {
+		int distanceToWall;
+		switch (direction.ordinal())
+		{
+		case 0:
+			System.out.println(mover.buttonIsPushed());
+			mover.turnHead(0);
+			distanceToWall = mover.getUltrasonic();
+			System.out.println("Hasborder up: " + distanceToWall);
+			if(distanceToWall == 255){	
+				mover.turnHead(0);
+				distanceToWall = mover.getUltrasonic();
+				System.out.println("Hasborder up: " + distanceToWall);
+			}
+			if (distanceToWall < 25){
+				System.out.println("true");
+				return true;
+			}
+			else {
+				System.out.println("false");
+				return false;
+			}
+		case 1:
+			mover.turn(180);
+			mover.turnHead(0);
+			distanceToWall = mover.getUltrasonic();
+			System.out.println("Hasborder down: " + distanceToWall);
+			mover.turn(-180);
+			if(distanceToWall == 255){	
+				mover.turnHead(0);
+				distanceToWall = mover.getUltrasonic();
+				System.out.println("Hasborder down: " + distanceToWall);
+			}
+			if (distanceToWall < 25){
+				System.out.println("true");
+				return true;
+			}
+			else {
+				System.out.println("false");
+				return false;
+			}
+			
+		case 2:
+			//LEFT
+			mover.turnHead(-90);
+			
+//			try {
+//				System.in.read();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+	//		}
+			distanceToWall = mover.getUltrasonic();
+			System.out.println("Hasborder left: " + distanceToWall);
+			if(distanceToWall == 255){	
+				mover.turnHead(0);
+				distanceToWall = mover.getUltrasonic();
+				System.out.println("Hasborder left: " + distanceToWall);
+				}
+			mover.turnHead(90);
+			if (distanceToWall < 25){
+				System.out.println("true");
+				return true;
+			}
+			else{
+				System.out.println("false");
+				return false;
+			}
+		
+		case 3:
+			//RIGHT
+			mover.turnHead(90);
+			
+//			try {
+//				System.in.read();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+			distanceToWall = mover.getUltrasonic();
+			System.out.println("Hasborder right: " + distanceToWall);
+			if(distanceToWall == 255){	
+				mover.turnHead(0);
+				distanceToWall = mover.getUltrasonic();
+				System.out.println("Hasborder right: " + distanceToWall);
+				}
+			mover.turnHead(-90);
+			if (distanceToWall < 25){
+				System.out.println("true");
+				return true;
+			}
+			else{
+				System.out.println("false");
+				return false;
+			}
+		}
+		return false;
+	}
+
 	@Override
 	public void correctToMiddle(){
 		if(!hasBarcode())

@@ -8,7 +8,7 @@ import pacmansystem.ai.robot.fysicalRobot.PanelColor;
 
 public class BarcodeFinder
 {
-	int _elems = 3;
+	int _elems = 8;
 	private Stack<ColorSegment> _colors;
 
 	public BarcodeFinder(Stack<ColorNode> colors, int elems)

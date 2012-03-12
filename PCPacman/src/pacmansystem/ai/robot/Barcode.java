@@ -15,7 +15,7 @@ public class Barcode
 			throw new Exception("barcode length wrong");
 		for(int i : code)
 			s+=i;
-		this.barcode = (Integer.parseInt(s));
+		this.barcode = (Integer.parseInt(s,2));
 	}
 	
 	/**
@@ -39,9 +39,15 @@ public class Barcode
 	
 	public int getBitString(){
 		char[] binairy = Integer.toBinaryString(barcode).toCharArray();
-		if (binairy.length != 8)
-			throw new BarcodeException("The given barcode-value does not exist!");
+	//	if (binairy.length != 8)
+		///	throw new BarcodeException("The given barcode-value does not exist!");
 		return Integer.parseInt((new String(binairy)));
+	}
+	public char[] getBitString2(){
+		return  Integer.toBinaryString(barcode).toCharArray();
+//		if (binairy.length != 8)
+//			throw new BarcodeException("The given barcode-value does not exist!");
+//		return Integer.parseInt((new String(binairy)));
 	}
 	
 	public int getValue(){
@@ -66,11 +72,21 @@ public class Barcode
 	 * @param args
 	 */
 	public static void main(String[] args){
-		
-		Barcode test = new Barcode(Integer.parseInt("10011011", 2));
-		System.out.println(new Barcode(155).getReverse());
-		System.out.println(new Barcode(155).getBitString());
-		System.out.println(test.equals(new Barcode(test.getReverse())));
+		try {
+			System.out.println(new Barcode(0,1,0,1,0,0,0,0));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	@Override
+	public String toString()
+	{
+		char[] rv =getBitString2();
+		String rev = new String(rv);
+		for(int i = 8;i>rv.length;i--)
+			rev="0"+rev;
+		return rev;
 	}
 	
 }

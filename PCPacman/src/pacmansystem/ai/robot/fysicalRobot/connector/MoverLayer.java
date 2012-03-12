@@ -239,8 +239,9 @@ public class MoverLayer
 	public void correctToMiddle(){
 		releaseButton();
 		pcc.sendCommando(new Commando(Action.CORRECT, 0, ""));
-		while(!buttonIsPushed()) ;
+		while(!buttonIsPushed());
 		releaseButton();
+		System.out.println("is released");
 	}
 
 
