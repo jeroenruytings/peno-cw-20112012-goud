@@ -254,15 +254,16 @@ public class RobotController
 
 	public Point lookForDestination()
 	{
-		return ssMostUnknown();
-		// return ssClosestPoint();
-		// Orientation orientation = nextMove();
-		// if (orientation == null)
-		// destination = searchNext();
-		// else
-		// destination = new Point(getCurrentX() + orientation.getXPlus(),
-		// getCurrentY() + orientation.getYPlus());
-		// return destination;
+//		return ssMostUnknown();
+//		 return ssClosestPoint();
+		Point destination = null;
+		Orientation orientation = nextMove();
+		if (orientation == null)
+			destination = searchNext();
+		else
+			destination = new Point(getCurrentX() + orientation.getXPlus(),
+					getCurrentY() + orientation.getYPlus());
+		 return destination;
 	}
 	private Point ssMostKnown()
 	{
@@ -329,7 +330,7 @@ public class RobotController
 	 */
 	private Orientation nextMove()
 	{
-		Point position = new Point(getCurrentX(), getCurrentY());
+		Point position = getCurrentPoint();
 		Orientation best = null;
 		int nbUnknowns = 0;
 		for (Orientation orientation : Orientation.values()) {

@@ -27,6 +27,8 @@ public class _RobotControllerTest
 
 		Panel p1 = new Panel();
 		p1.setBorder(Orientation.NORTH, true);
+		p1.setBorder(Orientation.SOUTH, true);
+		p1.setBorder(Orientation.WEST, true);
 		one.add(p1, new Point(0, 0));
 		System.out.println(main.lookForDestination());
 		assertEquals(main.lookForDestination(), new Point(1, 0));
@@ -53,6 +55,7 @@ public class _RobotControllerTest
 
 		Panel p5 = new Panel();
 		p5.setBorder(Orientation.SOUTH, true);
+		p5.setBorder(Orientation.WEST, true);
 		one.add(p5, new Point(0, 1));
 		System.out.println(main.lookForDestination());
 		assertEquals(main.lookForDestination(), new Point(0,2));
@@ -61,6 +64,7 @@ public class _RobotControllerTest
 		
 		Panel p9 = new Panel();
 		p9.setBorder(Orientation.EAST, true);
+		p9.setBorder(Orientation.WEST, true);
 		one.add(p9, new Point(0, 2));
 		System.out.println(main.lookForDestination());
 		assertEquals(main.lookForDestination(), new Point(0, 3));
@@ -68,6 +72,8 @@ public class _RobotControllerTest
 		main.setCurrentY(3);
 		
 		Panel p13 = new Panel();
+		p13.setBorder(Orientation.NORTH, true);
+		p13.setBorder(Orientation.WEST, true);
 		one.add(p13, new Point(0, 3));
 		System.out.println(main.lookForDestination());
 		assertEquals(main.lookForDestination(), new Point(1,3));
@@ -75,6 +81,7 @@ public class _RobotControllerTest
 		main.setCurrentY(3);
 
 		Panel p14 = new Panel();
+		p14.setBorder(Orientation.NORTH, true);
 		one.add(p14, new Point(1,3));
 		System.out.println(main.lookForDestination());
 		assertEquals(main.lookForDestination(), new Point(2, 3));
@@ -83,6 +90,7 @@ public class _RobotControllerTest
 
 		Panel p15 = new Panel();
 		p15.setBorder(Orientation.SOUTH, true);
+		p15.setBorder(Orientation.NORTH, true);
 		one.add(p15, new Point(2, 3));
 		System.out.println(main.lookForDestination());
 		assertEquals(main.lookForDestination(), new Point(3, 3));
@@ -90,6 +98,8 @@ public class _RobotControllerTest
 		main.setCurrentY(3);
 
 		Panel p16 = new Panel();
+		p16.setBorder(Orientation.EAST, true);
+		p16.setBorder(Orientation.NORTH, true);
 		one.add(p16, new Point(3, 3));
 		System.out.println(main.lookForDestination());
 		assertEquals(main.lookForDestination(), new Point(3, 2));
@@ -99,6 +109,7 @@ public class _RobotControllerTest
 		Panel p12 = new Panel();
 		one.add(p12, new Point(3, 2));
 		p12.setBorder(Orientation.WEST, true);
+		p12.setBorder(Orientation.EAST, true);
 		System.out.println(main.lookForDestination());
 		assertEquals(main.lookForDestination(), new Point(3, 1));
 		main.setCurrentX(3);
@@ -106,6 +117,7 @@ public class _RobotControllerTest
 
 		Panel p8 = new Panel();
 		p8.setBorder(Orientation.WEST, true);
+		p8.setBorder(Orientation.EAST, true);
 		one.add(p8, new Point(3, 1));
 		System.out.println(main.lookForDestination());
 		assertEquals(main.lookForDestination(), new Point(3, 0));
@@ -113,6 +125,8 @@ public class _RobotControllerTest
 		main.setCurrentY(0);
 
 		Panel p4 = new Panel();
+		p4.setBorder(Orientation.SOUTH, true);
+		p4.setBorder(Orientation.EAST, true);
 		one.add(p4, new Point(3, 0));
 		System.out.println(main.lookForDestination());
 		assertEquals(main.lookForDestination(), new Point(2,0));
@@ -122,6 +136,7 @@ public class _RobotControllerTest
 		Panel p3 = new Panel();
 		p3.setBorder(Orientation.NORTH, true);
 		p3.setBorder(Orientation.WEST, true);
+		p3.setBorder(Orientation.SOUTH, true);
 		one.add(p3, new Point(2, 0));
 		System.out.println(main.lookForDestination());
 		assertEquals(main.lookForDestination(), new Point(1, 3));

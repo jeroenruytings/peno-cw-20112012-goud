@@ -295,7 +295,7 @@ public class Board
 		int nbUnknown = 0;
 		//Collection<Point> points = getSurrounding(point);
 		for (Point current : getSurrounding(point)) {
-			if (panels.containsKey(current))
+			if (hasPanelAt(current))
 				continue;
 			if (wallBetween(point, current))
 				continue;
