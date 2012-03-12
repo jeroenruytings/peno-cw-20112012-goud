@@ -20,7 +20,6 @@ public class Main
 	public Main()
 	{
 		ModeChooser mc = new ModeChooser();
-		
 		RobotType[] choice = mc.getChoice();
 		RobotController[] robot = new RobotController[4];
 		simulatorWorld = Mainscreen.getRealWorld();
@@ -32,13 +31,7 @@ public class Main
 				robot[i] = initNewRobot(robotType);
 			}
 		}
-
-		for (RobotController r : robot){
-			r.join();
-		}
-		for (RobotController r : robot){
-			r.sendName();
-		}
+		
 		synchronized (robot[0].getWorld()) {
 			try {
 				robot[0].getWorld().wait();

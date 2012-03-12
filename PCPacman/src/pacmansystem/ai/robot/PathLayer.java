@@ -11,8 +11,9 @@ import util.board.Board;
 import util.board.shortestpathfinder.dijkstra.DijkstraFinder;
 import util.enums.Orientation;
 import util.world.RobotData;
+import util.world.RobotData2;
 
-public class PathLayer {
+public class PathLayer extends Layer {
 	
 	OrientationLayer orientationLayer;
 	public OrientationLayer getOrientationLayer() {
@@ -20,19 +21,15 @@ public class PathLayer {
 	}
 
 	private DijkstraFinder finder;
-	private RobotData data;
 	
-	public PathLayer(RobotData data, OrientationLayer layer){
-		orientationLayer = layer;
-		finder = new DijkstraFinder(data.getBoard());
-		this.data = data;
+	
+	
+	public PathLayer(OrientationLayer orientationLayer2,RobotData2 data)  {
+		super(data);
+		orientationLayer = orientationLayer2;	
+		
 	}
-	
-//	public PathLayer(Board board, RealWorld realworld){
-//		directionLayer = new OrientationLayer(realworld);
-//		finder = new ShortestPathFinder(board);
-//	}
-	
+
 	public void go(Point start, Point end) throws IllegalDriveException{
 		Iterable<Point> r = finder.shortestPath(start,end);
 		Iterator<Point> s = r.iterator();
@@ -45,17 +42,17 @@ public class PathLayer {
 				Orientation o = Board.getOrientationBetween(currentPoint, nextPoint);
 				orientationLayer.go(o);
 				currentPoint = nextPoint;
-				data.setPosition(currentPoint);
+				_data.setPosition(currentPoint);
 				try{
 					MessageSender.getInstance().sendMessage(
-							data.getName()
+							 _data.getName()
 							+ " POSITION "
 							+ pointToString(currentPoint)
 							+ "\n");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				data.setOrientation(o);
+				_data.setOrientation(o);
 			} catch (IllegalDriveException e) {
 				//fix things :D
 				throw new IllegalDriveException(e);

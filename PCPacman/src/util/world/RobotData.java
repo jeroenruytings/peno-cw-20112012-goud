@@ -5,6 +5,7 @@ import interfaces.pacmancomponents.BoardDisplay;
 import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +17,7 @@ import util.enums.Orientation;
 public class RobotData
 {
 
-	private Board board;
+	protected Board board;
 	// Pacman's location.
 	private Point pacman;
 	// All the locations pacman was sighted by this robot.
@@ -31,11 +32,6 @@ public class RobotData
 
 	private ArrayList<Point> plan;
 	
-	private Map<Barcode,Point> barcodes;
-
-	public Map<Barcode, Point> getBarcodes() {
-		return barcodes;
-	}
 
 	public void setName(String name){
 		this.name = name;
@@ -67,6 +63,7 @@ public class RobotData
 	{
 		board = new Board();
 		plan = new ArrayList<Point>();
+	
 	}
 
 	/**
@@ -92,7 +89,7 @@ public class RobotData
 	 */
 	public Board getBoard()
 	{
-		return this.board;
+		return new Board(this.board);
 	}
 
 	/**

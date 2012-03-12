@@ -4,8 +4,9 @@ import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
 import util.board.Panel;
 import util.enums.Direction;
 import util.enums.Orientation;
+import util.world.RobotData2;
 
-public class OrientationLayer
+public class OrientationLayer extends Layer
 {
 	private Orientation currentOrientation = Orientation.NORTH;
 
@@ -19,8 +20,9 @@ public class OrientationLayer
 	 * 
 	 * @param layer
 	 */
-	public OrientationLayer(PanelLayerInterface layer)
+	public OrientationLayer(PanelLayerInterface layer,RobotData2 data)
 	{
+		super(data);
 		this.layer = layer;
 	}
 	
@@ -56,6 +58,10 @@ public class OrientationLayer
 	public Orientation getOrientation()
 	{
 		return currentOrientation;
+	}
+
+	public void setData(RobotData2 data) {
+				
 	}
 
 }

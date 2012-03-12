@@ -37,6 +37,8 @@ public class World
 	public void register()
 	{
 		registeredRobots++;
+		if(registeredRobots==4)
+			_rcf.lock.notify();
 	}
 	/**
 	 * 
@@ -55,13 +57,13 @@ public class World
 			this.notify();
 	}
 	
-//	public void addRobot(RobotData robot, String name){
-//		_robots.put(name, robot);
-//	}
-	
-	
+	public void addRobot(RobotData robot, String name){
+		_robots.put(name, robot);
+	}
 
 	private Board globalBoard;
+	private VirtualRobotControllerFactory _rcf;
+	
 	public Board getGlobalBoard()
 	{
 		globalBoard = new Board();
@@ -80,6 +82,10 @@ public class World
 				globalBoard = BoardUnifier.unify(globalBoard, data.getBoard());
 		}
 		return globalBoard;
+	}
+	
+	public void waitForJoins(VirtualRobotControllerFactory robotControllerFactory) {
+		_rcf = robotControllerFactory;
 	}
 	
 
