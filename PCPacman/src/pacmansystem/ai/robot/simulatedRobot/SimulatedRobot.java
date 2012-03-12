@@ -91,4 +91,10 @@ public class SimulatedRobot implements PanelLayerInterface
 		}
 	}
 
+	@Override
+	public void correctToMiddle() {
+		// niet nodig voor virtuele robot
+		
+	}
+
 }

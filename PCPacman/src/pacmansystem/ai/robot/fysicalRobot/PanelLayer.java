@@ -223,4 +223,10 @@ public class PanelLayer implements PanelLayerInterface
 		}
 		return panel;
 	}
+	
+	@Override
+	public void correctToMiddle(){
+		if(!hasBarcode())
+			mover.correctToMiddle();
+	}
 }

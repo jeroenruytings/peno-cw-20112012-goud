@@ -39,5 +39,7 @@ public interface PanelLayerInterface
 	public abstract boolean getPacman();
 
 	public abstract Panel getPanel(Orientation currentOrientation);
+	
+	public abstract void correctToMiddle();
 
 }
