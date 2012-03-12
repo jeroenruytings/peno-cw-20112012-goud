@@ -1,6 +1,7 @@
 package util.board;
 
 import pacmansystem.ai.robot.Barcode;
+import util.enums.Direction;
 import util.enums.Orientation;
 
 public class Panel
@@ -73,9 +74,28 @@ public class Panel
 		return result;
 		
 	}
+	public String toString()
+	{
+		return bordersToString();
+	}
 
 	public void setBarcodeOrientation(Orientation currentOrientation) {
 		barcodeOrientation = currentOrientation;
+	}
+	public boolean equal(Object o)
+	{
+		Panel that;
+		if(o instanceof Panel)
+			that = (Panel)o;
+		else
+			return false;
+		for(Orientation d:Orientation.values())
+			if(this.hasBorder(d)!=that.hasBorder(d))
+				return false;
+		if(this.hasBarcode())
+			if(!that.hasBarcode())
+				return false;
+		return false;
 	}
 
 }

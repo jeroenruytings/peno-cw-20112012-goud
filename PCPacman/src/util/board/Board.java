@@ -71,6 +71,8 @@ public class Board
 	{
 //		if (conflicting(p, panel))
 //			throw new IllegalArgumentException("Paneel fout: " + p);
+		if(panel==null){
+			panels.remove(p);return;}
 		panels.put(p, panel);
 		calcDimensions();
 	}
@@ -331,6 +333,18 @@ public class Board
 			}
 		}
 		return rv;
+	}
+	public boolean equals(Object o)
+	{
+		Board that;
+		if(o instanceof Board)
+			that = (Board)o;
+		else 
+			return false;
+	for(Point point:getFilledPoints())
+		if(!getPanelAt(point).equals(that.getPanelAt(point)))
+			return false;
+			return true;
 	}
 
 }

@@ -5,6 +5,9 @@ import java.awt.Point;
 import pacmansystem.ai.robot.Barcode;
 
 import util.board.Board;
+import util.board.Panel;
+import util.enums.Direction;
+import util.enums.Orientation;
 
 public  class Operations
 {
@@ -48,6 +51,17 @@ public  class Operations
 		private interface turn
 		{
 			Point exec(Point point);
+		}
+
+		public Direction getDir() {
+			switch(this)
+			{
+			case LEFT:
+				return Direction.RIGHT;
+			case RIGHT:
+				return Direction.LEFT;
+			}
+			return Direction.UP;
 		}
 	}
 	/**
@@ -96,9 +110,21 @@ public  class Operations
 	{
 		Board rv = new Board();
 		for (Point point : board.getFilledPoints()) {
-			rv.add(board.getPanelAt(point), turn(point, around, turn));
+			Panel p = board.getPanelAt(point);
+			rv.add(turn(board.getPanelAt(point),turn), turn(point, around, turn));
 		}
 		return rv;
+	}
+	private static Panel turn(Panel panelAt, Turn turn) {
+		Panel rv = new Panel();
+		for(Orientation d:Orientation.values())
+			rv.setBorder( d.addTo(turn.getDir()),panelAt.hasBorder(d));
+		if(!panelAt.hasBarcode())
+			return rv;
+		rv.setBarcode(panelAt.getBarcode());
+		rv.setBarcodeOrientation(panelAt.getBarcodeOrientation().addTo(turn.getDir()));
+	
+	return rv;
 	}
 
 }

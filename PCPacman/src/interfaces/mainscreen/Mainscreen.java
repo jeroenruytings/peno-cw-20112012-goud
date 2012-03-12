@@ -57,7 +57,7 @@ public class Mainscreen implements ActionListener, Runnable
 	private JFrame frmPacman;
 	private static final float FONT_SIZE = 11;
 	private static Font pacmanFont = null;
-	private static int frameRate = 10; // Framerate in frames per second.
+	private static int frameRate = 5; // Framerate in frames per second.
 	
 	/**
 	 * Launch the application.

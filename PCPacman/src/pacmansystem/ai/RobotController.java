@@ -99,7 +99,7 @@ public class RobotController
 				e.printStackTrace();
 			}
 			if (p1.hasBarcode()) 
-				sendBarcode(p1.getBarcode());
+				sendBarcode(p1.getBarcode(),p1.getBarcodeOrientation());
 
 //			for(RobotData data: world.get_robots().values())
 //			{
@@ -214,12 +214,12 @@ public class RobotController
 		return data.getBoard();
 	}
 
-	private void sendBarcode(Barcode barcode)
+	private void sendBarcode(Barcode barcode,Orientation o)
 	{
 		try {
 			MessageSender.getInstance().sendMessage(
 					getName() + " BARCODE " + barcode.getValue() + " "
-							+ orientationToString(getCurrentOrientation()) + "\n");
+							+ orientationToString(o) + "\n");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -264,6 +264,7 @@ public class RobotController
 			destination = new Point(getCurrentX() + orientation.getXPlus(),
 					getCurrentY() + orientation.getYPlus());
 		 return destination;
+
 	}
 	private Point ssMostKnown()
 	{
@@ -336,11 +337,13 @@ public class RobotController
 		for (Orientation orientation : Orientation.values()) {
 			if (getBoard().wallBetween(position, orientation))
 				continue;
+			if (getBoard().hasPanelAt(orientation.addTo(getCurrentPoint())))
+				continue;
 			Point possibleDest = new Point(getCurrentX()
 					+ orientation.getXPlus(), getCurrentY()
 					+ orientation.getYPlus());
 			int temp = getBoard().nbOfUnknowns(possibleDest);
-			if (temp > nbUnknowns) {
+			if (temp >= nbUnknowns) {
 				best = orientation;
 				nbUnknowns = temp;
 			}

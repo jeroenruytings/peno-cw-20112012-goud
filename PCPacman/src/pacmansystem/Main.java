@@ -48,13 +48,16 @@ public class Main
 		}
 		Mainscreen gui = new Mainscreen();
 
-		for (RobotData r : robot[0].getWorld().get_robots().values())
-			gui.setRobotData(r);
+		for (RobotController r : robot)
+//		for (RobotData r : robot[0].getWorld().get_robots().values())
+			gui.setRobotData(r.getData());
 		
 		gui.setWorld(robot[0].getWorld());
 		gui.start();
-		for(RobotController r:robot)
-			gogo(r);
+		gogo(robot[0]);
+		gogo(robot[1]);
+		gogo(robot[2]);
+		gogo(robot[3]);
 	}
 	void gogo(final RobotController c)
 	{

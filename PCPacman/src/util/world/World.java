@@ -61,9 +61,10 @@ public class World
 	
 	
 
-	private Board globalBoard = new Board();
+	private Board globalBoard;
 	public Board getGlobalBoard()
 	{
+		globalBoard = new Board();
 		//TODO: Werk beter uit.
 		// Just trying to make is work.
 		// --> Dus ge moet ni komen klagen tegen mij (Jannes). K zal dit ooit wel is fixen :P

@@ -72,6 +72,8 @@ public class Barcode
 	 * @param args
 	 */
 	public static void main(String[] args){
+		Barcode test = new Barcode(Integer.parseInt("10010001", 2));
+		System.out.println(new Barcode(test.getReverse()).getBitString());
 		try {
 			System.out.println(new Barcode(0,1,0,1,0,0,0,0));
 		} catch (Exception e) {

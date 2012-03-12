@@ -2,6 +2,8 @@ package util.board.operations;
 
 import static org.junit.Assert.*;
 
+import interfaces.mainscreen.Mainscreen;
+
 import java.awt.Point;
 import java.util.HashMap;
 
@@ -11,6 +13,8 @@ import pacmansystem.ai.robot.Barcode;
 
 import util.board.Board;
 import util.board.Panel;
+import util.board.operations.Operations.Turn;
+import util.world.RealWorld;
 
 public class _TestBoardUnifier
 {
@@ -37,7 +41,22 @@ public class _TestBoardUnifier
 			System.out.println(p);
 		assertTrue(true);
 	}
-
+	@Test
+	public void r()
+	{
+		Board one = Mainscreen.getRealWorld().getGlobalBoard();
+		Board r = new Board(one);
+		Board two = new Board(one);
+		one = Operations.translate(one, new Point(1,0));
+		one = Operations.turn(one, new Point(1,1), Turn.LEFT);
+		
+		for(Point point:two.getFilledPoints())
+			if(!two.getPanelAt(point).hasBarcode())
+				two.add(null, point);
+		Board result = BoardUnifier.unify(two, one);
+		System.out.println(result.getPanelAt(new Point(0,0)));
+		assertTrue(result.equals(r));
+	}
 	private Board genBoard1()
 	{
 		Panel p1 = new Panel();
