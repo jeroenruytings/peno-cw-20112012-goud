@@ -95,7 +95,11 @@ public class BoardCreator
 			else if (tmp instanceof CommandBarcodeAt){
 				CommandBarcodeAt cmd = ((CommandBarcodeAt)tmp);
 				try {
-					b.setBarcode(cmd.getCoordinate(),new Barcode(cmd.getBarcode()),cmd.getDirection());
+					// TODO: FIX!!!
+					int barcode;
+					barcode = (cmd.getBarcode() * 2);
+					barcode ^= 255;
+					b.setBarcode(cmd.getCoordinate(),new Barcode(barcode),cmd.getDirection());
 				} catch (ParseException e) {
 					// If the orientation of the barcode isn't correctly read, then do nothing with the barcode.
 					e.printStackTrace();
