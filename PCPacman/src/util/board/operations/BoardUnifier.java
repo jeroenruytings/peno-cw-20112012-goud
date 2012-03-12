@@ -20,15 +20,19 @@ public class BoardUnifier
 		Map<Barcode,Point> barcodesThiz = findBarcodes(thiz);
 		Map<Barcode,Point> barcodesThat = findBarcodes(that);
 		ArrayList<Barcode> commonCodes = filterCodes(barcodesThiz, barcodesThat);
-		if(commonCodes.size()<2)
+		if(commonCodes.size()<4)
 			return thiz;
 		Barcode barcode= commonCodes.get(0);
 		Point origin = barcodesThiz.get(barcode);
 		Point vector =Operations.min(origin, barcodesThat.get(barcode));
 		Board translated = Operations.translate(that, vector);
 		barcodesThat = findBarcodes(translated);
-		Point p2 = barcodesThat.get(commonCodes.get(1));
-		Point target = barcodesThiz.get(commonCodes.get(1));
+		Barcode other =commonCodes.get(2);
+		for(Barcode c:commonCodes)
+			if(!c.equals(barcode))
+				other = c;
+		Point p2 = barcodesThat.get(other);
+		Point target = barcodesThiz.get(other);
 		int count =0;
 		while(count<4&&!p2.equals(target))
 		{
@@ -76,8 +80,10 @@ public class BoardUnifier
 	{
 		Map<Barcode,Point> rv = new HashMap<Barcode, Point>();
 		for(Point p:board.getFilledPoints())
-			if(board.getPanelAt(p).hasBarcode())
+			if(board.getPanelAt(p).hasBarcode()){
 				rv.put(board.getPanelAt(p).getBarcode(), p);
+
+				rv.put(new Barcode(board.getPanelAt(p).getBarcode().getReverse()), p);}
 		return rv;
 	}
 }
