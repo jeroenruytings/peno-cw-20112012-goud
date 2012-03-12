@@ -148,10 +148,6 @@ public class RobotData
 		clearPlan();
 		plan = newPlan;
 	}
-
-//	public void setBoard(Board globalBoard) {
-//		this.board = globalBoard;
-//	}
 	
 	public String toString(){
 		return getName();

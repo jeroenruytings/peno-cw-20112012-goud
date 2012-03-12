@@ -57,6 +57,7 @@ public class Mainscreen implements ActionListener, Runnable
 	private JFrame frmPacman;
 	private static final float FONT_SIZE = 11;
 	private static Font pacmanFont = null;
+	private static int frameRate = 10; // Framerate in frames per second.
 	
 	/**
 	 * Launch the application.
@@ -94,7 +95,7 @@ public class Mainscreen implements ActionListener, Runnable
 	public void run(){
 		while(frmPacman.isVisible()){
 			try {
-				Thread.sleep(100);
+				Thread.sleep(1000 / frameRate);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -303,98 +304,6 @@ public class Mainscreen implements ActionListener, Runnable
 		 for (Component tmp : radioButtonList)
 			 tmp.setVisible(false);
 		radioButtonList.get(Integer.parseInt(e.getActionCommand())).setVisible(true);
-	}
-//	Board board = new Board(5, 5);
-//	Board one = new Board(4, 4);
-//	Panel panel1 = new Panel();
-//	Panel panel2 = new Panel();
-//	Panel panel3 = new Panel();
-//	RobotData srd = new RobotData(one);
-//	{
-//		panel1.setBorder(Orientation.NORTH, true);
-//		panel1.setBorder(Orientation.WEST, true);
-//		panel2.setBorder(Orientation.WEST, true);
-//		panel2.setBorder(Orientation.EAST, true);
-//		panel2.setBorder(Orientation.SOUTH, true);
-//		panel3.setBorder(Orientation.NORTH, true);
-//		panel3.setBorder(Orientation.EAST, true);
-//		panel3.setBorder(Orientation.SOUTH, true);
-//		board.add(panel1, new Point(0, 0));
-//		board.add(panel2, new Point(0, 1));
-//		board.add(panel3, new Point(1, 0));
-//		srd.setPosition(new Point(0, 1));
-//		srd.setPacman(new Point(0, 0));
-//	}
-	
-	{
-		
-
-//		Panel p1 = new Panel();
-//		Panel p2 = new Panel();
-//		 Panel p3 = new Panel();
-//		 Panel p4 = new Panel();
-//		 Panel p5 = new Panel();
-//		 Panel p6 = new Panel();
-//		 Panel p7 = new Panel();
-//		 Panel p8 = new Panel();
-//		 Panel p9 = new Panel();
-//		 Panel p10 = new Panel();
-//		 Panel p11 = new Panel();
-//		 Panel p12 = new Panel();
-//		 Panel p13 = new Panel();
-//		 Panel p14 = new Panel();
-//		 Panel p15 = new Panel();
-//		 Panel p16 = new Panel();
-//		p1.setBorder(Orientation.EAST, true);
-//		p2.setBorder(Orientation.WEST, true);
-//		 p3.setBorder(Orientation.SOUTH, true);
-//		 p5.setBorder(Orientation.SOUTH, true);
-//		 p6.setBorder(Orientation.SOUTH, true);
-//		 p6.setBorder(Orientation.EAST, true);
-//		 p7.setBorder(Orientation.NORTH, true);
-//		 p7.setBorder(Orientation.WEST, true);
-//		 p9.setBorder(Orientation.NORTH, true);
-//		 p9.setBorder(Orientation.EAST, true);
-//		 p10.setBorder(Orientation.NORTH, true);
-//		 p10.setBorder(Orientation.SOUTH, true);
-//		 p10.setBorder(Orientation.WEST, true);
-//		 p11.setBorder(Orientation.EAST, true);
-//		 p11.setBorder(Orientation.SOUTH, true);
-//		 p12.setBorder(Orientation.WEST, true);
-//		 p14.setBorder(Orientation.NORTH, true);
-//		 p15.setBorder(Orientation.NORTH, true);
-//		 p16.setBorder(Orientation.SOUTH, true);
-//		 p16.setBorder(Orientation.EAST, true);
-//		 p14.setBorder(Orientation.SOUTH, true);
-//		 p13.setBorder(Orientation.SOUTH, true);
-//		 p13.setBorder(Orientation.WEST, true);
-//		 p9.setBorder(Orientation.WEST, true);
-//		 p5.setBorder(Orientation.WEST, true);
-//		 p15.setBorder(Orientation.SOUTH, true);
-//		 p1.setBorder(Orientation.WEST, true);
-//		 p1.setBorder(Orientation.NORTH, true);
-//		 p2.setBorder(Orientation.NORTH, true);
-//		 p3.setBorder(Orientation.NORTH, true);
-//		 p4.setBorder(Orientation.NORTH, true);
-//		 p4.setBorder(Orientation.EAST, true);
-//		 p8.setBorder(Orientation.EAST, true);
-//		 p12.setBorder(Orientation.EAST, true);
-//		one.add(p1, new Point(0, 0));
-//		one.add(p2, new Point(1, 0));
-//		 one.add(p3, new Point(2,0));
-//		 one.add(p4, new Point(3,0));
-//		 one.add(p5, new Point(0,1));
-//		 one.add(p6, new Point(1,1));
-//		 one.add(p7, new Point(2,1));
-//		 one.add(p8, new Point(3,1));
-//		 one.add(p9, new Point(0,2));
-//		 one.add(p10, new Point(1,2));
-//		 one.add(p11, new Point(2,2));
-//		 one.add(p12, new Point(3,2));
-//		 one.add(p13, new Point(0,3));
-//		 one.add(p14, new Point(1,3));
-//		 one.add(p15, new Point(2,3));
-//		 one.add(p16, new Point(3,3));
 	}
 	
 	/**

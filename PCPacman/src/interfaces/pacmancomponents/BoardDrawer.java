@@ -419,6 +419,8 @@ public class BoardDrawer
 			Point initialCoord, Point panelCoord, int panelHeight,
 			int panelWidth, Barcode barcode, Orientation orient)
 	{
+		Color clr1 = new Color(	135,206,250);
+		Color clr2 = Color.BLUE;
 		if (orient == Orientation.NORTH || orient == Orientation.SOUTH)
 			BarcodePanel.drawBarcode(g,
 					initialCoord.x + (panelCoord.x * panelWidth) + SPACE + 2,
@@ -426,8 +428,8 @@ public class BoardDrawer
 					panelHeight - ((panelHeight / AWAYFROMBORDER) * 2), 
 					panelWidth - ((SPACE + 1) * 2), 
 					barcode,
-					Color.WHITE,
-					Color.BLUE,
+					clr1,
+					clr2,
 					orient);
 		else
 			BarcodePanel.drawBarcode(g,
@@ -436,8 +438,8 @@ public class BoardDrawer
 					panelHeight - ((SPACE + 1)  * 2), 
 					panelWidth - ((panelHeight / AWAYFROMBORDER) * 2), 
 					barcode,
-					Color.WHITE,
-					Color.BLUE,
+					clr1,
+					clr2,
 					orient);
 	}
 

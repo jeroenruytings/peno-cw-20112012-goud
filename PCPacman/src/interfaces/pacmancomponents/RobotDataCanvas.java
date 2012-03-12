@@ -1,6 +1,8 @@
 package interfaces.pacmancomponents;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
 
 import util.board.Board;
 import util.world.RobotData;
@@ -21,6 +23,11 @@ public class RobotDataCanvas extends BoardDisplay
 		data = robot;
 	}
 
+	
+	
+	protected void drawPacman(Graphics g, Point position, Color color){
+		super.drawPacman(g, position, Color.YELLOW);
+	}
 
 	@Override
 	public Board getBoard() {

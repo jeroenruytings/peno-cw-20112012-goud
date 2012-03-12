@@ -64,7 +64,7 @@ public class World
 	private Board globalBoard = new Board();
 	public Board getGlobalBoard()
 	{
-		//TODO: Werkt beter uit.
+		//TODO: Werk beter uit.
 		// Just trying to make is work.
 		// --> Dus ge moet ni komen klagen tegen mij (Jannes). K zal dit ooit wel is fixen :P
 		boolean first = true;
