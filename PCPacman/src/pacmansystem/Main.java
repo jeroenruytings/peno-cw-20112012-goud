@@ -20,10 +20,10 @@ public class Main
 	public Main()
 	{
 		ModeChooser mc = new ModeChooser();
-		simulatorWorld = Mainscreen.getRealWorld();
+		
 		RobotType[] choice = mc.getChoice();
 		RobotController[] robot = new RobotController[4];
-		
+		simulatorWorld = Mainscreen.getRealWorld();
 		for (int i = 0; i < choice.length; i++) {
 			RobotType robotType = choice[i];
 			if (robotType == RobotType.PHYSICALROBOT)
