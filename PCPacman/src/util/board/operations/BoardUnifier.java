@@ -10,6 +10,7 @@ import pacmansystem.ai.robot.Barcode;
 
 import util.board.Board;
 import util.board.operations.Operations.Turn;
+import util.enums.Direction;
 import util.help.Filter;
 
 public class BoardUnifier
@@ -47,7 +48,45 @@ public class BoardUnifier
 		return rv;
 		
 	}
-
+	public static Board unify2(Board thiz,Board that)
+	{
+		Board rv = new Board();
+		Map<Barcode,Point> barcodesThiz = findBarcodes(thiz);
+		Map<Barcode,Point> barcodesThat = findBarcodes(that);
+		ArrayList<Barcode> commonCodes = filterCodes(barcodesThiz, barcodesThat);
+		if(commonCodes.size()<2)
+			return thiz;
+		Barcode barcode= commonCodes.get(0);
+		Point origin = barcodesThiz.get(barcode);
+		Point target=barcodesThat.get(barcode);
+		Point vector =Operations.min(origin, target);
+		Board translated = Operations.translate(that, vector);
+		barcodesThat = findBarcodes(translated);
+		
+		Direction d = Direction.diff(thiz.getPanelAt(origin).getBarcodeOrientation(), translated.getPanelAt(origin).getBarcodeOrientation());
+		int count =0;
+		switch(d)
+		{
+		case UP:
+			count =0;
+			break;
+		case DOWN:
+			count=2;
+			break;
+		case LEFT:
+			count =1;
+			break;
+		case RIGHT:
+			count =3;
+			break;
+		}
+		
+		for(int i =0;i<count;i++)
+			translated=Operations.turn(translated, origin, Turn.LEFT);
+		rv=merge(thiz,translated);
+		return rv;
+		
+	}
 	private static Board merge(Board thiz, Board translated)
 	{
 		Board rv = new Board();

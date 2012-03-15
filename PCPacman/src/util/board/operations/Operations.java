@@ -57,9 +57,9 @@ public  class Operations
 			switch(this)
 			{
 			case LEFT:
-				return Direction.RIGHT;
-			case RIGHT:
 				return Direction.LEFT;
+			case RIGHT:
+				return Direction.RIGHT;
 			}
 			return Direction.UP;
 		}
@@ -115,7 +115,7 @@ public  class Operations
 		}
 		return rv;
 	}
-	private static Panel turn(Panel panelAt, Turn turn) {
+	static Panel turn(Panel panelAt, Turn turn) {
 		Panel rv = new Panel();
 		for(Orientation d:Orientation.values())
 			rv.setBorder( d.addTo(turn.getDir()),panelAt.hasBorder(d));
