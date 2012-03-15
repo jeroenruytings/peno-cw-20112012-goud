@@ -1,5 +1,6 @@
 package Robot;
 
+import lejos.nxt.Button;
 import lejos.nxt.LCD;
 import lejos.nxt.Motor;
 import lejos.robotics.proposal.DifferentialPilot;
@@ -40,7 +41,7 @@ public class CommandoListener implements Runnable {
 	public CommandoListener(SensorListener listener){
 		
 		communicator = RobotCommunicator.instance();
-		pilot = new DifferentialPilot(54.25f, 54.75f, 148.35f, Motor.A, Motor.B, false);
+		pilot = new DifferentialPilot(54.5f, 54.75f, 148.35f, Motor.A, Motor.B, false);
 		this.listener = listener;
 	}
 	
@@ -112,18 +113,31 @@ public class CommandoListener implements Runnable {
 	private void correctToMiddle() {
 		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
 		pilot.rotate(180);
-		while(isbrown(listener.getLightValue()))
-			pilot.forward();
+		Motor.A.setSpeed(360);
+		Motor.B.setSpeed(360);
+		
+		while(!iswhite(listener.getLightValue())){
+			Motor.A.forward();
+			Motor.B.forward();
+		}
+			
 		pilot.stop();
+		
+		Motor.A.setSpeed(60);
+		Motor.B.setSpeed(60);
 		
 		Motor.A.resetTachoCount();
 		
-		while(!isbrown(listener.getLightValue()))
-			pilot.forward();
+		while(iswhite(listener.getLightValue())){
+			Motor.A.forward();
+			Motor.B.forward();
+		}
+			
 		pilot.stop();
 		int lineWidth = Motor.A.getTachoCount();
-		System.out.println(lineWidth);
 		
+		System.out.println("breedte = " + lineWidth);
+		Button.ENTER.waitForPressAndRelease();
 		communicator.send(message);
 		
 		
@@ -230,6 +244,8 @@ public class CommandoListener implements Runnable {
 			return new Commando(Action.HEADRIGHT,comm-(k*1000), "");
 		case 10:
 			return new Commando(Action.HEADLEFT, comm-(k*1000), "");
+		case 11:
+			return new Commando(Action.CORRECT, comm-(k*1000), "");
 		//nog extra commando's invoegen;
 		default:
 			return null;
@@ -238,11 +254,19 @@ public class CommandoListener implements Runnable {
 	}
 	
 	public void readBarcode(){
+		Motor.A.resetTachoCount();
+//		Button.ENTER.waitForPressAndRelease();
 		pilot.travel(-160);
+		Motor.A.resetTachoCount();
+//		Button.ENTER.waitForPressAndRelease();
 		pilot.travel(320);
 		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
 		communicator.send(message);
+		Motor.A.resetTachoCount();
+//		Button.ENTER.waitForPressAndRelease();
 		pilot.travel(-160);
+		Motor.A.resetTachoCount();
+//		Button.ENTER.waitForPressAndRelease();
 	}
 	
 private void right(int i) {

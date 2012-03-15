@@ -78,6 +78,7 @@ public class SensorListener implements Runnable {
 		// send direction ir	
 			if(irDirection != getIrDirection()){
 				irDirection = getIrDirection();
+				System.out.println(irDirection);
 		sendValue(irDirection, SensorIdentifier.DirectionIrSensor);
 			}
 		Thread.yield();
@@ -98,7 +99,7 @@ public class SensorListener implements Runnable {
 //		Thread.yield();
 		
 		//sent Tachocount
-			if(tachoCount != getTachoCount()){
+			if(tachoCount != getTachoCount() && getTachoCount()>=0){
 				tachoCount = getTachoCount();
 		sendValue(tachoCount, SensorIdentifier.TachoCount);
 			}
@@ -114,7 +115,7 @@ public class SensorListener implements Runnable {
 	}
 
 	public int getTachoCount() {
-		return motor.getTachoCount();
+		return motor.getTachoCount()/4;
 	}
 
 	public int getIrDirection() {
