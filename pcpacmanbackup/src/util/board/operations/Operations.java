@@ -115,7 +115,7 @@ public  class Operations
 		}
 		return rv;
 	}
-	static Panel turn(Panel panelAt, Turn turn) {
+	public static Panel turn(Panel panelAt, Turn turn) {
 		Panel rv = new Panel();
 		for(Orientation d:Orientation.values())
 			rv.setBorder( d.addTo(turn.getDir()),panelAt.hasBorder(d));

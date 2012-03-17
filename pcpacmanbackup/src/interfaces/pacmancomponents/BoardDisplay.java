@@ -15,6 +15,7 @@ import javax.imageio.ImageIO;
 import util.board.Board;
 import util.enums.Orientation;
 import util.world.RobotData;
+import util.world.RobotDataView;
 
 public abstract class BoardDisplay extends Canvas
 {
@@ -100,7 +101,7 @@ public abstract class BoardDisplay extends Canvas
 
 			bufferedGraphics.clearRect(0, 0, getWidth(), getHeight());
 			drawBoard(bufferedGraphics);
-			for (RobotData r : robots){
+			for (RobotDataView r : robots){
 				drawRobot(bufferedGraphics, r.getPosition(), r.getOrientation(), r.getRobotColor());
 			drawPacman(bufferedGraphics, r.getPacmanLastSighted(), r.getRobotColor());
 			}

@@ -17,6 +17,7 @@ import util.board.operations.BoardUnifier;
 import util.board.shortestpathfinder.dijkstra.DijkstraFinder;
 import util.enums.Orientation;
 import util.world.RobotData;
+import util.world.RobotDataView;
 import util.world.World;
 
 import communicator.be.kuleuven.cs.peno.MessageReceiver;
@@ -115,7 +116,7 @@ public class RobotController
 //				}
 			}
 
-			for(RobotData data: world.get_robots().values())
+			for(RobotDataView data: world.get_robots().values())
 			{
 				Board newBoard = BoardUnifier.unify2(getBoard(), data.getBoard());
 				for(Point point: newBoard.getFilledPoints())
@@ -168,7 +169,7 @@ public class RobotController
 
 	private void checkForNewInfo()
 	{
-		for (RobotData robot : getConvertors().keySet()) {
+		for (RobotDataView robot : getConvertors().keySet()) {
 			for (Point pointFromBoard : robot.getBoard().getPanels().keySet()) {
 				Point pointBoard = getConvertors().get(robot).convert(
 						pointFromBoard);
@@ -489,7 +490,7 @@ public class RobotController
 	}
 
 	public Map<Orientation, Orientation> getRelativeOrientationAfterBarcode(
-			RobotData firstRobot, RobotData secondRobot,
+			RobotDataView firstRobot, RobotDataView secondRobot,
 			Point barcodePointFirstRobot, Point barcodePointSecondRobot)
 	{
 		Panel p1 = firstRobot.getBoard().getPanelAt(barcodePointFirstRobot);

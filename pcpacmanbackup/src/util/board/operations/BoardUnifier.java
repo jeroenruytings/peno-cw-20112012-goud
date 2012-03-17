@@ -73,7 +73,7 @@ public class BoardUnifier
 		return rv;
 		
 	}
-	static int calculateTurns(Panel panelThiz, Panel panelThat) {
+	public static int calculateTurns(Panel panelThiz, Panel panelThat) {
 		Barcode one = panelThiz.getBarcode();
 		Barcode two = panelThat.getBarcode();
 		Direction direction;
@@ -109,7 +109,7 @@ public class BoardUnifier
 		return rv;
 	}
 
-	private static ArrayList<Barcode> filterCodes(
+	public static ArrayList<Barcode> filterCodes(
 			Map<Barcode, Point> barcodesThiz, Map<Barcode, Point> barcodesThat)
 	{
 		return new ArrayList<Barcode>( Filter.filter(barcodesThiz.keySet(), new Filter<Barcode>(barcodesThat.keySet())
@@ -124,7 +124,7 @@ public class BoardUnifier
 		}));
 	}
 
-	private static Map<Barcode, Point> findBarcodes(Board board)
+	public static Map<Barcode, Point> findBarcodes(Board board)
 	{
 		Map<Barcode,Point> rv = new HashMap<Barcode, Point>();
 		for(Point p:board.getFilledPoints())

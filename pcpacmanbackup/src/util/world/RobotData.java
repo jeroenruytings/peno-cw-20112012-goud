@@ -14,7 +14,7 @@ import pacmansystem.ai.robot.Barcode;
 import util.board.Board;
 import util.enums.Orientation;
 
-public class RobotData
+public class RobotData implements RobotDataView
 {
 
 	private Board board;
@@ -34,6 +34,7 @@ public class RobotData
 	
 	private Map<Barcode,Point> barcodes = new HashMap<Barcode,Point>();
 
+//TODO: is dit nodig ?
 	public Map<Barcode, Point> getBarcodes() {
 		return barcodes;
 	}
@@ -42,12 +43,20 @@ public class RobotData
 		this.name = name;
 	}
 	
+	/* (non-Javadoc)
+	 * @see util.world.RobotDataView#getName()
+	 */
+	@Override
 	public String getName(){
 		return name;
 	}
 	
 	private boolean capturedPacman;
 
+	/* (non-Javadoc)
+	 * @see util.world.RobotDataView#isCapturedPacman()
+	 */
+	@Override
 	public boolean isCapturedPacman()
 	{
 		return capturedPacman;
@@ -88,30 +97,37 @@ public class RobotData
 		pacman = location;
 	}
 
-	/**
-	 * @return The board this robot has created.
+	/* (non-Javadoc)
+	 * @see util.world.RobotDataView#getBoard()
 	 */
+	@Override
 	public Board getBoard()
-	{
+	{//TODO: wille we references meegeven?
 		return this.board;
 	}
 
-	/**
-	 * @return The location pacman was last seen by this robot.
+	/* (non-Javadoc)
+	 * @see util.world.RobotDataView#getPacmanLastSighted()
 	 */
+	@Override
 	public Point getPacmanLastSighted()
 	{
 		return pacman;
 	}
 
-	/**
-	 * @return The position of the robot.
+	/* (non-Javadoc)
+	 * @see util.world.RobotDataView#getPosition()
 	 */
+	@Override
 	public Point getPosition()
 	{
 		return position;
 	}
 	
+	/* (non-Javadoc)
+	 * @see util.world.RobotDataView#getOrientation()
+	 */
+	@Override
 	public Orientation getOrientation(){
 		return orientation;
 	}
@@ -135,6 +151,10 @@ public class RobotData
 		this.position = newPosition;
 	}
 
+	/* (non-Javadoc)
+	 * @see util.world.RobotDataView#clearPlan()
+	 */
+	@Override
 	public void clearPlan()
 	{
 		Iterator<Point> it = plan.iterator();
@@ -144,17 +164,29 @@ public class RobotData
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see util.world.RobotDataView#addPlan(java.util.ArrayList)
+	 */
+	@Override
 	public void addPlan(ArrayList<Point> newPlan)
 	{
 		clearPlan();
 		plan = newPlan;
 	}
 	
+	/* (non-Javadoc)
+	 * @see util.world.RobotDataView#toString()
+	 */
+	@Override
 	public String toString(){
 		return getName();
 	}
 
 	private Color robotColor = BoardDisplay.getRandomColor();
+	/* (non-Javadoc)
+	 * @see util.world.RobotDataView#getRobotColor()
+	 */
+	@Override
 	public Color getRobotColor() {
 		return robotColor;
 	}
