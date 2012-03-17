@@ -38,7 +38,10 @@ public class RobotData implements RobotDataView
 	public Map<Barcode, Point> getBarcodes() {
 		return barcodes;
 	}
-
+	public void setBoard(Board board)
+	{
+		this.board= board;
+	}
 	public void setName(String name){
 		this.name = name;
 	}

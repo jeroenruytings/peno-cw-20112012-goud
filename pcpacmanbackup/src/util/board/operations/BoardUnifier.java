@@ -13,6 +13,10 @@ import util.board.Panel;
 import util.board.operations.Operations.Turn;
 import util.enums.Direction;
 import util.help.Filter;
+import util.lazy.TransFormedBoard;
+import util.lazy.TransformedRobotData;
+import util.transformed.Transformation;
+import util.world.RobotData;
 
 public class BoardUnifier
 {
@@ -71,6 +75,20 @@ public class BoardUnifier
 			translated=Operations.turn(translated, origin, Turn.LEFT);
 		rv=merge(thiz,translated);
 		return rv;
+		
+	}
+	public static Board unify3(Board thiz, Board that)
+	{
+		RobotData data = new RobotData();
+		RobotData data2 = new RobotData();
+		data.setBoard(thiz);
+		data2.setBoard(that);
+		TransformedRobotData board = new TransformedRobotData(new Transformation(data,data2), data2);
+		for(Point p:board.getBoard().getFilledPoints())
+			if(!thiz.hasPanelAt(p))
+				thiz.add(board.getBoard().getPanelAt(p), p);
+		
+		return thiz;
 		
 	}
 	public static int calculateTurns(Panel panelThiz, Panel panelThat) {

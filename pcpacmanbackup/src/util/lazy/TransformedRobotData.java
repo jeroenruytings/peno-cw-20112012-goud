@@ -9,13 +9,14 @@ import pacmansystem.ai.robot.Barcode;
 import util.board.Board;
 import util.enums.Orientation;
 import util.transformed.Transformation;
+import util.world.RobotData;
 import util.world.RobotDataView;
 /**
  * Lazy implementation of the transformed robotData object
  * @author Dieter
  *
  */
-public class TransformedRobotData implements RobotDataView
+public class TransformedRobotData extends RobotData
 {
 	private RobotDataView data_;
 	private Transformation trans_;
@@ -46,7 +47,8 @@ public class TransformedRobotData implements RobotDataView
 	@Override
 	public Point getPacmanLastSighted()
 	{
-		return trans_.execute(data_.getPacmanLastSighted());
+		
+		return data_.getPacmanLastSighted()!=null?trans_.execute(data_.getPacmanLastSighted()):null;
 	}
 
 	@Override
@@ -70,17 +72,11 @@ public class TransformedRobotData implements RobotDataView
 		
 	}
 
-	@Override
-	public void addPlan(ArrayList<Point> newPlan)
-	{
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	public Color getRobotColor()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return data_.getRobotColor();
 	}
 }

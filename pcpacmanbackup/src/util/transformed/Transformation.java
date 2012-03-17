@@ -83,4 +83,8 @@ public class Transformation
 			rv =rv.addTo(Turn.LEFT.getDir());
 		return rv;
 	}
+	public static boolean canBeBuild(RobotData thiz,RobotData that)
+	{
+		return filterCodes(findBarcodes(thiz.getBoard()), findBarcodes(that.getBoard())).size()>0;
+	}
 }

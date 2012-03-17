@@ -1,8 +1,6 @@
 package util.board.operations;
 
-import static org.junit.Assert.*;
-
-import interfaces.mainscreen.Mainscreen;
+import static org.junit.Assert.assertTrue;
 
 import java.awt.Point;
 import java.util.HashMap;
@@ -10,12 +8,12 @@ import java.util.HashMap;
 import org.junit.Test;
 
 import pacmansystem.ai.robot.Barcode;
-
 import util.board.Board;
 import util.board.Panel;
-import util.board.operations.Operations.Turn;
 import util.enums.Orientation;
-import util.world.RealWorld;
+import util.lazy.TransformedRobotData;
+import util.transformed.Transformation;
+import util.world.RobotData;
 
 public class _TestBoardUnifier
 {
@@ -90,7 +88,25 @@ public class _TestBoardUnifier
 		h.put(new Barcode(1), "abra");
 		assertTrue(h.keySet().contains(new Barcode(1)));
 	}
-	
+	@Test
+	public void testunify3()
+	{
+		Board thiz = genBoard1();
+		Board that = genBoard2();
+		assertTrue(BoardUnifier.unify2(thiz, that).equals(BoardUnifier.unify3(thiz, that)));
+	}
+	@Test
+	public void test4()
+	{
+
+		Board thiz = genBoard1();
+		Board that = genBoard2();
+		RobotData data = new RobotData();
+		RobotData data2 = new RobotData();
+		data.setBoard(thiz);
+		data2.setBoard(that);
+		Transformation trans =new Transformation(data,data2);
+	}
 
 	private Board genBoard1()
 	{
@@ -99,7 +115,7 @@ public class _TestBoardUnifier
 		Panel p3 = new Panel();
 		Panel p4 = new Panel();
 		p1.setBarcode(new Barcode(155));
-		p2.setBarcode(new Barcode(135));
+		p1.setBarcodeOrientation(Orientation.NORTH);
 		Board rv = new Board();
 		rv.add(p1, new Point(1,1));
 		rv.add(p2, new Point(1,2));
@@ -115,7 +131,7 @@ public class _TestBoardUnifier
 		Panel p3 = new Panel();
 		Panel p4 = new Panel();
 		p1.setBarcode(new Barcode(155));
-		p2.setBarcode(new Barcode(135));
+		p1.setBarcodeOrientation(Orientation.NORTH);
 		Board rv = new Board();
 		rv.add(p2, new Point(0,0));
 		rv.add(p1, new Point(1,0));
