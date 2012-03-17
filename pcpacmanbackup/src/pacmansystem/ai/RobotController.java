@@ -2,6 +2,8 @@ package pacmansystem.ai;
 
 import java.awt.Point;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +18,8 @@ import util.board.PointConvertor;
 import util.board.operations.BoardUnifier;
 import util.board.shortestpathfinder.dijkstra.DijkstraFinder;
 import util.enums.Orientation;
+import util.lazy.TransformedRobotData;
+import util.transformed.Transformation;
 import util.world.RobotData;
 import util.world.RobotDataView;
 import util.world.World;
@@ -44,7 +48,7 @@ public class RobotController
 	private World world;
 
 	private Map<RobotData, PointConvertor> convertors = new HashMap<RobotData, PointConvertor>();
-
+	private Map<RobotData,RobotData> otherRobots=new HashMap<RobotData,RobotData>();
 	public Map<RobotData, PointConvertor> getConvertors()
 	{
 		return convertors;
@@ -82,7 +86,7 @@ public class RobotController
 		while (true) {
 			checkForNewInfo();
 			// voegt panel toe aan board
-			
+			tryAddingOtherRobots();
 			Panel p1 = getPathLayer().getOrientationLayer().getPanel(
 					getCurrentOrientation()); // getPanel() moet om zich heen
 			// kijken
@@ -160,6 +164,22 @@ public class RobotController
 			}
 	}
 	
+	private void tryAddingOtherRobots()
+	{
+		for(RobotData data:world.get_robots().values())
+		{
+			if(!data.getName().equals(this.getName()))
+			{
+				if(Transformation.canBeBuild(this.getData(), data))
+				{
+					if(!otherRobots.containsKey(data))
+						otherRobots.put(data, new TransformedRobotData(new Transformation(this.getData(), data), data));
+				}
+			}
+		}
+		
+	}
+
 	private String pointToString(Point p)
 	{
 		return p.x + "," + p.y;
@@ -535,5 +555,8 @@ public class RobotController
 	{
 		return new Point(getCurrentX(), getCurrentY());
 	}
-
+	public Collection<RobotData> getOtherBots()
+	{
+		return new ArrayList<RobotData>(otherRobots.values());
+	}
 }
