@@ -3,6 +3,7 @@ package communicator.parser.command;
 import util.world.World;
 
 import communicator.parser.Command;
+import communicator.parser.MessageType;
 
 public class CommandPong implements Command {
 
@@ -40,6 +41,23 @@ public class CommandPong implements Command {
 	public void execute(World simulator) {
 		// TODO Hebben we zelf een ping uitgestuurt naar deze persoon?
 
+	}
+
+	@Override
+	public MessageType getMessageType() {
+		return MessageType.PONG;
+	}
+	
+	@Override
+	public boolean equals(Command cmd) {
+		if (cmd instanceof CommandPong){
+			CommandPong cmdBar = (CommandPong) cmd;
+			if ((cmdBar.getNameFrom() == this.getNameFrom())
+					&& (cmdBar.getBestemmeling().equals(this.getBestemmeling()))
+					&& (cmdBar.getString().equals(this.getString())))
+				return true;
+		}
+		return false;
 	}
 
 }

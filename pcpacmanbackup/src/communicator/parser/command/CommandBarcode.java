@@ -6,6 +6,7 @@ import util.enums.Orientation;
 import util.world.World;
 
 import communicator.parser.Command;
+import communicator.parser.MessageType;
 
 public class CommandBarcode implements Command
 {
@@ -45,8 +46,26 @@ public class CommandBarcode implements Command
 		p.setBarcode(new Barcode(_barcode));
 		p.setBarcodeOrientation(Orientation.fromOrdinal(getDirection()-1));
 		simulator.getRobot(_name).getBoard().add(p, simulator.getRobot(_name).getPosition());
-		simulator.getRobot(_name).getBarcodes().put(new Barcode(_barcode),simulator.getRobot(_name).getPosition());
-		System.out.println(simulator.getRobot(_name).getBarcodes());
+		simulator.getRobot(_name).getBarcodes().put(new Barcode(_barcode), simulator.getRobot(_name).getPosition());
 	}
+
+	@Override
+	public MessageType getMessageType() {
+		return MessageType.BARCODE;
+	}
+
+	@Override
+	public boolean equals(Command cmd) {
+		if (cmd instanceof CommandBarcode){
+			CommandBarcode cmdBar = (CommandBarcode) cmd;
+			if ((cmdBar.getNameFrom() == this.getNameFrom())
+					&& (cmdBar.getDirection() == this.getDirection())
+					&& (cmdBar.getBarcode() == this.getBarcode()))
+				return true;
+		}
+		return false;
+	}
+	
+	
 
 }

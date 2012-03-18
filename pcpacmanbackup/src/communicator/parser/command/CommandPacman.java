@@ -5,6 +5,7 @@ import java.awt.Point;
 import util.world.World;
 
 import communicator.parser.Command;
+import communicator.parser.MessageType;
 
 public class CommandPacman implements Command
 {
@@ -33,6 +34,22 @@ public class CommandPacman implements Command
 	public void execute(World simulator)
 	{
 		simulator.getRobot(_name).setPacman(_coordinate);
+	}
+
+	@Override
+	public MessageType getMessageType() {
+		return MessageType.PACMAN;
+	}
+
+	@Override
+	public boolean equals(Command cmd) {
+		if (cmd instanceof CommandPacman){
+			CommandPacman cmdBar = (CommandPacman) cmd;
+			if ((cmdBar.getNameFrom() == this.getNameFrom())
+					&& (cmdBar.getPosition().equals(this.getPosition())))
+				return true;
+		}
+		return false;
 	}
 
 }

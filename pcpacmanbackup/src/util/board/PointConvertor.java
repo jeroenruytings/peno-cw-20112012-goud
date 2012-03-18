@@ -83,11 +83,12 @@ public class PointConvertor {
 		return orientations;
 	}
 
+
 	public Point convert(Point point){
 		return convert2(point);
 //		Point convertedPoint = convertOrientations(point);
 //		//Point convertedPoint = point;
 //		return new Point((int)(convertedPoint.getX()+xPlus),(int)(convertedPoint.getY()+yPlus));
 	}
-	
+
 }

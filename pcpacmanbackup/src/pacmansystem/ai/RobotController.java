@@ -23,20 +23,11 @@ import util.transformed.Transformation;
 import util.world.RobotData;
 import util.world.RobotDataView;
 import util.world.World;
-
-import communicator.be.kuleuven.cs.peno.MessageReceiver;
 import communicator.be.kuleuven.cs.peno.MessageSender;
 
 public class RobotController
 {
 
-	// private int currentX;
-	// private int currentY;
-	// private Orientation currentOrientation;
-
-	// private void setCurrentOrientation(Orientation currentOrientation) {
-	// this.currentOrientation = currentOrientation;
-	// }
 	private RobotData data = new RobotData();
 
 	public RobotData getData()
@@ -49,6 +40,7 @@ public class RobotController
 
 	private Map<RobotData, PointConvertor> convertors = new HashMap<RobotData, PointConvertor>();
 	private Map<RobotData,RobotData> otherRobots=new HashMap<RobotData,RobotData>();
+	
 	public Map<RobotData, PointConvertor> getConvertors()
 	{
 		return convertors;
@@ -111,6 +103,7 @@ public class RobotController
 			if (p1.hasBarcode()){
 //				getData().getBarcodes().put(p1.getBarcode(), getCurrentPoint());
 				sendBarcode(p1.getBarcode(),p1.getBarcodeOrientation());
+
 //				Map<RobotData, Point> robots = getRobotsWithSameBarcode(p1.getBarcode());
 //				if(robots!=null){
 //					for(RobotData robot : robots.keySet()){
@@ -221,6 +214,7 @@ public class RobotController
 	}
 
 	private void mergeBoard(RobotData robot, Point point)
+
 	{
 		
 		HashMap<Orientation, Orientation> orientations = (HashMap<Orientation, Orientation>) getRelativeOrientationAfterBarcode(
@@ -252,7 +246,8 @@ public class RobotController
 			}
 		}
 
-	}
+
+    }
 
 	private Board getBoard()
 	{
@@ -280,6 +275,7 @@ public class RobotController
 			return "4";
 		case EAST:
 			return "2";
+
 		}
 		return null;
 	}
@@ -426,27 +422,6 @@ public class RobotController
 				.abs(destination.getY() - getCurrentY()));
 	}
 
-	// public RobotController(int rows, int columns,OrientationLayer layer)
-	// {
-	// world = new World();
-	// data = new RobotData();
-	// currentX = 0;
-	// currentY = 0;
-	// currentOrientation = Orientation.NORTH;
-	//
-	// Panel p1 = new Panel();
-	// getBoard().add(p1, new Point(0,0));
-	// pathLayer = new PathLayer(getBoard(),layer);
-	// MessageReceiver rec;
-	// try {
-	// rec = new MessageReceiver(world);
-	// rec.run();
-	// } catch (IOException e) {
-	// e.printStackTrace();
-	// }
-	//
-	// }
-
 	public RobotController(OrientationLayer layer)
 	{
 		this(layer,false);
@@ -454,7 +429,6 @@ public class RobotController
 	
 	public RobotController(OrientationLayer layer, boolean hasMessageReceiver){
 		initWorld();
-		// currentOrientation = Orientation.NORTH;
 		pathLayer = new PathLayer(getData(), layer);
 	}
 	
@@ -492,9 +466,8 @@ public class RobotController
 		return data.getName();
 	}
 
-	public Map<RobotData, Point> getRobotsWithSameBarcode(Barcode barcode)
-	{
-
+    public Map<RobotData, Point> getRobotsWithSameBarcode(Barcode barcode)
+    {
 		if (barcode == null)
 			return null;
 		Map<RobotData, Point> robots = new HashMap<RobotData, Point>();
@@ -508,6 +481,7 @@ public class RobotController
 		}
 		return robots;
 	}
+
 
 	public Map<Orientation, Orientation> getRelativeOrientationAfterBarcode(
 			RobotDataView firstRobot, RobotDataView secondRobot,
@@ -541,13 +515,13 @@ public class RobotController
 		return orientations;
 	}
 
+
 	
-	private static int robotNumber = 0;
 	private void initWorld()
 	{
 		data = new RobotData();
 		world = new World();
-		data.setName("Goud" + robotNumber++);
+		data.setName("Goud" + Math.random());
 		//world.addRobot(getData(), getData().getName());
 	}
 
@@ -555,6 +529,7 @@ public class RobotController
 	{
 		return new Point(getCurrentX(), getCurrentY());
 	}
+	
 	public Collection<RobotData> getOtherBots()
 	{
 		return new ArrayList<RobotData>(otherRobots.values());

@@ -8,6 +8,7 @@ import util.enums.Orientation;
 import util.world.World;
 
 import communicator.parser.Command;
+import communicator.parser.MessageType;
 
 public class CommandBarcodeAt implements Command {
 
@@ -58,4 +59,21 @@ public class CommandBarcodeAt implements Command {
 
 	}
 
+	@Override
+	public MessageType getMessageType() {
+		return MessageType.BARCODEAT;
+	}
+
+	@Override
+	public boolean equals(Command cmd) {
+		if (cmd instanceof CommandBarcodeAt){
+			CommandBarcodeAt cmdBar = (CommandBarcodeAt) cmd;
+			if ((cmdBar.getNameFrom() == this.getNameFrom())
+					&& (cmdBar._direction == this._direction)
+					&& (cmdBar.getBarcode() == this.getBarcode())
+					&& (cmdBar.getCoordinate().equals(this.getCoordinate())))
+				return true;
+		}
+		return false;
+	}
 }

@@ -5,6 +5,7 @@ import java.awt.Point;
 import util.world.World;
 
 import communicator.parser.Command;
+import communicator.parser.MessageType;
 
 public class CommandPosition implements Command
 {
@@ -33,6 +34,22 @@ public class CommandPosition implements Command
 	public void execute(World simulator)
 	{
 		simulator.getRobot(_name).setPosition(_position);
+	}
+
+	@Override
+	public MessageType getMessageType() {
+		return MessageType.POSITION;
+	}
+	
+	@Override
+	public boolean equals(Command cmd) {
+		if (cmd instanceof CommandPosition){
+			CommandPosition cmdBar = (CommandPosition) cmd;
+			if ((cmdBar.getNameFrom() == this.getNameFrom())
+					&& (cmdBar.getPosition().equals(this.getPosition())))
+				return true;
+		}
+		return false;
 	}
 
 }

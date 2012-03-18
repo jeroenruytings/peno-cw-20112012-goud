@@ -5,7 +5,7 @@ import interfaces.pacmancomponents.RabbitHistory;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Observable;
-import java.util.Observer;
+
 
 import util.world.World;
 
@@ -24,9 +24,8 @@ public class MessageReceiver extends Observable implements Runnable{
 	final private Channel channel;
 	final private Connection conn;
 	final AMQP.Queue.DeclareOk queue;
-	private Command command;
-	
 
+	private Command command;
 	public static void main(String[] args) {
 		try {
 			MessageReceiver test = new MessageReceiver();
@@ -71,10 +70,10 @@ public class MessageReceiver extends Observable implements Runnable{
 					try {
 						Command command = decoder.parse(message);
 						RabbitHistory.receiveMessage(message,command.getNameFrom());
-//						setCommand(command);
+
 						setChanged();
 						notifyObservers(command);
-//						command.execute(world);
+
 					} catch (ParseException e) {
 						System.out.println("fail");
 					}

@@ -2,10 +2,12 @@ package communicator.parser.command;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import util.world.World;
 
 import communicator.parser.Command;
+import communicator.parser.MessageType;
 
 public class CommandPlan implements Command
 {
@@ -15,7 +17,8 @@ public class CommandPlan implements Command
 
 	public CommandPlan(String name, Point... path)
 	{
-
+		this._name = name;
+		_path = path;
 	}
 
 	@Override
@@ -40,4 +43,19 @@ public class CommandPlan implements Command
 		simulator.getRobot(_name).addPlan(plan);
 	}
 
+	@Override
+	public MessageType getMessageType() {
+		return MessageType.PLAN;
+	}
+
+	@Override
+	public boolean equals(Command cmd) {
+		if (cmd instanceof CommandPlan){
+			CommandPlan cmdPlan = (CommandPlan) cmd;
+			if ((cmdPlan.getNameFrom() == this.getNameFrom())
+					&& (Arrays.equals(cmdPlan.getPath(), this.getPath())))
+				return true;
+		}
+		return false;
+	}
 }

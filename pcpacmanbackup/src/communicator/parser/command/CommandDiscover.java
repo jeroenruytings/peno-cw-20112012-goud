@@ -8,6 +8,7 @@ import util.enums.Orientation;
 import util.world.World;
 
 import communicator.parser.Command;
+import communicator.parser.MessageType;
 
 public class CommandDiscover implements Command
 {
@@ -19,15 +20,15 @@ public class CommandDiscover implements Command
 	private byte _south;
 	private byte _west;
 
-	public CommandDiscover(String name, Point coordinate, byte north,
-			byte east, byte south, byte west)
+	public CommandDiscover(String name, Point coordinate, int i,
+			int j, int k, int l)
 	{
 		this._name = name;
 		this._coordinate = coordinate;
-		this._north = north;
-		this._east = east;
-		this._south = south;
-		this._west = west;
+		this._north = (byte) i;
+		this._east = (byte) j;
+		this._south =(byte) k;
+		this._west = (byte) l;
 	}
 
 	@Override
@@ -60,6 +61,23 @@ public class CommandDiscover implements Command
 			Board b = world.getRobot(_name).getBoard();
 			b.add(p, world.getRobot(_name).getPosition());
 		}
+	}
+
+	@Override
+	public MessageType getMessageType() {
+		return MessageType.DISCOVER;
+	}
+	
+	@Override
+	public boolean equals(Command cmd) {
+		if (cmd instanceof CommandDiscover){
+			CommandDiscover cmdDis = (CommandDiscover) cmd;
+			if ((cmdDis.getNameFrom() == this.getNameFrom())
+					&& (cmdDis.getCoordinate().equals(this.getCoordinate()))
+					&& (cmdDis.getPanel().equals(this.getPanel())))
+				return true;
+		}
+		return false;
 	}
 
 }

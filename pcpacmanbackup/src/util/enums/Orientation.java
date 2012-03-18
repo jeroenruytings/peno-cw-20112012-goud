@@ -127,8 +127,12 @@ public enum Orientation
 		return null;
 	}
 
+	private static int notRandom;
+	private static int[] s = {0,1,0,1};
 	public static Orientation random()
 	{
-		return fromOrdinal(new Random().nextInt(3));
+		
+		//return fromOrdinal(new Random().nextInt(3));
+		return fromOrdinal(s[notRandom++]);
 	}
 }

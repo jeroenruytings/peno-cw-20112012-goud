@@ -21,7 +21,6 @@ public class World implements Observer
 	private int registeredRobots;
 	private int amountOfRobotsNeeded = 4;
 	private MessageReceiver rec;
-
 	/**
 	 * @return The data of the robots on this world.
 	 */
@@ -50,9 +49,11 @@ public class World implements Observer
 	/**
 	 * The join command executes this
 	 */
-	public void register()
+	public synchronized void register()
 	{
 		registeredRobots++;
+		if(registeredRobots == amountOfRobotsNeeded)
+			this.notify();
 	}
 	/**
 	 * 
@@ -61,12 +62,9 @@ public class World implements Observer
 	 */
 	public synchronized void addRobot(String name) throws InsufficientJoinsException
 	{
-		if (registeredRobots != amountOfRobotsNeeded)
-			throw new InsufficientJoinsException();
 		RobotData r = new RobotData();
 		r.setName(name);
 		_robots.put(name, r);
-		
 		if (_robots.size() == amountOfRobotsNeeded)
 			this.notify();
 	}
@@ -80,6 +78,18 @@ public class World implements Observer
 	private Board globalBoard;
 	public Board getGlobalBoard()
 	{
+		return new Board();
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if(o==rec){
+			Command cmd = ((Command) arg);
+			((Command) arg).execute(this);
+		}
+	}
+}
+
 //		globalBoard = new Board();
 //		//TODO: Werk beter uit.
 //		// Just trying to make is work.
@@ -96,17 +106,3 @@ public class World implements Observer
 //				globalBoard = BoardUnifier.unify(globalBoard, data.getBoard());
 //		}
 //		return globalBoard;
-		return get_robots().get("Goud0").getBoard();
-	}
-
-	@Override
-	public void update(Observable o, Object arg) {
-		if(o==rec){
-			((Command) arg).execute(this);
-		}			
-	}
-
-	
-
-
-}

@@ -11,7 +11,6 @@ import pacmansystem.ai.robot.fysicalRobot.connector.MoverLayer;
 import pacmansystem.ai.robot.simulatedRobot.SimulatedRobot;
 import util.enums.Orientation;
 import util.world.RealWorld;
-import util.world.RobotData;
 
 public class Main
 {

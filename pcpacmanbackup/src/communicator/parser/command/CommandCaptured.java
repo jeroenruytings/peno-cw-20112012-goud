@@ -3,6 +3,7 @@ package communicator.parser.command;
 import util.world.World;
 
 import communicator.parser.Command;
+import communicator.parser.MessageType;
 
 public class CommandCaptured implements Command
 {
@@ -24,6 +25,21 @@ public class CommandCaptured implements Command
 	public void execute(World simulator)
 	{
 		simulator.getRobot(_name).setCapturedPacman(true);
+	}
+
+	@Override
+	public MessageType getMessageType() {
+		return MessageType.CAPTURED;
+	}
+	
+	@Override
+	public boolean equals(Command cmd) {
+		if (cmd instanceof CommandCaptured){
+			CommandCaptured cmdBar = (CommandCaptured) cmd;
+			if ((cmdBar.getNameFrom() == this.getNameFrom()))
+				return true;
+		}
+		return false;
 	}
 
 }

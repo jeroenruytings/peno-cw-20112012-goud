@@ -9,4 +9,8 @@ public interface Command
 
 	void execute(World simulator);
 
+	public MessageType getMessageType();
+	
+	public boolean equals(Command cmd);
+
 }

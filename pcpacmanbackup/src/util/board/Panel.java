@@ -84,16 +84,15 @@ public class Panel
 	}
 	public boolean equals(Object o)
 	{
-		Panel that;
+		Panel panel;
 		if(o instanceof Panel)
-			that = (Panel)o;
+			panel = (Panel)o;
 		else
 			return false;
 		for(Orientation d:Orientation.values())
-			if(this.hasBorder(d)!=that.hasBorder(d))
+			if(this.hasBorder(d)!=panel.hasBorder(d))
 				return false;
-		if(this.hasBarcode())
-			if(!that.hasBarcode())
+		if(this.hasBarcode() != panel.hasBarcode())
 				return false;
 		return true;
 	}
