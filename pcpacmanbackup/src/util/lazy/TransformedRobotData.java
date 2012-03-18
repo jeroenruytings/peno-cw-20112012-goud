@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Point;
 
 import util.board.Board;
+
 import util.enums.Orientation;
 import util.transformed.Transformation;
 import util.world.RobotData;
@@ -33,13 +34,14 @@ public class TransformedRobotData extends RobotData
 
 	@Override
 	public boolean isCapturedPacman()
-	{return data_.isCapturedPacman();
+	{
+		return data_.isCapturedPacman();
 	}
 
 	@Override
 	public Board getBoard()
 	{
-		return new TransFormedBoard(trans_, data_.getBoard());
+		return new TransformedBoardLazy(trans_, data_.getBoard());
 	}
 
 	@Override

@@ -63,6 +63,7 @@ public class Transformation
 		}
 		return 0;
 	}
+	
 	public Point execute(Point point)
 	{
 		Point rv = Operations.translate(point, vector_);
@@ -88,10 +89,13 @@ public class Transformation
 	{
 		return filterCodes(findBarcodes(thiz.getBoard()), findBarcodes(that.getBoard())).size()>0;
 	}
+	
 	public Transformation invert()
 	{
 		return new InvertedTransformation(vector_, leftTurns_);
 	}
+	
+	
 	private class InvertedTransformation extends Transformation
 	{
 

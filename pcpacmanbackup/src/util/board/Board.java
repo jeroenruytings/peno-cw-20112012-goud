@@ -40,6 +40,10 @@ public class Board
 		this(0, 0);
 	}
 
+	/* (non-Javadoc)
+	 * @see util.board.BoardView#getRows()
+	 */
+	
 	public int getRows()
 	{
 		if (rows > maxY())
@@ -47,6 +51,10 @@ public class Board
 		return maxY();
 	}
 
+	/* (non-Javadoc)
+	 * @see util.board.BoardView#getColumns()
+	 */
+	
 	public int getColumns()
 	{
 		if (columns > maxX())
@@ -109,15 +117,19 @@ public class Board
 		calcDimensions();
 	}
 
+	/* (non-Javadoc)
+	 * @see util.board.BoardView#hasPanelAt(java.awt.Point)
+	 */
+	
 	public boolean hasPanelAt(Point p)
 	{
 		return panels.containsKey(p);
 	}
 
-	/**
-	 * ReturNS null if there is no panel at this location
-	 * 
+	/* (non-Javadoc)
+	 * @see util.board.BoardView#getPanelAt(java.awt.Point)
 	 */
+	
 	public Panel getPanelAt(Point p)
 	{
 		if (!hasPanelAt(p))
@@ -131,6 +143,9 @@ public class Board
 		p.setBarcodeOrientation(orient);
 	}
 
+	/* (non-Javadoc)
+	 * @see util.board.BoardView#getPanels()
+	 */
 	public Map<Point, Panel> getPanels()
 	{
 			return new ConcurrentHashMap<Point,Panel>(this.panels);
@@ -141,10 +156,10 @@ public class Board
 		this.panels = new ConcurrentHashMap<Point,Panel>();
 		
 	}
-	/**
-	 * Return all the points that have a panel object set
-	 * @return
+	/* (non-Javadoc)
+	 * @see util.board.BoardView#getFilledPoints()
 	 */
+	
 	public  Iterable<Point> getFilledPoints()
 	{
 		CopyOnWriteArrayList<Point> rv ;
@@ -152,6 +167,10 @@ public class Board
 		return rv;
 	}
 
+	/* (non-Javadoc)
+	 * @see util.board.BoardView#getSurrounding(java.awt.Point)
+	 */
+	
 	public Collection<Point> getSurrounding(Point p)
 	{
 		ArrayList<Point> rv = new ArrayList<Point>();
@@ -172,7 +191,7 @@ public class Board
 //		return false;
 //	}
 
-	@Override
+	
 	public Object clone()
 	{
 		return new Board(this);
@@ -241,13 +260,10 @@ public class Board
 	}
 	
 
-	/**
-	 * 
-	 * @param one
-	 * @param orientation
-	 * @return true als er een muur tussen ligt
-	 * @return false als er geen muur tussen ligt, of het niet weet
+	/* (non-Javadoc)
+	 * @see util.board.BoardView#wallBetween(java.awt.Point, util.enums.Orientation)
 	 */
+	
 	public boolean wallBetween(Point one, Orientation orientation)
 	{
 
@@ -263,15 +279,10 @@ public class Board
 
 	}
 
-	/**
-	 * Geeft aan of er een muur ligt tussen de twee punten
-	 * 
-	 * @pre de twee punten moeten VLAK naast elkaar liggen
-	 * @param one
-	 * @param two
-	 * @return true als er een muur tussen ligt
-	 * @return false als er geen muur tussen ligt, of het niet weet
+	/* (non-Javadoc)
+	 * @see util.board.BoardView#wallBetween(java.awt.Point, java.awt.Point)
 	 */
+	
 	public boolean wallBetween(Point one, Point two)
 	{
 		if (one == null)
@@ -322,6 +333,10 @@ public class Board
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see util.board.BoardView#getUnfilledPoints()
+	 */
+	
 	public Iterable<Point> getUnfilledPoints() {
 		ArrayList<Point> rv = new ArrayList<Point>();
 		for(Point p: getFilledPoints())
