@@ -87,4 +87,40 @@ public class Transformation
 	{
 		return filterCodes(findBarcodes(thiz.getBoard()), findBarcodes(that.getBoard())).size()>0;
 	}
+	public Transformation invert()
+	{
+		return new InvertedTransformation(vector_, leftTurns_);
+	}
+	private class InvertedTransformation extends Transformation
+	{
+
+		public InvertedTransformation(Point vector, int leftTurns)
+		{
+			super(vector, leftTurns);
+		}
+		
+		@Override
+		public Point execute(Point point)
+		{
+			Point rv = point;
+			for(int i = 0 ; i < leftTurns_;i++)
+				rv = Operations.turn(rv, Turn.RIGHT);
+			rv = Operations.translate(rv, Operations.negate(vector_));
+			return rv;
+			
+		}
+		@Override
+		public Panel execute(Panel panel)
+		{
+			Panel rv =panel;
+			for(int i = 0 ; i < leftTurns_;i++)
+				rv = Operations.turn(rv, Turn.RIGHT);
+			return rv;
+		}
+		public Transformation invert()
+		{
+			return new Transformation(vector_,leftTurns_);
+		}
+	}
+	
 }

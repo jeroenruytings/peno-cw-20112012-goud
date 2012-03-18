@@ -13,7 +13,6 @@ import util.board.Panel;
 import util.board.operations.Operations.Turn;
 import util.enums.Direction;
 import util.help.Filter;
-import util.lazy.TransFormedBoard;
 import util.lazy.TransformedRobotData;
 import util.transformed.Transformation;
 import util.world.RobotData;
@@ -77,6 +76,7 @@ public class BoardUnifier
 		return rv;
 		
 	}
+	
 	public static Board unify3(Board thiz, Board that)
 	{
 		RobotData data = new RobotData();

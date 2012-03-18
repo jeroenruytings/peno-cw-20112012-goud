@@ -2,16 +2,13 @@ package util.lazy;
 
 import java.awt.Color;
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.Map;
-
-import pacmansystem.ai.robot.Barcode;
 import util.board.Board;
 import util.enums.Orientation;
 import util.transformed.Transformation;
 import util.world.RobotData;
 import util.world.RobotDataView;
 /**
+ * 
  * Lazy implementation of the transformed robotData object
  * @author Dieter
  *
