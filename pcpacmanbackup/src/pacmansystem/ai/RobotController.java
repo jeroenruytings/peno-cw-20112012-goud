@@ -425,11 +425,12 @@ public class RobotController
 
 	public RobotController(OrientationLayer layer)
 	{
-		this(layer,false);
+		this(layer,false, "Goud" + Math.random());
 	}
 	
-	public RobotController(OrientationLayer layer, boolean hasMessageReceiver){
+	public RobotController(OrientationLayer layer, boolean hasMessageReceiver, String name){
 		initWorld();
+		data.setName(name);
 		pathLayer = new PathLayer(getData(), layer);
 	}
 	
@@ -522,7 +523,6 @@ public class RobotController
 	{
 		data = new RobotData();
 		world = new World();
-		data.setName("Goud" + Math.random());
 		//world.addRobot(getData(), getData().getName());
 	}
 

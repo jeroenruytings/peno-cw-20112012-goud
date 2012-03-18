@@ -17,8 +17,14 @@ import util.world.RealWorld;
 import util.world.RobotData;
 
 public class DistributedMain {
-
+	
+	private static int robotNumber;
+	private static String robotName;
+	
 	public static void main(String[] args) {
+		
+			robotNumber = Integer.parseInt(JOptionPane.showInputDialog("Geef het robotnummer",new Integer(0)));
+			robotName = JOptionPane.showInputDialog("Geef het robotnummer","naam");
 			RobotController robot = initNewRobot();
 			
 			//ComponentFrame.showFrame("RabbitMQ", new RabbitHistory());
@@ -57,14 +63,14 @@ private static RobotController initNewRobot() {
 		MoverLayer ml = new MoverLayer();
 		PanelLayer pl = new PanelLayer(ml);
 		OrientationLayer ol = new OrientationLayer(pl);
-		controller = new RobotController(ol,true);
+		controller = new RobotController(ol,true, robotName);
 		return controller;
 
 	case JOptionPane.YES_OPTION:
 		RealWorld simulatorWorld = Mainscreen.getRealWorld();
-		PanelLayerInterface p= new SimulatedRobot(simulatorWorld,simulatorWorld.getStartingPoint(), Orientation.random());
+		PanelLayerInterface p= new SimulatedRobot(simulatorWorld,simulatorWorld.getStartingPoint(robotNumber), Orientation.random());
 		OrientationLayer directionlayer = new OrientationLayer(p);
-		controller = new RobotController(directionlayer, true);
+		controller = new RobotController(directionlayer, true, robotName);
 		return controller;
 	}
 	throw new IllegalStateException("One of the robots is not initialized.");

@@ -80,14 +80,14 @@ public class Main
 			MoverLayer ml = new MoverLayer();
 			PanelLayer pl = new PanelLayer(ml);
 			OrientationLayer ol = new OrientationLayer(pl);
-			controller = new RobotController(ol,receiver);
+			controller = new RobotController(ol,receiver, "Goud" + Math.random());
 			receiver = false;
 			return controller;
 
 		case VIRTUALROBOT:
 			PanelLayerInterface p= new SimulatedRobot(getSimulatorWorld(),getSimulatorWorld().getStartingPoint(), Orientation.random());
 			OrientationLayer directionlayer = new OrientationLayer(p);
-			controller = new RobotController(directionlayer, receiver);
+			controller = new RobotController(directionlayer, receiver, "Goud" + Math.random());
 			receiver = false;
 			return controller;
 		}
