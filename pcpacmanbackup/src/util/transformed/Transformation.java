@@ -1,11 +1,14 @@
 package util.transformed;
 
+import static util.board.operations.BoardUnifier.filterCodes;
+import static util.board.operations.BoardUnifier.findBarcodes;
+import static util.board.operations.Operations.min;
+
 import java.awt.Point;
 import java.util.Collection;
 import java.util.Map;
 
 import pacmansystem.ai.robot.Barcode;
-
 import util.board.Panel;
 import util.board.operations.BoardUnifier;
 import util.board.operations.Operations;
@@ -13,8 +16,6 @@ import util.board.operations.Operations.Turn;
 import util.enums.Direction;
 import util.enums.Orientation;
 import util.world.RobotData;
-import static util.board.operations.Operations.*;
-import static util.board.operations.BoardUnifier.*;
 public class Transformation
 {
 	private Point vector_;

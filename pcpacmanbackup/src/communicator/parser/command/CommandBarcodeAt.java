@@ -3,7 +3,6 @@ package communicator.parser.command;
 import java.awt.Point;
 import java.text.ParseException;
 
-
 import util.enums.Orientation;
 import util.world.World;
 

@@ -6,9 +6,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.Observable;
 
-
-import util.world.World;
-
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;

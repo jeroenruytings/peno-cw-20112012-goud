@@ -1,7 +1,6 @@
 package util.board;
 
 import pacmansystem.ai.robot.Barcode;
-import util.enums.Direction;
 import util.enums.Orientation;
 
 public class Panel

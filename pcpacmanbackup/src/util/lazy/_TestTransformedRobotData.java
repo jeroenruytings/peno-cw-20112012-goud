@@ -1,20 +1,20 @@
 package util.lazy;
 
 import static org.junit.Assert.assertTrue;
+import static util.board.operations.Operations.turn;
+
 import java.awt.Point;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import pacmansystem.ai.robot.Barcode;
-
 import util.board.Panel;
 import util.board.operations.Operations.Turn;
 import util.enums.Orientation;
 import util.transformed.Transformation;
 import util.world.RobotData;
 import util.world.RobotDataView;
-import static util.board.operations.Operations.*;
 public class _TestTransformedRobotData
 {
 	private Panel panel1;

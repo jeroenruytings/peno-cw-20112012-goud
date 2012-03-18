@@ -1,19 +1,15 @@
 package util.world;
 
-import java.awt.Point;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import util.board.Board;
+
 import communicator.be.kuleuven.cs.peno.MessageReceiver;
 import communicator.parser.Command;
-
-import util.board.Board;
-import util.board.operations.BoardUnifier;
-
-
 
 public class World implements Observer
 {
@@ -73,19 +69,17 @@ public class World implements Observer
 //		_robots.put(name, robot);
 //	}
 	
-	
-
-	private Board globalBoard;
-	public Board getGlobalBoard()
-	{
+	public Board getGlobalBoard(){
 		return new Board();
 	}
+	
+	
 
 	@Override
 	public void update(Observable o, Object arg) {
 		if(o==rec){
 			Command cmd = ((Command) arg);
-			((Command) arg).execute(this);
+			cmd.execute(this);
 		}
 	}
 }

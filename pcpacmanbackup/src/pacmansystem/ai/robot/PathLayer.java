@@ -4,13 +4,13 @@ import java.awt.Point;
 import java.io.IOException;
 import java.util.Iterator;
 
-import communicator.be.kuleuven.cs.peno.MessageSender;
-
 import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
 import util.board.Board;
 import util.board.shortestpathfinder.dijkstra.DijkstraFinder;
 import util.enums.Orientation;
 import util.world.RobotData;
+
+import communicator.be.kuleuven.cs.peno.MessageSender;
 
 public class PathLayer {
 	

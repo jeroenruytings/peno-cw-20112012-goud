@@ -2,9 +2,10 @@ package pacmansystem;
 
 
 
+import interfaces.mainscreen.Mainscreen;
+
 import javax.swing.JOptionPane;
 
-import interfaces.mainscreen.Mainscreen;
 import pacmansystem.ai.RobotController;
 import pacmansystem.ai.robot.OrientationLayer;
 import pacmansystem.ai.robot.PanelLayerInterface;

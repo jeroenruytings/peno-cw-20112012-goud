@@ -2,6 +2,7 @@ package util.lazy;
 
 import java.awt.Color;
 import java.awt.Point;
+
 import util.board.Board;
 import util.enums.Orientation;
 import util.transformed.Transformation;

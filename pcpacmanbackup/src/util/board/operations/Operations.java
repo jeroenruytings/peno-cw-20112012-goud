@@ -2,8 +2,6 @@ package util.board.operations;
 
 import java.awt.Point;
 
-import pacmansystem.ai.robot.Barcode;
-
 import util.board.Board;
 import util.board.Panel;
 import util.enums.Direction;

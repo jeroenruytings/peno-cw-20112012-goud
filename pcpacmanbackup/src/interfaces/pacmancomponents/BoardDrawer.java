@@ -7,7 +7,6 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import pacmansystem.ai.robot.Barcode;
-
 import util.board.Board;
 import util.board.Panel;
 import util.enums.Orientation;

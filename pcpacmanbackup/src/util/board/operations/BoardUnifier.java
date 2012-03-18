@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Set;
 
 import pacmansystem.ai.robot.Barcode;
-
 import util.board.Board;
 import util.board.Panel;
 import util.board.operations.Operations.Turn;

@@ -11,7 +11,6 @@ import pacmansystem.ai.robot.Barcode;
 import util.board.Board;
 import util.board.Panel;
 import util.enums.Orientation;
-import util.lazy.TransformedRobotData;
 import util.transformed.Transformation;
 import util.world.RobotData;
 
