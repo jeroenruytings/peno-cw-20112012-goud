@@ -22,10 +22,11 @@ public class Barcode
 	 * @return This barcode read in the other direction.
 	 */
 	public int getReverse() throws BarcodeException{
-		char[] binairy = Integer.toBinaryString(barcode).toCharArray();
-		if (binairy.length != 8)
-			throw new BarcodeException("The given barcode-value does not exist!");
 		char[] result = new char[8];
+		try{
+		char[] binairy = Integer.toBinaryString(barcode).toCharArray();
+//		if (binairy.length != 8)
+//			throw new BarcodeException("The given barcode-value does not exist!");
 		result[0] = binairy[0];
 		result[7] = binairy[7];
 		result[1] = binairy[6];
@@ -35,6 +36,13 @@ public class Barcode
 		result[5] = binairy[2];
 		result[6] = binairy[1];
 		return Integer.parseInt(new String(result), 2);
+		}
+		
+		catch(Exception e){
+			return 00000000;
+		}
+
+		
 	}
 	
 	public int getBitString(){

@@ -218,10 +218,7 @@ public class PanelLayer implements PanelLayerInterface
 	{
 		Panel panel = new Panel();
 		for (Direction direction : Direction.values()) {
-//			if(currentOrientation.addTo(direction).equals(currentOrientation)&&!isFirst){
-//				panel.setBorder(currentOrientation.opposite().addTo(direction), false);
-//			}
-//			else{
+
 				if(!isFirst){
 				
 						panel.setBorder(currentOrientation.addTo(direction), hasBorder(direction));
@@ -233,7 +230,7 @@ public class PanelLayer implements PanelLayerInterface
 				
 					
 			}
-//		}
+
 		isFirst = false;
 		mover.setHead(0);
 		if(hasBarcode()){
