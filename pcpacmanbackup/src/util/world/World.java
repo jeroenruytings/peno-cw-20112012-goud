@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.concurrent.ConcurrentHashMap;
 
 import util.board.Board;
 
@@ -16,6 +17,7 @@ public class World implements Observer
 {
 	private Map<String, RobotData> _robots;
 	private int registeredRobots;
+	private int named=0;
 	private int amountOfRobotsNeeded = 4;
 	private MessageReceiver rec;
 
@@ -29,7 +31,7 @@ public class World implements Observer
 
 	public World()
 	{
-		_robots = new HashMap<String, RobotData>();
+		_robots = new ConcurrentHashMap<String, RobotData>();
 		try {
 			rec = new MessageReceiver();
 			rec.addObserver(this);
@@ -46,16 +48,28 @@ public class World implements Observer
 		// send join, wait for join!
 		join();
 		// wait for 3 other joins or 1 name
+		while(registeredRobots!=4)
+		{
 		try {
 			synchronized (this) {
-
 				this.wait();
 			}
 		} catch (InterruptedException e) {
 			throw new Error("STarting of the world failed for robot:"
 					+ me.getName());
-		}
+		}}
 		sendName(me.getName());
+		System.out.println(me.getName());
+		
+		while(named!=4)
+			try {
+				synchronized (this) {
+					this.wait();
+				}
+			} catch (InterruptedException e) {
+				throw new Error("STarting of the world failed for robot:"
+						+ me.getName());
+			};
 	}
 
 	public void join()
@@ -87,7 +101,7 @@ public class World implements Observer
 	public synchronized void register()
 	{
 		registeredRobots++;
-		if (registeredRobots == amountOfRobotsNeeded)
+		if (registeredRobots >= amountOfRobotsNeeded)
 			this.notify();
 	}
 
@@ -103,11 +117,27 @@ public class World implements Observer
 			RobotData r = new RobotData();
 			r.setName(name);
 			_robots.put(name, r);
+			registeredRobots=4;
+			synchronized (this) {
+
+				this.notify();
+			
+			}
+			name();
 		}
+		
 		// This is a name command ! this means that shit should be ok:)
-		if (_robots.size() == amountOfRobotsNeeded)
-			this.notify();
+			
 	}
+
+	private void name()
+	{
+		named++;
+		synchronized (this) {
+
+			this.notify();
+		
+		}}
 
 	// public void addRobot(RobotData robot, String name){
 	// _robots.put(name, robot);
@@ -130,6 +160,7 @@ public class World implements Observer
 	public void setRobot(RobotData data, String name)
 	{
 		_robots.put(name, data);
+		name();
 
 	}
 }

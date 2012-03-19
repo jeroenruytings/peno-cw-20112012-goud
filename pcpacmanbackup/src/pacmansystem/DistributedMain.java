@@ -32,7 +32,12 @@ public class DistributedMain {
 			//ComponentFrame.showFrame("RabbitMQ", new RabbitHistory());
 			robot.start();
 			Mainscreen gui = new Mainscreen();
-
+			synchronized (robot) {
+				try {
+					robot.wait();
+				} catch (InterruptedException e) {
+				}
+			}
 			for (RobotData r : robot.getWorld().get_robots().values())
 				gui.setRobotData(r);
 			
@@ -55,7 +60,7 @@ private static RobotController initNewRobot() {
 		OrientationLayer directionlayer = new OrientationLayer(p);
 		controller = new RobotController(directionlayer, robotName, new World());
 		return controller;
-	}
+		}
 	throw new IllegalStateException("One of the robots is not initialized.");
 	
 }

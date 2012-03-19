@@ -315,7 +315,9 @@ public class RobotController
 			public void run()
 			{
 				world.start(getData());
-				
+				synchronized (RobotController.this) {
+					RobotController.this.notify();
+				}
 				explore();
 				
 			}
