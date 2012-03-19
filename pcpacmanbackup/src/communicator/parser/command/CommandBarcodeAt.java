@@ -3,6 +3,9 @@ package communicator.parser.command;
 import java.awt.Point;
 import java.text.ParseException;
 
+import pacmansystem.ai.robot.Barcode;
+
+import util.board.Panel;
 import util.enums.Orientation;
 import util.world.World;
 
@@ -52,9 +55,19 @@ public class CommandBarcodeAt implements Command {
 	}
 	
 	@Override
-	public void execute(World simulator) {
-		// Doe niets!
-		// Dit commando is alleen nodig voor het maken van een realWorld.
+	public void execute(World world) {
+		Panel p = world.getRobot(_name).getBoard().getPanelAt(getCoordinate());
+		p.setBarcode(new Barcode(_barcode));
+		try {
+			p.setBarcodeOrientation(getDirection());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		world.getRobot(_name).getBoard().add(p, world.getRobot(_name).getPosition());
+		world.getRobot(_name).getBarcodes().put(new Barcode(_barcode), getCoordinate());
+		synchronized (world.getRobot(_name)) {
+			world.getRobot(_name).notify();
+}
 
 	}
 
