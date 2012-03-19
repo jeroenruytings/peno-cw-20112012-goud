@@ -118,8 +118,8 @@ public class RobotController
 				Board newBoard = BoardUnifier.unify2(getBoard(), data.getBoard());
 				for(Point point: newBoard.getFilledPoints())
 				{	
-					if(!getBoard().hasPanelAt(point))
-						System.out.println("tst" );
+//					if(!getBoard().hasPanelAt(point))
+//						System.out.println("tst" );
 					getBoard().add(newBoard.getPanelAt(point), point);
 				}
 			}
