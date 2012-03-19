@@ -63,7 +63,7 @@ public class CommandBarcodeAt implements Command {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		world.getRobot(_name).getBoard().add(p, world.getRobot(_name).getPosition());
+		world.getRobot(_name).getBoard().add(p, getCoordinate());
 		world.getRobot(_name).getBarcodes().put(new Barcode(_barcode), getCoordinate());
 		synchronized (world.getRobot(_name)) {
 			world.getRobot(_name).notify();
