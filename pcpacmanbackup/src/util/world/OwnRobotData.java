@@ -96,13 +96,13 @@ public class OwnRobotData extends RobotData
 	private String orientationToString(Orientation o){
 		switch (o) {
 		case NORTH:
-			return "1";
-		case SOUTH:
 			return "3";
+		case SOUTH:
+			return "1";
 		case WEST:
-			return "4";
-		case EAST:
 			return "2";
+		case EAST:
+			return "4";
 
 		}
 		return null;
