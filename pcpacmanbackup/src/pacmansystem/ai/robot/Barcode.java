@@ -21,10 +21,10 @@ public class Barcode
 	/**
 	 * @return This barcode read in the other direction.
 	 */
-	public int getReverse(){
+	public int getReverse() throws BarcodeException{
 		char[] binairy = Integer.toBinaryString(barcode).toCharArray();
-		//if (binairy.length != 8)
-		//	throw new BarcodeException("The given barcode-value does not exist!");
+		if (binairy.length != 8)
+			throw new BarcodeException("The given barcode-value does not exist!");
 		char[] result = new char[8];
 		result[0] = binairy[0];
 		result[7] = binairy[7];
