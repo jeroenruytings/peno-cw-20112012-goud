@@ -97,8 +97,13 @@ public class RobotController
 				Board newBoard = BoardUnifier.unify2(getBoard(), data.getBoard());
 				for(Point point: newBoard.getFilledPoints())
 				{	
-					if(!getBoard().hasPanelAt(point));
+					if(!getBoard().hasPanelAt(point)){
 						getOwnData().discover(point, newBoard.getPanelAt(point));
+						if(newBoard.getPanelAt(point).hasBarcode())
+						{
+							getOwnData().barcode(newBoard.getPanelAt(point).getBarcode(), newBoard.getPanelAt(point).getBarcodeOrientation());
+						}
+					}
 				}
 			}
 
