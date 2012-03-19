@@ -3,6 +3,7 @@ package pacmansystem;
 
 
 import interfaces.mainscreen.Mainscreen;
+import interfaces.pacmancomponents.RobotType;
 
 import javax.swing.JOptionPane;
 
@@ -15,6 +16,7 @@ import pacmansystem.ai.robot.simulatedRobot.SimulatedRobot;
 import util.enums.Orientation;
 import util.world.RealWorld;
 import util.world.RobotData;
+import util.world.World;
 
 public class DistributedMain {
 	
@@ -51,13 +53,12 @@ private static RobotController initNewRobot() {
 		RealWorld simulatorWorld = Mainscreen.getRealWorld();
 		PanelLayerInterface p= new SimulatedRobot(simulatorWorld,simulatorWorld.getStartingPoint(robotNumber), Orientation.random());
 		OrientationLayer directionlayer = new OrientationLayer(p);
-		controller = new RobotController(directionlayer, robotName, null);
+		controller = new RobotController(directionlayer, robotName, new World());
 		return controller;
 	}
 	throw new IllegalStateException("One of the robots is not initialized.");
 	
 }
-
 private static void start(final RobotController c)
 {
 	new Thread(new Runnable()
