@@ -305,7 +305,10 @@ public class RobotController
 				.abs(destination.getY() - getCurrentPoint().y));
 	}
 
-	
+	public void establishConnection()
+	{
+		world.start(getData());
+	}
 	public void start()
 	{
 		new Thread(new Runnable()
@@ -314,10 +317,7 @@ public class RobotController
 			@Override
 			public void run()
 			{
-				world.start(getData());
-				synchronized (RobotController.this) {
-					RobotController.this.notify();
-				}
+				
 				explore();
 				
 			}

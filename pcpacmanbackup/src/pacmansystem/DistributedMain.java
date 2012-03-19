@@ -30,19 +30,15 @@ public class DistributedMain {
 			RobotController robot = initNewRobot();
 			
 			//ComponentFrame.showFrame("RabbitMQ", new RabbitHistory());
-			robot.start();
+			
 			Mainscreen gui = new Mainscreen();
-			synchronized (robot) {
-				try {
-					robot.wait();
-				} catch (InterruptedException e) {
-				}
-			}
+			robot.establishConnection();
 			for (RobotData r : robot.getWorld().get_robots().values())
 				gui.setRobotData(r);
 			
 			gui.setWorld(robot.getWorld());
-			gui.start();		
+			gui.start();
+			robot.start();
 	}
 private static RobotController initNewRobot() {
 	RobotController controller;
