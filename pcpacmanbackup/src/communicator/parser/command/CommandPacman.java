@@ -31,9 +31,11 @@ public class CommandPacman implements Command
 	}
 
 	@Override
-	public void execute(World simulator)
+	public void execute(World world)
 	{
-		simulator.getRobot(_name).setPacman(_coordinate);
+		world.getRobot(_name).setPacman(_coordinate);
+
+		world.getRobot(_name).notify();
 	}
 
 	@Override

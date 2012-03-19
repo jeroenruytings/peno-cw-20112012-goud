@@ -60,6 +60,9 @@ public class CommandDiscover implements Command
 		if (world.getRobot(_name) != null){
 			Board b = world.getRobot(_name).getBoard();
 			b.add(p, world.getRobot(_name).getPosition());
+			synchronized (world.getRobot(_name)) {
+				world.getRobot(_name).notify();
+			}
 		}
 	}
 

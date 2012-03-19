@@ -20,6 +20,7 @@ import util.board.shortestpathfinder.dijkstra.DijkstraFinder;
 import util.enums.Orientation;
 import util.lazy.TransformedRobotData;
 import util.transformed.Transformation;
+import util.world.OwnRobotData;
 import util.world.RobotData;
 import util.world.RobotDataView;
 import util.world.World;
@@ -29,19 +30,29 @@ import communicator.be.kuleuven.cs.peno.MessageSender;
 public class RobotController
 {
 
-	private RobotData data = new RobotData();
-
+	
 	public RobotData getData()
 	{
-		return data;
+		return world.getRobot(getName());
 	}
-
+	private OwnRobotData getOwnData()
+	{
+		return (OwnRobotData) world.getRobot(getName());
+	}
 	private PathLayer pathLayer;
 	private World world;
 
 	private Map<RobotData, PointConvertor> convertors = new HashMap<RobotData, PointConvertor>();
 	private Map<RobotData,RobotData> otherRobots=new HashMap<RobotData,RobotData>();
+	private String name_;
 	
+	public RobotController(OrientationLayer layer, String name, World aWorld){
+		OwnRobotData data = new OwnRobotData(name);//TODO:make this a fancy robotdata !
+		this.world=aWorld;
+		this.world.setRobot(data,name);
+		this.name_=name;
+		pathLayer = new PathLayer(data, layer);
+	}
 	public Map<RobotData, PointConvertor> getConvertors()
 	{
 		return convertors;
@@ -56,61 +67,29 @@ public class RobotController
 		return world;
 	}
 
-	public void join()
-	{
-		try {
-			MessageSender.getInstance().sendMessage("JOIN\n");
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-	}
+
 	
-	public void sendName(){
-		try {
-			MessageSender.getInstance().sendMessage(getName() + " NAME 1.0\n");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 	public void explore()
 	{
 		Point destination = null;
+		getOwnData().position(new Point(0,0));
 		while (true) {
 			//checkForNewInfo();
 			// voegt panel toe aan board
 			tryAddingOtherRobots();
-			Panel p1 = getPathLayer().getOrientationLayer().getPanel(
-					getCurrentOrientation()); // getPanel() moet om zich heen
+			Panel p1 = getPathLayer().getPanel(getCurrentOrientation());
 			// kijken
+			
 			try {
 				getBoard().add(p1, getCurrentPoint());
 			} catch (Exception e) {
 				getBoard().addForced(p1, getCurrentPoint());
 			}
 			// voegt panel toe aan board
-			try {
-				MessageSender.getInstance().sendMessage(
-						getName()
-						+ " DISCOVER "
-						+ pointToString(getCurrentPoint())
-						+ ""
-						+ getBoard().getPanelAt(getCurrentPoint())
-						.bordersToString());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		
 			if (p1.hasBarcode()){
-//				getData().getBarcodes().put(p1.getBarcode(), getCurrentPoint());
-				sendBarcode(p1.getBarcode(),p1.getBarcodeOrientation());
-
-//				Map<RobotData, Point> robots = getRobotsWithSameBarcode(p1.getBarcode());
-//				if(robots!=null){
-//					for(RobotData robot : robots.keySet()){
-//						if(!getConvertors().keySet().contains(robots))
-//							mergeBoard(robot,robots.get(robot));
-//					}
-//				}
+				getOwnData().barcode(p1.getBarcode(), p1.getBarcodeOrientation());
 			}
 
 			for(RobotDataView data: world.get_robots().values())
@@ -118,8 +97,8 @@ public class RobotController
 				Board newBoard = BoardUnifier.unify2(getBoard(), data.getBoard());
 				for(Point point: newBoard.getFilledPoints())
 				{	
-//					if(!getBoard().hasPanelAt(point))
-//						System.out.println("tst" );
+					if(!getBoard().hasPanelAt(point))
+						getOwnData().discover(point, newBoard.getPanelAt(point));
 					getBoard().add(newBoard.getPanelAt(point), point);
 				}
 			}
@@ -157,6 +136,25 @@ public class RobotController
 			}
 	}
 	
+	public Orientation getCurrentOrientation()
+	{
+	
+		return getPathLayer().getOrientationLayer().getOrientation();
+	}
+	public Point lookForDestination()
+		{
+	//		return ssMostUnknown();
+	//		 return ssClosestPoint();
+			Point destination = null;
+			Orientation orientation = nextMove();
+			if (orientation == null)
+				destination = searchNext();
+			else
+				destination = new Point(getCurrentPoint().x+ orientation.getXPlus(),
+						getCurrentPoint().y + orientation.getYPlus());
+			 return destination;
+	
+		}
 	private void tryAddingOtherRobots()
 	{
 		for(RobotData data:world.get_robots().values())
@@ -173,140 +171,27 @@ public class RobotController
 		
 	}
 
-	private String pointToString(Point p)
-	{
-		return p.x + "," + p.y;
-	}
+	
 
 	
 
-	private void checkForNewInfo()
-	{
-		for (RobotDataView robot : getConvertors().keySet()) {
-			for (Point pointFromBoard : robot.getBoard().getPanels().keySet()) {
-				Point pointBoard = getConvertors().get(robot).convert(
-						pointFromBoard);
-				if (getBoard().getPanelAt(pointBoard) == null) {
-					try {
-						Panel p = robot.getBoard().getPanelAt(pointFromBoard);
-						Panel q = new Panel();
-						if (p.hasBarcode()) {
-							q.setBarcode(p.getBarcode());
-							q.setBarcodeOrientation(getConvertors()
-									.get(robot).getOrientationsInverse().get(p.getBarcodeOrientation()));
 
-						}
-						for (Orientation orientation : getConvertors()
-								.get(robot).getOrientationsInverse().keySet()) {
-							q.setBorder(
-									orientation,
-									p.hasBorder(getConvertors().get(robot)
-											.getOrientationsInverse().get(orientation)));
-						}
-						getBoard().add(q, pointBoard);
-					} catch (Exception e) {
-						getConvertors().remove(robot);
-						e.printStackTrace();
-					}
-				}
-			}
-		}
-	}
-
-	private void mergeBoard(RobotData robot, Point point)
-
-	{
-		
-		HashMap<Orientation, Orientation> orientations = (HashMap<Orientation, Orientation>) getRelativeOrientationAfterBarcode(
-				getData(), robot, getCurrentPoint(), point);
-		PointConvertor convertor = new PointConvertor(getCurrentPoint(), point,
-				orientations);
-		getConvertors().put(robot, convertor);
-		Map<Orientation, Orientation> orientationsInverse = convertor.getOrientationsInverse();
-		for (Point pointFromBoard : robot.getBoard().getPanels().keySet()) {
-			Point pointBoard = convertor.convert(pointFromBoard);
-			if (!getBoard().hasPanelAt(pointBoard)) {
-				try {
-					Panel p = robot.getBoard().getPanelAt(pointFromBoard);
-					Panel q = new Panel();
-					if (p.hasBarcode()) {
-						q.setBarcode(p.getBarcode());
-						q.setBarcodeOrientation(orientationsInverse.get(p.getBarcodeOrientation()));
-					}
-					for (Orientation orientation : orientationsInverse.keySet()) {
-						q.setBorder(orientation,
-								p.hasBorder(orientationsInverse.get(orientation)));
-					}
-					getBoard().add(q, pointBoard);
-				} catch (Exception e) {
-					// paneel geeft conflict => niet toevoegen
-					getConvertors().remove(robot);
-					e.printStackTrace();
-				}
-			}
-		}
-
-
-    }
 
 	private Board getBoard()
 	{
-		return data.getBoard();
+		return getData().getBoard();
 	}
 
-	private void sendBarcode(Barcode barcode,Orientation o)
-	{
-		try {
-			MessageSender.getInstance().sendMessage(
-					getName() + " BARCODE " + barcode.getValue() + " "
-							+ orientationToString(o) + "\n");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+
 	
-	private String orientationToString(Orientation o){
-		switch (o) {
-		case NORTH:
-			return "1";
-		case SOUTH:
-			return "3";
-		case WEST:
-			return "4";
-		case EAST:
-			return "2";
-
-		}
-		return null;
-	}
-
-	public Orientation getCurrentOrientation()
-	{
-
-		return getPathLayer().getOrientationLayer().getOrientation();
-	}
 
 	private Point getCurrentPoint()
 	{
-		return new Point(getCurrentX(), getCurrentY());
+		return getData().getPosition();
 	}
 
 
 
-	public Point lookForDestination()
-	{
-//		return ssMostUnknown();
-//		 return ssClosestPoint();
-		Point destination = null;
-		Orientation orientation = nextMove();
-		if (orientation == null)
-			destination = searchNext();
-		else
-			destination = new Point(getCurrentX() + orientation.getXPlus(),
-					getCurrentY() + orientation.getYPlus());
-		 return destination;
-
-	}
 	private Point ssMostKnown()
 	{
 		Point shortest = null;
@@ -380,9 +265,7 @@ public class RobotController
 				continue;
 			if (getBoard().hasPanelAt(orientation.addTo(getCurrentPoint())))
 				continue;
-			Point possibleDest = new Point(getCurrentX()
-					+ orientation.getXPlus(), getCurrentY()
-					+ orientation.getYPlus());
+			Point possibleDest = orientation.addTo(getCurrentPoint());
 			int temp = getBoard().nbOfUnknowns(possibleDest);
 			if (temp >= nbUnknowns) {
 				best = orientation;
@@ -418,53 +301,30 @@ public class RobotController
 
 	private int heuristiek(Point destination)
 	{
-		return (int) (Math.abs(destination.getX() - getCurrentX()) + Math
-				.abs(destination.getY() - getCurrentY()));
+		return (int) (Math.abs(destination.getX() - getCurrentPoint().x) + Math
+				.abs(destination.getY() - getCurrentPoint().y));
 	}
 
-	public RobotController(OrientationLayer layer)
-	{
-		this(layer,false, "Goud" + Math.random());
-	}
 	
-	public RobotController(OrientationLayer layer, boolean hasMessageReceiver, String name){
-		initWorld();
-		data.setName(name);
-		pathLayer = new PathLayer(getData(), layer);
-	}
-	
-	public RobotController(Board b, OrientationLayer layer)
+	public void start()
 	{
-		world = new World();
-		data = new RobotData(b);
-		//world.addRobot(data, "Goud");
-		// currentOrientation = Orientation.NORTH;
-		pathLayer = new PathLayer(getData(), layer);
-	}
-
-	public int getCurrentX()
-	{
-		return data.getPosition().x;
-	}
-
-	public void setCurrentX(int x)
-	{
-		data.getPosition().setLocation(x, getCurrentY());
-	}
-
-	public int getCurrentY()
-	{
-		return data.getPosition().y;
-	}
-
-	public void setCurrentY(int y)
-	{
-		data.getPosition().setLocation(getCurrentX(), y);
+		new Thread(new Runnable()
+		{
+			
+			@Override
+			public void run()
+			{
+				world.start(getData());
+				
+				explore();
+				
+			}
+		}).start();
 	}
 
 	public String getName()
 	{
-		return data.getName();
+		return name_;
 	}
 
     public Map<RobotData, Point> getRobotsWithSameBarcode(Barcode barcode)
@@ -517,18 +377,7 @@ public class RobotController
 	}
 
 
-	
-	private void initWorld()
-	{
-		data = new RobotData();
-		world = new World();
-		//world.addRobot(getData(), getData().getName());
-	}
 
-	public Point getLocation()
-	{
-		return new Point(getCurrentX(), getCurrentY());
-	}
 	
 	public Collection<RobotData> getOtherBots()
 	{

@@ -69,13 +69,18 @@ public class RobotData implements RobotDataView
 	{
 		this.capturedPacman = capturedPacman;
 	}
-
+	public RobotData(String name)
+	{
+		board = new Board();
+		plan = new ArrayList<Point>();
+		this.name=name;
+	}
 	public RobotData(Board board)
 	{
 		this.board = board;
 		plan = new ArrayList<Point>();
 	}
-
+	
 	public RobotData()
 	{
 		board = new Board();

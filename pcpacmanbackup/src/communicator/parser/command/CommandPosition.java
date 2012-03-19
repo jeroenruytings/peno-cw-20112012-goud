@@ -31,9 +31,13 @@ public class CommandPosition implements Command
 	}
 
 	@Override
-	public void execute(World simulator)
+	public void execute(World world)
 	{
-		simulator.getRobot(_name).setPosition(_position);
+		world.getRobot(_name).setPosition(_position);
+		synchronized (world.getRobot(_name)) {
+			world.getRobot(_name).notify();
+		}
+		
 	}
 
 	@Override

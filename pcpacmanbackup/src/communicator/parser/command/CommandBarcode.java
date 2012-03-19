@@ -39,14 +39,17 @@ public class CommandBarcode implements Command
 	}
 
 	@Override
-	public void execute(World simulator)
+	public void execute(World world)
 	{
-		Panel p = simulator.getRobot(_name).getBoard()
-				.getPanelAt(simulator.getRobot(_name).getPosition());
+		Panel p = world.getRobot(_name).getBoard()
+				.getPanelAt(world.getRobot(_name).getPosition());
 		p.setBarcode(new Barcode(_barcode));
 		p.setBarcodeOrientation(Orientation.fromOrdinal(getDirection()-1));
-		simulator.getRobot(_name).getBoard().add(p, simulator.getRobot(_name).getPosition());
-		simulator.getRobot(_name).getBarcodes().put(new Barcode(_barcode), simulator.getRobot(_name).getPosition());
+		world.getRobot(_name).getBoard().add(p, world.getRobot(_name).getPosition());
+		world.getRobot(_name).getBarcodes().put(new Barcode(_barcode), world.getRobot(_name).getPosition());
+		synchronized (world.getRobot(_name)) {
+			world.getRobot(_name).notify();
+		}
 	}
 
 	@Override

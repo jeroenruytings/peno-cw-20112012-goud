@@ -6,8 +6,10 @@ import java.util.Iterator;
 
 import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
 import util.board.Board;
+import util.board.Panel;
 import util.board.shortestpathfinder.dijkstra.DijkstraFinder;
 import util.enums.Orientation;
+import util.world.OwnRobotData;
 import util.world.RobotData;
 
 import communicator.be.kuleuven.cs.peno.MessageSender;
@@ -20,9 +22,9 @@ public class PathLayer {
 	}
 
 	private DijkstraFinder finder;
-	private RobotData data;
+	private OwnRobotData data;
 	
-	public PathLayer(RobotData data, OrientationLayer layer){
+	public PathLayer(OwnRobotData data, OrientationLayer layer){
 		orientationLayer = layer;
 		finder = new DijkstraFinder(data.getBoard());
 		this.data = data;
@@ -45,16 +47,7 @@ public class PathLayer {
 				Orientation o = Board.getOrientationBetween(currentPoint, nextPoint);
 				orientationLayer.go(o);
 				currentPoint = nextPoint;
-				data.setPosition(currentPoint);
-				try{
-					MessageSender.getInstance().sendMessage(
-							data.getName()
-							+ " POSITION "
-							+ pointToString(currentPoint)
-							+ "\n");
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				data.position(currentPoint);
 				data.setOrientation(o);
 			} catch (IllegalDriveException e) {
 				//fix things :D
@@ -66,6 +59,13 @@ public class PathLayer {
 	private String pointToString(Point p)
 	{
 		return p.x + "," + p.y;
+	}
+
+	public Panel getPanel(Orientation currentOrientation)
+	{
+		Panel panel = orientationLayer.getPanel(currentOrientation);
+		data.discover(data.getPosition(), panel);
+		return panel;
 	}
 	
 	

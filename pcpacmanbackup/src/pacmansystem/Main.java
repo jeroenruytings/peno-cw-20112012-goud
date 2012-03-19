@@ -11,6 +11,7 @@ import pacmansystem.ai.robot.fysicalRobot.connector.MoverLayer;
 import pacmansystem.ai.robot.simulatedRobot.SimulatedRobot;
 import util.enums.Orientation;
 import util.world.RealWorld;
+import util.world.World;
 
 public class Main
 {
@@ -32,31 +33,17 @@ public class Main
 			}
 		}
 
-		for (RobotController r : robot){
-			r.join();
-		}
-		for (RobotController r : robot){
-			r.sendName();
-		}
-		synchronized (robot[0].getWorld()) {
-			try {
-				robot[0].getWorld().wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
+		
+		
+		for(RobotController c:robot)
+			c.start();
 		Mainscreen gui = new Mainscreen();
 
 		for (RobotController r : robot)
-//		for (RobotData r : robot[0].getWorld().get_robots().values())
 			gui.setRobotData(r.getData());
 		
 		gui.setWorld(robot[0].getWorld());
 		gui.start();
-		gogo(robot[0]);
-		gogo(robot[1]);
-		gogo(robot[2]);
-		gogo(robot[3]);
 	}
 	void gogo(final RobotController c)
 	{
@@ -80,14 +67,14 @@ public class Main
 			MoverLayer ml = new MoverLayer();
 			PanelLayer pl = new PanelLayer(ml);
 			OrientationLayer ol = new OrientationLayer(pl);
-			controller = new RobotController(ol,receiver, "Goud" + Math.random());
+			controller = new RobotController(ol,"Goud" + Math.random(), null);
 			receiver = false;
 			return controller;
 
 		case VIRTUALROBOT:
 			PanelLayerInterface p= new SimulatedRobot(getSimulatorWorld(),getSimulatorWorld().getStartingPoint(), Orientation.random());
 			OrientationLayer directionlayer = new OrientationLayer(p);
-			controller = new RobotController(directionlayer, receiver, "Goud" + Math.random());
+			controller = new RobotController(directionlayer, "Goud" + Math.random(), new World());
 			receiver = false;
 			return controller;
 		}

@@ -29,13 +29,13 @@ public class CommandName implements Command
 	}
 
 	@Override
-	public void execute(World simulator)
+	public void execute(World world)
 	{
 		try {
-			synchronized (simulator) {
-				simulator.notify();
+			synchronized (world) {
+				world.notify();
 			}
-			simulator.addRobot(getNameFrom());
+			world.addRobot(getNameFrom());
 		} catch (InsufficientJoinsException e) {
 			System.err.print("Zoek de schuldige, er zijn niet genoeg robots.");
 		}

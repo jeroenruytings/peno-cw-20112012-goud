@@ -28,33 +28,14 @@ public class DistributedMain {
 			RobotController robot = initNewRobot();
 			
 			//ComponentFrame.showFrame("RabbitMQ", new RabbitHistory());
-			robot.join();
-			synchronized (robot.getWorld()) {
-				try {
-					// Wacht totdat er 4 joins zijn, of er een CommandName wordt uitgevoerd.
-					robot.getWorld().wait();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-			
-			robot.sendName();
-			synchronized (robot.getWorld()) {
-				try {
-					// wacht totdat er 4 CommandName's zijn uitgevoerd.
-					robot.getWorld().wait();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
+			robot.start();
 			Mainscreen gui = new Mainscreen();
 
 			for (RobotData r : robot.getWorld().get_robots().values())
 				gui.setRobotData(r);
 			
 			gui.setWorld(robot.getWorld());
-			gui.start();
-			start(robot);		
+			gui.start();		
 	}
 private static RobotController initNewRobot() {
 	RobotController controller;
@@ -63,14 +44,14 @@ private static RobotController initNewRobot() {
 		MoverLayer ml = new MoverLayer();
 		PanelLayer pl = new PanelLayer(ml);
 		OrientationLayer ol = new OrientationLayer(pl);
-		controller = new RobotController(ol,true, robotName);
+		controller = new RobotController(ol,robotName, null);
 		return controller;
 
 	case JOptionPane.YES_OPTION:
 		RealWorld simulatorWorld = Mainscreen.getRealWorld();
 		PanelLayerInterface p= new SimulatedRobot(simulatorWorld,simulatorWorld.getStartingPoint(robotNumber), Orientation.random());
 		OrientationLayer directionlayer = new OrientationLayer(p);
-		controller = new RobotController(directionlayer, true, robotName);
+		controller = new RobotController(directionlayer, robotName, null);
 		return controller;
 	}
 	throw new IllegalStateException("One of the robots is not initialized.");
