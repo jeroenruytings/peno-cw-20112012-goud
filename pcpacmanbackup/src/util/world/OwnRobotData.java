@@ -35,7 +35,7 @@ public class OwnRobotData extends RobotData
 			e.printStackTrace();
 		}
 		
-		while(!this.getBoard().getPanelAt(point).equals(panel))
+		while(this.getBoard().getPanelAt(point) != null && !this.getBoard().getPanelAt(point).equals(panel))
 		{
 			synchronized (this) {
 				try {
