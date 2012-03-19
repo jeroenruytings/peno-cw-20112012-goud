@@ -59,7 +59,8 @@ public class CommandDiscover implements Command
 		Panel p = getPanel();
 		if (world.getRobot(_name) != null){
 			Board b = world.getRobot(_name).getBoard();
-			b.add(p, world.getRobot(_name).getPosition());
+			if(!b.hasPanelAt(_coordinate))
+				b.add(p, _coordinate);
 			synchronized (world.getRobot(_name)) {
 				world.getRobot(_name).notify();
 			}

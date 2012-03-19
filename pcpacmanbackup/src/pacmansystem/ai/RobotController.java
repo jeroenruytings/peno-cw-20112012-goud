@@ -97,9 +97,8 @@ public class RobotController
 				Board newBoard = BoardUnifier.unify2(getBoard(), data.getBoard());
 				for(Point point: newBoard.getFilledPoints())
 				{	
-					if(!getBoard().hasPanelAt(point))
+					if(!getBoard().hasPanelAt(point));
 						getOwnData().discover(point, newBoard.getPanelAt(point));
-					getBoard().add(newBoard.getPanelAt(point), point);
 				}
 			}
 
@@ -157,6 +156,7 @@ public class RobotController
 		}
 	private void tryAddingOtherRobots()
 	{
+		synchronized (world.get_robots()) {
 		for(RobotData data:world.get_robots().values())
 		{
 			if(!data.getName().equals(this.getName()))
@@ -168,7 +168,7 @@ public class RobotController
 				}
 			}
 		}
-		
+		}
 	}
 
 	

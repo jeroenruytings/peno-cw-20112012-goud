@@ -50,7 +50,6 @@ public class World implements Observer
 			synchronized (this) {
 
 				this.wait();
-
 			}
 		} catch (InterruptedException e) {
 			throw new Error("STarting of the world failed for robot:"

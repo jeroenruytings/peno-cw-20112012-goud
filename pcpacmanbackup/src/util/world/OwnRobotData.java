@@ -8,6 +8,7 @@ import communicator.be.kuleuven.cs.peno.MessageSender;
 import pacmansystem.ai.robot.Barcode;
 
 import util.board.Panel;
+import util.enums.Direction;
 import util.enums.Orientation;
 
 
@@ -35,7 +36,7 @@ public class OwnRobotData extends RobotData
 			e.printStackTrace();
 		}
 		
-		while(this.getBoard().getPanelAt(point) == null || !this.getBoard().getPanelAt(point).equals(panel))
+		while(this.getBoard().getPanelAt(point) == null || !noBarcode(this.getBoard().getPanelAt(point)).equals(noBarcode(panel)))
 		{
 			synchronized (this) {
 				try {
@@ -55,7 +56,7 @@ public class OwnRobotData extends RobotData
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		while(!this.getBoard().getPanelAt(getPosition()).getBarcode().equals(barcode))
+		while(this.getBoard().getPanelAt(getPosition())==null||this.getBoard().getPanelAt(getPosition()).getBarcode()==null||!this.getBoard().getPanelAt(getPosition()).getBarcode().equals(barcode))
 		{
 			synchronized (this) {
 				try {
@@ -106,5 +107,11 @@ public class OwnRobotData extends RobotData
 		}
 		return null;
 	}
-
+	private Panel noBarcode(Panel panel)
+	{
+		Panel rv = new Panel();
+		for(Orientation dir:Orientation.values())
+			rv.setBorder(dir, panel.hasBorder(dir));
+		return rv;
+	}
 }
