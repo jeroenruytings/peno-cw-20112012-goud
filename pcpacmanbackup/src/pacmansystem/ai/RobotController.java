@@ -89,7 +89,7 @@ public class RobotController
 			// voegt panel toe aan board
 		
 			if (p1.hasBarcode()){
-				getOwnData().barcode(p1.getBarcode(), p1.getBarcodeOrientation());
+				getOwnData().barcode(p1.getBarcode(), p1.getBarcodeOrientation(), getCurrentPoint());
 			}
 
 			for(RobotDataView data: world.get_robots().values())
@@ -101,7 +101,7 @@ public class RobotController
 						getOwnData().discover(point, newBoard.getPanelAt(point));
 						if(newBoard.getPanelAt(point).hasBarcode())
 						{
-							getOwnData().barcode(newBoard.getPanelAt(point).getBarcode(), newBoard.getPanelAt(point).getBarcodeOrientation());
+							getOwnData().barcode(newBoard.getPanelAt(point).getBarcode(), newBoard.getPanelAt(point).getBarcodeOrientation(), point);
 						}
 					}
 				}

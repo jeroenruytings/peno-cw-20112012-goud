@@ -47,11 +47,11 @@ public class OwnRobotData extends RobotData
 			}
 		}
 	}
-	public void barcode(Barcode barcode,Orientation orientation)
+	public void barcode(Barcode barcode,Orientation orientation, Point point)
 	{
 		try {
 			MessageSender.getInstance().sendMessage(
-					getName() + " BARCODE " + barcode.getValue() + " "
+					getName() + " BARCODEAT "+pointToString(point)+"" + barcode.getValue() + " "
 							+ orientationToString(orientation) + "\n");
 		} catch (IOException e) {
 			e.printStackTrace();
