@@ -77,13 +77,12 @@ public class RobotController
 	{
 		Point destination = null;
 		while (true) {
-			checkForNewInfo();
+			//checkForNewInfo();
 			// voegt panel toe aan board
 			tryAddingOtherRobots();
 			Panel p1 = getPathLayer().getOrientationLayer().getPanel(
 					getCurrentOrientation()); // getPanel() moet om zich heen
 			// kijken
-
 			try {
 				getBoard().add(p1, getCurrentPoint());
 			} catch (Exception e) {
