@@ -51,7 +51,7 @@ public class OwnRobotData extends RobotData
 	{
 		try {
 			MessageSender.getInstance().sendMessage(
-					getName() + " BARCODEAT "+pointToString(point)+"" + barcode.getValue() + " "
+					getName() + " BARCODEAT "+pointToString(point)+" " + barcode.getValue() + " "
 							+ orientationToString(orientation) + "\n");
 		} catch (IOException e) {
 			e.printStackTrace();
