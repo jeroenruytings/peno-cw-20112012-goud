@@ -43,13 +43,13 @@ public class CommandBarcodeAt implements Command {
 	public Orientation getDirection() throws ParseException{
 		switch(_direction){
 		case 1:
-			return Orientation.SOUTH;
-		case 2:
-			return Orientation.WEST;
-		case 3:
 			return Orientation.NORTH;
-		case 4:
+		case 2:
 			return Orientation.EAST;
+		case 3:
+			return Orientation.SOUTH;
+		case 4:
+			return Orientation.WEST;
 		}
 		throw new ParseException("Orientatie is fout ingelezen!", 0);
 	}
