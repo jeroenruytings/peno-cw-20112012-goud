@@ -19,11 +19,11 @@ public class RobotData implements RobotDataView
 
 	private Board board;
 	// Pacman's location.
-	private Point pacman;
+	private Point pacman = null;
 	// All the locations pacman was sighted by this robot.
 	private List<Point> pacmanHistory;
 	// The amount of previous data to be hold.
-	private int pacmanhistorylength;
+	private int pacmanhistorylength=100;
 	private Orientation orientation = Orientation.NORTH;
 	
 	private String name;
@@ -74,17 +74,20 @@ public class RobotData implements RobotDataView
 		board = new Board();
 		plan = new ArrayList<Point>();
 		this.name=name;
+		pacmanHistory = new ArrayList<Point>();
 	}
 	public RobotData(Board board)
 	{
 		this.board = board;
 		plan = new ArrayList<Point>();
+		pacmanHistory = new ArrayList<Point>();
 	}
 	
 	public RobotData()
 	{
 		board = new Board();
 		plan = new ArrayList<Point>();
+		pacmanHistory = new ArrayList<Point>();
 	}
 
 	/**

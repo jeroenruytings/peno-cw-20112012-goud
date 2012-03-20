@@ -56,7 +56,7 @@ public class OwnRobotData extends RobotData
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		while(this.getBoard().getPanelAt(getPosition())==null||this.getBoard().getPanelAt(getPosition()).getBarcode()==null||!this.getBoard().getPanelAt(getPosition()).getBarcode().equals(barcode))
+		while(this.getBoard().getPanelAt(point)==null||this.getBoard().getPanelAt(point).getBarcode()==null||!this.getBoard().getPanelAt(point).getBarcode().equals(barcode))
 		{
 			synchronized (this) {
 				try {

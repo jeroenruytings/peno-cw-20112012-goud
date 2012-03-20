@@ -79,6 +79,9 @@ public class RobotController
 			// voegt panel toe aan board
 			tryAddingOtherRobots();
 			Panel p1 = getPathLayer().getPanel(getCurrentOrientation());
+			boolean pacmanSpotted = getPathLayer().getOrientationLayer().getLayer().getPacman();
+			if(pacmanSpotted)
+				getData().setPacman(getCurrentPoint());
 			// kijken
 			
 			try {
@@ -127,8 +130,10 @@ public class RobotController
 			// }
 			destination = lookForDestination(); // zoekt volgend punt om naartoe
 												// te gaan
-			if (destination == null)
+			if (destination == null) {
+				driveToPacman();
 				return;
+			}
 			try {
 				getPathLayer().go(getCurrentPoint(), destination);
 			} catch (IllegalDriveException e) {
@@ -138,8 +143,21 @@ public class RobotController
 				// destination)); //verandert orientatietry {
 			
 			}
+		
 	}
 	
+	private void driveToPacman() {
+		if(getData().getPacmanLastSighted() != null){
+			try {
+				getPathLayer().go(getCurrentPoint(), getData().getPacmanLastSighted());
+			} catch (IllegalDriveException e) {
+				e.printStackTrace();
+			}
+		}
+		else{
+			System.out.println("Geen pacman gevonden!");
+		}
+	}
 	public Orientation getCurrentOrientation()
 	{
 	
