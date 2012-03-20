@@ -34,7 +34,6 @@ public class CommandPacman implements Command
 	public void execute(World world)
 	{
 		world.getRobot(_name).setPacman(_coordinate);
-
 		world.getRobot(_name).notify();
 	}
 

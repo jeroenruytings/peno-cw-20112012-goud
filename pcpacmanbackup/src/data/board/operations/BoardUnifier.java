@@ -69,7 +69,6 @@ public class BoardUnifier
 		Panel panelThiz=thiz.getPanelAt(origin);
 		Panel panelThat=translated.getPanelAt(origin);
 		int count =calculateTurns(panelThiz,panelThat);
-		
 		for(int i =0;i<count;i++)
 			translated=Operations.turn(translated, origin, Turn.LEFT);
 		rv=merge(thiz,translated);

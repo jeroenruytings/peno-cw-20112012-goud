@@ -114,4 +114,27 @@ public class OwnRobotData extends RobotData
 			rv.setBorder(dir, panel.hasBorder(dir));
 		return rv;
 	}
+	
+	public void pacman(Point point)
+	{
+		try{
+			MessageSender.getInstance().sendMessage(
+					getName()
+					+ " PACMAN "
+					+ pointToString(point)
+					+ "\n");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		while(this.getPacmanLastSighted()==null||!this.getPacmanLastSighted().equals(point))
+		{
+			synchronized (this) {
+				try {
+					this.wait();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 }

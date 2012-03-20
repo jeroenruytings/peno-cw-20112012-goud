@@ -106,6 +106,12 @@ public class RobotController
 						{
 							getOwnData().barcode(newBoard.getPanelAt(point).getBarcode(), newBoard.getPanelAt(point).getBarcodeOrientation(), point);
 						}
+						if(data.getPacmanLastSighted()!=null){
+							//TODO: pacman draaien naar ander assenstelsel
+							//Point point = data.getPacmanLastSighted geconverteerd;
+							//getOwnData().pacman(point);
+						}
+							
 					}
 				}
 			}
