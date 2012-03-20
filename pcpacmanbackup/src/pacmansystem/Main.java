@@ -1,5 +1,8 @@
 package pacmansystem;
 
+import data.enums.Orientation;
+import data.world.RealWorld;
+import data.world.World;
 import interfaces.mainscreen.Mainscreen;
 import interfaces.mainscreen.ModeChooser;
 import interfaces.pacmancomponents.RobotType;
@@ -9,9 +12,6 @@ import pacmansystem.ai.robot.PanelLayerInterface;
 import pacmansystem.ai.robot.fysicalRobot.PanelLayer;
 import pacmansystem.ai.robot.fysicalRobot.connector.MoverLayer;
 import pacmansystem.ai.robot.simulatedRobot.SimulatedRobot;
-import util.enums.Orientation;
-import util.world.RealWorld;
-import util.world.World;
 
 public class Main
 {

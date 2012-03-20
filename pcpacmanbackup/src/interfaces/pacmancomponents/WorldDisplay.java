@@ -1,8 +1,8 @@
 package interfaces.pacmancomponents;
 
-import util.board.Board;
-import util.world.RobotData;
-import util.world.World;
+import data.board.Board;
+import data.world.RobotData;
+import data.world.World;
 
 public class WorldDisplay extends BoardDisplay {
 

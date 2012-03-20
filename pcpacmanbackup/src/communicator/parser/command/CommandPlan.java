@@ -4,10 +4,10 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import util.world.World;
 
 import communicator.parser.Command;
 import communicator.parser.MessageType;
+import data.world.World;
 
 public class CommandPlan implements Command
 {

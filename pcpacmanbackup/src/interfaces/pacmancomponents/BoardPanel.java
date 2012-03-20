@@ -12,8 +12,9 @@ import javax.swing.JColorChooser;
 import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
 
-import util.world.RobotData;
-import util.world.World;
+import data.world.RobotData;
+import data.world.World;
+
 
 public class BoardPanel extends JPanel {
 

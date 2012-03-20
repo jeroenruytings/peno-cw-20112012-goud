@@ -4,8 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 
-import util.board.Board;
-import util.world.RobotData;
+import data.board.Board;
+import data.world.RobotData;
+
 
 public class RobotDataCanvas extends BoardDisplay
 {

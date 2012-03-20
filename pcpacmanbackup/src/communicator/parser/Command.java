@@ -1,6 +1,6 @@
 package communicator.parser;
 
-import util.world.World;
+import data.world.World;
 
 public interface Command
 {

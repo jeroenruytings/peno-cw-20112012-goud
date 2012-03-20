@@ -4,12 +4,13 @@ import interfaces.mainscreen.Mainscreen;
 
 import java.awt.Point;
 
+import data.board.Panel;
+import data.enums.Direction;
+import data.enums.Orientation;
+import data.world.RealWorld;
+
 import pacmansystem.ai.robot.Barcode;
 import pacmansystem.ai.robot.PanelLayerInterface;
-import util.board.Panel;
-import util.enums.Direction;
-import util.enums.Orientation;
-import util.world.RealWorld;
 
 public class SimulatedRobot implements PanelLayerInterface {
 	private Point _currentLocation;

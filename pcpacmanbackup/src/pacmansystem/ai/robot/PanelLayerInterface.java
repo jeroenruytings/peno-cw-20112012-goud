@@ -4,10 +4,11 @@ import java.io.IOException;
 
 import javax.naming.OperationNotSupportedException;
 
+import data.board.Panel;
+import data.enums.Direction;
+import data.enums.Orientation;
+
 import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
-import util.board.Panel;
-import util.enums.Direction;
-import util.enums.Orientation;
 
 public interface PanelLayerInterface
 {

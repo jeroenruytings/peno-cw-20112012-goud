@@ -1,10 +1,10 @@
 package pacmansystem.ai.robot.fysicalRobot.connector;
 
+import data.board.Panel;
+import data.enums.Direction;
+import data.enums.Orientation;
 import pacmansystem.ai.robot.fysicalRobot.PanelColor;
 import pacmansystem.ai.robot.fysicalRobot.PanelLayer;
-import util.board.Panel;
-import util.enums.Direction;
-import util.enums.Orientation;
 
 
 

@@ -1,9 +1,9 @@
 package pacmansystem.ai.robot;
 
+import data.board.Panel;
+import data.enums.Direction;
+import data.enums.Orientation;
 import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
-import util.board.Panel;
-import util.enums.Direction;
-import util.enums.Orientation;
 
 public class OrientationLayer
 {

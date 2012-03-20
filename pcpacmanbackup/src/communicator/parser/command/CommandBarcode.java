@@ -1,12 +1,12 @@
 package communicator.parser.command;
 
 import pacmansystem.ai.robot.Barcode;
-import util.board.Panel;
-import util.enums.Orientation;
-import util.world.World;
 
 import communicator.parser.Command;
 import communicator.parser.MessageType;
+import data.board.Panel;
+import data.enums.Orientation;
+import data.world.World;
 
 public class CommandBarcode implements Command
 {

@@ -1,10 +1,10 @@
 package communicator.parser.command;
 
-import util.world.InsufficientJoinsException;
-import util.world.World;
 
 import communicator.parser.Command;
 import communicator.parser.MessageType;
+import data.world.InsufficientJoinsException;
+import data.world.World;
 
 public class CommandName implements Command
 {

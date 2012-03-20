@@ -5,14 +5,14 @@ import java.io.IOException;
 import java.util.Iterator;
 
 import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
-import util.board.Board;
-import util.board.Panel;
-import util.board.shortestpathfinder.dijkstra.DijkstraFinder;
-import util.enums.Orientation;
-import util.world.OwnRobotData;
-import util.world.RobotData;
 
 import communicator.be.kuleuven.cs.peno.MessageSender;
+import data.board.Board;
+import data.board.Panel;
+import data.board.shortestpathfinder.dijkstra.DijkstraFinder;
+import data.enums.Orientation;
+import data.world.OwnRobotData;
+import data.world.RobotData;
 
 public class PathLayer {
 	

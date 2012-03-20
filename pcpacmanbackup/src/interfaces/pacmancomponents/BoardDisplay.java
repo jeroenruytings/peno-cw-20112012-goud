@@ -12,10 +12,11 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-import util.board.Board;
-import util.enums.Orientation;
-import util.world.RobotData;
-import util.world.RobotDataView;
+import data.board.Board;
+import data.enums.Orientation;
+import data.world.RobotData;
+import data.world.RobotDataView;
+
 
 public abstract class BoardDisplay extends Canvas
 {

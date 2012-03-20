@@ -2,8 +2,9 @@ package pacmansystem.ai.robot;
 
 import org.junit.Test;
 
-import util.enums.Direction;
-import util.enums.Orientation;
+import data.enums.Direction;
+import data.enums.Orientation;
+
 
 public class _OrientationLayerTest
 {

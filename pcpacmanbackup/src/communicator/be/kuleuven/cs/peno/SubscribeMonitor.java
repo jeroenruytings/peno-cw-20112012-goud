@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 
-import util.world.World;
 
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
@@ -14,6 +13,7 @@ import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 import communicator.parser.Command;
 import communicator.parser.ProtocolDecoder;
+import data.world.World;
 
 /**
  * A program that monitors "race.*" messages

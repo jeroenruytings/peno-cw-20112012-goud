@@ -1,9 +1,9 @@
 package communicator.parser.command;
 
-import util.world.World;
 
 import communicator.parser.Command;
 import communicator.parser.MessageType;
+import data.world.World;
 
 public class CommandPing implements Command {
 

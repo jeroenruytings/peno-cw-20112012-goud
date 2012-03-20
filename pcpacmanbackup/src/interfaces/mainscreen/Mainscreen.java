@@ -46,10 +46,11 @@ import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
 import javax.swing.border.MatteBorder;
 
-import util.board.BoardCreator;
-import util.world.RealWorld;
-import util.world.RobotData;
-import util.world.World;
+import data.board.BoardCreator;
+import data.world.RealWorld;
+import data.world.RobotData;
+import data.world.World;
+
 
 public class Mainscreen implements ActionListener, Runnable
 {

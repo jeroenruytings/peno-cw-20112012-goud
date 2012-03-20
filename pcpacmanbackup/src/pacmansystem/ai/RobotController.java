@@ -12,20 +12,20 @@ import pacmansystem.ai.robot.Barcode;
 import pacmansystem.ai.robot.OrientationLayer;
 import pacmansystem.ai.robot.PathLayer;
 import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
-import util.board.Board;
-import util.board.Panel;
-import util.board.PointConvertor;
-import util.board.operations.BoardUnifier;
-import util.board.shortestpathfinder.dijkstra.DijkstraFinder;
-import util.enums.Orientation;
-import util.lazy.TransformedRobotData;
-import util.transformed.Transformation;
-import util.world.OwnRobotData;
-import util.world.RobotData;
-import util.world.RobotDataView;
-import util.world.World;
 
 import communicator.be.kuleuven.cs.peno.MessageSender;
+import data.board.Board;
+import data.board.Panel;
+import data.board.PointConvertor;
+import data.board.operations.BoardUnifier;
+import data.board.shortestpathfinder.dijkstra.DijkstraFinder;
+import data.enums.Orientation;
+import data.lazy.TransformedRobotData;
+import data.transformed.Transformation;
+import data.world.OwnRobotData;
+import data.world.RobotData;
+import data.world.RobotDataView;
+import data.world.World;
 
 public class RobotController
 {

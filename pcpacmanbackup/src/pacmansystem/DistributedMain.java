@@ -7,16 +7,17 @@ import interfaces.pacmancomponents.RobotType;
 
 import javax.swing.JOptionPane;
 
+import data.enums.Orientation;
+import data.world.RealWorld;
+import data.world.RobotData;
+import data.world.World;
+
 import pacmansystem.ai.RobotController;
 import pacmansystem.ai.robot.OrientationLayer;
 import pacmansystem.ai.robot.PanelLayerInterface;
 import pacmansystem.ai.robot.fysicalRobot.PanelLayer;
 import pacmansystem.ai.robot.fysicalRobot.connector.MoverLayer;
 import pacmansystem.ai.robot.simulatedRobot.SimulatedRobot;
-import util.enums.Orientation;
-import util.world.RealWorld;
-import util.world.RobotData;
-import util.world.World;
 
 public class DistributedMain {
 	
