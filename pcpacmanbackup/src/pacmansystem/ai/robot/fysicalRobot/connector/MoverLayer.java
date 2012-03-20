@@ -269,4 +269,9 @@ public class MoverLayer
 		}
 	}
 
+
+	public void afterCrash() {
+		System.out.println("AAAAAAH ik ben gecrashed!!");
+	}
+
 }

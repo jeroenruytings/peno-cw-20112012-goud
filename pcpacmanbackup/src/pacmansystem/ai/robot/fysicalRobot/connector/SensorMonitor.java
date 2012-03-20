@@ -1,5 +1,7 @@
 package pacmansystem.ai.robot.fysicalRobot.connector;
 
+import java.io.IOException;
+
 public class SensorMonitor extends LeoMonitor
 {
 	private SensorDecoder decoder;
@@ -33,6 +35,7 @@ public class SensorMonitor extends LeoMonitor
 //			System.out.println("druksensor: " + );decoder.value()
 			if (decoder.value() == 1){
 			virtu.setPushSensor(true);
+			virtu.afterCrash();
 			}
 			else{
 				virtu.setPushSensor(false);

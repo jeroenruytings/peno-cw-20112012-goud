@@ -161,13 +161,16 @@ public class PanelLayer implements PanelLayerInterface
 	@Override
 	public boolean hasBarcode()
 	{
-		
 		// verantwoordelijkheid van barcode reader?
 		PanelColor color = mover.getColorStack().getColor(mover.getLightSensor());
-		if (color != PanelColor.BROWN)
+		if (color != PanelColor.BROWN){
+			System.out.println("hasbarcode true");
 			return true;
-		else
+		}
+		else{
+			System.out.println("hasbarcode false");		
 			return false;
+		}
 	}
 
 	// returns null if there is no barcode < also no ints.
@@ -237,6 +240,7 @@ public class PanelLayer implements PanelLayerInterface
 			panel.setBarcode(getBarcode());
 			panel.setBarcodeOrientation(currentOrientation);
 		}
+		System.out.println("return panel");
 		return panel;
 	}
 	

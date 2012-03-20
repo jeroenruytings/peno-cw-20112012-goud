@@ -33,6 +33,10 @@ public class TestClass {
 		
 		Panel paneel = panel.getPanel(Orientation.NORTH);
 		
+		System.out.println("now up");
+		panel.go(Direction.UP);
+		panel.correctToMiddle();
+		
 		
 //		System.out.println(paneel.getBarcode().getBitString2());
 		
