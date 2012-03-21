@@ -3,9 +3,7 @@ package pacmansystem;
 
 
 import interfaces.mainscreen.Mainscreen;
-import interfaces.pacmancomponents.RobotType;
-
-import javax.swing.JOptionPane;
+import interfaces.pacmancomponents.RobotOptionPane;
 
 import data.enums.Orientation;
 import data.world.RealWorld;
@@ -23,13 +21,18 @@ public class DistributedMain {
 	
 	private static int robotNumber;
 	private static String robotName;
+	private static boolean isSimulated;
 	
 	public static void main(String[] args) {
 		
-			robotNumber = Integer.parseInt(JOptionPane.showInputDialog("Geef het robotnummer",new Integer(0)));
-			robotName = JOptionPane.showInputDialog("Geef het robotnummer","naam");
-			RobotController robot = initNewRobot();
+//			robotNumber = Integer.parseInt(JOptionPane.showInputDialog("Geef het robotnummer",new Integer(0)));
+//			robotName = JOptionPane.showInputDialog("Geef het robotnummer","naam");
 			
+			RobotOptionPane robotOptions = new RobotOptionPane();
+			robotName = robotOptions.getRobotName();
+			robotNumber = robotOptions.getRobotNumber();
+			isSimulated = robotOptions.isSimulatedRobot();
+			RobotController robot = initNewRobot();
 			//ComponentFrame.showFrame("RabbitMQ", new RabbitHistory());
 			
 			Mainscreen gui = new Mainscreen();
@@ -43,23 +46,22 @@ public class DistributedMain {
 	}
 private static RobotController initNewRobot() {
 	RobotController controller;
-	switch (JOptionPane.showConfirmDialog(null, "Is deze robot een gesimuleerde robot?", "Robot Modus", JOptionPane.YES_NO_OPTION)) {
-	case JOptionPane.NO_OPTION:
+
+	if (!isSimulated){
 		MoverLayer ml = new MoverLayer();
 		PanelLayer pl = new PanelLayer(ml);
 		OrientationLayer ol = new OrientationLayer(pl);
 		controller = new RobotController(ol,robotName, null);
 		return controller;
-
-	case JOptionPane.YES_OPTION:
+	}
+	else{
 		RealWorld simulatorWorld = Mainscreen.getRealWorld();
 		PanelLayerInterface p= new SimulatedRobot(simulatorWorld,simulatorWorld.getStartingPoint(robotNumber), Orientation.random());
 		OrientationLayer directionlayer = new OrientationLayer(p);
 		controller = new RobotController(directionlayer, robotName, new World());
 		return controller;
-		}
-	throw new IllegalStateException("One of the robots is not initialized.");
-	
+	}
+
 }
 private static void start(final RobotController c)
 {

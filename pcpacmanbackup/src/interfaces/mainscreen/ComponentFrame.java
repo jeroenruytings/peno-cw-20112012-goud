@@ -17,6 +17,9 @@ public class ComponentFrame extends JFrame {
 		super(name);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.add(componentToDisplay,BorderLayout.CENTER);
+		setMinimumSize(componentToDisplay.getMinimumSize());
+		setPreferredSize(componentToDisplay.getPreferredSize());
+		setSize(componentToDisplay.getPreferredSize());
 	}
 	
 	/**
@@ -62,9 +65,7 @@ public class ComponentFrame extends JFrame {
 	
 	public static void showFrame(String name, Component component){
 		ComponentFrame tmp = new ComponentFrame(name, component);
-		tmp.setMinimumSize(component.getMinimumSize());
-		tmp.setPreferredSize(component.getPreferredSize());
-		tmp.setSize(component.getPreferredSize());
+		
 		tmp.setVisible(true);
 	}
 
