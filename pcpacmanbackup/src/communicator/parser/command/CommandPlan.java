@@ -36,11 +36,11 @@ public class CommandPlan implements Command
 	@Override
 	public void execute(World simulator)
 	{
-		ArrayList<Point> plan = new ArrayList<Point>();
-		for (Point point : _path) {
-			plan.add(point);
-		}
-		simulator.getRobot(_name).addPlan(plan);
+	//	ArrayList<Point> plan = new ArrayList<Point>();
+		//for (Point point : _path) {
+		//	plan.add(point);
+		//}
+		//simulator.getRobot(_name).addPlan(plan);
 	}
 
 	@Override

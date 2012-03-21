@@ -31,11 +31,18 @@ public class PLAN extends Decoder
 		String msg = stripMessage(message);
 		String[] mes = msg.split(" ");
 		Point[] param = new Point[mes.length - 2];
-		int x;
-		int y;
-		for(int i = 1; i <  mes.length; i++){
+		int x = 0;
+		int y = 0;
+		for(int i = 2; i <  mes.length; i++){
+			try{
 			x = Integer.parseInt(mes[i].split(",")[0]);
 			y = Integer.parseInt(mes[i].split(",")[1]);
+			} catch(NumberFormatException e)
+			{
+				System.out.println(message);
+				System.out.println(mes[i].split(",")[0]);
+				System.out.println(mes[i].split(",")[1]);
+			}
 			param[i - 2] = new Point(x,y);
 		}
 		return new CommandPlan(mes[0], param);

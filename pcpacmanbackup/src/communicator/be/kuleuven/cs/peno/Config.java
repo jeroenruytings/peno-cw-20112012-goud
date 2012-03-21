@@ -12,7 +12,8 @@ public interface Config {
 	public static final int PORT = 5672;
 	
 	// the default exchange that will be used for races during the official demo's
-	public static final String EXCHANGE_NAME = "RaceExchange";
+	//RaceExchange
+	public static final String EXCHANGE_NAME = "Jannes";
 	public static final String LAUNCH_ROUTING_KEY = "race.launch";
 	
 }

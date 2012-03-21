@@ -296,10 +296,10 @@ public class BarcodeReader implements Runnable
 				switch (c)
 				{
 				case black:
-					returnvalue[j] = 0;
+					returnvalue[j] = 1;
 					break;
 				case white:
-					returnvalue[j] = 1;
+					returnvalue[j] = 0;
 					break;
 				}
 			}

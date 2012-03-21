@@ -53,8 +53,13 @@ public abstract class Decoder
 	{
 		Decoder.stripMessage(message);
 		String[] mes = message.split(" ");
+		try{
 		if (!mes[1].equals(_key))
 			return false;
+		}
+		catch (ArrayIndexOutOfBoundsException e){
+			System.out.println(message);
+		}
 		return true;
 	}
 	

@@ -17,10 +17,10 @@ public class MQ {
 	 */
 	public static Connection createConnection() throws IOException {
 		ConnectionParameters params = new ConnectionParameters();
-		params.setUsername(Config.USER_NAME);
-		params.setPassword(Config.PASSWORD);
-		params.setVirtualHost(Config.VIRTUAL_HOST);
-		params.setRequestedHeartbeat(0);
+		//params.setUsername(Config.USER_NAME);
+		//params.setPassword(Config.PASSWORD);
+		//params.setVirtualHost(Config.VIRTUAL_HOST);
+		//params.setRequestedHeartbeat(0);
 		ConnectionFactory factory = new ConnectionFactory(params);
 
 		Connection conn = factory.newConnection(Config.HOST_NAME, Config.PORT);
@@ -40,7 +40,7 @@ public class MQ {
 	 */
 	public static Channel createChannel(Connection conn) throws IOException {
 		Channel channel = conn.createChannel();
-		channel.exchangeDeclare(Config.EXCHANGE_NAME, "topic");
+		channel.exchangeDeclare(Config.EXCHANGE_NAME, "fanout");
 
 		return channel;
 	}

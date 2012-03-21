@@ -4,6 +4,7 @@ import interfaces.mainscreen.Mainscreen;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -30,11 +31,13 @@ public class BarcodePanel extends JPanel {
 	public BarcodePanel(int barcode){
 	
 		this.barcode = new Barcode(barcode);
+//		this.setMinimumSize(new Dimension(800,600));
+//		setPreferredSize(new Dimension(800,600));
 	this.setForeground(Color.BLACK);
 	this.setBackground(Color.GRAY);
 	this.setLayout(new BorderLayout(0, 0));
 	
-	lblBarcode = new JLabel("\"" + String.valueOf(this.barcode.getBitString()) + "\"");
+	lblBarcode = new JLabel("\"" + new Barcode(barcode) + "\"");
 	lblBarcode.setForeground(Color.WHITE);
 	lblBarcode.setBackground(Color.GRAY);
 	lblBarcode.setHorizontalAlignment(SwingConstants.CENTER);
@@ -67,9 +70,9 @@ public class BarcodePanel extends JPanel {
 	public static void drawBarcode(Graphics g, int x, int y, int height, int width,Barcode barcode, Color color0, Color color1, Orientation orient){
 		char[] barcodestring;
 		if (orient == Orientation.NORTH || orient == Orientation.EAST)
-			barcodestring = Integer.toString(barcode.getBitString()).toCharArray();
+			barcodestring = barcode.toString().toCharArray();
 		else
-			barcodestring = (Integer.toString(new Barcode(barcode.getReverse()).getBitString())).toCharArray();
+			barcodestring = new Barcode(barcode.getReverse()).toString().toCharArray();
 		if (orient == Orientation.NORTH || orient == Orientation.SOUTH){
 			for(int i = 0; i < barcodestring.length; i++){
 				if (barcodestring[i] == '1'){

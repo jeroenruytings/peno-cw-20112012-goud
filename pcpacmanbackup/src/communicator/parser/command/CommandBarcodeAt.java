@@ -56,7 +56,13 @@ public class CommandBarcodeAt implements Command {
 	
 	@Override
 	public void execute(World world) {
-		Panel p = world.getRobot(_name).getBoard().getPanelAt(getCoordinate());
+		Panel p;
+		if(world.getRobot(_name).getBoard().getPanelAt(getCoordinate()) == null){
+				p = new Panel();
+		}
+		else{
+			p = world.getRobot(_name).getBoard().getPanelAt(getCoordinate());
+		}
 		p.setBarcode(new Barcode(_barcode));
 		try {
 			p.setBarcodeOrientation(getDirection());

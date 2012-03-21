@@ -11,7 +11,7 @@ public class Barcode
 	public Barcode(int... code) throws Exception
 	{
 		String s = "";
-		if(code.length!=8)
+		if(code.length!=6)
 			throw new Exception("barcode length wrong");
 		for(int i : code)
 			s+=i;
@@ -22,27 +22,28 @@ public class Barcode
 	 * @return This barcode read in the other direction.
 	 */
 	public int getReverse() throws BarcodeException{
-		char[] result = new char[8];
-		try{
-		char[] binairy = Integer.toBinaryString(barcode).toCharArray();
-//		if (binairy.length != 8)
-//			throw new BarcodeException("The given barcode-value does not exist!");
-		result[0] = binairy[0];
-		result[7] = binairy[7];
-		result[1] = binairy[6];
-		result[2] = binairy[5];
-		result[3] = binairy[4];
-		result[4] = binairy[3];
-		result[5] = binairy[2];
-		result[6] = binairy[1];
-		return Integer.parseInt(new String(result), 2);
-		}
+//		char[] result = new char[8];
+//		try{
+//		char[] binairy = Integer.toBinaryString(barcode).toCharArray();
+////		if (binairy.length != 8)
+////			throw new BarcodeException("The given barcode-value does not exist!");
+//		result[0] = binairy[0];
+//		result[7] = binairy[7];
+//		result[1] = binairy[6];
+//		result[2] = binairy[5];
+//		result[3] = binairy[4];
+//		result[4] = binairy[3];
+//		result[5] = binairy[2];
+//		result[6] = binairy[1];
+//		return Integer.parseInt(new String(result), 2);
+//		}
+//		
+//		catch(Exception e){
+//			return 00000000;
+//		}
 		
-		catch(Exception e){
-			return 00000000;
-		}
-
 		
+		return Integer.reverse(barcode<<26);
 	}
 	
 	public int getBitString(){
@@ -80,10 +81,11 @@ public class Barcode
 	 * @param args
 	 */
 	public static void main(String[] args){
-		Barcode test = new Barcode(Integer.parseInt("10010001", 2));
-		System.out.println(new Barcode(test.getReverse()).getBitString());
+//		Barcode test = new Barcode(Integer.parseInt("001000", 2));
+//		System.out.println(new Barcode(test.getReverse()).getBitString2());
 		try {
-			System.out.println(new Barcode(0,1,0,1,0,0,0,0));
+			System.out.println(new Barcode(1,0,1,1,0,0));
+			System.out.println(new Barcode(new Barcode(1,0,1,1,0,0).getReverse()));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -94,7 +96,7 @@ public class Barcode
 	{
 		char[] rv =getBitString2();
 		String rev = new String(rv);
-		for(int i = 8;i>rv.length;i--)
+		for(int i = 6;i>rv.length;i--)
 			rev="0"+rev;
 		return rev;
 	}

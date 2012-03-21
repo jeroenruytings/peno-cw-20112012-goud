@@ -319,7 +319,7 @@ public class RobotController
 			int nbKnown = 4 - getBoard().nbOfUnknowns(point);
 			if (nbKnown == 4)
 				continue;
-			int temp = nbKnown + heuristiek(point);
+			int temp = 3*nbKnown + heuristiek(point);
 			if (temp < waarde) {
 				best = point;
 				waarde = temp;

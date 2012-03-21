@@ -1,6 +1,7 @@
 package interfaces.mainscreen;
 
 
+import interfaces.pacmancomponents.BarcodePanel;
 import interfaces.pacmancomponents.RabbitHistory;
 
 import java.awt.BorderLayout;
@@ -28,7 +29,7 @@ public class ComponentFrame extends JFrame {
 			public void run()
 			{
 				try {
-					ComponentFrame.showFrame("RabbitMQ",new RabbitHistory());
+					ComponentFrame.showFrame("Barcode",new BarcodePanel(5));
 					
 				} catch (Exception e) {
 					e.printStackTrace();
