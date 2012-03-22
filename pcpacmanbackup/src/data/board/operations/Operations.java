@@ -116,7 +116,7 @@ public  class Operations
 	public static Panel turn(Panel panelAt, Turn turn) {
 		Panel rv = new Panel();
 		for(Orientation d:Orientation.values())
-			rv.setBorder( d.addTo(turn.getDir()),panelAt.hasBorder(d));
+			rv.setBorder( d.addTo(turn.getDir()),panelAt.getWallState(d));
 		if(!panelAt.hasBarcode())
 			return rv;
 		rv.setBarcode(panelAt.getBarcode());

@@ -7,6 +7,7 @@ import communicator.parser.Command;
 import communicator.parser.MessageType;
 import data.board.Board;
 import data.board.Panel;
+import data.board.Panel.WallState;
 import data.enums.Orientation;
 import data.world.World;
 
@@ -45,11 +46,10 @@ public class CommandDiscover implements Command
 	public Panel getPanel()
 	{
 		Panel result = new Panel();
-		// TODO: Ternairy values of discover are NOT implemented.
-		result.setBorder(Orientation.NORTH, _north > 0);
-		result.setBorder(Orientation.EAST, _east > 0);
-		result.setBorder(Orientation.SOUTH, _south > 0);
-		result.setBorder(Orientation.WEST, _west > 0);
+		result.setBorder(Orientation.NORTH, WallState.values()[_north]);
+		result.setBorder(Orientation.EAST, WallState.values()[_east]);
+		result.setBorder(Orientation.SOUTH, WallState.values()[_south]);
+		result.setBorder(Orientation.WEST, WallState.values()[_west]);
 		return result;
 	}
 

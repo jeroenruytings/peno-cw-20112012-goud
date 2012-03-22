@@ -7,15 +7,15 @@ public class Panel
 {
 	private Barcode barcode;
 
-	private final boolean[] borders;
+	private final WallState[] borders;
 
 	private Orientation barcodeOrientation;
 
 	public Panel()
 	{
-		borders = new boolean[4];
+		borders = new WallState[4];
 		for (Orientation d : Orientation.values())
-			setBorder(d, false);
+			setBorder(d, WallState.UNKNOWN);
 	}
 
 	public Orientation getBarcodeOrientation() {
@@ -24,21 +24,26 @@ public class Panel
 
 	public Panel(Panel panel)
 	{
-		this.borders = new boolean[4];
-		for (Orientation d : Orientation.values())
-			this.setBorder(d, panel.hasBorder(d));
+		this.borders = new WallState[4];
+		for (Orientation d : Orientation.values()){
+			this.setBorder(d, panel.getWallState(d));
+		}
 		setBarcode(panel.getBarcode());
 		setBarcodeOrientation(panel.getBarcodeOrientation());
 	}
 
-	public void setBorder(Orientation d, Boolean b)
+	public void setBorder(Orientation d, WallState state)
 	{
-		borders[d.ordinal()] = b;
+		borders[d.ordinal()] = state;
+	}
+	
+	public WallState getWallState(Orientation d){
+		return borders[d.ordinal()];
 	}
 
 	public boolean hasBorder(Orientation d)
 	{
-		return borders[d.ordinal()];
+		return borders[d.ordinal()]==WallState.WALL;
 	}
 
 	@Override
@@ -95,5 +100,12 @@ public class Panel
 				return false;
 		return true;
 	}
-
+	
+	/**
+	 * Verander de volgorde van de elementen niet!
+	 * Gekoppeld aan CommandDiscover!
+	 */
+	public enum WallState{
+		PASSAGE,WALL,UNKNOWN;
+	}
 }

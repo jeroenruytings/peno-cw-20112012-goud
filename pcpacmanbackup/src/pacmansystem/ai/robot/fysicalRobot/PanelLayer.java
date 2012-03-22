@@ -1,6 +1,7 @@
 package pacmansystem.ai.robot.fysicalRobot;
 
 import data.board.Panel;
+import data.board.Panel.WallState;
 import data.enums.Direction;
 import data.enums.Orientation;
 import pacmansystem.ai.robot.Barcode;
@@ -64,7 +65,7 @@ public class PanelLayer implements PanelLayerInterface
 	 * @see panel.PanelLayerInterface#hasBorder(direction.Direction)
 	 */
 	@Override
-	public boolean hasBorder(Direction d)
+	public WallState hasBorder(Direction d)
 	{
 		int distanceToWall;
 		switch (d.ordinal())
@@ -88,16 +89,16 @@ public class PanelLayer implements PanelLayerInterface
 			}
 			if (distanceToWall < 30){
 				System.out.println("true");
-				return true;
+				return WallState.WALL;
 			}
 			else {
 				System.out.println("false");
-				return false;
+				return WallState.PASSAGE;
 			}
 			
 		case 1:
 			System.out.println("back = false");
-			return false;
+			return WallState.PASSAGE;
 			
 		case 2:
 			//LEFT
@@ -118,11 +119,11 @@ public class PanelLayer implements PanelLayerInterface
 			mover.turnHead(90);
 			if (distanceToWall < 25){
 				System.out.println("true");
-				return true;
+				return WallState.WALL;
 			}
 			else{
 				System.out.println("false");
-				return false;
+				return WallState.PASSAGE;
 			}
 		
 		case 3:
@@ -144,14 +145,14 @@ public class PanelLayer implements PanelLayerInterface
 			mover.turnHead(-90);
 			if (distanceToWall < 25){
 				System.out.println("true");
-				return true;
+				return WallState.WALL;
 			}
 			else{
 				System.out.println("false");
-				return false;
+				return WallState.PASSAGE;
 			}
 		}
-		return false;
+		return WallState.PASSAGE;
 	}
 	/*
 	 * (non-Javadoc)
@@ -244,7 +245,7 @@ public class PanelLayer implements PanelLayerInterface
 		return panel;
 	}
 	
-	public boolean hasFirstBorder(Direction direction) {
+	public WallState hasFirstBorder(Direction direction) {
 		int distanceToWall;
 		switch (direction.ordinal())
 		{
@@ -260,11 +261,11 @@ public class PanelLayer implements PanelLayerInterface
 			}
 			if (distanceToWall < 25){
 				System.out.println("true");
-				return true;
+				return WallState.WALL;
 			}
 			else {
 				System.out.println("false");
-				return false;
+				return WallState.PASSAGE;
 			}
 		case 1:
 			mover.turn(180);
@@ -279,12 +280,12 @@ public class PanelLayer implements PanelLayerInterface
 			if (distanceToWall < 25){
 				System.out.println("true");
 				mover.turn(-180);
-				return true;
+				return WallState.WALL;
 			}
 			else {
 				System.out.println("false");
 				mover.turn(-180);
-				return false;
+				return WallState.PASSAGE;
 			}
 			
 		case 2:
@@ -306,11 +307,11 @@ public class PanelLayer implements PanelLayerInterface
 			mover.turnHead(90);
 			if (distanceToWall < 25){
 				System.out.println("true");
-				return true;
+				return WallState.WALL;
 			}
 			else{
 				System.out.println("false");
-				return false;
+				return WallState.PASSAGE;
 			}
 		
 		case 3:
@@ -332,14 +333,14 @@ public class PanelLayer implements PanelLayerInterface
 			mover.turnHead(-90);
 			if (distanceToWall < 25){
 				System.out.println("true");
-				return true;
+				return WallState.WALL;
 			}
 			else{
 				System.out.println("false");
-				return false;
+				return WallState.PASSAGE;
 			}
 		}
-		return false;
+		return WallState.PASSAGE;
 	}
 
 	@Override

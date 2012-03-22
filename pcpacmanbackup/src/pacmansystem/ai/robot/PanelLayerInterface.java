@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.naming.OperationNotSupportedException;
 
 import data.board.Panel;
+import data.board.Panel.WallState;
 import data.enums.Direction;
 import data.enums.Orientation;
 
@@ -15,7 +16,7 @@ public interface PanelLayerInterface
 
 	public abstract void go(Direction d) throws IllegalDriveException;
 
-	public abstract boolean hasBorder(Direction d) throws IOException;
+	public abstract WallState hasBorder(Direction d) throws IOException;
 
 	/**
 	 * @pre robot is on middlepoint of panel Checks if this panel has a barcode

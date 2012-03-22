@@ -110,7 +110,7 @@ public class OwnRobotData extends RobotData
 	{
 		Panel rv = new Panel();
 		for(Orientation dir:Orientation.values())
-			rv.setBorder(dir, panel.hasBorder(dir));
+			rv.setBorder(dir, panel.getWallState(dir));
 		return rv;
 	}
 	

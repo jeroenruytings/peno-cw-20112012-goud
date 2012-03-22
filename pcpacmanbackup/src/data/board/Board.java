@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import data.board.Panel.WallState;
 import data.enums.Orientation;
 
 import pacmansystem.ai.robot.Barcode;
@@ -97,8 +98,11 @@ public class Board
 	{
 		for (Orientation d : Orientation.values())
 			if (hasPanelAt(d.addTo(p))) {
-				if (panel.hasBorder(d) != this.getPanelAt(d.addTo(p))
-						.hasBorder(d.opposite()))
+				if (panel.getWallState(d)==WallState.UNKNOWN || this.getPanelAt(d.addTo(p))
+						.getWallState(d.opposite())==WallState.UNKNOWN )
+					continue;
+				else if (panel.getWallState(d) != this.getPanelAt(d.addTo(p))
+						.getWallState(d.opposite()))
 					return true;
 			}
 		return false;
@@ -111,7 +115,7 @@ public class Board
 		for (Orientation d : Orientation.values()){
 			if (hasPanelAt(d.addTo(point))){
 				panels.get(d.addTo(point)).setBorder(d.opposite(),
-						panel.hasBorder(d));
+						panel.getWallState(d));
 			}
 		}
 		System.out.println("w");

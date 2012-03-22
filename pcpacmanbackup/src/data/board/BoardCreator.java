@@ -12,6 +12,7 @@ import communicator.parser.command.CommandDiscover;
 import communicator.parser.command.CommandName;
 import communicator.parser.command.CommandPacman;
 import communicator.parser.command.CommandPosition;
+import data.board.Panel.WallState;
 import data.enums.Orientation;
 import data.world.RealWorld;
 
@@ -31,39 +32,39 @@ public class BoardCreator
 		}
 		for (int i = 0; i < x; i++) {
 			Panel p = new Panel();
-			p.setBorder(Orientation.NORTH, true);
+			p.setBorder(Orientation.NORTH, WallState.WALL);
 			returnValue.addForced(p, new Point(i, 0));
 		}
 		for (int i = 0; i < y; i++) {
 			Panel p = new Panel();
-			p.setBorder(Orientation.EAST, true);
+			p.setBorder(Orientation.EAST, WallState.WALL);
 			returnValue.addForced(p, new Point(x, i));
 		}
 		for (int i = 0; i < x; i++) {
 			Panel p = new Panel();
-			p.setBorder(Orientation.SOUTH, true);
+			p.setBorder(Orientation.SOUTH, WallState.WALL);
 			returnValue.addForced(p, new Point(i, y));
 		}
 		for (int i = 0; i < x; i++) {
 			Panel p = new Panel();
-			p.setBorder(Orientation.WEST, true);
+			p.setBorder(Orientation.WEST, WallState.WALL);
 			returnValue.addForced(p, new Point(i, 0));
 		}
 		Panel p = new Panel();
-		p.setBorder(Orientation.NORTH, true);
-		p.setBorder(Orientation.WEST, true);
+		p.setBorder(Orientation.NORTH, WallState.WALL);
+		p.setBorder(Orientation.WEST, WallState.WALL);
 		returnValue.addForced(p, new Point(0, 0));
 		p = new Panel();
-		p.setBorder(Orientation.NORTH, true);
-		p.setBorder(Orientation.EAST, true);
+		p.setBorder(Orientation.NORTH, WallState.WALL);
+		p.setBorder(Orientation.EAST, WallState.WALL);
 		returnValue.addForced(p, new Point(x, 0));
 		p = new Panel();
-		p.setBorder(Orientation.SOUTH, true);
-		p.setBorder(Orientation.WEST, true);
+		p.setBorder(Orientation.SOUTH, WallState.WALL);
+		p.setBorder(Orientation.WEST, WallState.WALL);
 		returnValue.addForced(p, new Point(x, y));
 		p = new Panel();
-		p.setBorder(Orientation.SOUTH, true);
-		p.setBorder(Orientation.EAST, true);
+		p.setBorder(Orientation.SOUTH, WallState.WALL);
+		p.setBorder(Orientation.EAST, WallState.WALL);
 		returnValue.addForced(p, new Point(0, y));
 		return returnValue;
 	}

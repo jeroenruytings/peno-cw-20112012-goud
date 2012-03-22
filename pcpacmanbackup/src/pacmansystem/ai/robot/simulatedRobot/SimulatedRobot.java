@@ -5,6 +5,7 @@ import interfaces.mainscreen.Mainscreen;
 import java.awt.Point;
 
 import data.board.Panel;
+import data.board.Panel.WallState;
 import data.enums.Direction;
 import data.enums.Orientation;
 import data.world.RealWorld;
@@ -37,10 +38,14 @@ public class SimulatedRobot implements PanelLayerInterface {
 	}
 
 	@Override
-	public boolean hasBorder(Direction d) {
+	public WallState hasBorder(Direction d) {
 		sleep(1);
-		return _realWorld.getGlobalBoard().getPanelAt(_currentLocation)
-				.hasBorder(_currentRealOrientation.addTo(d));
+		if(_realWorld.getGlobalBoard().getPanelAt(_currentLocation)
+				.hasBorder(_currentRealOrientation.addTo(d)))
+			return WallState.WALL;
+		else{
+			return WallState.PASSAGE;
+		}
 	}
 
 	@Override
@@ -73,7 +78,7 @@ public class SimulatedRobot implements PanelLayerInterface {
 
 		for (Direction d : Direction.values()) {
 			returnValue.setBorder(currentOrientation.addTo(d),
-					rv.hasBorder(_currentRealOrientation.addTo(d)));
+					rv.getWallState(_currentRealOrientation.addTo(d)));
 		}
 		if (rv.hasBarcode()) {
 			if (_currentRealOrientation.equals(rv.getBarcodeOrientation()))

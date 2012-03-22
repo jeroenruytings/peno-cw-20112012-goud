@@ -7,6 +7,7 @@ import java.awt.Point;
 
 import org.junit.Test;
 
+import data.board.Panel.WallState;
 import data.enums.Orientation;
 
 
@@ -25,7 +26,7 @@ public class _PanelTest
 	public void OneBorder()
 	{
 		Panel a = new Panel();
-		a.setBorder(Orientation.NORTH, true);
+		a.setBorder(Orientation.NORTH, WallState.WALL);
 		assertTrue(a.hasBorder(Orientation.NORTH));
 	}
 
@@ -33,9 +34,9 @@ public class _PanelTest
 	public void TwoBorders()
 	{
 		Panel a = new Panel();
-		a.setBorder(Orientation.NORTH, true);
+		a.setBorder(Orientation.NORTH, WallState.WALL);
 		assertTrue(a.hasBorder(Orientation.NORTH));
-		a.setBorder(Orientation.SOUTH, true);
+		a.setBorder(Orientation.SOUTH, WallState.WALL);
 		assertTrue(a.hasBorder(Orientation.SOUTH));
 	}
 

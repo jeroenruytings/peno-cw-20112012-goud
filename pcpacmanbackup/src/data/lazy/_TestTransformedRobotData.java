@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import data.board.Panel;
+import data.board.Panel.WallState;
 import data.board.operations.Operations.Turn;
 import data.enums.Orientation;
 import data.transformed.Transformation;
@@ -23,8 +24,8 @@ public class _TestTransformedRobotData
 	public void runBefore()
 	{
 		panel1	= new Panel();
-		panel1.setBorder(Orientation.NORTH, true);
-		panel1.setBorder(Orientation.EAST, true);
+		panel1.setBorder(Orientation.NORTH, WallState.WALL);
+		panel1.setBorder(Orientation.EAST, WallState.WALL);
 		panel1.setBarcode(new Barcode(211));
 		panel1.setBarcodeOrientation(Orientation.NORTH);
 	}
