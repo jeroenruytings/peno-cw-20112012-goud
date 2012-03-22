@@ -20,7 +20,21 @@ public class ProtocolDecoder
 		Decoder current = head;
 		while (!current.canDecode(string))
 			current = current.next();
-		return current.parse(string);
+		try{
+			return current.parse(string);
+		}
+		catch(NumberFormatException e){
+			System.err.println("\n" + string + "\n");
+			e.printStackTrace();
+		}
+		catch(ArrayIndexOutOfBoundsException e){
+			System.err.println("\n" + string + "\n");
+			e.printStackTrace();
+		}
+		// If an error occurred, then quit the program.
+		System.exit(0);
+		return null;
+		
 	}
 
 }

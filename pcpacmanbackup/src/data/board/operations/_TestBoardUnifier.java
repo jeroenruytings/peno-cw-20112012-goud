@@ -105,7 +105,7 @@ public class _TestBoardUnifier
 		RobotData data2 = new RobotData();
 		data.setBoard(thiz);
 		data2.setBoard(that);
-		Transformation trans =new Transformation(data,data2);
+		new Transformation(data,data2);
 	}
 
 	private Board genBoard1()

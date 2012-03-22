@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import communicator.be.kuleuven.cs.peno.MessageSender;
 import data.board.Panel;
-import data.enums.Direction;
 import data.enums.Orientation;
 
 import pacmansystem.ai.robot.Barcode;

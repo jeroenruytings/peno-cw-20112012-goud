@@ -75,13 +75,30 @@ public class RabbitHistory extends JPanel {
 	}
 	
 	public synchronized static void receiveMessage(String message, String nameFrom){
-		if (nameFrom.equals(""))
+		String noName = "Joins";
+		if (nameFrom.equals("")){
+			if (!receiveText.containsKey(noName))
+				addReceiver(noName);
+			receiveText.get(noName).insert(message + "\n", 0);
 			return;
-		if (!receiveText.containsKey(nameFrom))
+		}
+		else
+		{
+			removeReceiver(noName);
+		}
+		
+		if (!receiveText.containsKey(nameFrom)){
 			addReceiver(nameFrom);
+		}
 		receiveText.get(nameFrom).insert(message + "\n", 0);
 	}
 	
+	private static void removeReceiver(String name) {
+		receiveText.remove(name);
+		sendGrid.setColumns(receiveText.keySet().size());
+		
+	}
+
 	public synchronized static void messageSend(String message, String sender){
 		if (sender.equals(""))
 			return;

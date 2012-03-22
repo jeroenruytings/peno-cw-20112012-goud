@@ -15,6 +15,7 @@ import data.board.operations.Operations.Turn;
 import data.enums.Direction;
 import data.enums.Orientation;
 import data.world.RobotData;
+import data.world.RobotDataView;
 
 import pacmansystem.ai.robot.Barcode;
 public class Transformation
@@ -35,7 +36,7 @@ public class Transformation
 	 * @param thiz
 	 * @param that
 	 */
-	public Transformation(RobotData thiz, RobotData that)
+	public Transformation(RobotData thiz, RobotDataView that)
 	{
 		Map<Barcode,Point> barcodesThiz = findBarcodes(thiz.getBoard());
 		Map<Barcode,Point> barcodesThat = findBarcodes(that.getBoard());

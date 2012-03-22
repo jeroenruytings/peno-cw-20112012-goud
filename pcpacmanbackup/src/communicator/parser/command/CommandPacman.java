@@ -33,10 +33,10 @@ public class CommandPacman implements Command
 	@Override
 	public void execute(World world)
 	{
-//		world.getRobot(_name).setPacman(_coordinate);
-//		synchronized (world) {
-//			world.getRobot(_name).notify();
-//		}
+		world.getRobot(_name).setPacman(_coordinate);
+		synchronized (world.getRobot(_name)) {
+			world.getRobot(_name).notify();
+		}
 		
 	}
 

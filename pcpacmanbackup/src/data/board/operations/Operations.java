@@ -109,7 +109,6 @@ public  class Operations
 	{
 		Board rv = new Board();
 		for (Point point : board.getFilledPoints()) {
-			Panel p = board.getPanelAt(point);
 			rv.add(turn(board.getPanelAt(point),turn), turn(point, around, turn));
 		}
 		return rv;

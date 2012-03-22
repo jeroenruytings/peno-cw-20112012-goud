@@ -1,7 +1,6 @@
 package data.world;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
@@ -21,6 +20,7 @@ public class World implements Observer
 	private int amountOfRobotsNeeded = 4;
 	private MessageReceiver rec;
 
+	
 	/**
 	 * @return The data of the robots on this world.
 	 */
@@ -48,7 +48,7 @@ public class World implements Observer
 		// send join, wait for join!
 		join();
 		// wait for 3 other joins or 1 name
-		while(registeredRobots!=4)
+		while(registeredRobots!=amountOfRobotsNeeded)
 		{
 		try {
 			synchronized (this) {
@@ -61,7 +61,7 @@ public class World implements Observer
 		sendName(me.getName());
 		System.out.println(me.getName());
 		
-		while(named!=4)
+		while(named!=amountOfRobotsNeeded)
 			try {
 				synchronized (this) {
 					this.wait();
@@ -117,7 +117,7 @@ public class World implements Observer
 			RobotData r = new RobotData();
 			r.setName(name);
 			_robots.put(name, r);
-			registeredRobots=4;
+			registeredRobots=amountOfRobotsNeeded;
 			synchronized (this) {
 
 				this.notify();

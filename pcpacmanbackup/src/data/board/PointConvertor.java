@@ -14,8 +14,8 @@ import data.enums.Orientation;
 
 public class PointConvertor {
 	
-	private double xPlus;
-	private double yPlus;
+//	private double xPlus;
+//	private double yPlus;
 	private Map<Orientation,Orientation> orientations = new HashMap<Orientation, Orientation>();
 	private Map<Orientation,Orientation> orientationsInverse = new HashMap<Orientation, Orientation>();
 	private Point _vec;
@@ -64,21 +64,21 @@ public class PointConvertor {
 		
 	}
 
-	private Point convertOrientations(Point secondPointConverted) {
-		if(orientations.get(Orientation.NORTH).equals(Orientation.WEST)){
-			secondPointConverted = new Point((int)secondPointConverted.getY(),-(int)secondPointConverted.getX());
-		}
-		if(orientations.get(Orientation.NORTH).equals(Orientation.EAST)){
-			secondPointConverted = new Point(-(int)secondPointConverted.getY(),(int)secondPointConverted.getX());
-		}
-		if(orientations.get(Orientation.NORTH).equals(Orientation.NORTH)){
-			secondPointConverted = new Point((int)secondPointConverted.getX(),(int)secondPointConverted.getY());
-		}
-		if(orientations.get(Orientation.NORTH).equals(Orientation.SOUTH)){
-			secondPointConverted = new Point(-(int)secondPointConverted.getX(),-(int)secondPointConverted.getY());
-		}
-		return secondPointConverted;
-	}
+//	private Point convertOrientations(Point secondPointConverted) {
+//		if(orientations.get(Orientation.NORTH).equals(Orientation.WEST)){
+//			secondPointConverted = new Point((int)secondPointConverted.getY(),-(int)secondPointConverted.getX());
+//		}
+//		if(orientations.get(Orientation.NORTH).equals(Orientation.EAST)){
+//			secondPointConverted = new Point(-(int)secondPointConverted.getY(),(int)secondPointConverted.getX());
+//		}
+//		if(orientations.get(Orientation.NORTH).equals(Orientation.NORTH)){
+//			secondPointConverted = new Point((int)secondPointConverted.getX(),(int)secondPointConverted.getY());
+//		}
+//		if(orientations.get(Orientation.NORTH).equals(Orientation.SOUTH)){
+//			secondPointConverted = new Point(-(int)secondPointConverted.getX(),-(int)secondPointConverted.getY());
+//		}
+//		return secondPointConverted;
+//	}
 	
 	public Map<Orientation, Orientation> getOrientations() {
 		return orientations;

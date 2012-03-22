@@ -59,7 +59,6 @@ public class Main
 		}).start();
 	}
 
-	private boolean receiver = true;
 	private RobotController initNewRobot(RobotType robotType) {
 		RobotController controller;
 		switch (robotType) {
@@ -68,14 +67,12 @@ public class Main
 			PanelLayer pl = new PanelLayer(ml);
 			OrientationLayer ol = new OrientationLayer(pl);
 			controller = new RobotController(ol,"Goud" + Math.random(), null);
-			receiver = false;
 			return controller;
 
 		case VIRTUALROBOT:
 			PanelLayerInterface p= new SimulatedRobot(getSimulatorWorld(),getSimulatorWorld().getStartingPoint(), Orientation.random());
 			OrientationLayer directionlayer = new OrientationLayer(p);
 			controller = new RobotController(directionlayer, "Goud" + Math.random(), new World());
-			receiver = false;
 			return controller;
 		}
 		throw new IllegalStateException("One of the robots is not initialized.");

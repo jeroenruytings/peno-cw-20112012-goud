@@ -20,6 +20,7 @@ public class NullDecoder extends Decoder
 	@Override
 	public Command parse(String message)
 	{
+		System.err.println("Het bericht: \"" + message + "\"" + " is weggesmeten");
 		return new NullCommand();
 	}
 

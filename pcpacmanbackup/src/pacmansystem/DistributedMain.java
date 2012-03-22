@@ -1,7 +1,5 @@
 package pacmansystem;
 
-
-
 import interfaces.mainscreen.Mainscreen;
 import interfaces.pacmancomponents.RobotOptionPane;
 
@@ -24,55 +22,42 @@ public class DistributedMain {
 	private static boolean isSimulated;
 	
 	public static void main(String[] args) {
-		
-//			robotNumber = Integer.parseInt(JOptionPane.showInputDialog("Geef het robotnummer",new Integer(0)));
-//			robotName = JOptionPane.showInputDialog("Geef het robotnummer","naam");
-			
-			RobotOptionPane robotOptions = new RobotOptionPane();
-			robotName = robotOptions.getRobotName();
-			robotNumber = robotOptions.getRobotNumber();
-			isSimulated = robotOptions.isSimulatedRobot();
-			RobotController robot = initNewRobot();
-			//ComponentFrame.showFrame("RabbitMQ", new RabbitHistory());
-			
-			Mainscreen gui = new Mainscreen();
-			robot.establishConnection();
-			for (RobotData r : robot.getWorld().get_robots().values())
-				gui.setRobotData(r);
-			
-			gui.setWorld(robot.getWorld());
-			gui.start();
-			robot.start();
-	}
-private static RobotController initNewRobot() {
-	RobotController controller;
 
-	if (!isSimulated){
-		MoverLayer ml = new MoverLayer();
-		PanelLayer pl = new PanelLayer(ml);
-		OrientationLayer ol = new OrientationLayer(pl);
-		controller = new RobotController(ol,robotName, null);
-		return controller;
-	}
-	else{
-		RealWorld simulatorWorld = Mainscreen.getRealWorld();
-		PanelLayerInterface p= new SimulatedRobot(simulatorWorld,simulatorWorld.getStartingPoint(robotNumber), Orientation.random());
-		OrientationLayer directionlayer = new OrientationLayer(p);
-		controller = new RobotController(directionlayer, robotName, new World());
-		return controller;
-	}
-
-}
-private static void start(final RobotController c)
-{
-	new Thread(new Runnable()
-	{
+		RobotOptionPane robotOptions = new RobotOptionPane();
+		robotName = robotOptions.getRobotName();
+		robotNumber = robotOptions.getRobotNumber();
+		isSimulated = robotOptions.isSimulatedRobot();
+		RobotController robot = initNewRobot();
 		
-		@Override
-		public void run()
-		{
-			c.explore();
+		//ComponentFrame.showFrame("RabbitMQ", new RabbitHistory());
+
+		Mainscreen gui = new Mainscreen();
+		gui.start();
+		robot.establishConnection();
+		for (RobotData r : robot.getWorld().get_robots().values())
+			gui.setRobotData(r);
+
+				gui.setWorld(robot.getWorld());
+				robot.start();
+	}
+	
+	private static RobotController initNewRobot() {
+		RobotController controller;
+
+		if (!isSimulated){
+			MoverLayer ml = new MoverLayer();
+			PanelLayer pl = new PanelLayer(ml);
+			OrientationLayer ol = new OrientationLayer(pl);
+			controller = new RobotController(ol,robotName, null);
+			return controller;
 		}
-	}).start();
-}
+		else{
+			RealWorld simulatorWorld = Mainscreen.getRealWorld();
+			PanelLayerInterface p= new SimulatedRobot(simulatorWorld,simulatorWorld.getStartingPoint(robotNumber), Orientation.random());
+			OrientationLayer directionlayer = new OrientationLayer(p);
+			controller = new RobotController(directionlayer, robotName, new World());
+			return controller;
+		}
+
+	}
 }

@@ -133,7 +133,7 @@ public class Mainscreen implements ActionListener, Runnable
 		frmPacman.setFont(getPacmanFont());
 		frmPacman.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		initialiseSplitPanes();;
+		initialiseSplitPanes();
 		
 		JButton btnColortest = new JButton("");
 		btnColortest.setForeground(Color.WHITE);
@@ -278,6 +278,17 @@ public class Mainscreen implements ActionListener, Runnable
 		splitPane_5.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		splitPane_5.setResizeWeight(0.6);
 		splitPane_4.setRightComponent(splitPane_5);
+		
+		JPanel[] initialBlackPanel = new JPanel[5];
+		for (int i = 0; i < initialBlackPanel.length; i++) {
+			initialBlackPanel[i] = new JPanel();
+			initialBlackPanel[i].setBackground(Color.BLACK);
+		}
+		splitPane_2.setLeftComponent(initialBlackPanel[0]);
+		splitPane_2.setRightComponent(initialBlackPanel[1]);
+		splitPane_3.setLeftComponent(initialBlackPanel[2]);
+		splitPane_3.setRightComponent(initialBlackPanel[3]);
+		splitPane_5.setLeftComponent(initialBlackPanel[4]);
 	}
 	private ImageIcon imgSelected = getImageIcon("ghostDown.png", Color.RED);
 	private ImageIcon imgNotSelected = getImageIcon("ghostUP.png", Color.DARK_GRAY);

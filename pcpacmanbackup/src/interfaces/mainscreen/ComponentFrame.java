@@ -2,8 +2,6 @@ package interfaces.mainscreen;
 
 
 import interfaces.pacmancomponents.BarcodePanel;
-import interfaces.pacmancomponents.RabbitHistory;
-
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.EventQueue;

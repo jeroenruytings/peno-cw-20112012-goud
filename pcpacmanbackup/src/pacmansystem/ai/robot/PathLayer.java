@@ -1,18 +1,14 @@
 package pacmansystem.ai.robot;
 
 import java.awt.Point;
-import java.io.IOException;
 import java.util.Iterator;
 
 import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
-
-import communicator.be.kuleuven.cs.peno.MessageSender;
 import data.board.Board;
 import data.board.Panel;
 import data.board.shortestpathfinder.dijkstra.DijkstraFinder;
 import data.enums.Orientation;
 import data.world.OwnRobotData;
-import data.world.RobotData;
 
 public class PathLayer {
 	
@@ -56,10 +52,10 @@ public class PathLayer {
 		}			
 		}
 	
-	private String pointToString(Point p)
-	{
-		return p.x + "," + p.y;
-	}
+//	private String pointToString(Point p)
+//	{
+//		return p.x + "," + p.y;
+//	}
 
 	public Panel getPanel(Orientation currentOrientation)
 	{
