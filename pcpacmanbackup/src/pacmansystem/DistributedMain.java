@@ -20,6 +20,7 @@ public class DistributedMain {
 	private static int robotNumber;
 	private static String robotName;
 	private static boolean isSimulated;
+	private static World world;
 	
 	public static void main(String[] args) {
 
@@ -48,14 +49,14 @@ public class DistributedMain {
 			MoverLayer ml = new MoverLayer();
 			PanelLayer pl = new PanelLayer(ml);
 			OrientationLayer ol = new OrientationLayer(pl);
-			controller = new RobotController(ol,robotName, null);
+			controller = new RobotController(ol,robotName, world);
 			return controller;
 		}
 		else{
 			RealWorld simulatorWorld = Mainscreen.getRealWorld();
 			PanelLayerInterface p= new SimulatedRobot(simulatorWorld,simulatorWorld.getStartingPoint(robotNumber), Orientation.random());
 			OrientationLayer directionlayer = new OrientationLayer(p);
-			controller = new RobotController(directionlayer, robotName, new World());
+			controller = new RobotController(directionlayer, robotName, world);
 			return controller;
 		}
 
