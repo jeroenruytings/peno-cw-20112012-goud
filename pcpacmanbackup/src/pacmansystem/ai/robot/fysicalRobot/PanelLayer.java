@@ -89,7 +89,7 @@ public class PanelLayer implements PanelLayerInterface
 			System.out.println("Hasborder up: " + distanceToWall);
 			}
 			if (distanceToWall < 30){
-				if(distanceToWall < 5)
+				if(distanceToWall < 15)
 					hasToCorrect = true;
 				System.out.println("true");
 				return WallState.WALL;
