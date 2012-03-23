@@ -20,7 +20,7 @@ public class DistributedMain {
 	private static int robotNumber;
 	private static String robotName;
 	private static boolean isSimulated;
-	private static World world;
+	private static World world = new World();
 	
 	public static void main(String[] args) {
 

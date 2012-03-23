@@ -16,6 +16,7 @@ public class PanelLayer implements PanelLayerInterface
 	MoverLayer mover;
 	public final static int distance = 400;
 	boolean isFirst = true;
+	boolean hasToCorrect = false;
 	
 
 	public PanelLayer(MoverLayer mover)
@@ -88,6 +89,8 @@ public class PanelLayer implements PanelLayerInterface
 			System.out.println("Hasborder up: " + distanceToWall);
 			}
 			if (distanceToWall < 30){
+				if(distanceToWall < 5)
+					hasToCorrect = true;
 				System.out.println("true");
 				return WallState.WALL;
 			}
@@ -118,6 +121,8 @@ public class PanelLayer implements PanelLayerInterface
 				}
 			mover.turnHead(90);
 			if (distanceToWall < 25){
+				if(distanceToWall < 10)
+					hasToCorrect = true;
 				System.out.println("true");
 				return WallState.WALL;
 			}
@@ -144,6 +149,8 @@ public class PanelLayer implements PanelLayerInterface
 				}
 			mover.turnHead(-90);
 			if (distanceToWall < 25){
+				if(distanceToWall < 15)
+					hasToCorrect = true;
 				System.out.println("true");
 				return WallState.WALL;
 			}
@@ -220,6 +227,11 @@ public class PanelLayer implements PanelLayerInterface
 	@Override
 	public Panel getPanel(Orientation currentOrientation)
 	{
+		System.out.println("correct to middle is " + hasToCorrect);
+		if(hasToCorrect){
+			correctToMiddle();
+			hasToCorrect = false;
+		}
 		Panel panel = new Panel();
 		for (Direction direction : Direction.values()) {
 

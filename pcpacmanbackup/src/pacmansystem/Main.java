@@ -66,7 +66,7 @@ public class Main
 			MoverLayer ml = new MoverLayer();
 			PanelLayer pl = new PanelLayer(ml);
 			OrientationLayer ol = new OrientationLayer(pl);
-			controller = new RobotController(ol,"Goud" + Math.random(), null);
+			controller = new RobotController(ol,"Goud" + Math.random(), new World());
 			return controller;
 
 		case VIRTUALROBOT:

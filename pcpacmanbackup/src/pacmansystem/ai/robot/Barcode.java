@@ -11,7 +11,7 @@ public class Barcode
 	public Barcode(int... code) throws Exception
 	{
 		String s = "";
-		if(code.length!=6)
+		if(code.length!=8)
 			throw new Exception("barcode length wrong");
 		for(int i : code)
 			s+=i;
