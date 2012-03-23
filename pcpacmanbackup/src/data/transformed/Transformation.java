@@ -8,6 +8,7 @@ import java.awt.Point;
 import java.util.Collection;
 import java.util.Map;
 
+import data.board.Board;
 import data.board.Panel;
 import data.board.operations.BoardUnifier;
 import data.board.operations.Operations;
@@ -22,10 +23,17 @@ public class Transformation
 {
 	private Point vector_;
 	private int leftTurns_;
+	private boolean codes;
+	
+	public boolean hasCodes(){
+		return codes;
+	}
+	
 	public Transformation(Point vector,int leftTurns)
 	{
 		vector_=vector;
 		leftTurns_=leftTurns;
+		codes = true;
 	}
 	public Transformation(Point one,Point two,Orientation o1,Orientation o2)
 	{
@@ -41,12 +49,17 @@ public class Transformation
 		Map<Barcode,Point> barcodesThiz = findBarcodes(thiz.getBoard());
 		Map<Barcode,Point> barcodesThat = findBarcodes(that.getBoard());
 		Collection<Barcode> commonCodes =filterCodes(barcodesThiz, barcodesThat);
+		if(commonCodes.size()>0)
+			codes = true;
+		else
+			codes = false;
 		Barcode barcode= commonCodes.iterator().next();
 		Point origin = barcodesThiz.get(barcode);
 		Point target=barcodesThat.get(barcode);
-		int turns =BoardUnifier.calculateTurns(thiz.getBoard().getPanelAt(origin), that.getBoard().getPanelAt(target));
+		this.vector_= min(origin,target);
+		Board translated = Operations.translate(that.getBoard(), vector_);
+		int turns =BoardUnifier.calculateTurns(thiz.getBoard().getPanelAt(origin), translated.getPanelAt(origin));
 		this.leftTurns_=turns;
-		this.vector_=min(origin,target);
 	}
 	private static int calculateTurns(Orientation orient1, Orientation orient2)
 	{

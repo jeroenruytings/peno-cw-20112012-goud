@@ -76,8 +76,10 @@ public class RobotController
 			tryAddingOtherRobots();
 			Panel p1 = getPathLayer().getPanel(getCurrentOrientation());
 			boolean pacmanSpotted = getPathLayer().getOrientationLayer().getLayer().getPacman();
-			if(pacmanSpotted)
-				getData().setPacman(getCurrentPoint());
+			if(pacmanSpotted){
+				getOwnData().pacman(getCurrentPoint());
+				//getData().setPacman(getCurrentPoint());
+			}
 			// kijken
 			
 			try {
@@ -104,8 +106,11 @@ public class RobotController
 						}
 						if(data.getPacmanLastSighted()!=null){
 							Transformation convertToThisRobot = new Transformation(this.getData(), data);
-							TransformedRobotData transRobot = new TransformedRobotData(convertToThisRobot, data);
-							getOwnData().pacman(transRobot.getPacmanLastSighted());
+							if(convertToThisRobot.hasCodes()){
+								TransformedRobotData transRobot = new TransformedRobotData(convertToThisRobot, data);
+								System.out.println("pacman spotted by "+data.getName()+": "+transRobot.getPacmanLastSighted());
+								getOwnData().pacman(transRobot.getPacmanLastSighted());
+							}
 						}
 							
 					}
@@ -128,14 +133,31 @@ public class RobotController
 		
 	}
 	
-	private void driveToPacman() {
+	private void driveToPacman(){
 		if(getData().getPacmanLastSighted() != null){
 			try {
+				System.out.println(getData().getPacmanLastSighted());
 				getPathLayer().go(getCurrentPoint(), getData().getPacmanLastSighted());
 			} catch (IllegalDriveException e) {
 				e.printStackTrace();
 			}
 		}
+//		else{
+//			Point target = null;
+//			for(RobotData data : world.get_robots().values()){
+//				if(data.getPacmanLastSighted()!=null){
+//					//TODO convert target
+//					target = data.getPacmanLastSighted();
+//				}
+//			}
+//			try {
+//				getPathLayer().go(getCurrentPoint(), target);
+//			} catch (IllegalDriveException e) {
+//				e.printStackTrace();
+//			} catch (NullPointerException e){
+//				System.out.println("Geen pacman gevonden!");
+//			}
+//		}
 		else{
 			System.out.println("Geen pacman gevonden!");
 		}

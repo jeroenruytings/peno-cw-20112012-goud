@@ -61,6 +61,15 @@ public class CommandDiscover implements Command
 			Board b = world.getRobot(_name).getBoard();
 			if(!b.hasPanelAt(_coordinate))
 				b.add(p, _coordinate);
+			else if(!p.equals(b.getPanelAt(_coordinate))){
+				Panel e = b.getPanelAt(_coordinate);
+				for(Orientation d : Orientation.values()){
+					if(e.getWallState(d) == WallState.UNKNOWN)
+					e.setBorder(d, p.getWallState(d));
+				}
+				b.add(e, _coordinate);
+			}
+			
 			synchronized (world.getRobot(_name)) {
 				world.getRobot(_name).notify();
 			}

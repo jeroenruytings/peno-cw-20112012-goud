@@ -113,6 +113,13 @@ public class BoardUnifier
 		}
 		return 0;
 	}
+	
+	/**
+	 * Geeft een nieuw bord toe waarbij alle bekende punten behouden blijven en daarna nieuwe info van het andere bord toegevoegd wordt
+	 * @param thiz
+	 * @param translated
+	 * @return
+	 */
 	private static Board merge(Board thiz, Board translated)
 	{
 		Board rv = new Board();
