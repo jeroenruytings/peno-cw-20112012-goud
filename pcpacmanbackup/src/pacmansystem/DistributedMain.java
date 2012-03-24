@@ -24,6 +24,7 @@ public class DistributedMain
 	private static World world = new World();
 	private static boolean visible = true;
 	private static int speed = 1000;
+	//name number simulated visibible speed txt
 	public static void main(String[] args)
 	{
 		if (!goodArgs(args)) {
@@ -38,7 +39,7 @@ public class DistributedMain
 			visible = new Boolean(args[3]);
 		}
 		RobotController robot;
-		if (args.length == 0)
+		if (args.length < 5)
 			robot = initNewRobot();
 		else{
 			speed = 1500-new Integer(args[4]);
@@ -60,7 +61,7 @@ public class DistributedMain
 	private static boolean goodArgs(String[] args)
 	{
 
-		return args.length > 4;
+		return args.length >= 4;
 	}
 
 	private static RobotController initNewRobot()
