@@ -12,14 +12,30 @@ import pacmansystem.ai.robot.fysicalRobot.barcode.ColorTransitionStack;
 
 public class MoverLayer
 {
+	class Button{
+		boolean _v=false;
+		boolean get(){
+			synchronized (this) {
 
+				return _v;
+			}
+		}
+		void set(boolean b)
+		{
+			synchronized (this) {
+				_v=true;
+			}
+			
+		}
+	}
 	private int ultrasonic;
 	private int lightSensor;
 	private boolean pushSensor;
 	private int infraredSensorDirection;
 	private int infraRedSensorValue;
 	private PCCommunicator pcc;
-	boolean button = false;
+	Button button=new Button();
+	
 	private int tachoCount = 1;
 	private ColorTransitionStack _colorStack ;
 	private BarCodeReader _reader;
@@ -191,17 +207,18 @@ public class MoverLayer
 	}
 	
 	public void releaseButton() {
-		button = false;
+		button.set(false) ;
 		
 	}
 
 
-	public void pushButton(){
-		button = true;
+	public synchronized void pushButton(){
+		
+		button.set(true);
 	}
 	
 	public boolean buttonIsPushed(){
-		return button;
+		return button.get();
 		
 	}
 
