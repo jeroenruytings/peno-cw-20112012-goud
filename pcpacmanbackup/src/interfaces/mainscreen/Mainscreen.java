@@ -21,9 +21,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -379,7 +381,7 @@ public class Mainscreen implements ActionListener, Runnable
 
 	public synchronized static void playSound(String name){
 		try {
-		InputStream sound = Mainscreen.class.getResourceAsStream("/resources/sound/" + name);
+		URL sound = Mainscreen.class.getResource("/resources/sound/" + name);
 		AudioInputStream as = AudioSystem.getAudioInputStream(sound);
 		Clip track = AudioSystem.getClip(null);
 		track.open(as);
@@ -418,6 +420,28 @@ public class Mainscreen implements ActionListener, Runnable
 			e.printStackTrace();
 		}
 		return result;
+	}
+	public static RealWorld getRealWorld(String string)
+	{
+		Scanner scr;
+		try {
+			scr = new Scanner(new File(string));
+		} catch (FileNotFoundException e) {
+			throw new Error("loading of file:"+ string+" failed");
+		}
+		ArrayList<String> tmp = new ArrayList<String>();
+		while(scr.hasNext()){
+			String command = scr.nextLine();
+			tmp.add(command);
+		}
+		RealWorld result = null;
+		String[] commands = new String[10];
+		try {
+			result = BoardCreator.createBoard(tmp.toArray(commands));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return result;	
 	}
 
 }

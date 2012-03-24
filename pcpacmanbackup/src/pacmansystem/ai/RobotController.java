@@ -77,7 +77,7 @@ public class RobotController
 			Panel p1 = getPathLayer().getPanel(getCurrentOrientation());
 			boolean pacmanSpotted = getPathLayer().getOrientationLayer().getLayer().getPacman();
 			if(pacmanSpotted){
-				getOwnData().pacman(getCurrentPoint());
+				getOwnData().pacman(getData().getOrientation().addTo(getCurrentPoint()));
 				//getData().setPacman(getCurrentPoint());
 			}
 			// kijken

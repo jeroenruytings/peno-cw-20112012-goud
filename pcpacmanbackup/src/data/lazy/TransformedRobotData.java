@@ -47,8 +47,7 @@ public class TransformedRobotData extends RobotData
 
 	@Override
 	public Point getPacmanLastSighted()
-	{
-		
+	{	
 		return data_.getPacmanLastSighted()!=null?trans_.execute(data_.getPacmanLastSighted()):null;
 	}
 
