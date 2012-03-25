@@ -1,5 +1,8 @@
 package data.board;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import data.enums.Orientation;
 import pacmansystem.ai.robot.Barcode;
 
@@ -7,13 +10,13 @@ public class Panel
 {
 	private Barcode barcode;
 
-	private final WallState[] borders;
+	private final Map<Orientation, WallState> borders;
 
 	private Orientation barcodeOrientation;
 
 	public Panel()
 	{
-		borders = new WallState[4];
+		borders = new HashMap<Orientation, Panel.WallState>();
 		for (Orientation d : Orientation.values())
 			setBorder(d, WallState.UNKNOWN);
 	}
@@ -24,7 +27,7 @@ public class Panel
 
 	public Panel(Panel panel)
 	{
-		this.borders = new WallState[4];
+		this.borders = new HashMap<Orientation, WallState>();
 		for (Orientation d : Orientation.values()){
 			this.setBorder(d, panel.getWallState(d));
 		}
@@ -33,16 +36,17 @@ public class Panel
 
 	public void setBorder(Orientation d, WallState state)
 	{
-		borders[d.ordinal()] = state;
+		borders.put(d,state);
+	//TODO: realise dumbness	borders[d.ordinal()] = state; // this is dumb
 	}
 	
 	public WallState getWallState(Orientation d){
-		return borders[d.ordinal()];
+		return borders.get(d);
 	}
 
 	public boolean hasBorder(Orientation d)
 	{
-		return borders[d.ordinal()]==WallState.WALL;
+		return borders.get(d)==WallState.WALL;
 	}
 
 	@Override

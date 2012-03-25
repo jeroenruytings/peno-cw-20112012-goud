@@ -13,7 +13,6 @@ import pacmansystem.ai.robot.PathLayer;
 import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
 import data.board.Board;
 import data.board.Panel;
-import data.board.PointConvertor;
 import data.board.operations.BoardUnifier;
 import data.board.shortestpathfinder.dijkstra.DijkstraFinder;
 import data.enums.Orientation;
@@ -30,7 +29,6 @@ public class RobotController
 	private PathLayer pathLayer;
 	private World world;
 
-	private Map<RobotData, PointConvertor> convertors = new HashMap<RobotData, PointConvertor>();
 	private Map<RobotData,RobotData> otherRobots=new HashMap<RobotData,RobotData>();
 	private String name_;
 	
@@ -114,10 +112,6 @@ public class RobotController
 		
 	}
 	
-	public Map<RobotData, PointConvertor> getConvertors()
-	{
-		return convertors;
-	}
 
 	public Orientation getCurrentOrientation()
 	{
