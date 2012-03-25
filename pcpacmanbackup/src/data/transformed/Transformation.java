@@ -23,21 +23,18 @@ public class Transformation
 {
 	private Point vector_;
 	private int leftTurns_;
+	private Point pivot;
 	private boolean codes;
 	
 	public boolean hasCodes(){
 		return codes;
 	}
 	
-	public Transformation(Point vector,int leftTurns)
+	public Transformation(Point vector,Point pivot,int leftTurns)
 	{
 		vector_=vector;
 		leftTurns_=leftTurns;
 		codes = true;
-	}
-	public Transformation(Point one,Point two,Orientation o1,Orientation o2)
-	{
-		this(min(one, two),calculateTurns(o1, o2));
 	}
 	/**
 	 * Returns a transformation of so that the axis of that are aligned with thiz
@@ -60,6 +57,7 @@ public class Transformation
 		Board translated = Operations.translate(that.getBoard(), vector_);
 		int turns =BoardUnifier.calculateTurns(thiz.getBoard().getPanelAt(origin), translated.getPanelAt(origin));
 		this.leftTurns_=turns;
+		this.pivot=origin;
 	}
 	private static int calculateTurns(Orientation orient1, Orientation orient2)
 	{
@@ -83,7 +81,7 @@ public class Transformation
 	{
 		Point rv = Operations.translate(point, vector_);
 		for(int i = 0 ; i < leftTurns_;i++)
-			rv = Operations.turn(rv, Turn.LEFT);
+			rv = Operations.turn(rv,pivot, Turn.LEFT);
 		return rv;
 	}
 	public Panel execute(Panel panel)
@@ -107,16 +105,16 @@ public class Transformation
 	
 	public Transformation invert()
 	{
-		return new InvertedTransformation(vector_, leftTurns_);
+		return new InvertedTransformation(vector_,pivot, leftTurns_);
 	}
 	
 	
 	private class InvertedTransformation extends Transformation
 	{
 
-		public InvertedTransformation(Point vector, int leftTurns)
+		public InvertedTransformation(Point vector,Point pivot, int leftTurns)
 		{
-			super(vector, leftTurns);
+			super(vector,pivot, leftTurns);
 		}
 		
 		@Override
@@ -124,7 +122,7 @@ public class Transformation
 		{
 			Point rv = point;
 			for(int i = 0 ; i < leftTurns_;i++)
-				rv = Operations.turn(rv, Turn.RIGHT);
+				rv = Operations.turn(rv,pivot, Turn.RIGHT);
 			rv = Operations.translate(rv, Operations.negate(vector_));
 			return rv;
 			
@@ -148,7 +146,7 @@ public class Transformation
 		@Override
 		public Transformation invert()
 		{
-			return new Transformation(vector_,leftTurns_);
+			return new Transformation(vector_,pivot,leftTurns_);
 		}
 	}
 	

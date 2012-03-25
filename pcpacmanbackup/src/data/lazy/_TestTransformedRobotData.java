@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import data.board.Panel;
 import data.board.Panel.WallState;
+import data.board.operations.Operations;
 import data.board.operations.Operations.Turn;
 import data.enums.Orientation;
 import data.transformed.Transformation;
@@ -28,40 +29,7 @@ public class _TestTransformedRobotData
 		panel1.setBorder(Orientation.EAST, WallState.WALL);
 		panel1.setBarcode(new Barcode(37), Orientation.NORTH);
 	}
-	@Test
-	public void test0()
-	{
-		RobotData data = new RobotData();
-		data.setPosition(new Point(10, 10));
-		RobotData that = new RobotData();
-		that.setPosition(new Point(5, 5));
-		RobotDataView viewdata = 
-				new TransformedRobotData(
-						new Transformation(
-								new Point(3, 3),
-								new Point(4, 4),
-								Orientation.NORTH,
-								Orientation.NORTH)
-						, data);
-		assertTrue(viewdata.getPosition().equals(new Point(9,9)));
-	}
-	@Test
-	public void test1()
-	{
-		RobotData data = new RobotData();
-		data.setPosition(new Point(5, 10));
-		RobotData that = new RobotData();
-		that.setPosition(new Point(5, 5));
-		RobotDataView viewdata = 
-				new TransformedRobotData(
-						new Transformation(
-								new Point(3, 3),
-								new Point(3, 3),
-								Orientation.NORTH,
-								Orientation.WEST)
-						, data);
-		assertTrue(viewdata.getPosition().equals(new Point(-10,5)));
-	}
+
 	@Test
 	public void test2()
 	{
@@ -69,11 +37,39 @@ public class _TestTransformedRobotData
 		me.getBoard().add(panel1, new Point(0,0));
 		RobotData that = new RobotData();
 		that.setPosition(new Point(2,2 ));
-		that.getBoard().add(turn(panel1,Turn.RIGHT), new Point(1,1));
+		that.getBoard().add(panel1, new Point(1,1));
 		RobotDataView viewdata = 
 				new TransformedRobotData(
 						new Transformation(me,that)
 						, that);
-		System.out.println(viewdata.getPosition());
+		assertTrue(viewdata.getPosition().equals(new Point(1,1)));
+	}
+	@Test
+	public void test3()
+	{
+		RobotData me = new RobotData();
+		me.getBoard().add(panel1, new Point(0,0));
+		RobotData that = new RobotData();
+		that.setPosition(new Point(2,0 ));
+		that.getBoard().add(Operations.turn(panel1, Turn.RIGHT), new Point(0,0));
+		RobotDataView viewdata = 
+				new TransformedRobotData(
+						new Transformation(me,that)
+						, that);
+		assertTrue(viewdata.getPosition().equals(new Point(0,2)));
+	}
+	@Test
+	public void test4()
+	{
+		RobotData me = new RobotData();
+		me.getBoard().add(panel1, new Point(0,0));
+		RobotData that = new RobotData();
+		that.setPosition(new Point(2,0 ));
+		that.getBoard().add(Operations.turn(panel1, Turn.RIGHT), new Point(1,1));
+		RobotDataView viewdata = 
+				new TransformedRobotData(
+						new Transformation(me,that)
+						, that);
+		assertTrue(viewdata.getPosition().equals(new Point(-1,1)));
 	}
 }
