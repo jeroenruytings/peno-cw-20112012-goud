@@ -7,6 +7,7 @@ import org.junit.Test;
 import data.board.Board;
 import data.board.Panel;
 import data.board.shortestpathfinder.dijkstra.DijkstraFinder;
+import data.world.RobotData;
 
 
 public class _ShortestPathFinderTest
@@ -73,7 +74,8 @@ public class _ShortestPathFinderTest
 		for(int i = 0; i < size;i++)
 			for(int j=0;j<size;j++)
 				one.add(new Panel(), new Point(i,j));
-		ShortestPathFinderInterface f = new DijkstraFinder(one);
+		RobotData robot = new RobotData(one);
+		ShortestPathFinderInterface f = new DijkstraFinder(robot);
 		Iterable<Point > points = f.shortestPath(new Point(0,0),new Point(3,3));
 	for(Point p:	points)
 		System.out.println(p);

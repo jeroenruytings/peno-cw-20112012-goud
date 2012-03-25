@@ -79,6 +79,7 @@ public class PanelLayer implements PanelLayerInterface
 //			try {
 //				System.in.read();
 //			} catch (IOException e) {
+			
 //				e.printStackTrace();
 //			}
 			distanceToWall = mover.getUltrasonic();

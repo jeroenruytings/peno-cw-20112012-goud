@@ -23,7 +23,7 @@ public class MoverLayer
 		void set(boolean b)
 		{
 			synchronized (this) {
-				_v=true;
+				_v=b;
 			}
 			
 		}
@@ -51,10 +51,10 @@ public class MoverLayer
 		
 		pcc = new PCCommunicator(this);
 		Thread communicator = new Thread(pcc);
-		communicator.start();
 		_colorStack = new ColorTransitionStack(this);
 		_map = initbarcodes();
 		_reader = new BarCodeReader(_colorStack, _map);
+		communicator.start();
 		calibrateColors();
 		
 		
@@ -182,7 +182,13 @@ public class MoverLayer
 	{
 		System.out.println("Sending to calibrate BLACK");
 		pcc.sendCommando(new Commando(Action.CALIBRATEBLACK,0, "Calibrate black"));
-		while(!buttonIsPushed()) ;
+		while(!buttonIsPushed()){
+//			try {
+//				Thread.sleep(100);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+		}
 		this._colorStack.calibrate(PanelColor.BLACK, getLightSensor());
 		releaseButton();
 	}
@@ -193,7 +199,13 @@ public class MoverLayer
 
 	public void calibrateWhite() {
 		pcc.sendCommando(new Commando(Action.CALIBRATEWHITE,0, "Calibrate white"));
-		while(!buttonIsPushed()) ;
+		while(!buttonIsPushed()){
+//			try {
+//				Thread.sleep(100);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+		}
 		this._colorStack.calibrate(PanelColor.WHITE, getLightSensor());
 		releaseButton();
 		
@@ -201,7 +213,13 @@ public class MoverLayer
 	
 	public void calibrateBrown() {
 		pcc.sendCommando(new Commando(Action.CALIBRATEBROWN,0, "Calibrate brown"));
-		while(!buttonIsPushed()) ;
+		while(!buttonIsPushed()){
+//			try {
+//				Thread.sleep(100);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+		}
 		this._colorStack.calibrate(PanelColor.BROWN, getLightSensor());
 		releaseButton();
 	}

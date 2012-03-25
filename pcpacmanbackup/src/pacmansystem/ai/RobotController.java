@@ -222,7 +222,7 @@ public class RobotController
 	
 	private int dist(Point position, Point point)
 	{
-		return new DijkstraFinder(getBoard()).shortestPath(position, point)
+		return new DijkstraFinder(getData()).shortestPath(position, point)
 				.size();
 	}
 
@@ -329,7 +329,7 @@ public class RobotController
 	{
 		Point shortest = null;
 		int min = 10000;
-		DijkstraFinder f = new DijkstraFinder(getBoard());
+		DijkstraFinder f = new DijkstraFinder(getData());
 		for (Point point : getBoard().getUnfilledPoints()) {
 			List<Point> path = f.shortestPath(getCurrentPoint(), point);
 			if (min > path.size()) {

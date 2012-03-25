@@ -8,6 +8,7 @@ import java.util.Map;
 
 import data.board.Board;
 import data.board.shortestpathfinder.ShortestPathFinderInterface;
+import data.world.RobotData;
 
 
 public class DijkstraFinder implements ShortestPathFinderInterface
@@ -18,19 +19,23 @@ public class DijkstraFinder implements ShortestPathFinderInterface
 	int v;
 	private Board board;
 
-	public DijkstraFinder(Board board)
+	public DijkstraFinder(RobotData robot)
 	{
-		this.board=board;
-
+		this.board=robot.getBoard();
 	}
 
 	private EdgeWeightedDigraph make()
 	{
 		fillMaps(board);
+		
+		Board boardWithWallsForPacmanAndGhosts = new Board(board);
+		
+		
+		
 		EdgeWeightedDigraph graph = new EdgeWeightedDigraph(v);
-		for (Point p : board.getPanels().keySet()) {
-			for (Point point : board.getSurrounding(p)) {
-				if (!board.wallBetween(p, point)) {
+		for (Point p : boardWithWallsForPacmanAndGhosts.getPanels().keySet()) {
+			for (Point point : boardWithWallsForPacmanAndGhosts.getSurrounding(p)) {
+				if (!boardWithWallsForPacmanAndGhosts.wallBetween(p, point)) {
 					graph.addEdge(new DirectedEdge(linearize(p),
 							linearize(point), 1));
 					graph.addEdge(new DirectedEdge(linearize(point),

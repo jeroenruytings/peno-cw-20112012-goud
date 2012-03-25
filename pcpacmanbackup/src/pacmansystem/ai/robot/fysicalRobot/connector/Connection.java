@@ -18,8 +18,6 @@ public class Connection
 		if (!isConnected) {
 			throw new ConnectionFailedException();
 		}
-		System.out.println("yeey greqt succes");
-
 	}
 
 	public NXTConnector getConnection()

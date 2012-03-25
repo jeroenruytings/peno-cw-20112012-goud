@@ -46,6 +46,8 @@ public class World implements Observer
 	{
 		_robots.put(me.getName(), me);
 		// send join, wait for join!
+		if('a'=='a')
+			return;
 		join();
 		// wait for 3 other joins or 1 name
 		while(registeredRobots!=amountOfRobotsNeeded)
