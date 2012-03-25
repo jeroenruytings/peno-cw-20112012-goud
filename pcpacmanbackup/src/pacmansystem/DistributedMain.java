@@ -49,7 +49,7 @@ public class DistributedMain
 
 		Mainscreen gui = new Mainscreen();
 		if (visible)
-			gui.start();
+			gui.start(); 
 		robot.establishConnection();
 		for (RobotData r : robot.getWorld().get_robots().values())
 			gui.setRobotData(r);

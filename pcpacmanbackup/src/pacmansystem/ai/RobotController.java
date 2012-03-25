@@ -88,7 +88,7 @@ public class RobotController
 			
 			for(RobotDataView data: world.get_robots().values())
 			{
-				Board newBoard = BoardUnifier.unify3(getBoard(), data.getBoard());
+				Board newBoard = BoardUnifier.unify2(getBoard(), data.getBoard());
 				for(Point point: newBoard.getFilledPoints())
 				{
 					if(!getBoard().hasPanelAt(point)){
