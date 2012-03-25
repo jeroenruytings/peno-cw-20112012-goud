@@ -34,10 +34,11 @@ public interface PanelLayerInterface
 	public abstract Barcode getBarcode() throws OperationNotSupportedException;
 
 	/**
-	 *Returns if you have seen pacman, you dont know the direction
+	 *Returns if you have seen pacman in a orientation
 	 * @return
 	 */
 	public abstract boolean getPacman();
+	public Orientation getPacmanO();
 
 	public abstract Panel getPanel(Orientation currentOrientation);
 	

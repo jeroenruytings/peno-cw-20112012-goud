@@ -359,4 +359,11 @@ public class PanelLayer implements PanelLayerInterface
 		if(!hasBarcode())
 			mover.correctToMiddle();
 	}
+
+	@Override
+	public Orientation getPacmanO()
+	{
+		
+		return null;
+	}
 }

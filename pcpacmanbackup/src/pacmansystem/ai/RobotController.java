@@ -11,7 +11,6 @@ import pacmansystem.ai.robot.Barcode;
 import pacmansystem.ai.robot.OrientationLayer;
 import pacmansystem.ai.robot.PathLayer;
 import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
-
 import data.board.Board;
 import data.board.Panel;
 import data.board.PointConvertor;
@@ -35,35 +34,16 @@ public class RobotController
 	private Map<RobotData,RobotData> otherRobots=new HashMap<RobotData,RobotData>();
 	private String name_;
 	
-	public RobotData getData()
-	{
-		return world.getRobot(getName());
-	}
-	private OwnRobotData getOwnData()
-	{
-		return (OwnRobotData) world.getRobot(getName());
-	}
-
 	public RobotController(OrientationLayer layer, String name, World aWorld){
-		OwnRobotData data = new OwnRobotData(name);//TODO:make this a fancy robotdata !
+		OwnRobotData data = new OwnRobotData(name);
 		this.world=aWorld;
 		this.world.setRobot(data,name);
 		this.name_=name;
 		pathLayer = new PathLayer(data, layer);
 	}
-	
-	public Map<RobotData, PointConvertor> getConvertors()
+	public void establishConnection()
 	{
-		return convertors;
-	}
-
-	public PathLayer getPathLayer()
-	{
-		return pathLayer;
-	}
-	
-	public World getWorld(){
-		return world;
+		world.start(getData());
 	}
 
 	public void explore()
@@ -116,7 +96,7 @@ public class RobotController
 					}
 				}
 			}
-
+			
 			destination = lookForDestination(); // zoekt volgend punt om naartoe
 			// te gaan
 			if (destination == null) {
@@ -124,7 +104,8 @@ public class RobotController
 				return;
 			}
 			try {
-				getPathLayer().go(getCurrentPoint(), destination);
+				
+				getPathLayer().goOneStep(getCurrentPoint(),destination);
 			} catch (IllegalDriveException e) {
 				e.printStackTrace();
 			} // gaat naar volgend punt
@@ -133,237 +114,36 @@ public class RobotController
 		
 	}
 	
-	private void driveToPacman(){
-		if(getData().getPacmanLastSighted() != null){
-			try {
-				System.out.println(getData().getPacmanLastSighted());
-				getPathLayer().go(getCurrentPoint(), getData().getPacmanLastSighted());
-			} catch (IllegalDriveException e) {
-				e.printStackTrace();
-			}
-		}
-//		else{
-//			Point target = null;
-//			for(RobotData data : world.get_robots().values()){
-//				if(data.getPacmanLastSighted()!=null){
-//					//TODO convert target
-//					target = data.getPacmanLastSighted();
-//				}
-//			}
-//			try {
-//				getPathLayer().go(getCurrentPoint(), target);
-//			} catch (IllegalDriveException e) {
-//				e.printStackTrace();
-//			} catch (NullPointerException e){
-//				System.out.println("Geen pacman gevonden!");
-//			}
-//		}
-		else{
-			System.out.println("Geen pacman gevonden!");
-		}
+	public Map<RobotData, PointConvertor> getConvertors()
+	{
+		return convertors;
 	}
-	
+
 	public Orientation getCurrentOrientation()
 	{
 		return getPathLayer().getOrientationLayer().getOrientation();
 	}
 	
-	public Point lookForDestination()
+	public RobotData getData()
 	{
-		//		return ssMostUnknown();
-		//		 return ssClosestPoint();
-		Point destination = null;
-		Orientation orientation = nextMove();
-		if (orientation == null)
-			destination = searchNext();
-		else
-			destination = new Point(getCurrentPoint().x+ orientation.getXPlus(),
-					getCurrentPoint().y + orientation.getYPlus());
-		return destination;
-
-	}
-
-	private void tryAddingOtherRobots()
-	{
-		synchronized (world.get_robots()) {
-		for(RobotData data:world.get_robots().values())
-		{
-			if(!data.getName().equals(this.getName()))
-			{
-				if(Transformation.canBeBuild(this.getData(), data))
-				{
-					if(!otherRobots.containsKey(data))
-						otherRobots.put(data, new TransformedRobotData(new Transformation(this.getData(), data), data));
-				}
-			}
-		}
-		}
-	}
-
-	private Board getBoard()
-	{
-		return getData().getBoard();
-	}
-
-	private Point getCurrentPoint()
-	{
-		return getData().getPosition();
-	}
-
-	private Point ssMostKnown()
-	{
-		Point shortest = null;
-		int max = 0;
-		for (Point point : getBoard().getUnfilledPoints()) {
-			int c = 1;
-			for (Point p : getBoard().getSurrounding(point)) {
-				if (getBoard().hasPanelAt(p))
-					c++;
-			}
-			//c = c - dist(getCurrentPoint(), point);
-			if (c > max) {
-				shortest = point;
-				max = c;
-			}
-		}
-		return shortest;
-	}
-	
-	private Point ssMostUnknown()
-	{
-		Point shortest = null;
-		int max = -1000;
-		for (Point point : getBoard().getUnfilledPoints()) {
-			int c = -1;
-			for (Point p : getBoard().getSurrounding(point)) {
-				if (!getBoard().hasPanelAt(p))
-					c++;
-			}
-			c = c - dist(getCurrentPoint(), point);
-			if (c > max) {
-				shortest = point;
-				max = c;
-			}
-		}
-		return shortest;
-	}
-
-	private int dist(Point position, Point point)
-	{
-		return new DijkstraFinder(getBoard()).shortestPath(position, point)
-				.size();
-	}
-
-	private Point ssClosestPoint()
-	{
-		Point shortest = null;
-		int min = 10000;
-		DijkstraFinder f = new DijkstraFinder(getBoard());
-		for (Point point : getBoard().getUnfilledPoints()) {
-			List<Point> path = f.shortestPath(getCurrentPoint(), point);
-			if (min > path.size()) {
-				min = path.size();
-				shortest = point;
-			}
-		}
-		return shortest;
-	}
-
-	/**
-	 * 
-	 * @return de ori�ntatie waar je naartoe moet.
-	 * @return null als alle omliggende vakjes gekend zijn.
-	 */
-	private Orientation nextMove()
-	{
-		Point position = getCurrentPoint();
-		Orientation best = null;
-		int nbUnknowns = 0;
-		for (Orientation orientation : Orientation.values()) {
-			if (getBoard().wallBetween(position, orientation))
-				continue;
-			if (getBoard().hasPanelAt(orientation.addTo(getCurrentPoint())))
-				continue;
-			Point possibleDest = orientation.addTo(getCurrentPoint());
-			int temp = getBoard().nbOfUnknowns(possibleDest);
-			if (temp >= nbUnknowns) {
-				best = orientation;
-				nbUnknowns = temp;
-			}
-		}
-		return best;
-	}
-
-	/**
-	 * 
-	 * @return het beste punt om naar toe te rijden
-	 * @return null als alle punten gekend zijn.
-	 */
-	private Point searchNext()
-	{
-		Point best = null;
-		int waarde = 1000;
-		for (Point point : getBoard().getPanels().keySet()) {
-			if (point.equals(getCurrentPoint()))
-				continue;
-			int nbKnown = 4 - getBoard().nbOfUnknowns(point);
-			if (nbKnown == 4)
-				continue;
-			int temp = 3*nbKnown + heuristiek(point);
-			if (temp < waarde) {
-				best = point;
-				waarde = temp;
-			}
-		}
-		return best;
-	}
-
-	private int heuristiek(Point destination)
-	{
-		return (int) (Math.abs(destination.getX() - getCurrentPoint().x) + Math
-				.abs(destination.getY() - getCurrentPoint().y));
-	}
-
-	public void establishConnection()
-	{
-		world.start(getData());
-	}
-	public void start()
-	{
-		new Thread(new Runnable()
-		{
-			
-			@Override
-			public void run()
-			{
-				
-				explore();
-				
-			}
-		}).start();
+		return world.getRobot(getName());
 	}
 
 	public String getName()
 	{
 		return name_;
 	}
-
-    public Map<RobotData, Point> getRobotsWithSameBarcode(Barcode barcode)
-    {
-		if (barcode == null)
-			return null;
-		Map<RobotData, Point> robots = new HashMap<RobotData, Point>();
-		for (RobotData robot : world.get_robots().values()) {
-			if(robot.getName().equals(getData().getName()))
-				continue;
-			for(Barcode code : robot.getBarcodes().keySet()){
-				if(code.equals(barcode))
-					robots.put(robot, robot.getBarcodes().get(code));
-			}
-		}
-		return robots;
+	
+	public Collection<RobotData> getOtherBots()
+	{
+		return new ArrayList<RobotData>(otherRobots.values());
 	}
-
+	
+	public PathLayer getPathLayer()
+	{
+		return pathLayer;
+	}
+	
 	public Map<Orientation, Orientation> getRelativeOrientationAfterBarcode(
 			RobotDataView firstRobot, RobotDataView secondRobot,
 			Point barcodePointFirstRobot, Point barcodePointSecondRobot)
@@ -396,8 +176,228 @@ public class RobotController
 		return orientations;
 	}
 
-	public Collection<RobotData> getOtherBots()
+	public Map<RobotData, Point> getRobotsWithSameBarcode(Barcode barcode)
+    {
+		if (barcode == null)
+			return null;
+		Map<RobotData, Point> robots = new HashMap<RobotData, Point>();
+		for (RobotData robot : world.get_robots().values()) {
+			if(robot.getName().equals(getData().getName()))
+				continue;
+			for(Barcode code : robot.getBarcodes().keySet()){
+				if(code.equals(barcode))
+					robots.put(robot, robot.getBarcodes().get(code));
+			}
+		}
+		return robots;
+	}
+
+	public World getWorld(){
+		return world;
+	}
+
+	public Point lookForDestination()
 	{
-		return new ArrayList<RobotData>(otherRobots.values());
+		//		return ssMostUnknown();
+		//		 return ssClosestPoint();
+		Point destination = null;
+		Orientation orientation = nextMove();
+		if (orientation == null)
+			destination = searchNext();
+		else
+			destination = new Point(getCurrentPoint().x+ orientation.getXPlus(),
+					getCurrentPoint().y + orientation.getYPlus());
+		return destination;
+
+	}
+
+	public void start()
+	{
+		new Thread(new Runnable()
+		{
+			
+			@Override
+			public void run()
+			{
+				
+				explore();
+				
+			}
+		}).start();
+	}
+	
+	private int dist(Point position, Point point)
+	{
+		return new DijkstraFinder(getBoard()).shortestPath(position, point)
+				.size();
+	}
+
+	private void driveToPacman(){
+		if(getData().getPacmanLastSighted() != null){
+			try {
+				System.out.println(getData().getPacmanLastSighted());
+				getPathLayer().goOneStep(getCurrentPoint(), getData().getPacmanLastSighted());
+			} catch (IllegalDriveException e) {
+				e.printStackTrace();
+			}
+		}
+//		else{
+//			Point target = null;
+//			for(RobotData data : world.get_robots().values()){
+//				if(data.getPacmanLastSighted()!=null){
+//					//TODO convert target
+//					target = data.getPacmanLastSighted();
+//				}
+//			}
+//			try {
+//				getPathLayer().go(getCurrentPoint(), target);
+//			} catch (IllegalDriveException e) {
+//				e.printStackTrace();
+//			} catch (NullPointerException e){
+//				System.out.println("Geen pacman gevonden!");
+//			}
+//		}
+		else{
+			System.out.println("Geen pacman gevonden!");
+		}
+	}
+
+	private Board getBoard()
+	{
+		return getData().getBoard();
+	}
+
+	private Point getCurrentPoint()
+	{
+		return getData().getPosition();
+	}
+
+	private OwnRobotData getOwnData()
+	{
+		return (OwnRobotData) world.getRobot(getName());
+	}
+
+	private int heuristiek(Point destination)
+	{
+		return (int) (Math.abs(destination.getX() - getCurrentPoint().x) + Math
+				.abs(destination.getY() - getCurrentPoint().y));
+	}
+
+	/**
+	 * 
+	 * @return de ori�ntatie waar je naartoe moet.
+	 * @return null als alle omliggende vakjes gekend zijn.
+	 */
+	private Orientation nextMove()
+	{
+		Point position = getCurrentPoint();
+		Orientation best = null;
+		int nbUnknowns = 0;
+		for (Orientation orientation : Orientation.values()) {
+			if (getBoard().wallBetween(position, orientation))
+				continue;
+			if (getBoard().hasPanelAt(orientation.addTo(getCurrentPoint())))
+				continue;
+			Point possibleDest = orientation.addTo(getCurrentPoint());
+			int temp = getBoard().nbOfUnknowns(possibleDest);
+			if (temp >= nbUnknowns) {
+				best = orientation;
+				nbUnknowns = temp;
+			}
+		}
+		return best;
+	}
+	/**
+	 * 
+	 * @return het beste punt om naar toe te rijden
+	 * @return null als alle punten gekend zijn.
+	 */
+	private Point searchNext()
+	{
+		Point best = null;
+		int waarde = 1000;
+		for (Point point : getBoard().getPanels().keySet()) {
+			if (point.equals(getCurrentPoint()))
+				continue;
+			int nbKnown = 4 - getBoard().nbOfUnknowns(point);
+			if (nbKnown == 4)
+				continue;
+			int temp = 3*nbKnown + heuristiek(point);
+			if (temp < waarde) {
+				best = point;
+				waarde = temp;
+			}
+		}
+		return best;
+	}
+
+	private Point ssClosestPoint()
+	{
+		Point shortest = null;
+		int min = 10000;
+		DijkstraFinder f = new DijkstraFinder(getBoard());
+		for (Point point : getBoard().getUnfilledPoints()) {
+			List<Point> path = f.shortestPath(getCurrentPoint(), point);
+			if (min > path.size()) {
+				min = path.size();
+				shortest = point;
+			}
+		}
+		return shortest;
+	}
+
+    private Point ssMostKnown()
+	{
+		Point shortest = null;
+		int max = 0;
+		for (Point point : getBoard().getUnfilledPoints()) {
+			int c = 1;
+			for (Point p : getBoard().getSurrounding(point)) {
+				if (getBoard().hasPanelAt(p))
+					c++;
+			}
+			//c = c - dist(getCurrentPoint(), point);
+			if (c > max) {
+				shortest = point;
+				max = c;
+			}
+		}
+		return shortest;
+	}
+
+	private Point ssMostUnknown()
+	{
+		Point shortest = null;
+		int max = -1000;
+		for (Point point : getBoard().getUnfilledPoints()) {
+			int c = -1;
+			for (Point p : getBoard().getSurrounding(point)) {
+				if (!getBoard().hasPanelAt(p))
+					c++;
+			}
+			c = c - dist(getCurrentPoint(), point);
+			if (c > max) {
+				shortest = point;
+				max = c;
+			}
+		}
+		return shortest;
+	}
+
+	private void tryAddingOtherRobots()
+	{
+		synchronized (world.get_robots()) {
+		for(RobotData data:world.get_robots().values())
+		{
+			if(!data.getName().equals(this.getName()))
+			{
+				if(Transformation.canBeBuild(this.getData(), data))
+				{
+					if(!otherRobots.containsKey(data))
+						otherRobots.put(data, new TransformedRobotData(new Transformation(this.getData(), data), data));
+				}
+			}
+		}
+		}
 	}
 }

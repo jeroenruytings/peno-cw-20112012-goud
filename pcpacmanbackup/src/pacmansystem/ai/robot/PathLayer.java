@@ -30,7 +30,11 @@ public class PathLayer {
 //		directionLayer = new OrientationLayer(realworld);
 //		finder = new ShortestPathFinder(board);
 //	}
-	
+	@Deprecated
+	/**
+	 * Going more then one step at a time is kinda silly in our design...
+	 * 
+	 * */
 	public void go(Point start, Point end) throws IllegalDriveException{
 		Iterable<Point> r = finder.shortestPath(start,end);
 		Iterator<Point> s = r.iterator();
@@ -63,6 +67,31 @@ public class PathLayer {
 		data.discover(data.getPosition(), panel);
 		return panel;
 	}
-	
-	
+
+	public void goOneStep(Point currentPoint, Point destination) throws IllegalDriveException
+	{
+		Iterable<Point> r;
+		try{
+		r = finder.shortestPath(currentPoint,destination);
+		}catch(NullPointerException nullp){
+			throw new IllegalDriveException();
+			
+		}
+		Iterator<Point> s = r.iterator();
+		Point current = s.next();
+		Point next = s.next();
+		Orientation o;
+		try {
+			
+			o = Board.getOrientationBetween(current,next);
+			orientationLayer.go(o);
+		} catch (IllegalDriveException e) {
+			System.out.println("exceptoin");
+			throw new IllegalDriveException();
+		
+		}
+
+		data.position(next);
+		data.setOrientation(o);
+	}
 }
