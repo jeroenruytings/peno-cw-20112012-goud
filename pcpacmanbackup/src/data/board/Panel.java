@@ -33,6 +33,15 @@ public class Panel
 		}
 		setBarcode(panel.getBarcode(), panel.getBarcodeOrientation());
 	}
+	
+	public Panel(int n, int e, int s, int w){
+		this();
+		this.setBorder(Orientation.NORTH, WallState.getWallState(n));
+		this.setBorder(Orientation.EAST, WallState.getWallState(e));
+		this.setBorder(Orientation.SOUTH, WallState.getWallState(s));
+		this.setBorder(Orientation.WEST, WallState.getWallState(w));
+		
+	}
 
 	public void setBorder(Orientation d, WallState state)
 	{
@@ -111,5 +120,19 @@ public class Panel
 	 */
 	public enum WallState{
 		PASSAGE,WALL,UNKNOWN;
+		
+		public static WallState getWallState(int i){
+			switch (i){
+			case 0:
+				return PASSAGE;
+			case 1:
+				return WALL;
+			case 2:
+				return UNKNOWN;
+			default:
+				throw new IllegalArgumentException("Een verkeerde wallstate is doorgegeven.");
+					
+			}
+		}
 	}
 }

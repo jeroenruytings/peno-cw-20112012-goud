@@ -7,6 +7,7 @@ import org.junit.Test;
 import data.board.Board;
 import data.board.Panel;
 import data.board.shortestpathfinder.dijkstra.DijkstraFinder;
+import data.board.shortestpathfinder.dijkstra.PathNotPossibleException;
 import data.world.RobotData;
 
 
@@ -76,8 +77,13 @@ public class _ShortestPathFinderTest
 				one.add(new Panel(), new Point(i,j));
 		RobotData robot = new RobotData(one);
 		ShortestPathFinderInterface f = new DijkstraFinder(robot);
-		Iterable<Point > points = f.shortestPath(new Point(0,0),new Point(3,3));
-	for(Point p:	points)
+		Iterable<Point> points = null;
+		try {
+			points = f.shortestPath(new Point(0,0),new Point(3,3));
+		} catch (PathNotPossibleException e) {
+			e.printStackTrace();
+		}
+	for(Point p: points)
 		System.out.println(p);
 	
 		

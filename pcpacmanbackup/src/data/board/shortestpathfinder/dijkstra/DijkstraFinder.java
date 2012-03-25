@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import data.board.Board;
+import data.board.Panel;
 import data.board.shortestpathfinder.ShortestPathFinderInterface;
 import data.world.RobotData;
 
@@ -17,20 +18,26 @@ public class DijkstraFinder implements ShortestPathFinderInterface
 	private Map<Point, Integer> _m1;
 	private Map<Integer, Point> _m2;
 	int v;
-	private Board board;
+	private RobotData robot;
 
 	public DijkstraFinder(RobotData robot)
 	{
-		this.board=robot.getBoard();
+		this.robot=robot;
 	}
-
+	
+	private RobotData getRobot(){
+		return robot;
+	}
+	
 	private EdgeWeightedDigraph make()
 	{
-		fillMaps(board);
+		fillMaps(getRobot().getBoard());
 		
-		Board boardWithWallsForPacmanAndGhosts = new Board(board);
-		
-		
+		Board boardWithWallsForPacmanAndGhosts = new Board(getRobot().getBoard());
+		if (getRobot().getPacmanLastSighted() != null){
+			Panel pacman = new Panel(1,1,1,1);
+			boardWithWallsForPacmanAndGhosts.addForced(pacman, getRobot().getPacmanLastSighted());
+		}
 		
 		EdgeWeightedDigraph graph = new EdgeWeightedDigraph(v);
 		for (Point p : boardWithWallsForPacmanAndGhosts.getPanels().keySet()) {
@@ -87,12 +94,14 @@ public class DijkstraFinder implements ShortestPathFinderInterface
 	}
 
 	@Override
-	public List<Point> shortestPath(Point one, Point two)
+	public List<Point> shortestPath(Point one, Point two) throws PathNotPossibleException
 	{
 		ArrayList<Point> rv = new ArrayList<Point>();
 		EdgeWeightedDigraph graph = make();
 		DijkstraSP f = new DijkstraSP(graph, linearize(one));
 		Iterable<DirectedEdge> edges = f.pathTo(linearize(two));
+		if (edges == null)
+			throw new PathNotPossibleException();
 		for (DirectedEdge e : edges)
 			rv.add(delinearize(e.to()));
 		rv.add(one);

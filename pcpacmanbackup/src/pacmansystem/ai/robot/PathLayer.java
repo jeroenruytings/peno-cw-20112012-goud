@@ -7,6 +7,7 @@ import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
 import data.board.Board;
 import data.board.Panel;
 import data.board.shortestpathfinder.dijkstra.DijkstraFinder;
+import data.board.shortestpathfinder.dijkstra.PathNotPossibleException;
 import data.enums.Orientation;
 import data.world.OwnRobotData;
 
@@ -36,7 +37,12 @@ public class PathLayer {
 	 * 
 	 * */
 	public void go(Point start, Point end) throws IllegalDriveException{
-		Iterable<Point> r = finder.shortestPath(start,end);
+		Iterable<Point> r = null;
+		try {
+			r = finder.shortestPath(start,end);
+		} catch (PathNotPossibleException e1) {
+			e1.printStackTrace();
+		}
 		Iterator<Point> s = r.iterator();
 		Point currentPoint = s.next();
 		while (s.hasNext()){
@@ -73,21 +79,21 @@ public class PathLayer {
 		Iterable<Point> r;
 		try{
 		r = finder.shortestPath(currentPoint,destination);
-		}catch(NullPointerException nullp){
+		}catch(PathNotPossibleException e){
 			throw new IllegalDriveException();
 			
 		}
 		Iterator<Point> s = r.iterator();
 		Point current = s.next();
 		Point next = s.next();
-		Orientation o;
+		Orientation o =null;
 		try {
 			
 			o = Board.getOrientationBetween(current,next);
 			orientationLayer.go(o);
 		} catch (IllegalDriveException e) {
-			System.out.println("exceptoin");
-			throw new IllegalDriveException();
+			System.out.println("exception");
+			e.printStackTrace();
 		
 		}
 

@@ -15,6 +15,7 @@ import data.board.Board;
 import data.board.Panel;
 import data.board.operations.BoardUnifier;
 import data.board.shortestpathfinder.dijkstra.DijkstraFinder;
+import data.board.shortestpathfinder.dijkstra.PathNotPossibleException;
 import data.enums.Orientation;
 import data.lazy.TransformedRobotData;
 import data.transformed.Transformation;
@@ -226,10 +227,9 @@ public class RobotController
 		}).start();
 	}
 	
-	private int dist(Point position, Point point)
+	private int dist(Point position, Point point) throws PathNotPossibleException
 	{
-		return new DijkstraFinder(getData()).shortestPath(position, point)
-				.size();
+		return new DijkstraFinder(getData()).shortestPath(position, point).size();
 	}
 
 	private void driveToPacman(){
@@ -337,7 +337,13 @@ public class RobotController
 		int min = 10000;
 		DijkstraFinder f = new DijkstraFinder(getData());
 		for (Point point : getBoard().getUnfilledPoints()) {
-			List<Point> path = f.shortestPath(getCurrentPoint(), point);
+			List<Point> path = null;
+			try {
+				path = f.shortestPath(getCurrentPoint(), point);
+			} catch (PathNotPossibleException e) {
+				// Code om deze case op te lossen!
+				e.printStackTrace();
+			}
 			if (min > path.size()) {
 				min = path.size();
 				shortest = point;
@@ -375,7 +381,12 @@ public class RobotController
 				if (!getBoard().hasPanelAt(p))
 					c++;
 			}
-			c = c - dist(getCurrentPoint(), point);
+			try {
+				c = c - dist(getCurrentPoint(), point);
+			} catch (PathNotPossibleException e) {
+				// Code om deze case op te lossen.
+				e.printStackTrace();
+			}
 			if (c > max) {
 				shortest = point;
 				max = c;
