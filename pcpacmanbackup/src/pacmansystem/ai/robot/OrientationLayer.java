@@ -34,9 +34,9 @@ public class OrientationLayer
 			go(orient);
 	}
 
-	public Panel getPanel(Orientation orientation)
+	public Panel getPanel()
 	{
-		return layer.getPanel(orientation);
+		return layer.getPanel(currentOrientation);
 	}
 
 	/**

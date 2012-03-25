@@ -61,9 +61,9 @@ public class PathLayer {
 //		return p.x + "," + p.y;
 //	}
 
-	public Panel getPanel(Orientation currentOrientation)
+	public Panel getPanel()
 	{
-		Panel panel = orientationLayer.getPanel(currentOrientation);
+		Panel panel = orientationLayer.getPanel();
 		data.discover(data.getPosition(), panel);
 		return panel;
 	}
