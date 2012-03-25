@@ -42,7 +42,7 @@ public class TransformedRobotData extends RobotData
 	@Override
 	public Board getBoard()
 	{
-		return new TransformedBoardLazy(trans_, data_.getBoard());
+		return new TransFormedBoard(trans_, data_.getBoard());
 	}
 
 	@Override

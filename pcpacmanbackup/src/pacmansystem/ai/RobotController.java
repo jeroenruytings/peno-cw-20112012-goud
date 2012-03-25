@@ -30,16 +30,18 @@ public class RobotController
 	private PathLayer pathLayer;
 	private World world;
 
-	private Map<RobotData,RobotData> otherRobots=new HashMap<RobotData,RobotData>();
+	private Map<RobotData, RobotData> otherRobots = new HashMap<RobotData, RobotData>();
 	private String name_;
-	
-	public RobotController(OrientationLayer layer, String name, World aWorld){
+
+	public RobotController(OrientationLayer layer, String name, World aWorld)
+	{
 		OwnRobotData data = new OwnRobotData(name);
-		this.world=aWorld;
-		this.world.setRobot(data,name);
-		this.name_=name;
+		this.world = aWorld;
+		this.world.setRobot(data, name);
+		this.name_ = name;
 		pathLayer = new PathLayer(data, layer);
 	}
+
 	public void establishConnection()
 	{
 		world.start(getData());
@@ -48,83 +50,91 @@ public class RobotController
 	public void explore()
 	{
 		Point destination = null;
-		getOwnData().position(new Point(0,0));
+		getOwnData().position(new Point(0, 0));
 		while (true) {
-			//checkForNewInfo();
+			// checkForNewInfo();
 			// voegt panel toe aan board
 			tryAddingOtherRobots();
 			Panel p1 = getPathLayer().getPanel();
-			boolean pacmanSpotted = getPathLayer().getOrientationLayer().getLayer().getPacman();
-			if(pacmanSpotted){
-				getOwnData().pacman(getData().getOrientation().addTo(getCurrentPoint()));
-				
+			boolean pacmanSpotted = getPathLayer().getOrientationLayer()
+					.getLayer().getPacman();
+			if (pacmanSpotted) {
+				getOwnData().pacman(
+						getData().getOrientation().addTo(getCurrentPoint()));
+
 			}
-			if (p1.hasBarcode()){
-				getOwnData().barcode(p1.getBarcode(), p1.getBarcodeOrientation(), getCurrentPoint());
+			if (p1.hasBarcode()) {
+				getOwnData().barcode(p1.getBarcode(),
+						p1.getBarcodeOrientation(), getCurrentPoint());
 			}
 			// kijken
-			
+
 			try {
 				getBoard().add(p1, getCurrentPoint());
 			} catch (IllegalArgumentException e) {
 				getBoard().addForced(p1, getCurrentPoint());
 			}
 			// voegt panel toe aan board
-		 
-			
 
-			for(RobotDataView robot:getOtherBots())
-			{
-				if(robot.getPacmanLastSighted()==null)
+			for (RobotDataView robot : getOtherBots()) {
+				if (robot.getPacmanLastSighted() == null)
 					continue;
-				if(getOwnData().getPacmanLastSighted()!=null&&robot.getPacmanLastSighted().equals(getOwnData().getPacmanLastSighted()))
+				if (getOwnData().getPacmanLastSighted() != null
+						&& robot.getPacmanLastSighted().equals(
+								getOwnData().getPacmanLastSighted()))
 					continue;
-				if(robot.getPacmanLastSighted()==null||!robot.getPacmanLastSighted().equals(getOwnData().getPacmanLastSighted()))
-					{
-						getOwnData().pacman(robot.getPacmanLastSighted());
-						System.out.println("pacman recieved from "+robot.getName()+" at:"+robot.getPacmanLastSighted());
-					}
-			}
-			
-			for(RobotDataView data: world.get_robots().values())
-			{
-				Board newBoard = BoardUnifier.unify2(getBoard(), data.getBoard());
-				for(Point point: newBoard.getFilledPoints())
-				{
-					if(!getBoard().hasPanelAt(point)){
-						getOwnData().discover(point, newBoard.getPanelAt(point));
-						if(newBoard.getPanelAt(point).hasBarcode())
-						{
-							getOwnData().barcode(newBoard.getPanelAt(point).getBarcode(), newBoard.getPanelAt(point).getBarcodeOrientation(), point);
-						}
-							
-					}
+				if (robot.getPacmanLastSighted() == null
+						|| !robot.getPacmanLastSighted().equals(
+								getOwnData().getPacmanLastSighted())) {
+					getOwnData().pacman(robot.getPacmanLastSighted());
+					System.out.println("pacman recieved from "
+							+ robot.getName() + " at:"
+							+ robot.getPacmanLastSighted());
 				}
 			}
-			
+
+			fixInfoFromOtherRobots();
+
 			destination = lookForDestination(); // zoekt volgend punt om naartoe
 			// te gaan
 			if (destination == null) {
 				driveToPacman();
-				return;
-			}
-			try {
-				
-				getPathLayer().goOneStep(getCurrentPoint(),destination);
-			} catch (IllegalDriveException e) {
-				e.printStackTrace();
-			} // gaat naar volgend punt
 
+			} else {
+				try {
+
+					getPathLayer().goOneStep(getCurrentPoint(), destination);
+				} catch (IllegalDriveException e) {
+					e.printStackTrace();
+				} // gaat naar volgend punt
+			}
 		}
+
+	}
+
+	private void fixInfoFromOtherRobots()
+	{
+		for (RobotDataView robot : getOtherBots())
+			for (Point p : robot.getBoard().getFilledPoints())
+				if (!this.getBoard().hasPanelAt(p)) {
+					this.getBoard().add(robot.getBoard().getPanelAt(p), p);
+					getOwnData()
+							.discover(p, robot.getBoard().getPanelAt(p));
+					if (this.getBoard().getPanelAt(p).hasBarcode()) {
+						getOwnData().barcode(
+								getBoard().getPanelAt(p).getBarcode(),
+								getBoard().getPanelAt(p)
+										.getBarcodeOrientation(), p);
+					}
+				}
 		
 	}
-	
 
 	public Orientation getCurrentOrientation()
 	{
 		return getPathLayer().getOrientationLayer().getOrientation();
 	}
-	
+
 	public RobotData getData()
 	{
 		return world.getRobot(getName());
@@ -134,17 +144,17 @@ public class RobotController
 	{
 		return name_;
 	}
-	
+
 	public Collection<RobotData> getOtherBots()
 	{
 		return new ArrayList<RobotData>(otherRobots.values());
 	}
-	
+
 	public PathLayer getPathLayer()
 	{
 		return pathLayer;
 	}
-	
+
 	public Map<Orientation, Orientation> getRelativeOrientationAfterBarcode(
 			RobotDataView firstRobot, RobotDataView secondRobot,
 			Point barcodePointFirstRobot, Point barcodePointSecondRobot)
@@ -153,11 +163,11 @@ public class RobotController
 		Panel p2 = secondRobot.getBoard().getPanelAt(barcodePointSecondRobot);
 		Orientation orientationBarcodeFirstPanel = p1.getBarcodeOrientation();
 		Orientation orientationBarcodeSecondPanel;
-		if(p1.getBarcode().getReverse() == p2.getBarcode().getValue()){
+		if (p1.getBarcode().getReverse() == p2.getBarcode().getValue()) {
 			orientationBarcodeSecondPanel = p2.getBarcodeOrientation();
-		}
-		else{
-			orientationBarcodeSecondPanel = p2.getBarcodeOrientation().opposite();
+		} else {
+			orientationBarcodeSecondPanel = p2.getBarcodeOrientation()
+					.opposite();
 		}
 		Map<Orientation, Orientation> orientations = new HashMap<Orientation, Orientation>();
 		int ordinalFirst = orientationBarcodeFirstPanel.ordinal();
@@ -178,36 +188,38 @@ public class RobotController
 	}
 
 	public Map<RobotData, Point> getRobotsWithSameBarcode(Barcode barcode)
-    {
+	{
 		if (barcode == null)
 			return null;
 		Map<RobotData, Point> robots = new HashMap<RobotData, Point>();
 		for (RobotData robot : world.get_robots().values()) {
-			if(robot.getName().equals(getData().getName()))
+			if (robot.getName().equals(getData().getName()))
 				continue;
-			for(Barcode code : robot.getBarcodes().keySet()){
-				if(code.equals(barcode))
+			for (Barcode code : robot.getBarcodes().keySet()) {
+				if (code.equals(barcode))
 					robots.put(robot, robot.getBarcodes().get(code));
 			}
 		}
 		return robots;
 	}
 
-	public World getWorld(){
+	public World getWorld()
+	{
 		return world;
 	}
 
 	public Point lookForDestination()
 	{
-		//		return ssMostUnknown();
-		//		 return ssClosestPoint();
+		// return ssMostUnknown();
+		// return ssClosestPoint();
 		Point destination = null;
 		Orientation orientation = nextMove();
 		if (orientation == null)
 			destination = searchNext();
 		else
-			destination = new Point(getCurrentPoint().x+ orientation.getXPlus(),
-					getCurrentPoint().y + orientation.getYPlus());
+			destination = new Point(getCurrentPoint().x
+					+ orientation.getXPlus(), getCurrentPoint().y
+					+ orientation.getYPlus());
 		return destination;
 
 	}
@@ -216,48 +228,52 @@ public class RobotController
 	{
 		new Thread(new Runnable()
 		{
-			
+
 			@Override
 			public void run()
 			{
-				
+
 				explore();
-				
+
 			}
 		}).start();
 	}
-	
-	private int dist(Point position, Point point) throws PathNotPossibleException
+
+	private int dist(Point position, Point point)
+			throws PathNotPossibleException
 	{
-		return new DijkstraFinder(getData()).shortestPath(position, point).size();
+		return new DijkstraFinder(getData()).shortestPath(position, point)
+				.size();
 	}
 
-	private void driveToPacman(){
-		if(getData().getPacmanLastSighted() != null){
+	private void driveToPacman()
+	{
+		if (getData().getPacmanLastSighted() != null) {
 			try {
 				System.out.println(getData().getPacmanLastSighted());
-				getPathLayer().goOneStep(getCurrentPoint(), getData().getPacmanLastSighted());
+				getPathLayer().goOneStep(getCurrentPoint(),
+						getData().getPacmanLastSighted());
 			} catch (IllegalDriveException e) {
 				e.printStackTrace();
 			}
 		}
-//		else{
-//			Point target = null;
-//			for(RobotData data : world.get_robots().values()){
-//				if(data.getPacmanLastSighted()!=null){
-//					//TODO convert target
-//					target = data.getPacmanLastSighted();
-//				}
-//			}
-//			try {
-//				getPathLayer().go(getCurrentPoint(), target);
-//			} catch (IllegalDriveException e) {
-//				e.printStackTrace();
-//			} catch (NullPointerException e){
-//				System.out.println("Geen pacman gevonden!");
-//			}
-//		}
-		else{
+		// else{
+		// Point target = null;
+		// for(RobotData data : world.get_robots().values()){
+		// if(data.getPacmanLastSighted()!=null){
+		// //TODO convert target
+		// target = data.getPacmanLastSighted();
+		// }
+		// }
+		// try {
+		// getPathLayer().go(getCurrentPoint(), target);
+		// } catch (IllegalDriveException e) {
+		// e.printStackTrace();
+		// } catch (NullPointerException e){
+		// System.out.println("Geen pacman gevonden!");
+		// }
+		// }
+		else {
 			System.out.println("Geen pacman gevonden!");
 		}
 	}
@@ -307,6 +323,7 @@ public class RobotController
 		}
 		return best;
 	}
+
 	/**
 	 * 
 	 * @return het beste punt om naar toe te rijden
@@ -322,7 +339,7 @@ public class RobotController
 			int nbKnown = 4 - getBoard().nbOfUnknowns(point);
 			if (nbKnown == 4)
 				continue;
-			int temp = 3*nbKnown + heuristiek(point);
+			int temp = 3 * nbKnown + heuristiek(point);
 			if (temp < waarde) {
 				best = point;
 				waarde = temp;
@@ -352,7 +369,7 @@ public class RobotController
 		return shortest;
 	}
 
-    private Point ssMostKnown()
+	private Point ssMostKnown()
 	{
 		Point shortest = null;
 		int max = 0;
@@ -362,7 +379,7 @@ public class RobotController
 				if (getBoard().hasPanelAt(p))
 					c++;
 			}
-			//c = c - dist(getCurrentPoint(), point);
+			// c = c - dist(getCurrentPoint(), point);
 			if (c > max) {
 				shortest = point;
 				max = c;
@@ -398,17 +415,16 @@ public class RobotController
 	private void tryAddingOtherRobots()
 	{
 		synchronized (world.get_robots()) {
-		for(RobotData data:world.get_robots().values())
-		{
-			if(!data.getName().equals(this.getName()))
-			{
-				if(Transformation.canBeBuild(this.getData(), data))
-				{
-					if(!otherRobots.containsKey(data))
-						otherRobots.put(data, new TransformedRobotData(new Transformation(this.getData(), data), data));
+			for (RobotData data : world.get_robots().values()) {
+				if (!data.getName().equals(this.getName())) {
+					if (Transformation.canBeBuild(this.getData(), data)) {
+						if (!otherRobots.containsKey(data))
+							otherRobots.put(data, new TransformedRobotData(
+									new Transformation(this.getData(), data),
+									data));
+					}
 				}
 			}
-		}
 		}
 	}
 }

@@ -14,6 +14,6 @@ public interface Config {
 	// the default exchange that will be used for races during the official demo's
 	//RaceExchange
 	public static final String EXCHANGE_NAME = "RoodGoud";
-	public static final String LAUNCH_ROUTING_KEY = "race.launch";
+	public static final String LAUNCH_ROUTING_KEY = "";
 	
 }

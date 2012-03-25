@@ -78,6 +78,7 @@ public class BoardUnifier
 	
 	public static Board unify3(Board thiz, Board that)
 	{
+		thiz = new Board(thiz);
 		RobotData data = new RobotData();
 		RobotData data2 = new RobotData();
 		data.setBoard(thiz);

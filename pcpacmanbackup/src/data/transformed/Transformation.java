@@ -19,10 +19,11 @@ import data.world.RobotData;
 import data.world.RobotDataView;
 
 import pacmansystem.ai.robot.Barcode;
+import pacmansystem.ai.robot.fysicalRobot.PanelColor;
 public class Transformation
 {
 	private Point vector_;
-	private int leftTurns_;
+	private int rightTurns;
 	private Point pivot;
 	private boolean codes;
 	
@@ -33,7 +34,7 @@ public class Transformation
 	public Transformation(Point vector,Point pivot,int leftTurns)
 	{
 		vector_=vector;
-		leftTurns_=leftTurns;
+		rightTurns=leftTurns;
 		codes = true;
 	}
 	/**
@@ -53,49 +54,52 @@ public class Transformation
 		Barcode barcode= commonCodes.iterator().next();
 		Point origin = barcodesThiz.get(barcode);
 		Point target=barcodesThat.get(barcode);
+		
 		this.vector_= min(origin,target);
 		Board translated = Operations.translate(that.getBoard(), vector_);
-		int turns =BoardUnifier.calculateTurns(thiz.getBoard().getPanelAt(origin), translated.getPanelAt(origin));
-		this.leftTurns_=turns;
+		int turns =calculateTurns(thiz.getBoard().getPanelAt(origin), translated.getPanelAt(origin));
+		this.rightTurns=turns;
 		this.pivot=origin;
 	}
-	private static int calculateTurns(Orientation orient1, Orientation orient2)
-	{
-
-		Direction direction = Direction.diff(orient1, orient2);
-		switch(direction)
+	private static int calculateTurns(Panel panelThiz, Panel panelThat) {
+		Barcode one = panelThiz.getBarcode();
+		Barcode two = panelThat.getBarcode();
+		Direction direction;
+		Orientation orientation1 = panelThiz.getBarcodeOrientation();
+		Orientation orientation2 = panelThat.getBarcodeOrientation();
+		if(one.getValue()!=two.getValue())
+			orientation2 = orientation2.opposite();
+		int rightTurns = 0;
+		Point target = orientation1.addTo(new Point(0,0));
+		Point current = orientation2.addTo(new Point(0,0));
+		while(!current.equals(target))
 		{
-		case UP:
-			return 0;
-		case DOWN:
-			return 2;
-		case LEFT:
-			return 1;
-		case RIGHT:
-			return 3;
+			current = Operations.turn(current, Turn.RIGHT);
+			rightTurns++;
 		}
-		return 0;
+		return rightTurns;
+		
 	}
 	
 	public Point execute(Point point)
 	{
 		Point rv = Operations.translate(point, vector_);
-		for(int i = 0 ; i < leftTurns_;i++)
-			rv = Operations.turn(rv,pivot, Turn.LEFT);
+		for(int i = 0 ; i < rightTurns;i++)
+			rv = Operations.turn(rv,pivot, Turn.RIGHT);
 		return rv;
 	}
 	public Panel execute(Panel panel)
 	{
 		Panel rv = panel;
-		for(int i = 0 ; i < leftTurns_;i++)
-			rv = Operations.turn(rv, Turn.LEFT);
+		for(int i = 0 ; i < rightTurns;i++)
+			rv = Operations.turn(rv, Turn.RIGHT);
 		return rv;
 	}
 	public Orientation execute(Orientation orientation)
 	{
 		Orientation rv = orientation;
-		for(int i = 0 ; i < leftTurns_;i++)
-			rv =rv.addTo(Turn.LEFT.getDir());
+		for(int i = 0 ; i < rightTurns;i++)
+			rv =rv.addTo(Turn.RIGHT.getDir());
 		return rv;
 	}
 	public static boolean canBeBuild(RobotData thiz,RobotData that)
@@ -105,7 +109,7 @@ public class Transformation
 	
 	public Transformation invert()
 	{
-		return new InvertedTransformation(vector_,pivot, leftTurns_);
+		return new InvertedTransformation(vector_,pivot, rightTurns);
 	}
 	
 	
@@ -121,8 +125,8 @@ public class Transformation
 		public Point execute(Point point)
 		{
 			Point rv = point;
-			for(int i = 0 ; i < leftTurns_;i++)
-				rv = Operations.turn(rv,pivot, Turn.RIGHT);
+			for(int i = 0 ; i < rightTurns;i++)
+				rv = Operations.turn(rv,pivot, Turn.LEFT);
 			rv = Operations.translate(rv, Operations.negate(vector_));
 			return rv;
 			
@@ -131,22 +135,22 @@ public class Transformation
 		public Panel execute(Panel panel)
 		{
 			Panel rv =panel;
-			for(int i = 0 ; i < leftTurns_;i++)
-				rv = Operations.turn(rv, Turn.RIGHT);
+			for(int i = 0 ; i < rightTurns;i++)
+				rv = Operations.turn(rv, Turn.LEFT);
 			return rv;
 		}
 		@Override
 		public Orientation execute(Orientation orientation)
 		{
 			Orientation rv = orientation;
-			for(int i = 0 ; i < leftTurns_;i++)
-				rv =rv.addTo(Turn.RIGHT.getDir());
+			for(int i = 0 ; i < rightTurns;i++)
+				rv =rv.addTo(Turn.LEFT.getDir());
 			return rv;
 		}
 		@Override
 		public Transformation invert()
 		{
-			return new Transformation(vector_,pivot,leftTurns_);
+			return new Transformation(vector_,pivot,rightTurns);
 		}
 	}
 	

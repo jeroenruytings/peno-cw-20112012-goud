@@ -44,7 +44,7 @@ public class TransformedBoardLazy extends Board
 	public Panel getPanelAt(Point p)
 	{
 		
-		return board_.getPanelAt(trans_.invert().execute(p));
+		return trans_.invert().execute(board_.getPanelAt(trans_.invert().execute(p)));
 	}
 
 
