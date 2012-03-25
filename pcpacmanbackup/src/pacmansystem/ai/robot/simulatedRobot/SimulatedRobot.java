@@ -71,7 +71,7 @@ public class SimulatedRobot implements PanelLayerInterface
 
 	}
 
-	@Override
+
 	public Barcode getBarcode()
 	{
 		sleep(1);
@@ -84,7 +84,7 @@ public class SimulatedRobot implements PanelLayerInterface
 		sleep(1);
 		Point p =_currentRealOrientation.addTo( _currentLocation);
 		if(!_realWorld.getGlobalBoard().wallBetween(_currentLocation,p))
-			return _realWorld.getPacmanLocation().equals(p);
+			return _realWorld.getPacmanLocation()!=null?_realWorld.getPacmanLocation().equals(p):false;
 		return false;
 	}
 
@@ -140,13 +140,6 @@ public class SimulatedRobot implements PanelLayerInterface
 	{
 		Direction d = Direction.diff(_startOrient, _currentRealOrientation);
 		return Orientation.NORTH.addTo(d);
-	}
-
-	@Override
-	public Orientation getPacmanO()
-	{
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
