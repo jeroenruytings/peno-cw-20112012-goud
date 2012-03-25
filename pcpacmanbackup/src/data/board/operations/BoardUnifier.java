@@ -82,10 +82,16 @@ public class BoardUnifier
 		RobotData data2 = new RobotData();
 		data.setBoard(thiz);
 		data2.setBoard(that);
-		TransformedRobotData board = new TransformedRobotData(new Transformation(data,data2), data2);
-		for(Point p:board.getBoard().getFilledPoints())
+		if(!Transformation.canBeBuild(data, data2))
+			return new Board(thiz);
+		TransformedRobotData OtherData = new TransformedRobotData(new Transformation(data,data2), data2);
+		
+		for(Point p:OtherData.getBoard().getFilledPoints())
 			if(!thiz.hasPanelAt(p))
-				thiz.add(board.getBoard().getPanelAt(p), p);
+				{
+				thiz.add(OtherData.getBoard().getPanelAt(p), p);
+				System.out.println("we are unifying !");
+				}
 		
 		return thiz;
 		

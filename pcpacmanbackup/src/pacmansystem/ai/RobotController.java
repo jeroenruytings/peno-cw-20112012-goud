@@ -52,11 +52,14 @@ public class RobotController
 			//checkForNewInfo();
 			// voegt panel toe aan board
 			tryAddingOtherRobots();
-			Panel p1 = getPathLayer().getPanel(getCurrentOrientation());
+			Panel p1 = getPathLayer().getPanel();
 			boolean pacmanSpotted = getPathLayer().getOrientationLayer().getLayer().getPacman();
 			if(pacmanSpotted){
 				getOwnData().pacman(getData().getOrientation().addTo(getCurrentPoint()));
-				//getData().setPacman(getCurrentPoint());
+				
+			}
+			if (p1.hasBarcode()){
+				getOwnData().barcode(p1.getBarcode(), p1.getBarcodeOrientation(), getCurrentPoint());
 			}
 			// kijken
 			
@@ -66,29 +69,32 @@ public class RobotController
 				getBoard().addForced(p1, getCurrentPoint());
 			}
 			// voegt panel toe aan board
-		
-			if (p1.hasBarcode()){
-				getOwnData().barcode(p1.getBarcode(), p1.getBarcodeOrientation(), getCurrentPoint());
-			}
+		 
+			
 
+			for(RobotDataView robot:getOtherBots())
+			{
+				if(robot.getPacmanLastSighted()==null)
+					continue;
+				if(getOwnData().getPacmanLastSighted()!=null&&robot.getPacmanLastSighted().equals(getOwnData().getPacmanLastSighted()))
+					continue;
+				if(robot.getPacmanLastSighted()==null||!robot.getPacmanLastSighted().equals(getOwnData().getPacmanLastSighted()))
+					{
+						getOwnData().pacman(robot.getPacmanLastSighted());
+						System.out.println("pacman recieved from "+robot.getName()+" at:"+robot.getPacmanLastSighted());
+					}
+			}
+			
 			for(RobotDataView data: world.get_robots().values())
 			{
-				Board newBoard = BoardUnifier.unify2(getBoard(), data.getBoard());
+				Board newBoard = BoardUnifier.unify3(getBoard(), data.getBoard());
 				for(Point point: newBoard.getFilledPoints())
-				{	
+				{
 					if(!getBoard().hasPanelAt(point)){
 						getOwnData().discover(point, newBoard.getPanelAt(point));
 						if(newBoard.getPanelAt(point).hasBarcode())
 						{
 							getOwnData().barcode(newBoard.getPanelAt(point).getBarcode(), newBoard.getPanelAt(point).getBarcodeOrientation(), point);
-						}
-						if(data.getPacmanLastSighted()!=null){
-							Transformation convertToThisRobot = new Transformation(this.getData(), data);
-							if(convertToThisRobot.hasCodes()){
-								TransformedRobotData transRobot = new TransformedRobotData(convertToThisRobot, data);
-								System.out.println("pacman spotted by "+data.getName()+": "+transRobot.getPacmanLastSighted());
-								getOwnData().pacman(transRobot.getPacmanLastSighted());
-							}
 						}
 							
 					}

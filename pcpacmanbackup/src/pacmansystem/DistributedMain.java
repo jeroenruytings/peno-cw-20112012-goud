@@ -43,7 +43,7 @@ public class DistributedMain
 			robot = initNewRobot();
 		else{
 			speed = 1500-new Integer(args[4]);
-			robot = initSimulated(args[5]);
+			robot = initSimulated(new Integer(args[5]),args[6]);
 		}
 		// ComponentFrame.showFrame("RabbitMQ", new RabbitHistory());
 
@@ -78,7 +78,7 @@ public class DistributedMain
 			RealWorld simulatorWorld = Mainscreen.getRealWorld();
 			PanelLayerInterface p = new SimulatedRobot(simulatorWorld,
 					simulatorWorld.getStartingPoint(robotNumber),
-					Orientation.random());
+					Orientation.random(),100);
 			OrientationLayer directionlayer = new OrientationLayer(p);
 			controller = new RobotController(directionlayer, robotName, world);
 			return controller;
@@ -86,12 +86,12 @@ public class DistributedMain
 
 	}
 
-	private static RobotController initSimulated(String string)
+	private static RobotController initSimulated(int integer, String string)
 	{
 		RealWorld simulatorWorld = Mainscreen.getRealWorld(string);
 		PanelLayerInterface p = new SimulatedRobot(simulatorWorld,
 				simulatorWorld.getStartingPoint(robotNumber),
-				Orientation.random(),speed);
+				Orientation.fromOrdinal(integer),speed);
 		OrientationLayer directionlayer = new OrientationLayer(p);
 		return new RobotController(directionlayer, robotName, world);
 	}

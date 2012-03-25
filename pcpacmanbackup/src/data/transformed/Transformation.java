@@ -137,6 +137,15 @@ public class Transformation
 				rv = Operations.turn(rv, Turn.RIGHT);
 			return rv;
 		}
+		@Override
+		public Orientation execute(Orientation orientation)
+		{
+			Orientation rv = orientation;
+			for(int i = 0 ; i < leftTurns_;i++)
+				rv =rv.addTo(Turn.RIGHT.getDir());
+			return rv;
+		}
+		@Override
 		public Transformation invert()
 		{
 			return new Transformation(vector_,leftTurns_);

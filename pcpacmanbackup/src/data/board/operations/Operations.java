@@ -29,7 +29,7 @@ public  class Operations
 			@Override
 			public Point exec(Point point)
 			{
-
+				
 				return new Point(point.y, -point.x);
 			}
 

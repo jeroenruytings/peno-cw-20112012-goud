@@ -26,7 +26,7 @@ public class _TestTransformedRobotData
 		panel1	= new Panel();
 		panel1.setBorder(Orientation.NORTH, WallState.WALL);
 		panel1.setBorder(Orientation.EAST, WallState.WALL);
-		panel1.setBarcode(new Barcode(211), Orientation.NORTH);
+		panel1.setBarcode(new Barcode(37), Orientation.NORTH);
 	}
 	@Test
 	public void test0()
@@ -65,16 +65,15 @@ public class _TestTransformedRobotData
 	@Test
 	public void test2()
 	{
-		RobotData data = new RobotData();
-		data.setPosition(new Point(10, 10));
-		data.getBoard().add(panel1, new Point(3,3));
+		RobotData me = new RobotData();
+		me.getBoard().add(panel1, new Point(0,0));
 		RobotData that = new RobotData();
-		that.setPosition(new Point(5, 5));
-		that.getBoard().add(turn(panel1,Turn.LEFT), new Point(4,4));
+		that.setPosition(new Point(2,2 ));
+		that.getBoard().add(turn(panel1,Turn.RIGHT), new Point(1,1));
 		RobotDataView viewdata = 
 				new TransformedRobotData(
-						new Transformation(data,that)
-						, data);
+						new Transformation(me,that)
+						, that);
 		System.out.println(viewdata.getPosition());
 	}
 }
