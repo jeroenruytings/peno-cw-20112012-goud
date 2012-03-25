@@ -28,8 +28,7 @@ public class Panel
 		for (Orientation d : Orientation.values()){
 			this.setBorder(d, panel.getWallState(d));
 		}
-		setBarcode(panel.getBarcode());
-		setBarcodeOrientation(panel.getBarcodeOrientation());
+		setBarcode(panel.getBarcode(), panel.getBarcodeOrientation());
 	}
 
 	public void setBorder(Orientation d, WallState state)
@@ -62,9 +61,10 @@ public class Panel
 		return barcode;
 	}
 
-	public void setBarcode(Barcode barcode)
+	public void setBarcode(Barcode barcode, Orientation orientation)
 	{
 		this.barcode = barcode;
+		setBarcodeOrientation(orientation);
 	}
 	
 	public String bordersToString(){

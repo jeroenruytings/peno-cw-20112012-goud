@@ -43,8 +43,7 @@ public class CommandBarcode implements Command
 	{
 		Panel p = world.getRobot(_name).getBoard()
 				.getPanelAt(world.getRobot(_name).getPosition());
-		p.setBarcode(new Barcode(_barcode));
-		p.setBarcodeOrientation(Orientation.fromOrdinal(getDirection()-1));
+		p.setBarcode(new Barcode(_barcode), Orientation.fromOrdinal(getDirection()-1));
 		world.getRobot(_name).getBoard().add(p, world.getRobot(_name).getPosition());
 		world.getRobot(_name).getBarcodes().put(new Barcode(_barcode), world.getRobot(_name).getPosition());
 		synchronized (world.getRobot(_name)) {

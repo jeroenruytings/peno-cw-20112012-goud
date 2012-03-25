@@ -113,12 +113,11 @@ public class SimulatedRobot implements PanelLayerInterface
 		}
 		if (rv.hasBarcode()) {
 			if (_currentRealOrientation.equals(rv.getBarcodeOrientation()))
-				returnValue.setBarcode(rv.getBarcode());
+				returnValue.setBarcode(rv.getBarcode(), currentOrientation);
 			else
 				returnValue
-						.setBarcode(new Barcode(rv.getBarcode().getReverse()));
+						.setBarcode(new Barcode(rv.getBarcode().getReverse()),currentOrientation);
 
-			returnValue.setBarcodeOrientation(currentOrientation);
 		}
 		return returnValue;
 	}

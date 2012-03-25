@@ -250,8 +250,7 @@ public class PanelLayer implements PanelLayerInterface
 		isFirst = false;
 		mover.setHead(0);
 		if(hasBarcode()){
-			panel.setBarcode(getBarcode());
-			panel.setBarcodeOrientation(currentOrientation);
+			panel.setBarcode(getBarcode(), currentOrientation);
 		}
 		System.out.println("return panel");
 		return panel;

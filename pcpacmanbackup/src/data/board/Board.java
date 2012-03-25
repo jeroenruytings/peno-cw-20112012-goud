@@ -13,8 +13,7 @@ import data.enums.Orientation;
 import pacmansystem.ai.robot.Barcode;
 
 /**
- * 
- * @author Dieter
+ *r
  * 
  *         This class assures that 2 boards that are next to eachother(
  *         according to our coordinate system) have no conflicting borders:
@@ -144,8 +143,8 @@ public class Board
 	
 	public void setBarcode(Point coordinate, Barcode barcode, Orientation orient){
 		Panel p = panels.get(coordinate); 
-		p.setBarcode(barcode);
-		p.setBarcodeOrientation(orient);
+		
+		p.setBarcode(barcode, orient);
 	}
 
 	/* (non-Javadoc)

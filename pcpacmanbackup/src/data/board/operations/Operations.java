@@ -119,8 +119,8 @@ public  class Operations
 			rv.setBorder( d.addTo(turn.getDir()),panelAt.getWallState(d));
 		if(!panelAt.hasBarcode())
 			return rv;
-		rv.setBarcode(panelAt.getBarcode());
-		rv.setBarcodeOrientation(panelAt.getBarcodeOrientation().addTo(turn.getDir()));
+		rv.setBarcode(panelAt.getBarcode(), panelAt.getBarcodeOrientation().addTo(turn.getDir()));
+
 	
 	return rv;
 	}

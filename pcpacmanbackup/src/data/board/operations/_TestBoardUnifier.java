@@ -22,10 +22,8 @@ public class _TestBoardUnifier
 	{
 		Panel one = new Panel();
 		Panel two = new Panel();
-		one.setBarcode(new Barcode(211));
-		one.setBarcodeOrientation(Orientation.NORTH);
-		two.setBarcode(new Barcode(new Barcode(211).getReverse()));
-		two.setBarcodeOrientation(Orientation.EAST);
+		one.setBarcode(new Barcode(211), Orientation.NORTH);
+		two.setBarcode(new Barcode(new Barcode(211).getReverse()), Orientation.EAST);
 		int count =BoardUnifier.calculateTurns(one, two);
 		assertTrue(count==3);
 	}
@@ -34,10 +32,9 @@ public class _TestBoardUnifier
 	{
 		Panel one = new Panel();
 		Panel two = new Panel();
-		one.setBarcode(new Barcode(211));
-		one.setBarcodeOrientation(Orientation.NORTH);
-		two.setBarcode(new Barcode(new Barcode(211).getReverse()));
-		two.setBarcodeOrientation(Orientation.WEST);
+		one.setBarcode(new Barcode(211), Orientation.NORTH);
+		two.setBarcode(new Barcode(new Barcode(211).getReverse()), Orientation.WEST);
+
 		int count =BoardUnifier.calculateTurns(one, two);
 		assertTrue(count==1);
 	}
@@ -46,10 +43,8 @@ public class _TestBoardUnifier
 	{
 		Panel one = new Panel();
 		Panel two = new Panel();
-		one.setBarcode(new Barcode(211));
-		one.setBarcodeOrientation(Orientation.NORTH);
-		two.setBarcode(new Barcode(211));
-		two.setBarcodeOrientation(Orientation.EAST);
+		one.setBarcode(new Barcode(211), Orientation.NORTH);
+		two.setBarcode(new Barcode(211), Orientation.EAST);
 		int count =BoardUnifier.calculateTurns(one, two);
 		assertTrue(count==1);
 	}
@@ -58,10 +53,8 @@ public class _TestBoardUnifier
 	{
 		Panel one = new Panel();
 		Panel two = new Panel();
-		one.setBarcode(new Barcode(211));
-		one.setBarcodeOrientation(Orientation.EAST);
-		two.setBarcode(new Barcode(211));
-		two.setBarcodeOrientation(Orientation.NORTH);
+		one.setBarcode(new Barcode(211), Orientation.EAST);
+		two.setBarcode(new Barcode(211), Orientation.NORTH);
 		int count =BoardUnifier.calculateTurns(one, two);
 		assertTrue(count==3);
 	}@Test
@@ -69,10 +62,8 @@ public class _TestBoardUnifier
 	{
 		Panel one = new Panel();
 		Panel two = new Panel();
-		one.setBarcode(new Barcode(211));
-		one.setBarcodeOrientation(Orientation.NORTH);
-		two.setBarcode(new Barcode(211));
-		two.setBarcodeOrientation(Orientation.NORTH);
+		one.setBarcode(new Barcode(211), Orientation.NORTH);
+		two.setBarcode(new Barcode(211), Orientation.NORTH);
 		int count =BoardUnifier.calculateTurns(one, two);
 		assertTrue(count==0);
 	}
@@ -114,8 +105,7 @@ public class _TestBoardUnifier
 		Panel p2 = new Panel();
 		Panel p3 = new Panel();
 		Panel p4 = new Panel();
-		p1.setBarcode(new Barcode(155));
-		p1.setBarcodeOrientation(Orientation.NORTH);
+		p1.setBarcode(new Barcode(155), Orientation.NORTH);
 		Board rv = new Board();
 		rv.add(p1, new Point(1,1));
 		rv.add(p2, new Point(1,2));
@@ -130,8 +120,7 @@ public class _TestBoardUnifier
 		Panel p2 = new Panel();
 		Panel p3 = new Panel();
 		Panel p4 = new Panel();
-		p1.setBarcode(new Barcode(155));
-		p1.setBarcodeOrientation(Orientation.NORTH);
+		p1.setBarcode(new Barcode(155), Orientation.NORTH);
 		Board rv = new Board();
 		rv.add(p2, new Point(0,0));
 		rv.add(p1, new Point(1,0));

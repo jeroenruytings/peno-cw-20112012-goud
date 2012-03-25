@@ -26,8 +26,7 @@ public class _TestTransformedRobotData
 		panel1	= new Panel();
 		panel1.setBorder(Orientation.NORTH, WallState.WALL);
 		panel1.setBorder(Orientation.EAST, WallState.WALL);
-		panel1.setBarcode(new Barcode(211));
-		panel1.setBarcodeOrientation(Orientation.NORTH);
+		panel1.setBarcode(new Barcode(211), Orientation.NORTH);
 	}
 	@Test
 	public void test0()

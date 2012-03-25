@@ -62,10 +62,9 @@ public class CommandBarcodeAt implements Command {
 		}
 		else{
 			p = world.getRobot(_name).getBoard().getPanelAt(getCoordinate());
-		}
-		p.setBarcode(new Barcode(_barcode));
-		try {
-			p.setBarcodeOrientation(getDirection());
+		}try {
+		p.setBarcode(new Barcode(_barcode), getDirection());
+		
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
