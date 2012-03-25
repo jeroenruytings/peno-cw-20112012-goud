@@ -53,11 +53,13 @@ public class World implements Observer
 		try {
 			synchronized (this) {
 				this.wait();
+				System.out.println("total recieved joins:"+registeredRobots);
 			}
 		} catch (InterruptedException e) {
 			throw new Error("STarting of the world failed for robot:"
 					+ me.getName());
 		}}
+		System.out.println("sufficient joins");
 		sendName(me.getName());
 		System.out.println(me.getName());
 		
@@ -74,6 +76,7 @@ public class World implements Observer
 
 	public void join()
 	{
+		System.out.println("join send");
 		try {
 			MessageSender.getInstance().sendMessage("JOIN\n");
 		} catch (IOException e1) {

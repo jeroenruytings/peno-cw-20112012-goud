@@ -249,13 +249,21 @@ public class RobotController
 	private void driveToPacman()
 	{
 		if (getData().getPacmanLastSighted() != null) {
-			try {
+			
 				System.out.println(getData().getPacmanLastSighted());
-				getPathLayer().goOneStep(getCurrentPoint(),
-						getData().getPacmanLastSighted());
-			} catch (IllegalDriveException e) {
-				e.printStackTrace();
-			}
+				Point target = null;
+
+				end:
+				for(Point p:getBoard().getSurrounding(getData().getPacmanLastSighted()))
+				{
+				try{getPathLayer().goOneStep(getCurrentPoint(),target);
+				}catch(IllegalDriveException e)
+				{
+					continue;
+				}
+				break end;
+				}
+			
 		}
 		// else{
 		// Point target = null;
