@@ -66,7 +66,7 @@ public class RabbitHistory extends JPanel {
 		JPanel panel_1 = new JPanel();
 		panel.add(panel_1);
 		
-		JLabel lblSendedMessages = new JLabel("Sended messages:");
+		JLabel lblSendedMessages = new JLabel("Sent messages:");
 		panel.add(lblSendedMessages);
 		
 		JLabel lblReceivedMessages = new JLabel("Received Messages:");
@@ -94,6 +94,7 @@ public class RabbitHistory extends JPanel {
 	}
 	
 	private static void removeReceiver(String name) {
+		sendGrid.removeLayoutComponent(receiveText.get(name));
 		receiveText.remove(name);
 		sendGrid.setColumns(receiveText.keySet().size());
 		
