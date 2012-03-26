@@ -86,6 +86,28 @@ public class SimulatedRobot implements PanelLayerInterface
 		if(!_realWorld.getGlobalBoard().wallBetween(_currentLocation,p))
 			return _realWorld.getPacmanLocation()!=null?_realWorld.getPacmanLocation().equals(p):false;
 		return false;
+//            sleep(1);
+//            for(Direction dir:Direction.values()){
+//                    Orientation orientation = _currentRealOrientation.addTo(dir);
+//                    if(dir.equals(Direction.DOWN)){
+//                            continue;
+//                    }
+////                  if(_realWorld.getGlobalBoard().wallBetween(orientation
+////                                  .addTo(_currentLocation), _currentLocation)){
+////                          continue;
+////                          
+////                  }       
+//                    if(_realWorld.getGlobalBoard().wallBetween(_currentLocation, orientation))
+//                            continue;
+//                    
+//                    else if(_realWorld.getPacmanLocation().equals(orientation
+//                                    .addTo(_currentLocation))){
+//                            return true;
+//                    }
+//                    }
+//            return false;
+            //return (_realWorld.getPacmanLocation().equals(_currentLocation));
+
 	}
 
 	@Override

@@ -61,7 +61,6 @@ public class RobotController
 			if (pacmanSpotted) {
 				getOwnData().pacman(
 						getData().getOrientation().addTo(getCurrentPoint()));
-
 			}
 			if (p1.hasBarcode()) {
 				getOwnData().barcode(p1.getBarcode(),
@@ -117,7 +116,11 @@ public class RobotController
 		for (RobotDataView robot : getOtherBots())
 			for (Point p : robot.getBoard().getFilledPoints())
 				if (!this.getBoard().hasPanelAt(p)) {
-					this.getBoard().add(robot.getBoard().getPanelAt(p), p);
+					try {
+						this.getBoard().add(robot.getBoard().getPanelAt(p), p);
+					} catch (IllegalArgumentException e) {
+						getBoard().addForced(robot.getBoard().getPanelAt(p), p);
+					}
 					getOwnData()
 							.discover(p, robot.getBoard().getPanelAt(p));
 					if (this.getBoard().getPanelAt(p).hasBarcode()) {
