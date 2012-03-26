@@ -81,7 +81,8 @@ public class SimulatedRobot implements PanelLayerInterface
 	@Override
 	public Direction getPacman()
 	{
-		
+		if(_realWorld.getPacmanLocation()==null)
+			return null;	
             sleep(1);
             for(Direction dir:Direction.values()){
                     Orientation orientation = _currentRealOrientation.addTo(dir);

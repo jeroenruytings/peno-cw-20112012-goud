@@ -363,10 +363,8 @@ public class PanelLayer implements PanelLayerInterface
 			mover.correctToMiddle();
 	}
 	
-	public void pushed() throws ButtonIsPushed{
-		if(mover.isPushSensor()){
-			throw new ButtonIsPushed("Gecrashed!");
-		}
+	public void pushed() {
+		//TODO: implement the crash method
 	}
 
 }

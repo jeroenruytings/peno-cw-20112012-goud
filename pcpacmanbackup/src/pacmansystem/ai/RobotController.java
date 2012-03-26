@@ -13,7 +13,6 @@ import pacmansystem.ai.robot.PathLayer;
 import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
 import data.board.Board;
 import data.board.Panel;
-import data.board.operations.BoardUnifier;
 import data.board.shortestpathfinder.dijkstra.DijkstraFinder;
 import data.board.shortestpathfinder.dijkstra.PathNotPossibleException;
 import data.enums.Direction;
@@ -256,15 +255,17 @@ public class RobotController
 
 	private void driveToPacman()
 	{
+		if(nextToPamam())
+			return;
 		if (getData().getPacmanLastSighted() != null) {
 			
 				System.out.println(getData().getPacmanLastSighted());
 				Point target = null;
-
+				
 				end:
 				for(Point p:getBoard().getSurrounding(getData().getPacmanLastSighted()))
 				{
-				try{getPathLayer().goOneStep(getCurrentPoint(),target);
+				try{getPathLayer().goOneStep(getCurrentPoint(),p);
 				}catch(IllegalDriveException e)
 				{
 					continue;
@@ -292,6 +293,13 @@ public class RobotController
 		else {
 			System.out.println("Geen pacman gevonden!");
 		}
+	}
+
+	private boolean nextToPamam()
+	{
+		if(getData().getPacmanLastSighted()==null)
+			return false;
+		return		getBoard().getSurrounding(getData().getPacmanLastSighted()).contains(getCurrentPoint());
 	}
 
 	private Board getBoard()
@@ -353,7 +361,7 @@ public class RobotController
 	{
 		Point best = null;
 		int waarde = 1000;
-		for (Point point : getBoard().getPanels().keySet()) {
+		for (Point point :filterUnreachable(getCurrentPoint(),getData(), getBoard().getFilledPoints())) {
 			if (point.equals(getCurrentPoint()))
 				continue;
 			int nbKnown = 4 - getBoard().nbOfUnknowns(point);
@@ -366,6 +374,25 @@ public class RobotController
 			}
 		}
 		return best;
+	}
+
+	private Iterable<Point> filterUnreachable(Point currentPoint, RobotData data,
+			Iterable<Point> filledPoints)
+	{//TODO:maak floodfil
+		ArrayList<Point>rv=new ArrayList<Point>();
+		DijkstraFinder d = new DijkstraFinder(data);
+		for(Point point:filledPoints)
+		{
+			try {
+				d.shortestPath(currentPoint, point);
+			} catch (PathNotPossibleException e) {
+				continue;
+			}
+			rv.add(point);
+			
+		}
+		
+		return rv;
 	}
 
 	private Point ssClosestPoint()
