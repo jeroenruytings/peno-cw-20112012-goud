@@ -1,19 +1,11 @@
 package pacmansystem.ai.robot.simulatedRobot.Robot;
 
-import lejos.nxt.LightSensor;
-import lejos.nxt.Motor;
-import lejos.nxt.MotorPort;
-import lejos.nxt.SensorPort;
-import lejos.nxt.TouchSensor;
-import lejos.nxt.UltrasonicSensor;
-
-
 public class SensorListener implements Runnable {
 	
 	UltrasonicSensor sonar = new UltrasonicSensor(SensorPort.S3); //check
 	LightSensor light = new LightSensor(SensorPort.S1);	//check
 	TouchSensor push = new TouchSensor(SensorPort.S4);	//check
-	IRSeekerV2 ir = new IRSeekerV2(SensorPort.S2);	//check
+	//TODO:fixIRSeekerV2 ir = new IRSeekerV2(SensorPort.S2);	//check
 	Motor motor = new Motor(MotorPort.A);
 	Motor head = new Motor(MotorPort.C);
 	RobotCommunicator communicator;
@@ -40,8 +32,8 @@ public class SensorListener implements Runnable {
 	sonarValue = sonar.getDistance(); 
 	lightValue = light.getLightValue();
 	pushValue = 0;
-	irDirection = ir.getDirection();	
-	irValue = ir.getSensorValue(irDirection); 
+	//irDirection = ir.getDirection();	
+	//irValue = ir.getSensorValue(irDirection); 
 	tachoCount = motor.getTachoCount();
 	headTacho = head.getTachoCount();
 	
@@ -120,11 +112,11 @@ public class SensorListener implements Runnable {
 
 	public int getIrDirection() {
 		
-		return ir.getDirection();
+		return 0;// ir.getDirection();
 	}
 
 	public int getSonarValue() {
-		sonar.ping();
+		//sonar.ping();
 		return sonar.getDistance();
 	}
 
@@ -133,7 +125,7 @@ public class SensorListener implements Runnable {
 	}
 
 	public int getIrValue() {
-		return ir.getSensorValue(getIrDirection());
+		return 0;// ir.getSensorValue(getIrDirection());
 	}
 
 	private void sendValue(int Value, SensorIdentifier sensorID) {

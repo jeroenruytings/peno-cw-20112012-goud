@@ -1,9 +1,5 @@
 package pacmansystem.ai.robot.simulatedRobot.Robot;
 
-import lejos.nxt.Button;
-import lejos.nxt.LCD;
-import lejos.nxt.Motor;
-import lejos.robotics.proposal.DifferentialPilot;
 
 public class CommandoListener implements Runnable {
 	
@@ -170,7 +166,7 @@ public class CommandoListener implements Runnable {
 		LCD.clear();
 		LCD.drawString("BRUIN (enter)", 0, 0);
 		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
-		lejos.nxt.Button.ENTER.waitForPressAndRelease();
+		Button.ENTER.waitForPressAndRelease();
 		setBrown(listener.getLightValue());
 		communicator.send(message);
 		System.out.println("OK");
@@ -186,7 +182,7 @@ public class CommandoListener implements Runnable {
 	//	communicator.send(message);
 		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
 	//	System.out.println("send message enter");
-		lejos.nxt.Button.ENTER.waitForPressAndRelease();
+		Button.ENTER.waitForPressAndRelease();
 		setWhite(listener.getLightValue());
 		communicator.send(message);
 		System.out.println("OK");
@@ -196,7 +192,7 @@ public class CommandoListener implements Runnable {
 		LCD.clear();
 		LCD.drawString("BLACK (enter)", 0, 0);
 		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
-		lejos.nxt.Button.ENTER.waitForPressAndRelease();
+		Button.ENTER.waitForPressAndRelease();
 		setBlack(listener.getLightValue());
 		communicator.send(message);
 		System.out.println("OK");
