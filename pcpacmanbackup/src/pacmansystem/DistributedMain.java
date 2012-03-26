@@ -78,7 +78,7 @@ public class DistributedMain
 			RealWorld simulatorWorld = Mainscreen.getRealWorld();
 			PanelLayerInterface p = new SimulatedRobot(simulatorWorld,
 					simulatorWorld.getStartingPoint(robotNumber),
-					Orientation.random(),100);
+					Orientation.random(),1000);
 			OrientationLayer directionlayer = new OrientationLayer(p);
 			controller = new RobotController(directionlayer, robotName, world);
 			return controller;
