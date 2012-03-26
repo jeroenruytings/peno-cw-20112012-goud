@@ -83,11 +83,19 @@ public class Panel
 	public String bordersToString(){
 		String result = "";
 		for (Orientation d : Orientation.values()){
-			if(hasBorder(d))
-				result = result + " 1";
-			else
-				result = result + " 0";
-		}		
+			switch(getWallState(d))
+			{
+			case UNKNOWN:
+				result+=" 2";
+				break;
+			case PASSAGE:
+				result+=" 0";
+				break;
+			case WALL:
+				result+=" 1";
+				break;
+			}
+				}		
 		return result;
 		
 	}
