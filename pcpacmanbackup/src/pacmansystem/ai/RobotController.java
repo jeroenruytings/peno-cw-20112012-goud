@@ -17,6 +17,7 @@ import data.board.shortestpathfinder.dijkstra.DijkstraFinder;
 import data.board.shortestpathfinder.dijkstra.PathNotPossibleException;
 import data.enums.Direction;
 import data.enums.Orientation;
+import data.help.Filter;
 import data.lazy.TransformedRobotData;
 import data.transformed.Transformation;
 import data.world.OwnRobotData;
@@ -58,14 +59,14 @@ public class RobotController
 			Panel p1 = getPathLayer().getPanel();
 			Direction pacmanSpotted = getPathLayer().getOrientationLayer()
 					.getLayer().getPacman();
-			if (pacmanSpotted!=null) {
-				Point pacmanLocation=getData().getOrientation().addTo(pacmanSpotted).addTo(getCurrentPoint());
+			if (pacmanSpotted != null) {
+				Point pacmanLocation = getData().getOrientation()
+						.addTo(pacmanSpotted).addTo(getCurrentPoint());
 				getOwnData().pacman(pacmanLocation);
-				if(!this.getBoard().hasPanelAt(pacmanLocation))
-				{
+				if (!this.getBoard().hasPanelAt(pacmanLocation)) {
 					Panel pacmanPanel = new Panel();
-					
-					this.getOwnData().discover(pacmanLocation, pacmanPanel);	
+
+					this.getOwnData().discover(pacmanLocation, pacmanPanel);
 				}
 			}
 			if (p1.hasBarcode()) {
@@ -125,10 +126,10 @@ public class RobotController
 					try {
 						this.getBoard().add(robot.getBoard().getPanelAt(p), p);
 					} catch (IllegalArgumentException e) {
-			//getBoard().addForced(robot.getBoard().getPanelAt(p), p);
+						// getBoard().addForced(robot.getBoard().getPanelAt(p),
+						// p);
 					}
-					getOwnData()
-							.discover(p, robot.getBoard().getPanelAt(p));
+					getOwnData().discover(p, robot.getBoard().getPanelAt(p));
 					if (this.getBoard().getPanelAt(p).hasBarcode()) {
 						getOwnData().barcode(
 								getBoard().getPanelAt(p).getBarcode(),
@@ -136,7 +137,7 @@ public class RobotController
 										.getBarcodeOrientation(), p);
 					}
 				}
-		
+
 	}
 
 	public Orientation getCurrentOrientation()
@@ -226,7 +227,7 @@ public class RobotController
 		if (orientation == null)
 			destination = searchNext();
 		else
-			destination =orientation.addTo(getCurrentPoint()); 
+			destination = orientation.addTo(getCurrentPoint());
 		return destination;
 
 	}
@@ -255,24 +256,37 @@ public class RobotController
 
 	private void driveToPacman()
 	{
-		if(nextToPamam())
+		System.out.println("looking for pacman");
+		if (nextToPamam())
 			return;
 		if (getData().getPacmanLastSighted() != null) {
+
+			System.out.println(getData().getPacmanLastSighted());
+			Collection<Point> points = getBoard().getSurrounding(
+					getData().getPacmanLastSighted());
+			points = Filter.filter(points, new Filter<Point>()
+			{
+
+				@Override
+				public boolean accepts(Point arg)
+				{
+
+					return !getBoard().wallBetween(arg,
+							getData().getPacmanLastSighted());
+				}
+			});
 			
-				System.out.println(getData().getPacmanLastSighted());
-				Point target = null;
-				
-				end:
-				for(Point p:getBoard().getSurrounding(getData().getPacmanLastSighted()))
-				{
-				try{getPathLayer().goOneStep(getCurrentPoint(),p);
-				}catch(IllegalDriveException e)
-				{
+			end: for (Point p : points) {
+
+				try {
+					getPathLayer().go(getCurrentPoint(), p);
+				} catch (IllegalDriveException e) {
 					continue;
 				}
 				break end;
-				}
 			
+			}
+
 		}
 		// else{
 		// Point target = null;
@@ -297,9 +311,10 @@ public class RobotController
 
 	private boolean nextToPamam()
 	{
-		if(getData().getPacmanLastSighted()==null)
+		if (getData().getPacmanLastSighted() == null)
 			return false;
-		return		getBoard().getSurrounding(getData().getPacmanLastSighted()).contains(getCurrentPoint());
+		return getBoard().getSurrounding(getData().getPacmanLastSighted())
+				.contains(getCurrentPoint());
 	}
 
 	private Board getBoard()
@@ -333,10 +348,10 @@ public class RobotController
 		Point position = getCurrentPoint();
 		Orientation best = null;
 		int nbUnknowns = 0;
-		Board board =new Board( getBoard());
-		Point pacman=getOwnData().getPacmanLastSighted();
-		if(pacman!=null)
-			board.addForced(new Panel(1,1,1,1),pacman);
+		Board board = new Board(getBoard());
+		Point pacman = getOwnData().getPacmanLastSighted();
+		if (pacman != null)
+			board.addForced(new Panel(1, 1, 1, 1), pacman);
 		for (Orientation orientation : Orientation.values()) {
 			if (board.wallBetween(position, orientation))
 				continue;
@@ -361,7 +376,8 @@ public class RobotController
 	{
 		Point best = null;
 		int waarde = 1000;
-		for (Point point :filterUnreachable(getCurrentPoint(),getData(), getBoard().getFilledPoints())) {
+		for (Point point : filterUnreachable(getCurrentPoint(), getData(),
+				getBoard().getFilledPoints())) {
 			if (point.equals(getCurrentPoint()))
 				continue;
 			int nbKnown = 4 - getBoard().nbOfUnknowns(point);
@@ -376,22 +392,21 @@ public class RobotController
 		return best;
 	}
 
-	private Iterable<Point> filterUnreachable(Point currentPoint, RobotData data,
-			Iterable<Point> filledPoints)
-	{//TODO:maak floodfil
-		ArrayList<Point>rv=new ArrayList<Point>();
+	private Iterable<Point> filterUnreachable(Point currentPoint,
+			RobotData data, Iterable<Point> filledPoints)
+	{// TODO:maak floodfil
+		ArrayList<Point> rv = new ArrayList<Point>();
 		DijkstraFinder d = new DijkstraFinder(data);
-		for(Point point:filledPoints)
-		{
+		for (Point point : filledPoints) {
 			try {
 				d.shortestPath(currentPoint, point);
 			} catch (PathNotPossibleException e) {
 				continue;
 			}
 			rv.add(point);
-			
+
 		}
-		
+
 		return rv;
 	}
 

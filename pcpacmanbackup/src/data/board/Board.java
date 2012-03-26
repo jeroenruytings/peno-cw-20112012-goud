@@ -113,7 +113,6 @@ public class Board
 						panel.getWallState(d));
 			}
 		}
-		System.out.println("w");
 		calcDimensions();
 	}
 	
@@ -276,6 +275,11 @@ public class Board
 			else
 				return getPanelAt(orientation.addTo(one)).hasBorder(
 						orientation.opposite());
+		//@one not null
+		if(getPanelAt(orientation.addTo(one))!=null)
+			return getPanelAt(one).hasBorder(orientation)||getPanelAt(orientation.addTo(one)).hasBorder(
+					orientation.opposite());
+		// the other thing is null
 		return getPanelAt(one).hasBorder(orientation);
 
 	}
@@ -287,7 +291,7 @@ public class Board
 			throw new NullPointerException();
 		for (Orientation orientation : Orientation.values()) {
 			Point point = orientation.addTo(one);
-			if (point.getX() == two.getX() && point.getY() == two.getY())
+			if (point.equals(two))
 				return wallBetween(one, orientation);
 		}
 		return false; // <-- DIT MAG NOOIT GEBEUREN @pre
@@ -297,7 +301,7 @@ public class Board
 	/* (non-Javadoc)
 	 * @see util.board.BoardView#wallBetween(java.awt.Point, util.enums.Orientation)
 	 */
-	
+		
 	private synchronized void calcDimensions(){
 		calcMaxX();
 		calcMaxY();
