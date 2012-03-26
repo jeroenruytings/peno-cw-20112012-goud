@@ -181,6 +181,7 @@ public class MoverLayer
 	public void calibrateBlack()
 	{
 		System.out.println("Sending to calibrate BLACK");
+		releaseButton();
 		pcc.sendCommando(new Commando(Action.CALIBRATEBLACK,0, "Calibrate black"));
 		while(!buttonIsPushed()){
 //			try {
@@ -198,6 +199,7 @@ public class MoverLayer
 	}
 
 	public void calibrateWhite() {
+		releaseButton();
 		pcc.sendCommando(new Commando(Action.CALIBRATEWHITE,0, "Calibrate white"));
 		while(!buttonIsPushed()){
 //			try {
@@ -212,6 +214,7 @@ public class MoverLayer
 	}
 	
 	public void calibrateBrown() {
+		releaseButton();
 		pcc.sendCommando(new Commando(Action.CALIBRATEBROWN,0, "Calibrate brown"));
 		while(!buttonIsPushed()){
 //			try {
