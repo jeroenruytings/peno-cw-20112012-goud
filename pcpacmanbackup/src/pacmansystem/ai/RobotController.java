@@ -130,7 +130,7 @@ public class RobotController
 						// getBoard().addForced(robot.getBoard().getPanelAt(p),
 						// p);
 					}
-					getOwnData().discover(p, robot.getBoard().getPanelAt(p));
+					//	getOwnData().discover(p, robot.getBoard().getPanelAt(p));
 					if (this.getBoard().getPanelAt(p).hasBarcode()) {
 						getOwnData().barcode(
 								getBoard().getPanelAt(p).getBarcode(),
