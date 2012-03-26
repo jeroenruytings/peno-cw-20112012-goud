@@ -23,7 +23,7 @@ public class DistributedMain
 	private static boolean isSimulated;
 	private static World world = new World();
 	private static boolean visible = true;
-	private static int speed = 1000;
+	private static int speed = 100000;
 	//name number simulated visibible speed txt
 	public static void main(String[] args)
 	{

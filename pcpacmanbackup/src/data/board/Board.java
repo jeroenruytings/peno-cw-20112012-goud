@@ -92,7 +92,8 @@ public class Board
 	public void add(Panel panel, Point p)
 	{
 		if (conflicting(p, panel))
-			throw new IllegalArgumentException("Paneel fout: " + p);
+			System.out.println("Paneel conflicting");
+			//throw new IllegalArgumentException("Paneel fout: " + p);
 		if(panel==null){
 			panels.remove(p);return;}
 		panels.put(p, panel);
