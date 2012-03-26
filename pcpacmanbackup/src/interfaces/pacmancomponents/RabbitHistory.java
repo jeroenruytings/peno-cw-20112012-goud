@@ -95,9 +95,8 @@ public class RabbitHistory extends JPanel {
 	
 	private static void removeReceiver(String name) {
 		sendGrid.removeLayoutComponent(receiveText.get(name));
-		receiveText.remove(name);
 		sendGrid.setColumns(receiveText.keySet().size());
-		
+		receiveText.remove(name);
 	}
 
 	public synchronized static void messageSend(String message, String sender){
