@@ -360,5 +360,11 @@ public class PanelLayer implements PanelLayerInterface
 		if(!hasBarcode())
 			mover.correctToMiddle();
 	}
+	
+	public void pushed() throws ButtonIsPushed{
+		if(mover.isPushSensor()){
+			throw new ButtonIsPushed("Gecrashed!");
+		}
+	}
 
 }
