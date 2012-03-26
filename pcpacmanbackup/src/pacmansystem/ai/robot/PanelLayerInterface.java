@@ -2,7 +2,6 @@ package pacmansystem.ai.robot;
 
 import java.io.IOException;
 
-import javax.naming.OperationNotSupportedException;
 
 import data.board.Panel;
 import data.board.Panel.WallState;
@@ -37,7 +36,7 @@ public interface PanelLayerInterface
 	 *Returns if you have seen pacman in a orientation
 	 * @return
 	 */
-	public abstract boolean getPacman();
+	public abstract Direction getPacman();
 
 	public abstract Panel getPanel(Orientation currentOrientation);
 	

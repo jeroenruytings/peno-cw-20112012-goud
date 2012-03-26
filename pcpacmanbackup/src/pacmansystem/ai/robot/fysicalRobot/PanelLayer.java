@@ -213,12 +213,14 @@ public class PanelLayer implements PanelLayerInterface
 	 * @see panel.PanelLayerInterface#getPacman()
 	 */
 	@Override
-	public boolean getPacman()
+	public Direction getPacman()
 	{
-		if (mover.getInfraredSensorDirection() >0 && mover.getInfraredSensorDirection() < 10)
-			return true;
-		else 
-			return false;
+	//TODO: make sure this works	
+//		if (mover.getInfraredSensorDirection() >0 && mover.getInfraredSensorDirection() < 10)
+//			return true;
+//		else 
+//			return false;
+		return null;
 	}
 
 	/**

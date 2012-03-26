@@ -16,6 +16,7 @@ import data.board.Panel;
 import data.board.operations.BoardUnifier;
 import data.board.shortestpathfinder.dijkstra.DijkstraFinder;
 import data.board.shortestpathfinder.dijkstra.PathNotPossibleException;
+import data.enums.Direction;
 import data.enums.Orientation;
 import data.lazy.TransformedRobotData;
 import data.transformed.Transformation;
@@ -56,11 +57,17 @@ public class RobotController
 			// voegt panel toe aan board
 			tryAddingOtherRobots();
 			Panel p1 = getPathLayer().getPanel();
-			boolean pacmanSpotted = getPathLayer().getOrientationLayer()
+			Direction pacmanSpotted = getPathLayer().getOrientationLayer()
 					.getLayer().getPacman();
-			if (pacmanSpotted) {
-				getOwnData().pacman(
-						getData().getOrientation().addTo(getCurrentPoint()));
+			if (pacmanSpotted!=null) {
+				Point pacmanLocation=getData().getOrientation().addTo(pacmanSpotted).addTo(getCurrentPoint());
+				getOwnData().pacman(pacmanLocation);
+				if(!this.getBoard().hasPanelAt(pacmanLocation))
+				{
+					Panel pacmanPanel = new Panel();
+					
+					this.getOwnData().discover(pacmanLocation, pacmanPanel);	
+				}
 			}
 			if (p1.hasBarcode()) {
 				getOwnData().barcode(p1.getBarcode(),
@@ -220,9 +227,7 @@ public class RobotController
 		if (orientation == null)
 			destination = searchNext();
 		else
-			destination = new Point(getCurrentPoint().x
-					+ orientation.getXPlus(), getCurrentPoint().y
-					+ orientation.getYPlus());
+			destination =orientation.addTo(getCurrentPoint()); 
 		return destination;
 
 	}
@@ -312,7 +317,7 @@ public class RobotController
 
 	/**
 	 * 
-	 * @return de oriï¿½ntatie waar je naartoe moet.
+	 * @return de oriïentatie waar je naartoe moet.
 	 * @return null als alle omliggende vakjes gekend zijn.
 	 */
 	private Orientation nextMove()
@@ -320,13 +325,17 @@ public class RobotController
 		Point position = getCurrentPoint();
 		Orientation best = null;
 		int nbUnknowns = 0;
+		Board board =new Board( getBoard());
+		Point pacman=getOwnData().getPacmanLastSighted();
+		if(pacman!=null)
+			board.addForced(new Panel(1,1,1,1),pacman);
 		for (Orientation orientation : Orientation.values()) {
-			if (getBoard().wallBetween(position, orientation))
+			if (board.wallBetween(position, orientation))
 				continue;
-			if (getBoard().hasPanelAt(orientation.addTo(getCurrentPoint())))
+			if (board.hasPanelAt(orientation.addTo(getCurrentPoint())))
 				continue;
 			Point possibleDest = orientation.addTo(getCurrentPoint());
-			int temp = getBoard().nbOfUnknowns(possibleDest);
+			int temp = board.nbOfUnknowns(possibleDest);
 			if (temp >= nbUnknowns) {
 				best = orientation;
 				nbUnknowns = temp;

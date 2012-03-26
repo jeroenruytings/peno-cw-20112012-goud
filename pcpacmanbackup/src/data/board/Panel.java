@@ -46,7 +46,7 @@ public class Panel
 	public void setBorder(Orientation d, WallState state)
 	{
 		borders.put(d,state);
-	//TODO: realise dumbness	borders[d.ordinal()] = state; // this is dumb
+	
 	}
 	
 	public WallState getWallState(Orientation d){
