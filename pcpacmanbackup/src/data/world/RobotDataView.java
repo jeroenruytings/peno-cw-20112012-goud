@@ -43,5 +43,7 @@ public interface RobotDataView
 	public abstract String toString();
 
 	public abstract Color getRobotColor();
+	
+	public abstract void pong(String name, String message);
 
 }

@@ -3,6 +3,7 @@ package communicator.parser.command;
 
 import communicator.parser.Command;
 import communicator.parser.MessageType;
+import data.world.RobotData;
 import data.world.World;
 
 public class CommandPing implements Command {
@@ -32,7 +33,10 @@ public class CommandPing implements Command {
 
 	@Override
 	public void execute(World simulator) {
-		// TODO Stuur een pong terug als het jouw naam is.
+		for(RobotData robot : simulator.get_robots().values()){
+			if(getBestemmeling().equals(robot.getName())||getBestemmeling().equals("*"))
+				robot.pong(getNameFrom(),getString());
+		}
 
 	}
 

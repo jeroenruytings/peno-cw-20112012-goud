@@ -53,6 +53,7 @@ public class RobotController
 		Point destination = null;
 		getOwnData().position(new Point(0, 0));
 		while (true) {
+			getOwnData().ping("*","test");
 			// checkForNewInfo();
 			// voegt panel toe aan board
 			tryAddingOtherRobots();
@@ -340,7 +341,7 @@ public class RobotController
 
 	/**
 	 * 
-	 * @return de oriïentatie waar je naartoe moet.
+	 * @return de oriï¿½entatie waar je naartoe moet.
 	 * @return null als alle omliggende vakjes gekend zijn.
 	 */
 	private Orientation nextMove()

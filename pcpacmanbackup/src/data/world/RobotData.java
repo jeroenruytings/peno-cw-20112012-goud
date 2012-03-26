@@ -207,4 +207,9 @@ public class RobotData implements RobotDataView
 		this.robotColor = robotColor;
 		
 	}
+	@Override
+	public void pong(String name, String message) {
+				
+	}
+	  
 }

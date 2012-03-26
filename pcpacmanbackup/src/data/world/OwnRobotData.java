@@ -136,4 +136,33 @@ public class OwnRobotData extends RobotData
 			}
 		}
 	}
+	
+	@Override
+	public void pong(String name, String message){
+		try{
+			MessageSender.getInstance().sendMessage(
+					getName()
+					+ " PONG "
+					+ name
+					+ " "
+					+ message
+					+ "\n");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void ping(String bestemmeling, String uniekeString){
+		try{
+			MessageSender.getInstance().sendMessage(
+					getName()
+					+ " PING "
+					+ bestemmeling
+					+ " "
+					+ uniekeString
+					+ "\n");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
