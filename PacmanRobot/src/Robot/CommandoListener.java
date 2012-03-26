@@ -110,6 +110,38 @@ public class CommandoListener implements Runnable {
 		
 		}
 
+//	private void correctFromCrash(){
+//		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
+//		
+//		Motor.A.setSpeed(360);
+//		Motor.B.setSpeed(360);
+//		
+//		pilot.travel(-10);
+//		
+//		while(!iswhite(listener.getLightValue())){
+//			Motor.A.forward();
+//			Motor.B.forward();
+//		}
+//			
+//		pilot.stop();
+//		
+//		Motor.A.setSpeed(60);
+//		Motor.B.setSpeed(60);
+//		
+//		Motor.A.resetTachoCount();
+//		
+//		while(iswhite(listener.getLightValue())){
+//			Motor.A.forward();
+//			Motor.B.forward();
+//		}
+//			
+//		pilot.stop();
+//		int lineWidth = Motor.A.getTachoCount();
+//		
+//		communicator.send(message);
+//		
+//	}
+	
 	private void correctToMiddle() {
 		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
 		pilot.rotate(180);
@@ -136,12 +168,7 @@ public class CommandoListener implements Runnable {
 		pilot.stop();
 		int lineWidth = Motor.A.getTachoCount();
 		
-		System.out.println("breedte = " + lineWidth);
-		Button.ENTER.waitForPressAndRelease();
 		communicator.send(message);
-		
-		
-		
 	}
 
 	private void turnHeadLeft(int argument){

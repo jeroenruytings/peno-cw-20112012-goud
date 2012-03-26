@@ -31,6 +31,8 @@ public class SensorListener implements Runnable {
 	private int irDirection;
 	private int tachoCount;
 	private int headTacho;
+	private int[] distances = new int[8];
+	private int d;
 	
 
 
@@ -125,6 +127,10 @@ public class SensorListener implements Runnable {
 
 	public int getSonarValue() {
 		sonar.ping();
+//		d = sonar.getDistances(distances);
+//		while(d == -1 || d == 255){
+//			getSonarValue();
+//		}
 		return sonar.getDistance();
 	}
 
