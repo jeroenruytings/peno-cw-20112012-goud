@@ -8,14 +8,15 @@ import data.world.RealWorld;
 public class LocationManager
 {
 	
-	private Orientation startposition_;
+	private Point startposition_;
 	private Orientation startOrientation_;
 	private RealWorld world_;
 
 	public LocationManager(RealWorld world, Point startposition, Orientation startOrientation){
 		world_=world;
-		startposition_=startOrientation;
+		startposition_=startposition;
 		startOrientation_=startOrientation;
 	}
+	
 	
 }

@@ -59,7 +59,6 @@ public class SimulationConnection
 			{
 				while(true)
 					try {
-						System.err.println("reading");
 						DataInputStream d = new DataInputStream(s.getIn());
 						System.out.println(d.readUTF());
 						
