@@ -53,7 +53,7 @@ public class RobotController
 		Point destination = null;
 		getOwnData().position(new Point(0, 0));
 		while (true) {
-			getOwnData().ping("*","test");
+			//getOwnData().ping("*","test");
 			// checkForNewInfo();
 			// voegt panel toe aan board
 			tryAddingOtherRobots();
