@@ -31,8 +31,7 @@ public class SensorListener implements Runnable {
 	private int irDirection;
 	private int tachoCount;
 	private int headTacho;
-	private int[] distances = new int[8];
-	private int d;
+
 	
 
 
@@ -127,11 +126,21 @@ public class SensorListener implements Runnable {
 
 	public int getSonarValue() {
 		sonar.ping();
-//		d = sonar.getDistances(distances);
-//		while(d == -1 || d == 255){
-//			getSonarValue();
-//		}
-		return sonar.getDistance();
+		int[] distances = new int[8];
+		int d;
+		int distance = 255;
+		d = sonar.getDistances(distances);
+		while(d == -1){
+			getSonarValue();
+		}
+		
+		if(distances[3] != 255 && distances[4] != 255)
+			distance = (int)((distances[3] + distances[4]) /2);
+		else if(distances[3] == 255)
+			distance = distances[4];
+		else if (distances[4]== 255)
+			distance = distances[3];
+		return distance;
 	}
 
 	public int getLightValue() {
