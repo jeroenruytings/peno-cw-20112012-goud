@@ -18,9 +18,10 @@ public class PING extends Decoder
 	@Override
 	public boolean canDecode(String message)
 	{
-		if (!correctKey(message))
-			return false;
-		return true;
+		return false;
+//		if (!correctKey(message))
+//			return false;
+//		return true;
 	}
 
 	@Override

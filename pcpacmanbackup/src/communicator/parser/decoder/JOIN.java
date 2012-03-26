@@ -14,15 +14,14 @@ public class JOIN extends Decoder
 		super(new NAME
 				(new POSITION
 						(new DISCOVER
-								(new BARCODE
-										(new BARCODEAT
+								(new BARCODEAT
 												(new PACMAN
 														(new CAPTURED
 																(new PLAN
 																		(new CANCELPLAN
 																				(new PING
 																						(new PONG
-																								(new NullDecoder())))))))))))
+																								(new NullDecoder()))))))))))
 				, "JOIN");
 	}
 

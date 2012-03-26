@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import communicator.parser.command.CommandBarcode;
 import communicator.parser.command.CommandBarcodeAt;
 import communicator.parser.command.CommandCancelPlan;
 import communicator.parser.command.CommandCaptured;
@@ -47,8 +46,6 @@ public class _CommandTest {
 		assertEquals(cmd.getMessageType(), MessageType.POSITION);
 		cmd = new CommandDiscover(null, null, 0, 0, 0, 0);
 		assertEquals(cmd.getMessageType(), MessageType.DISCOVER);
-		cmd = new CommandBarcode(null,0,0);
-		assertEquals(cmd.getMessageType(), MessageType.BARCODE);
 		cmd = new CommandBarcodeAt(null, null, 0, 0);
 		assertEquals(cmd.getMessageType(), MessageType.BARCODEAT);
 		cmd = new CommandPacman(null, null);
@@ -79,9 +76,6 @@ public class _CommandTest {
 		CommandDiscover cmdD1 = new CommandDiscover("ik", new Point(2, 2), 1, 1,0,0);
 		CommandDiscover cmdD2 = new CommandDiscover("ik", new Point(2, 2), 1, 1,0,0);
 		assertTrue(cmdD1.equals(cmdD2));
-		CommandBarcode cmdB1 = new CommandBarcode("jij", 9, 4);
-		CommandBarcode cmdB2 = new CommandBarcode("jij", 9, 4);
-		assertTrue(cmdB1.equals(cmdB2));
 		CommandBarcodeAt cmdBA1 = new CommandBarcodeAt("ik", new Point(0,0),9,4);
 		CommandBarcodeAt cmdBA2 = new CommandBarcodeAt("ik", new Point(0,0),9,4);
 		assertTrue(cmdBA1.equals(cmdBA2));
