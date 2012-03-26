@@ -119,7 +119,7 @@ public class RobotController
 					try {
 						this.getBoard().add(robot.getBoard().getPanelAt(p), p);
 					} catch (IllegalArgumentException e) {
-						getBoard().addForced(robot.getBoard().getPanelAt(p), p);
+			//getBoard().addForced(robot.getBoard().getPanelAt(p), p);
 					}
 					getOwnData()
 							.discover(p, robot.getBoard().getPanelAt(p));

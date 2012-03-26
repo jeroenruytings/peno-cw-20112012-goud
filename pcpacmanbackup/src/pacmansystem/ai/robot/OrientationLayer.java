@@ -57,5 +57,20 @@ public class OrientationLayer
 	{
 		return currentOrientation;
 	}
+	
+	public Orientation getPacman(){
+		Orientation current = currentOrientation;
+		for(Direction dir : Direction.values()){
+			Orientation orientation = currentOrientation.addTo(dir);
+			if(dir.equals(Direction.DOWN)){
+				continue;
+			}
+			if(getLayer().getPacman()){
+				return orientation;
+			}           
+		}
+		currentOrientation = current;
+		return null;
+	}
 
 }

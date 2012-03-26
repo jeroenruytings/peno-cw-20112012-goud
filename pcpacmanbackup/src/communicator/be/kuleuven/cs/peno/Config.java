@@ -13,7 +13,7 @@ public interface Config {
 	
 	// the default exchange that will be used for races during the official demo's
 	//RaceExchange
-	public static final String EXCHANGE_NAME = "Goud";
+	public static final String EXCHANGE_NAME = "Goud123";
 	public static final String LAUNCH_ROUTING_KEY = "";
 	
 }
