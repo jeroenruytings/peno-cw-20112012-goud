@@ -18,10 +18,9 @@ public class PONG extends Decoder
 	@Override
 	public boolean canDecode(String message)
 	{
-		return false;
-//		if (!correctKey(message))
-//			return false;
-//		return true;
+		if (!correctKey(message))
+			return false;
+		return true;
 	}
 
 	@Override
