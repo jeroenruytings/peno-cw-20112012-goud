@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import pacmansystem.ai.robot.Barcode;
 import data.board.Board;
 import data.board.Panel;
 import data.board.operations.Operations.Turn;
@@ -14,8 +15,6 @@ import data.help.Filter;
 import data.lazy.TransformedRobotData;
 import data.transformed.Transformation;
 import data.world.RobotData;
-
-import pacmansystem.ai.robot.Barcode;
 
 public class BoardUnifier
 {

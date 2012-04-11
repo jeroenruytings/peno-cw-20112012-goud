@@ -3,6 +3,7 @@ package communicator.parser.command;
 
 import communicator.parser.Command;
 import communicator.parser.MessageType;
+
 import data.world.World;
 
 public class NullCommand implements Command

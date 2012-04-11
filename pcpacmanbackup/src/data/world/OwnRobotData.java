@@ -3,11 +3,12 @@ package data.world;
 import java.awt.Point;
 import java.io.IOException;
 
+import pacmansystem.ai.robot.Barcode;
+
 import communicator.be.kuleuven.cs.peno.MessageSender;
+
 import data.board.Panel;
 import data.enums.Orientation;
-
-import pacmansystem.ai.robot.Barcode;
 
 
 

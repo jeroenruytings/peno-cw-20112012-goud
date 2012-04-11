@@ -3,8 +3,8 @@ package data.board;
 import java.util.HashMap;
 import java.util.Map;
 
-import data.enums.Orientation;
 import pacmansystem.ai.robot.Barcode;
+import data.enums.Orientation;
 
 public class Panel
 {

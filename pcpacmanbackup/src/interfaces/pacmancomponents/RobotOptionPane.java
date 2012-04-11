@@ -3,19 +3,20 @@ package interfaces.pacmancomponents;
 import interfaces.mainscreen.ComponentFrame;
 import interfaces.mainscreen.Mainscreen;
 
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JLabel;
 import javax.swing.JTextField;
-import java.awt.Dimension;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.GridLayout;
-import javax.swing.JCheckBox;
-import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
 
@@ -26,7 +27,7 @@ public class RobotOptionPane extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel panel;
-	private JComboBox comboBox;
+	private JComboBox<Integer> comboBox;
 	private JCheckBox chckbxGesimuleerd;
 	private JPanel panel_1;
 	private JTextField txtNaam;
@@ -68,14 +69,14 @@ public class RobotOptionPane extends JPanel {
 		});
 		panel_1.add(btnOk);
 		
-		comboBox = new JComboBox();
+		comboBox = new JComboBox<Integer>();
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtNaam.setText("robot" + comboBox.getSelectedIndex());
 			}
 		});
 		comboBox.setMaximumRowCount(4);
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"0", "1", "2", "3"}));
+		comboBox.setModel(new DefaultComboBoxModel<Integer>(new Integer[] {0, 1, 2, 3}));
 		panel.add(comboBox);
 		
 		chckbxGesimuleerd = new JCheckBox("Gesimuleerd");

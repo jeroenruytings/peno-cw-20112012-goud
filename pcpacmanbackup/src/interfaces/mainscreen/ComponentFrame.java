@@ -2,6 +2,7 @@ package interfaces.mainscreen;
 
 
 import interfaces.pacmancomponents.BarcodePanel;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.EventQueue;

@@ -7,13 +7,12 @@ import java.util.HashMap;
 
 import org.junit.Test;
 
+import pacmansystem.ai.robot.Barcode;
 import data.board.Board;
 import data.board.Panel;
 import data.enums.Orientation;
 import data.transformed.Transformation;
 import data.world.RobotData;
-
-import pacmansystem.ai.robot.Barcode;
 
 public class _TestBoardUnifier
 {

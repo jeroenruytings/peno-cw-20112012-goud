@@ -5,10 +5,9 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Map;
 
+import pacmansystem.ai.robot.Barcode;
 import data.board.Board;
 import data.enums.Orientation;
-
-import pacmansystem.ai.robot.Barcode;
 
 public interface RobotDataView
 {

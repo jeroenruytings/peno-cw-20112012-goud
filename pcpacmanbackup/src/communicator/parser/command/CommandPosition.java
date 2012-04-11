@@ -2,9 +2,9 @@ package communicator.parser.command;
 
 import java.awt.Point;
 
-
 import communicator.parser.Command;
 import communicator.parser.MessageType;
+
 import data.world.World;
 
 public class CommandPosition implements Command

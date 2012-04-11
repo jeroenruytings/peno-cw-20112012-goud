@@ -6,11 +6,10 @@ import java.awt.Image;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import pacmansystem.ai.robot.Barcode;
 import data.board.Board;
 import data.board.Panel;
 import data.enums.Orientation;
-
-import pacmansystem.ai.robot.Barcode;
 
 public class BoardDrawer
 {

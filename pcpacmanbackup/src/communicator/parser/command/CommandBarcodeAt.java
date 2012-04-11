@@ -5,9 +5,9 @@ import java.text.ParseException;
 
 import pacmansystem.ai.robot.Barcode;
 
-
 import communicator.parser.Command;
 import communicator.parser.MessageType;
+
 import data.board.Panel;
 import data.enums.Orientation;
 import data.world.World;

@@ -7,10 +7,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import pacmansystem.ai.robot.Barcode;
 import data.board.Panel.WallState;
 import data.enums.Orientation;
-
-import pacmansystem.ai.robot.Barcode;
 
 /**
  *r

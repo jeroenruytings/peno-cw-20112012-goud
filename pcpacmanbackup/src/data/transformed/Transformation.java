@@ -8,18 +8,15 @@ import java.awt.Point;
 import java.util.Collection;
 import java.util.Map;
 
+import pacmansystem.ai.robot.Barcode;
 import data.board.Board;
 import data.board.Panel;
-import data.board.operations.BoardUnifier;
 import data.board.operations.Operations;
 import data.board.operations.Operations.Turn;
 import data.enums.Direction;
 import data.enums.Orientation;
 import data.world.RobotData;
 import data.world.RobotDataView;
-
-import pacmansystem.ai.robot.Barcode;
-import pacmansystem.ai.robot.fysicalRobot.PanelColor;
 public class Transformation
 {
 	private Point vector_;

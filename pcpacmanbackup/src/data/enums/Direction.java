@@ -1,6 +1,5 @@
 package data.enums;
 
-import java.awt.Point;
 
 public enum Direction
 {

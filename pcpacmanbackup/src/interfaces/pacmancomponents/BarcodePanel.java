@@ -13,9 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import data.enums.Orientation;
-
 import pacmansystem.ai.robot.Barcode;
+import data.enums.Orientation;
 
 public class BarcodePanel extends JPanel {
 

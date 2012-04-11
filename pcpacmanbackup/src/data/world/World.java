@@ -6,10 +6,10 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.concurrent.ConcurrentHashMap;
 
-
 import communicator.be.kuleuven.cs.peno.MessageReceiver;
 import communicator.be.kuleuven.cs.peno.MessageSender;
 import communicator.parser.Command;
+
 import data.board.Board;
 
 public class World implements Observer

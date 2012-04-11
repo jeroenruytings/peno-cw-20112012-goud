@@ -1,6 +1,5 @@
 package data.lazy;
 
-import static data.board.operations.Operations.turn;
 import static org.junit.Assert.assertTrue;
 
 import java.awt.Point;
@@ -8,6 +7,7 @@ import java.awt.Point;
 import org.junit.Before;
 import org.junit.Test;
 
+import pacmansystem.ai.robot.Barcode;
 import data.board.Panel;
 import data.board.Panel.WallState;
 import data.board.operations.Operations;
@@ -16,8 +16,6 @@ import data.enums.Orientation;
 import data.transformed.Transformation;
 import data.world.RobotData;
 import data.world.RobotDataView;
-
-import pacmansystem.ai.robot.Barcode;
 public class _TestTransformedRobotData
 {
 	private Panel panel1;

@@ -2,13 +2,11 @@ package pacmansystem.ai.robot;
 
 import java.io.IOException;
 
-
+import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
 import data.board.Panel;
 import data.board.Panel.WallState;
 import data.enums.Direction;
 import data.enums.Orientation;
-
-import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
 
 public interface PanelLayerInterface
 {

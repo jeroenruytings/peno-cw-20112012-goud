@@ -1,14 +1,14 @@
 package pacmansystem.ai.robot.fysicalRobot;
 
-import data.board.Panel;
-import data.board.Panel.WallState;
-import data.enums.Direction;
-import data.enums.Orientation;
 import pacmansystem.ai.robot.Barcode;
 import pacmansystem.ai.robot.PanelLayerInterface;
 import pacmansystem.ai.robot.fysicalRobot.connector.Action;
 import pacmansystem.ai.robot.fysicalRobot.connector.Commando;
 import pacmansystem.ai.robot.fysicalRobot.connector.MoverLayer;
+import data.board.Panel;
+import data.board.Panel.WallState;
+import data.enums.Direction;
+import data.enums.Orientation;
 
 public class PanelLayer implements PanelLayerInterface
 {

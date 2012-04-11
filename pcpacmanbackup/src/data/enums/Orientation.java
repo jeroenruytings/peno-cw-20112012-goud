@@ -1,7 +1,6 @@
 package data.enums;
 
 import java.awt.Point;
-import java.util.Random;
 
 public enum Orientation
 {

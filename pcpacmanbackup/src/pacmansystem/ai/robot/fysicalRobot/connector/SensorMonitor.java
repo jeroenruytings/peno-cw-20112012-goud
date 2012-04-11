@@ -1,6 +1,5 @@
 package pacmansystem.ai.robot.fysicalRobot.connector;
 
-import java.io.IOException;
 
 public class SensorMonitor extends LeoMonitor
 {

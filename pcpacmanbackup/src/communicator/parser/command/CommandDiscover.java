@@ -2,9 +2,9 @@ package communicator.parser.command;
 
 import java.awt.Point;
 
-
 import communicator.parser.Command;
 import communicator.parser.MessageType;
+
 import data.board.Board;
 import data.board.Panel;
 import data.board.Panel.WallState;

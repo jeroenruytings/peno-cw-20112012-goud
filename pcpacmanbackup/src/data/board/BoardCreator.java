@@ -12,6 +12,7 @@ import communicator.parser.command.CommandDiscover;
 import communicator.parser.command.CommandName;
 import communicator.parser.command.CommandPacman;
 import communicator.parser.command.CommandPosition;
+
 import data.board.Panel.WallState;
 import data.enums.Orientation;
 import data.world.RealWorld;

@@ -10,10 +10,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import pacmansystem.ai.robot.Barcode;
 import data.board.Board;
 import data.enums.Orientation;
-
-import pacmansystem.ai.robot.Barcode;
 
 public class RobotData implements RobotDataView
 {
