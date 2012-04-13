@@ -14,6 +14,7 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -136,6 +137,7 @@ public class Mainscreen implements ActionListener, Runnable
 		frmPacman.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		initialiseSplitPanes();
+		initialisePanes();
 		
 		JButton btnColortest = new JButton("");
 		btnColortest.setForeground(Color.WHITE);
@@ -202,22 +204,27 @@ public class Mainscreen implements ActionListener, Runnable
 	
 	private int robotPanels = 0;
 	private void setRobotPanel(BoardPanel panel) {
-		switch(robotPanels){
-		case 0:
-			splitPane_2.setLeftComponent(panel);
-			break;
-		case 1: 
-			splitPane_2.setRightComponent(panel);
-			break;
-		case 2:
-			splitPane_3.setLeftComponent(panel);
-			break;
-		case 3: 
-			splitPane_3.setRightComponent(panel);
-			break;
-		default:
-			return;
-		}
+		if (robotPanels == 0)
+			splitPane.setLeftComponent(panel);
+		else
+			otherRobotPanel.getLayout().addLayoutComponent("Robot" + robotPanels, panel);
+//		switch(robotPanels){
+//		case 0:
+//			//splitPane_2.setLeftComponent(panel);
+//			splitPane.setLeftComponent(panel);
+//			break;
+//		case 1: 
+//			//splitPane_2.setRightComponent(panel);
+//			break;
+//		case 2:
+//			//splitPane_3.setLeftComponent(panel);
+//			break;
+//		case 3: 
+//			//splitPane_3.setRightComponent(panel);
+//			break;
+//		default:
+//			return;
+//		}
 		robotPanels++;
 		boards.add(panel);
 
@@ -227,6 +234,27 @@ public class Mainscreen implements ActionListener, Runnable
 		BoardPanel panel = new BoardPanel(world);
 			splitPane_5.setLeftComponent(panel);
 			boards.add(panel);
+	}
+	
+	JPanel otherRobotPanel;
+	
+	private void initialisePanes(){
+		splitPane = new JSplitPane();
+		splitPane.setEnabled(true);
+		splitPane.setDividerSize(5);
+		splitPane.setContinuousLayout(true);
+		splitPane.setResizeWeight(0.7);
+		frmPacman.getContentPane().add(splitPane, BorderLayout.CENTER);
+		splitPane.setBackground(Color.BLACK);
+		JPanel blackpanel = new JPanel();
+		blackpanel.setBackground(Color.BLACK);
+		splitPane.setLeftComponent(blackpanel);
+		
+		otherRobotPanel =  new JPanel();
+		otherRobotPanel.setBackground(Color.black);
+		GridLayout gridLayout = new GridLayout(3,1);
+		otherRobotPanel.setLayout(gridLayout);		
+		splitPane.setRightComponent(otherRobotPanel);
 	}
 	
 	JSplitPane splitPane;

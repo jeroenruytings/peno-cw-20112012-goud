@@ -1,6 +1,8 @@
 package pacmansystem;
 
+import interfaces.mainscreen.ComponentFrame;
 import interfaces.mainscreen.Mainscreen;
+import interfaces.pacmancomponents.RabbitHistory;
 import interfaces.pacmancomponents.RobotOptionPane;
 import pacmansystem.ai.RobotController;
 import pacmansystem.ai.robot.OrientationLayer;
@@ -25,6 +27,7 @@ public class DistributedMain
 	//name number simulated visibible speed txt
 	public static void main(String[] args)
 	{
+		//ComponentFrame.showFrame("RabbitMQ", new RabbitHistory());
 		if (!goodArgs(args)) {
 			RobotOptionPane robotOptions = new RobotOptionPane();
 			robotName = robotOptions.getRobotName();
