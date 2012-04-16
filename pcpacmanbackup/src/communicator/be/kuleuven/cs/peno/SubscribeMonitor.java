@@ -10,8 +10,9 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
-import communicator.parser.Command;
 import communicator.parser.ProtocolDecoder;
+import communicator.parser.messages.Command;
+import communicator.parser.messages.Message;
 
 import data.world.World;
 
@@ -71,7 +72,7 @@ public class SubscribeMonitor {
 					
 					String message = new String(body);
 					try {
-						Command command = decoder.parse(message);
+						Command command = new Command(decoder.parse(message));
 						command.execute(new World());
 					} catch (ParseException e) {
 						System.out.println("fail");

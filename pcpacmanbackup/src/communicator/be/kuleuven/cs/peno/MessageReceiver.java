@@ -11,8 +11,9 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
-import communicator.parser.Command;
 import communicator.parser.ProtocolDecoder;
+import communicator.parser.messages.Command;
+import communicator.parser.messages.Message;
 
 public class MessageReceiver extends Observable implements Runnable{
 	
@@ -65,7 +66,7 @@ public class MessageReceiver extends Observable implements Runnable{
 					String message = new String(body);
 					
 					try {
-						Command command = decoder.parse(message);
+						Message command = decoder.parse(message);
 						RabbitHistory.receiveMessage(message,command.getNameFrom());
 
 						setChanged();
