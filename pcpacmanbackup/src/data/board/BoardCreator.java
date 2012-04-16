@@ -5,13 +5,14 @@ import java.text.ParseException;
 
 import pacmansystem.ai.robot.Barcode;
 
-import communicator.parser.Command;
 import communicator.parser.ProtocolDecoder;
-import communicator.parser.command.CommandBarcodeAt;
-import communicator.parser.command.CommandDiscover;
-import communicator.parser.command.CommandName;
-import communicator.parser.command.CommandPacman;
-import communicator.parser.command.CommandPosition;
+import communicator.parser.messages.BarcodeAtMessage;
+import communicator.parser.messages.Command;
+import communicator.parser.messages.DiscoverMessage;
+import communicator.parser.messages.Message;
+import communicator.parser.messages.NameMessage;
+import communicator.parser.messages.PacmanMessage;
+import communicator.parser.messages.PositionMessage;
 
 import data.board.Panel.WallState;
 import data.enums.Orientation;
@@ -81,21 +82,21 @@ public class BoardCreator
 	 */
 	public static RealWorld createBoard(String[] mazeProtocol) throws ParseException {
 		ProtocolDecoder pdc = new ProtocolDecoder();
-		Command tmp;
+		Message tmp;
 		RealWorld realWorld = new RealWorld();
 		Board b = realWorld.getGlobalBoard();
 		for (int i = 1; i < mazeProtocol.length; i++){
 			tmp = pdc.parse(mazeProtocol[i]);
-			if (tmp instanceof CommandName){
-				if (!((CommandName)tmp).getVersion().equals("maze-protocol-" + MAZEPROTOCOLVERSION))
+			if (tmp instanceof NameMessage){
+				if (!((NameMessage)tmp).getVersion().equals("maze-protocol-" + MAZEPROTOCOLVERSION))
 					throw new IllegalStateException("Not the right version number.");
 			}
-			else if(tmp instanceof CommandDiscover){
-				CommandDiscover cmd = ((CommandDiscover)tmp);
+			else if(tmp instanceof DiscoverMessage){
+				DiscoverMessage cmd = ((DiscoverMessage)tmp);
 				b.add(cmd.getPanel(), cmd.getCoordinate());
 			}
-			else if (tmp instanceof CommandBarcodeAt){
-				CommandBarcodeAt cmd = ((CommandBarcodeAt)tmp);
+			else if (tmp instanceof BarcodeAtMessage){
+				BarcodeAtMessage cmd = ((BarcodeAtMessage)tmp);
 				try {
 					b.setBarcode(cmd.getCoordinate(),new Barcode(cmd.getBarcode()),cmd.getDirection());
 				} catch (ParseException e) {
@@ -103,12 +104,12 @@ public class BoardCreator
 					e.printStackTrace();
 				}
 			}
-			else if (tmp instanceof CommandPacman){
-				CommandPacman cmd = ((CommandPacman)tmp);
+			else if (tmp instanceof PacmanMessage){
+				PacmanMessage cmd = ((PacmanMessage)tmp);
 				realWorld.setPacman(cmd.getPosition());
 			}
-			else if (tmp instanceof CommandPosition){
-				CommandPosition cmd = ((CommandPosition)tmp);
+			else if (tmp instanceof PositionMessage){
+				PositionMessage cmd = ((PositionMessage)tmp);
 				realWorld.addStartingPoint(cmd.getPosition());
 			}
 		}

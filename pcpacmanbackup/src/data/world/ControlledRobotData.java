@@ -3,8 +3,9 @@ package data.world;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import communicator.parser.Command;
 import communicator.parser.MessageType;
+import communicator.parser.messages.Command;
+import communicator.parser.messages.Message;
 
 public class ControlledRobotData extends RobotData {
 
@@ -17,19 +18,19 @@ public class ControlledRobotData extends RobotData {
 	 * This method processes the given message. It will only be processes if the message was issued by this RobotData.
 	 * @param message
 	 */
-	final void processMessage(Command message){
+	final void processMessage(Message message){
 		if (message.getNameFrom().equals(this.getName()))
 			processSelfMessage(message);
 		else
 			executeMessage(message);
 	}
 	
-	protected void executeMessage(Command message){
+	protected void executeMessage(Message message){
 		//TODO: Execute message from an other robot.
 		// Could be a discover command, translated to the axis of this robot.
 	}
 	
-	protected void processSelfMessage(Command message){
+	protected void processSelfMessage(Message message){
 		if (!pendingMessages.containsKey(message.getMessageType()))
 			throw new IllegalArgumentException("The command was not issued by this RobotData");
 		//TODO: 

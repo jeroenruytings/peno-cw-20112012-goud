@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import communicator.be.kuleuven.cs.peno.MessageReceiver;
 import communicator.be.kuleuven.cs.peno.MessageSender;
-import communicator.parser.Command;
+import communicator.parser.messages.Command;
 
 import data.board.Board;
 
