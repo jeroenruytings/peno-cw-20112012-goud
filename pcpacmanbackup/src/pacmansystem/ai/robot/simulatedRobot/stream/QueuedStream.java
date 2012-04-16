@@ -3,40 +3,50 @@ package pacmansystem.ai.robot.simulatedRobot.stream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
+/**
+ * Class representing an input & outputstream.
+ * 
+ */
 public class QueuedStream
 {
 	private OutputStream out_;
 	private InputStream in_;
-	private Queue<Integer> queue;
+	private List<Integer> queue;
 	private Object lock;
-
+	/**
+	 * Provides an input and an outputstream, everything that is presented to the outputstream can be read
+	 * from the inputstream, the streams will never close.
+	 */
 	public QueuedStream()
 	{
 		lock = new Integer(1);
-		queue = new LinkedList<Integer>();
+		queue = Collections.synchronizedList(new LinkedList<Integer>());
 		in_ = new InputStream()
 		{
-
-			boolean readingmode = false;
 
 			@Override
 			public int read() throws IOException
 			{
-				if (!readingmode)
+				while (!readingmode()) {
 					try {
 						synchronized (lock) {
-
 							lock.wait();
 						}
-						readingmode = true;
 					} catch (InterruptedException e) {
 					}
-				if (queue.size() == 1)
-					readingmode = false;
-				return queue.poll();
+				}
+				int i = queue.remove(0);
+				return i;
+			}
+
+			private boolean readingmode()
+			{
+				return !queue.isEmpty();
 			}
 
 		};
@@ -48,7 +58,6 @@ public class QueuedStream
 			{
 				queue.add(b);
 				synchronized (lock) {
-
 					lock.notify();
 				}
 			}

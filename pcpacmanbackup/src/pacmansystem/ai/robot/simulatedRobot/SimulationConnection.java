@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Scanner;
 
+import pacmansystem.ai.robot.simulatedRobot.stream.QueuedStream;
+
 
 public class SimulationConnection
 {
