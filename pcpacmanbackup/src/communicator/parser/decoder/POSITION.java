@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.text.ParseException;
 
 import communicator.parser.Decoder;
-import communicator.parser.command.CommandPosition;
+import communicator.parser.messages.PositionMessage;
 
 
 public class POSITION extends Decoder
@@ -27,12 +27,12 @@ public class POSITION extends Decoder
 	 * Create a Command object for the given message.
 	 */
 	@Override
-	public CommandPosition parse(String message) throws ParseException
+	public PositionMessage parse(String message) throws ParseException
 	{
 		String msg = stripMessage(message);
 		String[] mes = msg.split(" ");
 		String[] coord = mes[2].split(",");
-		return new CommandPosition(mes[0], new Point(
+		return new PositionMessage(mes[0], new Point(
 				Integer.parseInt(coord[0]), Integer.parseInt(coord[1])));
 	}
 

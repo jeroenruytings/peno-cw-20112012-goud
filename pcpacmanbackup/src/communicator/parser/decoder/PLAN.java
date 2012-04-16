@@ -3,9 +3,8 @@ package communicator.parser.decoder;
 import java.awt.Point;
 import java.text.ParseException;
 
-import communicator.parser.Command;
 import communicator.parser.Decoder;
-import communicator.parser.command.CommandPlan;
+import communicator.parser.messages.PlanMessage;
 
 
 public class PLAN extends Decoder
@@ -26,7 +25,7 @@ public class PLAN extends Decoder
 	}
 
 	@Override
-	public Command parse(String message) throws ParseException
+	public PlanMessage parse(String message) throws ParseException
 	{
 		String msg = stripMessage(message);
 		String[] mes = msg.split(" ");
@@ -45,7 +44,7 @@ public class PLAN extends Decoder
 			}
 			param[i - 2] = new Point(x,y);
 		}
-		return new CommandPlan(mes[0], param);
+		return new PlanMessage(mes[0], param);
 	}
 
 }

@@ -1,17 +1,16 @@
-package communicator.parser.command;
+package communicator.parser.messages;
 
 
-import communicator.parser.Command;
 import communicator.parser.MessageType;
 
 import data.world.World;
 
-public class CommandCaptured implements Command
+public class CapturedMessage extends Message
 {
 
 	private String _name;
 
-	public CommandCaptured(String name)
+	public CapturedMessage(String name)
 	{
 		this._name = name;
 	}
@@ -23,7 +22,7 @@ public class CommandCaptured implements Command
 	}
 
 	@Override
-	public void execute(World simulator)
+	void execute(World simulator)
 	{
 		simulator.getRobot(_name).setCapturedPacman(true);
 	}
@@ -34,13 +33,20 @@ public class CommandCaptured implements Command
 	}
 	
 	@Override
-	public boolean equals(Command cmd) {
-		if (cmd instanceof CommandCaptured){
-			CommandCaptured cmdBar = (CommandCaptured) cmd;
+	public boolean equals(Message cmd) {
+		if (cmd instanceof CapturedMessage){
+			CapturedMessage cmdBar = (CapturedMessage) cmd;
 			if ((cmdBar.getNameFrom() == this.getNameFrom()))
 				return true;
 		}
 		return false;
 	}
+
+	@Override
+	public boolean correctMessage() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 
 }

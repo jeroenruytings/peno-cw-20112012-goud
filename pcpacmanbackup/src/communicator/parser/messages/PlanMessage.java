@@ -1,21 +1,20 @@
-package communicator.parser.command;
+package communicator.parser.messages;
 
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import communicator.parser.Command;
 import communicator.parser.MessageType;
 
 import data.world.World;
 
-public class CommandPlan implements Command
+public class PlanMessage extends Message
 {
 
 	private String _name;
 	private Point[] _path;
 
-	public CommandPlan(String name, Point... path)
+	public PlanMessage(String name, Point... path)
 	{
 		this._name = name;
 		_path = path;
@@ -34,7 +33,7 @@ public class CommandPlan implements Command
 	}
 
 	@Override
-	public void execute(World simulator)
+	void execute(World simulator)
 	{
 		ArrayList<Point> plan = new ArrayList<Point>();
 		for (Point point : _path) {
@@ -49,13 +48,19 @@ public class CommandPlan implements Command
 	}
 
 	@Override
-	public boolean equals(Command cmd) {
-		if (cmd instanceof CommandPlan){
-			CommandPlan cmdPlan = (CommandPlan) cmd;
+	public boolean equals(Message planMessage) {
+		if (planMessage instanceof PlanMessage){
+			PlanMessage cmdPlan = (PlanMessage) planMessage;
 			if ((cmdPlan.getNameFrom() == this.getNameFrom())
 					&& (Arrays.equals(cmdPlan.getPath(), this.getPath())))
 				return true;
 		}
+		return false;
+	}
+
+	@Override
+	public boolean correctMessage() {
+		// TODO Auto-generated method stub
 		return false;
 	}
 }

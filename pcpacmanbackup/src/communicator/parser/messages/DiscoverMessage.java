@@ -1,8 +1,7 @@
-package communicator.parser.command;
+package communicator.parser.messages;
 
 import java.awt.Point;
 
-import communicator.parser.Command;
 import communicator.parser.MessageType;
 
 import data.board.Board;
@@ -11,7 +10,7 @@ import data.board.Panel.WallState;
 import data.enums.Orientation;
 import data.world.World;
 
-public class CommandDiscover implements Command
+public class DiscoverMessage extends Message
 {
 
 	private String _name;
@@ -21,7 +20,7 @@ public class CommandDiscover implements Command
 	private byte _south;
 	private byte _west;
 
-	public CommandDiscover(String name, Point coordinate, int i,
+	public DiscoverMessage(String name, Point coordinate, int i,
 			int j, int k, int l)
 	{
 		this._name = name;
@@ -82,14 +81,20 @@ public class CommandDiscover implements Command
 	}
 	
 	@Override
-	public boolean equals(Command cmd) {
-		if (cmd instanceof CommandDiscover){
-			CommandDiscover cmdDis = (CommandDiscover) cmd;
+	public boolean equals(Message cmd) {
+		if (cmd instanceof DiscoverMessage){
+			DiscoverMessage cmdDis = (DiscoverMessage) cmd;
 			if ((cmdDis.getNameFrom() == this.getNameFrom())
 					&& (cmdDis.getCoordinate().equals(this.getCoordinate()))
 					&& (cmdDis.getPanel().equals(this.getPanel())))
 				return true;
 		}
+		return false;
+	}
+
+	@Override
+	public boolean correctMessage() {
+		// TODO Auto-generated method stub
 		return false;
 	}
 

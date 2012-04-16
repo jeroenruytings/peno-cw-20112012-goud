@@ -9,17 +9,18 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import communicator.parser.command.CommandBarcodeAt;
-import communicator.parser.command.CommandCancelPlan;
-import communicator.parser.command.CommandCaptured;
-import communicator.parser.command.CommandDiscover;
-import communicator.parser.command.CommandJoin;
-import communicator.parser.command.CommandName;
-import communicator.parser.command.CommandPacman;
-import communicator.parser.command.CommandPing;
-import communicator.parser.command.CommandPlan;
-import communicator.parser.command.CommandPong;
-import communicator.parser.command.CommandPosition;
+import communicator.parser.messages.BarcodeAtMessage;
+import communicator.parser.messages.CancelPlanMessage;
+import communicator.parser.messages.CapturedMessage;
+import communicator.parser.messages.DiscoverMessage;
+import communicator.parser.messages.JoinMessage;
+import communicator.parser.messages.Message;
+import communicator.parser.messages.NameMessage;
+import communicator.parser.messages.PacmanMessage;
+import communicator.parser.messages.PingMessage;
+import communicator.parser.messages.PlanMessage;
+import communicator.parser.messages.PongMessage;
+import communicator.parser.messages.PositionMessage;
 
 public class _CommandTest {
 
@@ -37,65 +38,65 @@ public class _CommandTest {
 
 	@Test
 	public void testGetMessageType() {
-		Command cmd;
-		cmd = new CommandJoin();
+		Message cmd;
+		cmd = new JoinMessage();
 		assertEquals(cmd.getMessageType(), MessageType.JOIN);
-		cmd = new CommandName(null, null);
+		cmd = new NameMessage(null, null);
 		assertEquals(cmd.getMessageType(), MessageType.NAME);
-		cmd = new CommandPosition(null, null);
+		cmd = new PositionMessage(null, null);
 		assertEquals(cmd.getMessageType(), MessageType.POSITION);
-		cmd = new CommandDiscover(null, null, 0, 0, 0, 0);
+		cmd = new DiscoverMessage(null, null, 0, 0, 0, 0);
 		assertEquals(cmd.getMessageType(), MessageType.DISCOVER);
-		cmd = new CommandBarcodeAt(null, null, 0, 0);
+		cmd = new BarcodeAtMessage(null, null, 0, 0);
 		assertEquals(cmd.getMessageType(), MessageType.BARCODEAT);
-		cmd = new CommandPacman(null, null);
+		cmd = new PacmanMessage(null, null);
 		assertEquals(cmd.getMessageType(), MessageType.PACMAN);
-		cmd = new CommandCaptured(null);
+		cmd = new CapturedMessage(null);
 		assertEquals(cmd.getMessageType(), MessageType.CAPTURED);
-		cmd = new CommandPlan(null,new Point(1,1));
+		cmd = new PlanMessage(null,new Point(1,1));
 		assertEquals(cmd.getMessageType(), MessageType.PLAN);
-		cmd = new CommandCancelPlan(null);
+		cmd = new CancelPlanMessage(null);
 		assertEquals(cmd.getMessageType(), MessageType.CANCELPLAN);
-		cmd = new CommandPing(null, null, null);
+		cmd = new PingMessage(null, null, null);
 		assertEquals(cmd.getMessageType(), MessageType.PING);
-		cmd = new CommandPong(null, null, null);
+		cmd = new PongMessage(null, null, null);
 		assertEquals(cmd.getMessageType(), MessageType.PONG);
 	}
 
 	@Test
 	public void testEquals() {
-		CommandJoin cmdJ1 = new CommandJoin();
-		CommandJoin cmdJ2 = new CommandJoin();
+		JoinMessage cmdJ1 = new JoinMessage();
+		JoinMessage cmdJ2 = new JoinMessage();
 		assertTrue(cmdJ1.equals(cmdJ2));
-		CommandName cmdN1 = new CommandName("ik", "versie 3.1");
-		CommandName cmdN2 = new CommandName("ik", "versie 3.1");
+		NameMessage cmdN1 = new NameMessage("ik", "versie 3.1");
+		NameMessage cmdN2 = new NameMessage("ik", "versie 3.1");
 		assertTrue(cmdN1.equals(cmdN2));
-		CommandPosition cmdP1 = new CommandPosition("jij", new Point(1,1));
-		CommandPosition cmdP2 = new CommandPosition("jij", new Point(1,1));
+		PositionMessage cmdP1 = new PositionMessage("jij", new Point(1,1));
+		PositionMessage cmdP2 = new PositionMessage("jij", new Point(1,1));
 		assertTrue(cmdP1.equals(cmdP2));
-		CommandDiscover cmdD1 = new CommandDiscover("ik", new Point(2, 2), 1, 1,0,0);
-		CommandDiscover cmdD2 = new CommandDiscover("ik", new Point(2, 2), 1, 1,0,0);
+		DiscoverMessage cmdD1 = new DiscoverMessage("ik", new Point(2, 2), 1, 1,0,0);
+		DiscoverMessage cmdD2 = new DiscoverMessage("ik", new Point(2, 2), 1, 1,0,0);
 		assertTrue(cmdD1.equals(cmdD2));
-		CommandBarcodeAt cmdBA1 = new CommandBarcodeAt("ik", new Point(0,0),9,4);
-		CommandBarcodeAt cmdBA2 = new CommandBarcodeAt("ik", new Point(0,0),9,4);
+		BarcodeAtMessage cmdBA1 = new BarcodeAtMessage("ik", new Point(0,0),9,4);
+		BarcodeAtMessage cmdBA2 = new BarcodeAtMessage("ik", new Point(0,0),9,4);
 		assertTrue(cmdBA1.equals(cmdBA2));
-		CommandPacman cmdPC1 = new CommandPacman("ik", new Point(3,3));
-		CommandPacman cmdPC2 = new CommandPacman("ik", new Point(3,3));
+		PacmanMessage cmdPC1 = new PacmanMessage("ik", new Point(3,3));
+		PacmanMessage cmdPC2 = new PacmanMessage("ik", new Point(3,3));
 		assertTrue(cmdPC1.equals(cmdPC2));
-		CommandCaptured cmdC1 = new CommandCaptured("jij");
-		CommandCaptured cmdC2 = new CommandCaptured("jij");
+		CapturedMessage cmdC1 = new CapturedMessage("jij");
+		CapturedMessage cmdC2 = new CapturedMessage("jij");
 		assertTrue(cmdC1.equals(cmdC2));
-		CommandPlan cmdPl1 = new CommandPlan("ik", new Point(1,1),new Point(2,2),new Point(3, 3));
-		CommandPlan cmdPl2 = new CommandPlan("ik", new Point(1,1),new Point(2,2),new Point(3, 3));
+		PlanMessage cmdPl1 = new PlanMessage("ik", new Point(1,1),new Point(2,2),new Point(3, 3));
+		PlanMessage cmdPl2 = new PlanMessage("ik", new Point(1,1),new Point(2,2),new Point(3, 3));
 		assertTrue(cmdPl1.equals(cmdPl2));
-		CommandCancelPlan cmdCP1 = new CommandCancelPlan("jij");
-		CommandCancelPlan cmdCP2 = new CommandCancelPlan("jij");
+		CancelPlanMessage cmdCP1 = new CancelPlanMessage("jij");
+		CancelPlanMessage cmdCP2 = new CancelPlanMessage("jij");
 		assertTrue(cmdCP1.equals(cmdCP2));
-		CommandPing cmdPi1 = new CommandPing("ik","andere","zeg eens iets!");
-		CommandPing cmdPi2 = new CommandPing("ik","andere","zeg eens iets!");
+		PingMessage cmdPi1 = new PingMessage("ik","andere","zeg eens iets!");
+		PingMessage cmdPi2 = new PingMessage("ik","andere","zeg eens iets!");
 		assertTrue(cmdPi1.equals(cmdPi2));
-		CommandPong cmdPo1 = new CommandPong("jij", "andere", "zeg eens iets");
-		CommandPong cmdPo2 = new CommandPong("jij", "andere", "zeg eens iets");
+		PongMessage cmdPo1 = new PongMessage("jij", "andere", "zeg eens iets");
+		PongMessage cmdPo2 = new PongMessage("jij", "andere", "zeg eens iets");
 		assertTrue(cmdPo1.equals(cmdPo2));
 		
 		

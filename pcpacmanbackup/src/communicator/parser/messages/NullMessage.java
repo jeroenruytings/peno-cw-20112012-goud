@@ -1,18 +1,17 @@
-package communicator.parser.command;
+package communicator.parser.messages;
 
 
-import communicator.parser.Command;
 import communicator.parser.MessageType;
 
 import data.world.World;
 
-public class NullCommand implements Command
+public class NullMessage extends Message
 {
 
 	@Override
-	public void execute(World simulator)
+	void execute(World world)
 	{
-
+		// DO NOTHING!
 	}
 
 	@Override
@@ -26,11 +25,16 @@ public class NullCommand implements Command
 	}
 	
 	@Override
-	public boolean equals(Command cmd) {
-		if (cmd instanceof NullCommand){
+	public boolean equals(Message nullMessage) {
+		if (nullMessage instanceof NullMessage){
 				return true;
 		}
 		return false;
+	}
+
+	@Override
+	public boolean correctMessage() {
+		return true;
 	}
 
 }

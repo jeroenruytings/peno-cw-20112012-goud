@@ -1,6 +1,6 @@
 package communicator.parser;
 
-import communicator.parser.command.NullCommand;
+import communicator.parser.messages.NullMessage;
 
 public class NullDecoder extends Decoder
 {
@@ -18,10 +18,10 @@ public class NullDecoder extends Decoder
 	}
 
 	@Override
-	public Command parse(String message)
+	public NullMessage parse(String message)
 	{
 		System.err.println("Het bericht: \"" + message + "\"" + " is weggesmeten");
-		return new NullCommand();
+		return new NullMessage();
 	}
 
 }

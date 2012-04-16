@@ -3,9 +3,8 @@ package communicator.parser.decoder;
 import java.awt.Point;
 import java.text.ParseException;
 
-import communicator.parser.Command;
 import communicator.parser.Decoder;
-import communicator.parser.command.CommandBarcodeAt;
+import communicator.parser.messages.BarcodeAtMessage;
 
 
 public class BARCODEAT extends Decoder {
@@ -23,13 +22,13 @@ public class BARCODEAT extends Decoder {
 	}
 
 	@Override
-	public Command parse(String message) throws ParseException
+	public BarcodeAtMessage parse(String message) throws ParseException
 	{
 		String msg = stripMessage(message);
 		String[] mes = msg.split(" ");
 		String[] coord = mes[2].split(",");
 		Point coordinate = new Point(Integer.parseInt(coord[0]),Integer.parseInt(coord[1]));
-		return new CommandBarcodeAt(mes[0], coordinate,Integer.parseInt(mes[3]),
+		return new BarcodeAtMessage(mes[0], coordinate,Integer.parseInt(mes[3]),
 				Integer.parseInt(mes[4]));
 	}
 

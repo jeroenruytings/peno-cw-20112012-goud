@@ -1,9 +1,8 @@
 package communicator.parser.decoder;
 
-import communicator.parser.Command;
 import communicator.parser.Decoder;
 import communicator.parser.NullDecoder;
-import communicator.parser.command.CommandJoin;
+import communicator.parser.messages.JoinMessage;
 
 
 public class JOIN extends Decoder
@@ -32,9 +31,9 @@ public class JOIN extends Decoder
 	}
 
 	@Override
-	public Command parse(String message)
+	public JoinMessage parse(String message)
 	{
-		return new CommandJoin();
+		return new JoinMessage();
 	}
 
 }

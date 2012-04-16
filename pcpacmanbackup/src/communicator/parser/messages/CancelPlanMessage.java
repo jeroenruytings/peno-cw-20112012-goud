@@ -1,17 +1,16 @@
-package communicator.parser.command;
+package communicator.parser.messages;
 
 
-import communicator.parser.Command;
 import communicator.parser.MessageType;
 
 import data.world.World;
 
-public class CommandCancelPlan implements Command
+public class CancelPlanMessage extends Message
 {
 
 	private String _name;
 
-	public CommandCancelPlan(String _name)
+	public CancelPlanMessage(String _name)
 	{
 		this._name = _name;
 	}
@@ -23,7 +22,7 @@ public class CommandCancelPlan implements Command
 	}
 
 	@Override
-	public void execute(World simulator)
+	void execute(World simulator)
 	{
 		simulator.getRobot(_name).clearPlan();
 	}
@@ -34,12 +33,18 @@ public class CommandCancelPlan implements Command
 	}
 	
 	@Override
-	public boolean equals(Command cmd) {
-		if (cmd instanceof CommandCancelPlan){
-			CommandCancelPlan cmdCnlPl = (CommandCancelPlan) cmd;
+	public boolean equals(Message cmd) {
+		if (cmd instanceof CancelPlanMessage){
+			CancelPlanMessage cmdCnlPl = (CancelPlanMessage) cmd;
 			if ((cmdCnlPl.getNameFrom() == this.getNameFrom()))
 				return true;
 		}
+		return false;
+	}
+
+	@Override
+	public boolean correctMessage() {
+		// TODO Auto-generated method stub
 		return false;
 	}
 	

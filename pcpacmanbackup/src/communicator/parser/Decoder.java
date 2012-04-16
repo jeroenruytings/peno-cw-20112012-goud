@@ -3,6 +3,8 @@ package communicator.parser;
 import java.text.ParseException;
 import java.util.Arrays;
 
+import communicator.parser.messages.Message;
+
 public abstract class Decoder
 {
 	protected String _key;
@@ -22,7 +24,7 @@ public abstract class Decoder
 
 	public abstract boolean canDecode(String message);
 
-	public abstract Command parse(String message) throws ParseException;
+	public abstract Message parse(String message) throws ParseException;
 	
 	/**
 	 * This message strips messages to the right format for the parse method.

@@ -3,6 +3,7 @@ package communicator.parser;
 import java.text.ParseException;
 
 import communicator.parser.decoder.JOIN;
+import communicator.parser.messages.Message;
 
 
 
@@ -15,7 +16,7 @@ public class ProtocolDecoder
 		head = new JOIN();
 	}
 
-	public Command parse(String string) throws ParseException
+	public Message parse(String string) throws ParseException
 	{
 		Decoder current = head;
 		while (!current.canDecode(string))

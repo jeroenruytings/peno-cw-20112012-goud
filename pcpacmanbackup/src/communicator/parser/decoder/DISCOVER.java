@@ -3,9 +3,8 @@ package communicator.parser.decoder;
 import java.awt.Point;
 import java.text.ParseException;
 
-import communicator.parser.Command;
 import communicator.parser.Decoder;
-import communicator.parser.command.CommandDiscover;
+import communicator.parser.messages.DiscoverMessage;
 
 
 public class DISCOVER extends Decoder
@@ -25,7 +24,7 @@ public class DISCOVER extends Decoder
 	}
 
 	@Override
-	public Command parse(String message) throws ParseException
+	public DiscoverMessage parse(String message) throws ParseException
 	{
 		String msg = stripMessage(message);
 		String[] mes = msg.split(" ");
@@ -33,8 +32,9 @@ public class DISCOVER extends Decoder
 		Point discovered = new Point(Integer.parseInt(coord[0]),
 				Integer.parseInt(coord[1]));
 		//TODO: draaiing fixen
-		return new CommandDiscover(mes[0], discovered, Byte.parseByte(mes[3]),Byte.parseByte(mes[4]),
+		return new DiscoverMessage(mes[0], discovered, Byte.parseByte(mes[3]),Byte.parseByte(mes[4]),
 				Byte.parseByte(mes[5]),Byte.parseByte(mes[6]));
+		
 	}
 
 }

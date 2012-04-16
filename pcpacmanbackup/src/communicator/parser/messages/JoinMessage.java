@@ -1,21 +1,20 @@
-package communicator.parser.command;
+package communicator.parser.messages;
 
 
-import communicator.parser.Command;
 import communicator.parser.MessageType;
 
 import data.world.World;
 
-public class CommandJoin implements Command
+public class JoinMessage extends Message
 {
 
-	public CommandJoin()
+	public JoinMessage()
 	{
 		
 	}
 
 	@Override
-	public void execute(World simulator)
+	void execute(World simulator)
 	{
 		simulator.register();
 	}
@@ -32,10 +31,16 @@ public class CommandJoin implements Command
 	}
 	
 	@Override
-	public boolean equals(Command cmd) {
-		if (cmd instanceof CommandJoin){
+	public boolean equals(Message joinMessage) {
+		if (joinMessage instanceof JoinMessage){
 				return true;
 		}
+		return false;
+	}
+
+	@Override
+	public boolean correctMessage() {
+		// TODO Auto-generated method stub
 		return false;
 	}
 

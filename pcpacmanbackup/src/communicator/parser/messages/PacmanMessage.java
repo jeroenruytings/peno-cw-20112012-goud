@@ -1,19 +1,18 @@
-package communicator.parser.command;
+package communicator.parser.messages;
 
 import java.awt.Point;
 
-import communicator.parser.Command;
 import communicator.parser.MessageType;
 
 import data.world.World;
 
-public class CommandPacman implements Command
+public class PacmanMessage extends Message
 {
 
 	private String _name;
 	private Point _coordinate;
 
-	public CommandPacman(String name, Point coordinate)
+	public PacmanMessage(String name, Point coordinate)
 	{
 		this._name = name;
 		this._coordinate = coordinate;
@@ -46,13 +45,19 @@ public class CommandPacman implements Command
 	}
 
 	@Override
-	public boolean equals(Command cmd) {
-		if (cmd instanceof CommandPacman){
-			CommandPacman cmdBar = (CommandPacman) cmd;
+	public boolean equals(Message pacmanMessage) {
+		if (pacmanMessage instanceof PacmanMessage){
+			PacmanMessage cmdBar = (PacmanMessage) pacmanMessage;
 			if ((cmdBar.getNameFrom() == this.getNameFrom())
 					&& (cmdBar.getPosition().equals(this.getPosition())))
 				return true;
 		}
+		return false;
+	}
+
+	@Override
+	public boolean correctMessage() {
+		// TODO Auto-generated method stub
 		return false;
 	}
 

@@ -2,9 +2,8 @@ package communicator.parser.decoder;
 
 import java.text.ParseException;
 
-import communicator.parser.Command;
 import communicator.parser.Decoder;
-import communicator.parser.command.CommandCancelPlan;
+import communicator.parser.messages.CancelPlanMessage;
 
 
 public class CANCELPLAN extends Decoder
@@ -25,11 +24,11 @@ public class CANCELPLAN extends Decoder
 	}
 
 	@Override
-	public Command parse(String message) throws ParseException
+	public CancelPlanMessage parse(String message) throws ParseException
 	{
 		String msg = stripMessage(message);//TODO: we kregen een error hierdoor
 		String[] mes = msg.split(" ");
-		return new CommandCancelPlan(mes[0]);
+		return new CancelPlanMessage(mes[0]);
 	}
 
 }

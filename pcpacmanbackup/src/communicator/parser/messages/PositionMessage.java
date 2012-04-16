@@ -1,19 +1,18 @@
-package communicator.parser.command;
+package communicator.parser.messages;
 
 import java.awt.Point;
 
-import communicator.parser.Command;
 import communicator.parser.MessageType;
 
 import data.world.World;
 
-public class CommandPosition implements Command
+public class PositionMessage extends Message
 {
 
 	private Point _position;
 	private String _name;
 
-	public CommandPosition(String name, Point position)
+	public PositionMessage(String name, Point position)
 	{
 		this._position = position;
 		this._name = name;
@@ -31,7 +30,7 @@ public class CommandPosition implements Command
 	}
 
 	@Override
-	public void execute(World world)
+	void execute(World world)
 	{
 		world.getRobot(_name).setPosition(_position);
 		synchronized (world.getRobot(_name)) {
@@ -46,13 +45,19 @@ public class CommandPosition implements Command
 	}
 	
 	@Override
-	public boolean equals(Command cmd) {
-		if (cmd instanceof CommandPosition){
-			CommandPosition cmdBar = (CommandPosition) cmd;
+	public boolean equals(Message positionMessage) {
+		if (positionMessage instanceof PositionMessage){
+			PositionMessage cmdBar = (PositionMessage) positionMessage;
 			if ((cmdBar.getNameFrom() == this.getNameFrom())
 					&& (cmdBar.getPosition().equals(this.getPosition())))
 				return true;
 		}
+		return false;
+	}
+
+	@Override
+	public boolean correctMessage() {
+		// TODO Auto-generated method stub
 		return false;
 	}
 

@@ -2,9 +2,8 @@ package communicator.parser.decoder;
 
 import java.text.ParseException;
 
-import communicator.parser.Command;
 import communicator.parser.Decoder;
-import communicator.parser.command.CommandPong;
+import communicator.parser.messages.PongMessage;
 
 
 public class PONG extends Decoder
@@ -24,11 +23,11 @@ public class PONG extends Decoder
 	}
 
 	@Override
-	public Command parse(String message) throws ParseException
+	public PongMessage parse(String message) throws ParseException
 	{
 		String msg = stripMessage(message);
 		String[] mes = msg.split(" ");
-		return new CommandPong(mes[0],mes[2],mes[3]);
+		return new PongMessage(mes[0],mes[2],mes[3]);
 	}
 
 }

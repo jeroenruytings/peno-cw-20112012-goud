@@ -1,19 +1,18 @@
-package communicator.parser.command;
+package communicator.parser.messages;
 
 
-import communicator.parser.Command;
 import communicator.parser.MessageType;
 
 import data.world.World;
 
-public class CommandPong implements Command {
+public class PongMessage extends Message {
 
 	private String _name;
 	private String _bestemmeling;
 	private String _string;
 	
 	
-	public CommandPong(String name, String bestemmeling, String string) {
+	public PongMessage(String name, String bestemmeling, String string) {
 		this._name = name;
 		this._bestemmeling = bestemmeling;
 		this._string = string;
@@ -39,7 +38,7 @@ public class CommandPong implements Command {
 	}
 
 	@Override
-	public void execute(World simulator) {
+	void execute(World simulator) {
 		// TODO Hebben we zelf een ping uitgestuurt naar deze persoon?
 
 	}
@@ -50,14 +49,20 @@ public class CommandPong implements Command {
 	}
 	
 	@Override
-	public boolean equals(Command cmd) {
-		if (cmd instanceof CommandPong){
-			CommandPong cmdBar = (CommandPong) cmd;
+	public boolean equals(Message pongMessage) {
+		if (pongMessage instanceof PongMessage){
+			PongMessage cmdBar = (PongMessage) pongMessage;
 			if ((cmdBar.getNameFrom() == this.getNameFrom())
 					&& (cmdBar.getBestemmeling().equals(this.getBestemmeling()))
 					&& (cmdBar.getString().equals(this.getString())))
 				return true;
 		}
+		return false;
+	}
+
+	@Override
+	public boolean correctMessage() {
+		// TODO Auto-generated method stub
 		return false;
 	}
 

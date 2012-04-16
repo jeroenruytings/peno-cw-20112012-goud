@@ -2,9 +2,8 @@ package communicator.parser.decoder;
 
 import java.text.ParseException;
 
-import communicator.parser.Command;
 import communicator.parser.Decoder;
-import communicator.parser.command.CommandPing;
+import communicator.parser.messages.PingMessage;
 
 
 public class PING extends Decoder
@@ -24,11 +23,11 @@ public class PING extends Decoder
 	}
 
 	@Override
-	public Command parse(String message) throws ParseException
+	public PingMessage parse(String message) throws ParseException
 	{
 		String msg = stripMessage(message);
 		String[] mes = msg.split(" ");
-		return new CommandPing(mes[0], mes[2], mes[3]);
+		return new PingMessage(mes[0], mes[2], mes[3]);
 	}
 
 }

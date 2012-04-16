@@ -1,18 +1,17 @@
-package communicator.parser.command;
+package communicator.parser.messages;
 
 import java.awt.Point;
 import java.text.ParseException;
 
 import pacmansystem.ai.robot.Barcode;
 
-import communicator.parser.Command;
 import communicator.parser.MessageType;
 
 import data.board.Panel;
 import data.enums.Orientation;
 import data.world.World;
 
-public class CommandBarcodeAt implements Command {
+public class BarcodeAtMessage extends Message {
 
 	
 	private Point _coordinate;
@@ -20,7 +19,7 @@ public class CommandBarcodeAt implements Command {
 	private int _barcode;
 	private int _direction;
 
-	public CommandBarcodeAt(String name, Point coordinate, int barcode, int direction){
+	public BarcodeAtMessage(String name, Point coordinate, int barcode, int direction){
 		this._coordinate = coordinate;
 		this._name = name;
 		this._barcode = barcode;
@@ -55,7 +54,7 @@ public class CommandBarcodeAt implements Command {
 	}
 	
 	@Override
-	public void execute(World world) {
+	void execute(World world) {
 		Panel p;
 		if(world.getRobot(_name).getBoard().getPanelAt(getCoordinate()) == null){
 				p = new Panel();
@@ -82,15 +81,21 @@ public class CommandBarcodeAt implements Command {
 	}
 
 	@Override
-	public boolean equals(Command cmd) {
-		if (cmd instanceof CommandBarcodeAt){
-			CommandBarcodeAt cmdBar = (CommandBarcodeAt) cmd;
+	public boolean equals(Message cmd) {
+		if (cmd instanceof BarcodeAtMessage){
+			BarcodeAtMessage cmdBar = (BarcodeAtMessage) cmd;
 			if ((cmdBar.getNameFrom() == this.getNameFrom())
 					&& (cmdBar._direction == this._direction)
 					&& (cmdBar.getBarcode() == this.getBarcode())
 					&& (cmdBar.getCoordinate().equals(this.getCoordinate())))
 				return true;
 		}
+		return false;
+	}
+
+	@Override
+	public boolean correctMessage() {
+		// TODO: Check if all the fields are set.
 		return false;
 	}
 }

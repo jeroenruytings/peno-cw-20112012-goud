@@ -1,18 +1,17 @@
-package communicator.parser.command;
+package communicator.parser.messages;
 
 
-import communicator.parser.Command;
 import communicator.parser.MessageType;
 
 import data.world.InsufficientJoinsException;
 import data.world.World;
 
-public class CommandName implements Command
+public class NameMessage extends Message
 {
 	private String _name;
 	private String _version;
 
-	public CommandName(String name, String version)
+	public NameMessage(String name, String version)
 	{
 		_name = name;
 		_version = version;
@@ -48,13 +47,19 @@ public class CommandName implements Command
 	}
 	
 	@Override
-	public boolean equals(Command cmd) {
-		if (cmd instanceof CommandName){
-			CommandName cmdName = (CommandName) cmd;
+	public boolean equals(Message nameMessage) {
+		if (nameMessage instanceof NameMessage){
+			NameMessage cmdName = (NameMessage) nameMessage;
 			if ((cmdName.getNameFrom() == this.getNameFrom())
 					&& (cmdName.getVersion().equals(this.getVersion())))
 				return true;
 		}
+		return false;
+	}
+
+	@Override
+	public boolean correctMessage() {
+		// TODO Auto-generated method stub
 		return false;
 	}
 
