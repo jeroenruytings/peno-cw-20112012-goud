@@ -185,6 +185,28 @@ public class RobotData implements RobotDataView
 		plan = newPlan;
 	}
 	
+	/**
+	 * Returns a copy of the plan
+	 * @return	The plan that the robot is following
+	 */
+	public ArrayList<Point> getPlan() {
+		ArrayList<Point> copy = new ArrayList<Point>();
+		copy.addAll(plan);
+		return copy;
+	}
+	
+	/**
+	 * Returns the remainder of the plan that the robot still has to follow
+	 * @return	the remaining plan
+	 */
+	public ArrayList<Point> getRemainingPlan() {
+		ArrayList<Point> remainingPlan = getPlan();
+		while (remainingPlan.size() > 0 && !remainingPlan.get(0).equals(getPosition())) {
+				remainingPlan.remove(0);
+		}
+		return remainingPlan;
+	}
+	
 	/* (non-Javadoc)
 	 * @see util.world.RobotDataView#toString()
 	 */

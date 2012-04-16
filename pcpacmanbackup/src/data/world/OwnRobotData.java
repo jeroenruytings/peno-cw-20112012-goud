@@ -2,6 +2,7 @@ package data.world;
 
 import java.awt.Point;
 import java.io.IOException;
+import java.util.Queue;
 
 import pacmansystem.ai.robot.Barcode;
 
@@ -67,9 +68,21 @@ public class OwnRobotData extends RobotData
 			}
 		}
 	}
-	public void plan(Point[] plan)
+	public void plan(Queue<Point> plan)
 	{
-		
+		try{
+			String result = "";
+			for (Point point : plan) {
+				result += " " + pointToString(point);
+			}
+			MessageSender.getInstance().sendMessage(
+					getName()
+					+ " PLAN"
+					+ result
+					+ "\n");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	public void position(Point point)
 	{
@@ -161,6 +174,17 @@ public class OwnRobotData extends RobotData
 					+ bestemmeling
 					+ " "
 					+ uniekeString
+					+ "\n");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void cancelPlan() {
+		try{
+			MessageSender.getInstance().sendMessage(
+					getName()
+					+ " CANCELPLAN"
 					+ "\n");
 		} catch (IOException e) {
 			e.printStackTrace();

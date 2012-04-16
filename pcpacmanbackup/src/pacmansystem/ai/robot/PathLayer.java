@@ -36,32 +36,33 @@ public class PathLayer {
 	 * Going more then one step at a time is kinda silly in our design...
 	 * 
 	 * */
-	public void go(Point start, Point end) throws IllegalDriveException{
+	public void go(Point start, Point end) throws IllegalDriveException {
 		Iterable<Point> r = null;
 		try {
-			r = finder.shortestPath(start,end);
+			r = finder.shortestPath(start, end);
 		} catch (PathNotPossibleException e1) {
 			e1.printStackTrace();
 		}
 		Iterator<Point> s = r.iterator();
 		Point currentPoint = s.next();
-		while (s.hasNext()){
-//			if(!s.hasNext())
-//				break;
+		while (s.hasNext()) {
+			// if(!s.hasNext())
+			// break;
 			Point nextPoint = s.next();
 			try {
-				Orientation o = Board.getOrientationBetween(currentPoint, nextPoint);
+				Orientation o = Board.getOrientationBetween(currentPoint,
+						nextPoint);
 				orientationLayer.go(o);
 				currentPoint = nextPoint;
 				data.position(currentPoint);
 				data.setOrientation(o);
 			} catch (IllegalDriveException e) {
-				//fix things :D
+				// fix things :D
 				throw new IllegalDriveException(e);
 			}
-		}			
 		}
-	
+	}
+
 //	private String pointToString(Point p)
 //	{
 //		return p.x + "," + p.y;
@@ -96,7 +97,7 @@ public class PathLayer {
 			e.printStackTrace();
 		
 		}
-
+		
 		data.position(next);
 		data.setOrientation(o);
 	}
