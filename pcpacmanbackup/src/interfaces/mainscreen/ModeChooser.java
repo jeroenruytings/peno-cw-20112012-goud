@@ -69,18 +69,18 @@ public class ModeChooser extends JFrame implements ActionListener {
 		lblRobot1.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(lblRobot1);
 		
-		cmbRobot1 = new JComboBox<RobotType>();
+		cmbRobot1 = new JComboBox();
 		lblRobot1.setLabelFor(cmbRobot1);
-		cmbRobot1.setModel(new DefaultComboBoxModel<RobotType>(RobotType.values()));
+		cmbRobot1.setModel(new DefaultComboBoxModel(RobotType.values()));
 		panel.add(cmbRobot1);
 		
 		JLabel lblRobot2 = new JLabel("Robot 2:");
 		lblRobot2.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(lblRobot2);
 		
-		cmbRobot2 = new JComboBox<RobotType>();
+		cmbRobot2 = new JComboBox();
 		lblRobot2.setLabelFor(cmbRobot2);
-		cmbRobot2.setModel(new DefaultComboBoxModel<RobotType>(RobotType.values()));
+		cmbRobot2.setModel(new DefaultComboBoxModel(RobotType.values()));
 		cmbRobot2.setSelectedIndex(1);
 		panel.add(cmbRobot2);
 		
@@ -88,9 +88,9 @@ public class ModeChooser extends JFrame implements ActionListener {
 		lblRobot3.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(lblRobot3);
 		
-		cmbRobot3 = new JComboBox<RobotType>();
+		cmbRobot3 = new JComboBox();
 		lblRobot3.setLabelFor(cmbRobot3);
-		cmbRobot3.setModel(new DefaultComboBoxModel<RobotType>(RobotType.values()));
+		cmbRobot3.setModel(new DefaultComboBoxModel(RobotType.values()));
 		cmbRobot3.setSelectedIndex(1);
 		panel.add(cmbRobot3);
 		
@@ -98,9 +98,9 @@ public class ModeChooser extends JFrame implements ActionListener {
 		lblRobot4.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(lblRobot4);
 		
-		cmbRobot4 = new JComboBox<RobotType>();
+		cmbRobot4 = new JComboBox();
 		lblRobot4.setLabelFor(cmbRobot4);
-		cmbRobot4.setModel(new DefaultComboBoxModel<RobotType>(RobotType.values()));
+		cmbRobot4.setModel(new DefaultComboBoxModel(RobotType.values()));
 		cmbRobot4.setSelectedIndex(1);
 		panel.add(cmbRobot4);
 		
@@ -116,10 +116,10 @@ public class ModeChooser extends JFrame implements ActionListener {
 	}
 	
 	private RobotType[] choice = null;
-	private JComboBox<RobotType> cmbRobot1;
-	private JComboBox<RobotType> cmbRobot2;
-	private JComboBox<RobotType> cmbRobot3;
-	private JComboBox<RobotType> cmbRobot4;
+	private JComboBox cmbRobot1;
+	private JComboBox cmbRobot2;
+	private JComboBox cmbRobot3;
+	private JComboBox cmbRobot4;
 	
 	
 	public synchronized RobotType[] getChoice(){
