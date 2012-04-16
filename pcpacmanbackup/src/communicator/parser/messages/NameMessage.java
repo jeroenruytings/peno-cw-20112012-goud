@@ -1,26 +1,16 @@
 package communicator.parser.messages;
 
-
-import communicator.parser.MessageType;
-
 import data.world.InsufficientJoinsException;
 import data.world.World;
 
 public class NameMessage extends Message
 {
-	private String _name;
 	private String _version;
 
 	public NameMessage(String name, String version)
 	{
-		_name = name;
+		super(name);
 		_version = version;
-	}
-
-	@Override
-	public String getNameFrom()
-	{
-		return _name;
 	}
 
 	public String getVersion()
@@ -42,8 +32,8 @@ public class NameMessage extends Message
 	}
 
 	@Override
-	public MessageType getMessageType() {
-		return MessageType.NAME;
+	public String getKeyword() {
+		return "NAME";
 	}
 	
 	@Override
@@ -61,6 +51,12 @@ public class NameMessage extends Message
 	public boolean correctMessage() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	protected String getParameterString() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -1,10 +1,17 @@
 package data.world;
 
 import java.awt.Point;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
+import javax.swing.JFileChooser;
 
 import data.board.Board;
+import data.board.BoardCreator;
 
 
 public class RealWorld
@@ -67,6 +74,56 @@ public class RealWorld
 	
 	public Point getStartingPoint(){
 		return _startinpos.get(startingPointIndex++);
+	}
+
+	public static RealWorld getRealWorld(String string)
+	{
+		Scanner scr;
+		try {
+			scr = new Scanner(new File(string));
+		} catch (FileNotFoundException e) {
+			throw new Error("loading of file:"+ string+" failed");
+		}
+		ArrayList<String> tmp = new ArrayList<String>();
+		while(scr.hasNext()){
+			String command = scr.nextLine();
+			tmp.add(command);
+		}
+		RealWorld result = null;
+		String[] commands = new String[10];
+		try {
+			result = BoardCreator.createBoard(tmp.toArray(commands));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return result;	
+	}
+
+	/**
+	 * Ask a RealWorld from the user.
+	 */
+	public static RealWorld getRealWorld(){
+		JFileChooser fileWindow = new JFileChooser();
+		fileWindow.showOpenDialog(null);
+		Scanner scr = null;
+		try {
+			scr = new Scanner(fileWindow.getSelectedFile());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		ArrayList<String> tmp = new ArrayList<String>();
+		while(scr.hasNext()){
+			String command = scr.nextLine();
+			tmp.add(command);
+		}
+		RealWorld result = null;
+		String[] commands = new String[10];
+		try {
+			result = BoardCreator.createBoard(tmp.toArray(commands));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }

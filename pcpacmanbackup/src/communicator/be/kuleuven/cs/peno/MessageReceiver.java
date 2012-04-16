@@ -66,11 +66,11 @@ public class MessageReceiver extends Observable implements Runnable{
 					String message = new String(body);
 					
 					try {
-						Message command = decoder.parse(message);
-						RabbitHistory.receiveMessage(message,command.getNameFrom());
+						Message decodedMessage = decoder.parse(message);
+						RabbitHistory.receiveMessage(message,decodedMessage.getNameFrom());
 
 						setChanged();
-						notifyObservers(command);
+						notifyObservers(decodedMessage);
 
 					} catch (ParseException e) {
 						System.out.println("fail");

@@ -1,13 +1,13 @@
 package communicator.parser.messages;
 
-
-import communicator.parser.MessageType;
-
 import data.world.World;
 
 public class NullMessage extends Message
 {
-
+	public NullMessage(){
+		super("");
+	}
+	
 	@Override
 	void execute(World world)
 	{
@@ -19,9 +19,10 @@ public class NullMessage extends Message
 	{
 		return "";
 	}
+	
 	@Override
-	public MessageType getMessageType() {
-		return MessageType.UNKNOWN;
+	public String getKeyword() {
+		return "UNKNOWN";
 	}
 	
 	@Override
@@ -35,6 +36,11 @@ public class NullMessage extends Message
 	@Override
 	public boolean correctMessage() {
 		return true;
+	}
+
+	@Override
+	protected String getParameterString() {
+		return "";
 	}
 
 }

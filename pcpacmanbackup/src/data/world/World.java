@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import communicator.be.kuleuven.cs.peno.MessageReceiver;
 import communicator.be.kuleuven.cs.peno.MessageSender;
 import communicator.parser.messages.Command;
+import communicator.parser.messages.Message;
 
 import data.board.Board;
 
@@ -155,7 +156,8 @@ public class World implements Observer
 	public void update(Observable o, Object arg)
 	{
 		if (o == rec) {
-			Command cmd = ((Command) arg);
+			// arg is een Message-object
+			Command cmd = new Command((Message) arg);
 			cmd.execute(this);
 		}
 	}

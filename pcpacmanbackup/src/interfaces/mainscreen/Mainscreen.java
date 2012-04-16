@@ -22,15 +22,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
@@ -41,7 +37,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
@@ -49,8 +44,6 @@ import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
 import javax.swing.border.MatteBorder;
 
-import data.board.BoardCreator;
-import data.world.RealWorld;
 import data.world.RobotData;
 import data.world.World;
 
@@ -423,55 +416,6 @@ public class Mainscreen implements ActionListener, Runnable
 		} catch (LineUnavailableException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	/**
-	 * Ask a RealWorld from the user.
-	 */
-	public static RealWorld getRealWorld(){
-		JFileChooser fileWindow = new JFileChooser();
-		fileWindow.showOpenDialog(null);
-		Scanner scr = null;
-		try {
-			scr = new Scanner(fileWindow.getSelectedFile());
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		ArrayList<String> tmp = new ArrayList<String>();
-		while(scr.hasNext()){
-			String command = scr.nextLine();
-			tmp.add(command);
-		}
-		RealWorld result = null;
-		String[] commands = new String[10];
-		try {
-			result = BoardCreator.createBoard(tmp.toArray(commands));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
-	public static RealWorld getRealWorld(String string)
-	{
-		Scanner scr;
-		try {
-			scr = new Scanner(new File(string));
-		} catch (FileNotFoundException e) {
-			throw new Error("loading of file:"+ string+" failed");
-		}
-		ArrayList<String> tmp = new ArrayList<String>();
-		while(scr.hasNext()){
-			String command = scr.nextLine();
-			tmp.add(command);
-		}
-		RealWorld result = null;
-		String[] commands = new String[10];
-		try {
-			result = BoardCreator.createBoard(tmp.toArray(commands));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		return result;	
 	}
 
 }

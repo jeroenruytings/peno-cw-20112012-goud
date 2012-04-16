@@ -1,19 +1,34 @@
 package communicator.parser.messages;
 
-import communicator.parser.MessageType;
-
 import data.world.World;
 
 public abstract class Message {
 	
+	public Message(String nameFrom){
+		_nameFrom = nameFrom;
+	}
 	
-	abstract void execute(World world);
+	public String getNameFrom(){
+		return _nameFrom;
+	}
+
+	private String _nameFrom;
+
+	public abstract String getKeyword();
 	
-	public abstract MessageType getMessageType();
 	
+	protected abstract String getParameterString();
+	
+	
+	public String getSentString(){
+		return getNameFrom() + getKeyword() + getParameterString();
+	}
+
 	public abstract boolean correctMessage();
 	
-	public abstract String getNameFrom();
-	
+	abstract void execute(World world);
+
 	public abstract boolean equals(Message cmd);
+	
+	
 }

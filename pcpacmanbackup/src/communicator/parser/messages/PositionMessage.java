@@ -2,26 +2,17 @@ package communicator.parser.messages;
 
 import java.awt.Point;
 
-import communicator.parser.MessageType;
-
 import data.world.World;
 
 public class PositionMessage extends Message
 {
 
 	private Point _position;
-	private String _name;
 
-	public PositionMessage(String name, Point position)
+	public PositionMessage(String nameFrom, Point position)
 	{
+		super(nameFrom);
 		this._position = position;
-		this._name = name;
-	}
-
-	@Override
-	public String getNameFrom()
-	{
-		return _name;
 	}
 
 	public Point getPosition()
@@ -32,16 +23,16 @@ public class PositionMessage extends Message
 	@Override
 	void execute(World world)
 	{
-		world.getRobot(_name).setPosition(_position);
-		synchronized (world.getRobot(_name)) {
-			world.getRobot(_name).notify();
+		world.getRobot(getNameFrom()).setPosition(_position);
+		synchronized (world.getRobot(getNameFrom())) {
+			world.getRobot(getNameFrom()).notify();
 		}
 		
 	}
 
 	@Override
-	public MessageType getMessageType() {
-		return MessageType.POSITION;
+	public String getKeyword() {
+		return "POSITION";
 	}
 	
 	@Override
@@ -59,6 +50,12 @@ public class PositionMessage extends Message
 	public boolean correctMessage() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	protected String getParameterString() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

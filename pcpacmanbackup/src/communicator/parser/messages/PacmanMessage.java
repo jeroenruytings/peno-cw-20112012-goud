@@ -1,27 +1,17 @@
 package communicator.parser.messages;
 
 import java.awt.Point;
-
-import communicator.parser.MessageType;
-
 import data.world.World;
 
 public class PacmanMessage extends Message
 {
 
-	private String _name;
 	private Point _coordinate;
 
-	public PacmanMessage(String name, Point coordinate)
+	public PacmanMessage(String nameFrom, Point coordinate)
 	{
-		this._name = name;
+		super(nameFrom);
 		this._coordinate = coordinate;
-	}
-
-	@Override
-	public String getNameFrom()
-	{
-		return _name;
 	}
 
 	public Point getPosition()
@@ -32,16 +22,16 @@ public class PacmanMessage extends Message
 	@Override
 	public void execute(World world)
 	{
-		world.getRobot(_name).setPacman(_coordinate);
-		synchronized (world.getRobot(_name)) {
-			world.getRobot(_name).notify();
+		world.getRobot(getNameFrom()).setPacman(_coordinate);
+		synchronized (world.getRobot(getNameFrom())) {
+			world.getRobot(getNameFrom()).notify();
 		}
 		
 	}
 
 	@Override
-	public MessageType getMessageType() {
-		return MessageType.PACMAN;
+	public String getKeyword() {
+		return "PACMAN";
 	}
 
 	@Override
@@ -59,6 +49,12 @@ public class PacmanMessage extends Message
 	public boolean correctMessage() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	protected String getParameterString() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

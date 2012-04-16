@@ -1,35 +1,25 @@
 package communicator.parser.messages;
 
-
-import communicator.parser.MessageType;
-
 import data.world.World;
 
 public class CapturedMessage extends Message
 {
 
-	private String _name;
 
-	public CapturedMessage(String name)
+	public CapturedMessage(String nameFrom)
 	{
-		this._name = name;
-	}
-
-	@Override
-	public String getNameFrom()
-	{
-		return _name;
+		super(nameFrom);
 	}
 
 	@Override
 	void execute(World simulator)
 	{
-		simulator.getRobot(_name).setCapturedPacman(true);
+		simulator.getRobot(getNameFrom()).setCapturedPacman(true);
 	}
 
 	@Override
-	public MessageType getMessageType() {
-		return MessageType.CAPTURED;
+	public String getKeyword() {
+		return "CAPTURED";
 	}
 	
 	@Override
@@ -46,6 +36,12 @@ public class CapturedMessage extends Message
 	public boolean correctMessage() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	protected String getParameterString() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

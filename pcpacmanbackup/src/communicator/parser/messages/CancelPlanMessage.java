@@ -1,35 +1,27 @@
 package communicator.parser.messages;
 
 
-import communicator.parser.MessageType;
+
 
 import data.world.World;
 
 public class CancelPlanMessage extends Message
 {
 
-	private String _name;
-
-	public CancelPlanMessage(String _name)
+	public CancelPlanMessage(String nameFrom)
 	{
-		this._name = _name;
-	}
-
-	@Override
-	public String getNameFrom()
-	{
-		return _name;
+		super(nameFrom);
 	}
 
 	@Override
 	void execute(World simulator)
 	{
-		simulator.getRobot(_name).clearPlan();
+		simulator.getRobot(getNameFrom()).clearPlan();
 	}
 
 	@Override
-	public MessageType getMessageType() {
-		return MessageType.CANCELPLAN;
+	public String getKeyword() {
+		return "CANCELPLAN";
 	}
 	
 	@Override
@@ -46,6 +38,12 @@ public class CancelPlanMessage extends Message
 	public boolean correctMessage() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	protected String getParameterString() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

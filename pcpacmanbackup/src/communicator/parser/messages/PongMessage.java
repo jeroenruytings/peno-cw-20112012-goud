@@ -1,26 +1,20 @@
 package communicator.parser.messages;
 
 
-import communicator.parser.MessageType;
+
 
 import data.world.World;
 
 public class PongMessage extends Message {
 
-	private String _name;
 	private String _bestemmeling;
 	private String _string;
 	
 	
-	public PongMessage(String name, String bestemmeling, String string) {
-		this._name = name;
+	public PongMessage(String nameFrom, String bestemmeling, String string) {
+		super(nameFrom);
 		this._bestemmeling = bestemmeling;
 		this._string = string;
-	}
-
-	@Override
-	public String getNameFrom() {
-		return _name;
 	}
 	
 	/**
@@ -44,8 +38,8 @@ public class PongMessage extends Message {
 	}
 
 	@Override
-	public MessageType getMessageType() {
-		return MessageType.PONG;
+	public String getKeyword() {
+		return "PONG";
 	}
 	
 	@Override
@@ -64,6 +58,12 @@ public class PongMessage extends Message {
 	public boolean correctMessage() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	protected String getParameterString() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

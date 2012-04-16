@@ -1,6 +1,5 @@
 package pacmansystem.ai.robot.simulatedRobot;
 
-import interfaces.mainscreen.Mainscreen;
 
 import java.awt.Point;
 
@@ -146,7 +145,7 @@ public class SimulatedRobot implements PanelLayerInterface
 
 	public static void main(String[] args)
 	{
-		RealWorld board = Mainscreen.getRealWorld();
+		RealWorld board = RealWorld.getRealWorld();
 		SimulatedRobot r = new SimulatedRobot(board, new Point(2, 1),
 				Orientation.WEST);
 		System.out.println(new Barcode(237).getBitString());

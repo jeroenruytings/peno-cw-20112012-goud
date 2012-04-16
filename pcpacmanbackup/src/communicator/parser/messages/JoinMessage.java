@@ -1,8 +1,5 @@
 package communicator.parser.messages;
 
-
-import communicator.parser.MessageType;
-
 import data.world.World;
 
 public class JoinMessage extends Message
@@ -10,7 +7,7 @@ public class JoinMessage extends Message
 
 	public JoinMessage()
 	{
-		
+		super("");
 	}
 
 	@Override
@@ -26,8 +23,8 @@ public class JoinMessage extends Message
 	}
 
 	@Override
-	public MessageType getMessageType() {
-		return MessageType.JOIN;
+	public String getKeyword() {
+		return "JOIN";
 	}
 	
 	@Override
@@ -42,6 +39,12 @@ public class JoinMessage extends Message
 	public boolean correctMessage() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	protected String getParameterString() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

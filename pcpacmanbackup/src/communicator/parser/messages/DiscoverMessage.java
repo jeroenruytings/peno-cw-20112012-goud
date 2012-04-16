@@ -2,8 +2,6 @@ package communicator.parser.messages;
 
 import java.awt.Point;
 
-import communicator.parser.MessageType;
-
 import data.board.Board;
 import data.board.Panel;
 import data.board.Panel.WallState;
@@ -23,7 +21,7 @@ public class DiscoverMessage extends Message
 	public DiscoverMessage(String name, Point coordinate, int i,
 			int j, int k, int l)
 	{
-		this._name = name;
+		super(name);
 		this._coordinate = coordinate;
 		this._north = (byte) i;
 		this._east = (byte) j;
@@ -76,8 +74,8 @@ public class DiscoverMessage extends Message
 	}
 
 	@Override
-	public MessageType getMessageType() {
-		return MessageType.DISCOVER;
+	public String getKeyword() {
+		return "DISCOVER";
 	}
 	
 	@Override
@@ -96,6 +94,12 @@ public class DiscoverMessage extends Message
 	public boolean correctMessage() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	protected String getParameterString() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

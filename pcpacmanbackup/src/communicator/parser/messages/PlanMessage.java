@@ -4,26 +4,17 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import communicator.parser.MessageType;
-
 import data.world.World;
 
 public class PlanMessage extends Message
 {
 
-	private String _name;
 	private Point[] _path;
 
-	public PlanMessage(String name, Point... path)
+	public PlanMessage(String nameFrom, Point... path)
 	{
-		this._name = name;
+		super(nameFrom);
 		_path = path;
-	}
-
-	@Override
-	public String getNameFrom()
-	{
-		return _name;
 	}
 
 	public Point[] getPath()
@@ -39,12 +30,12 @@ public class PlanMessage extends Message
 		for (Point point : _path) {
 			plan.add(point);
 		}
-		simulator.getRobot(_name).addPlan(plan);
+		simulator.getRobot(getNameFrom()).addPlan(plan);
 	}
 
 	@Override
-	public MessageType getMessageType() {
-		return MessageType.PLAN;
+	public String getKeyword() {
+		return "PLAN";
 	}
 
 	@Override
@@ -62,5 +53,11 @@ public class PlanMessage extends Message
 	public boolean correctMessage() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	protected String getParameterString() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

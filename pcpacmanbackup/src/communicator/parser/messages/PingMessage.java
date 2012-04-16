@@ -1,26 +1,17 @@
 package communicator.parser.messages;
 
-
-import communicator.parser.MessageType;
-
 import data.world.RobotData;
 import data.world.World;
 
 public class PingMessage extends Message {
 
-	private String _name;
 	private String _bestemmeling;
 	private String _string;
 	
-	public PingMessage(String name, String bestemmeling, String string){
-		this._name = name;
+	public PingMessage(String nameFrom, String bestemmeling, String string){
+		super(nameFrom);
 		this._bestemmeling = bestemmeling;
 		this._string = string;
-	}
-	
-	@Override
-	public String getNameFrom() {
-		return _name;
 	}
 	
 	public String getBestemmeling(){
@@ -41,8 +32,8 @@ public class PingMessage extends Message {
 	}
 
 	@Override
-	public MessageType getMessageType() {
-		return MessageType.PING;
+	public String getKeyword() {
+		return "PING";
 	}
 	
 	@Override
@@ -61,6 +52,12 @@ public class PingMessage extends Message {
 	public boolean correctMessage() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	protected String getParameterString() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

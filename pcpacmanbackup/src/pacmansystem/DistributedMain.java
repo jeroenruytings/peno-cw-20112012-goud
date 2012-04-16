@@ -77,7 +77,7 @@ public class DistributedMain
 			controller = new RobotController(ol, robotName, world);
 			return controller;
 		} else {
-			RealWorld simulatorWorld = Mainscreen.getRealWorld();
+			RealWorld simulatorWorld = RealWorld.getRealWorld();
 			PanelLayerInterface p = new SimulatedRobot(simulatorWorld,
 					simulatorWorld.getStartingPoint(robotNumber),
 					Orientation.random(),1000);
@@ -90,7 +90,7 @@ public class DistributedMain
 
 	private static RobotController initSimulated(int integer, String string)
 	{
-		RealWorld simulatorWorld = Mainscreen.getRealWorld(string);
+		RealWorld simulatorWorld = RealWorld.getRealWorld(string);
 		PanelLayerInterface p = new SimulatedRobot(simulatorWorld,
 				simulatorWorld.getStartingPoint(robotNumber),
 				Orientation.fromOrdinal(integer),speed);

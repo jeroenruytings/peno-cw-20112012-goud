@@ -40,27 +40,27 @@ public class _CommandTest {
 	public void testGetMessageType() {
 		Message cmd;
 		cmd = new JoinMessage();
-		assertEquals(cmd.getMessageType(), MessageType.JOIN);
+		assertEquals(cmd.getKeyword(), "JOIN");
 		cmd = new NameMessage(null, null);
-		assertEquals(cmd.getMessageType(), MessageType.NAME);
+		assertEquals(cmd.getKeyword(), "NAME");
 		cmd = new PositionMessage(null, null);
-		assertEquals(cmd.getMessageType(), MessageType.POSITION);
+		assertEquals(cmd.getKeyword(), "POSITION");
 		cmd = new DiscoverMessage(null, null, 0, 0, 0, 0);
-		assertEquals(cmd.getMessageType(), MessageType.DISCOVER);
+		assertEquals(cmd.getKeyword(), "DISCOVER");
 		cmd = new BarcodeAtMessage(null, null, 0, 0);
-		assertEquals(cmd.getMessageType(), MessageType.BARCODEAT);
+		assertEquals(cmd.getKeyword(), "BARCODEAT");
 		cmd = new PacmanMessage(null, null);
-		assertEquals(cmd.getMessageType(), MessageType.PACMAN);
+		assertEquals(cmd.getKeyword(), "PACMAN");
 		cmd = new CapturedMessage(null);
-		assertEquals(cmd.getMessageType(), MessageType.CAPTURED);
+		assertEquals(cmd.getKeyword(), "CAPTURED");
 		cmd = new PlanMessage(null,new Point(1,1));
-		assertEquals(cmd.getMessageType(), MessageType.PLAN);
+		assertEquals(cmd.getKeyword(), "PLAN");
 		cmd = new CancelPlanMessage(null);
-		assertEquals(cmd.getMessageType(), MessageType.CANCELPLAN);
+		assertEquals(cmd.getKeyword(), "CANCELPLAN");
 		cmd = new PingMessage(null, null, null);
-		assertEquals(cmd.getMessageType(), MessageType.PING);
+		assertEquals(cmd.getKeyword(), "PING");
 		cmd = new PongMessage(null, null, null);
-		assertEquals(cmd.getMessageType(), MessageType.PONG);
+		assertEquals(cmd.getKeyword(), "PONG");
 	}
 
 	@Test
