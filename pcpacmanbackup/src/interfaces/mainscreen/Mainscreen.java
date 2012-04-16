@@ -200,6 +200,7 @@ public class Mainscreen implements ActionListener, Runnable
 	public void setRobotData(RobotData data){
 		setRobotPanel(new BoardPanel(data));
 	}
+	
 	List<BoardPanel> boards = new ArrayList<BoardPanel>();
 	
 	private int robotPanels = 0;
@@ -207,7 +208,9 @@ public class Mainscreen implements ActionListener, Runnable
 		if (robotPanels == 0)
 			splitPane.setLeftComponent(panel);
 		else
-			otherRobotPanel.getLayout().addLayoutComponent("Robot" + robotPanels, panel);
+			otherRobotPanel.add(panel);
+		robotPanels++;
+		boards.add(panel);
 //		switch(robotPanels){
 //		case 0:
 //			//splitPane_2.setLeftComponent(panel);
@@ -225,11 +228,10 @@ public class Mainscreen implements ActionListener, Runnable
 //		default:
 //			return;
 //		}
-		robotPanels++;
-		boards.add(panel);
 
 	}
 	
+	@Deprecated
 	public void setWorld(World world){
 		BoardPanel panel = new BoardPanel(world);
 			splitPane_5.setLeftComponent(panel);

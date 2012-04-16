@@ -1,8 +1,6 @@
 package pacmansystem;
 
-import interfaces.mainscreen.ComponentFrame;
 import interfaces.mainscreen.Mainscreen;
-import interfaces.pacmancomponents.RabbitHistory;
 import interfaces.pacmancomponents.RobotOptionPane;
 import pacmansystem.ai.RobotController;
 import pacmansystem.ai.robot.OrientationLayer;
@@ -52,10 +50,13 @@ public class DistributedMain
 		if (visible)
 			gui.start(); 
 		robot.establishConnection();
-		for (RobotData r : robot.getWorld().get_robots().values())
-			gui.setRobotData(r);
-
-		gui.setWorld(robot.getWorld());
+		gui.setRobotData(robot.getData());
+		for (RobotData r : robot.getWorld().get_robots().values()){
+			if (r != robot.getData())
+				gui.setRobotData(r);
+		}
+		
+		//gui.setWorld(robot.getWorld());
 		robot.start();
 	}
 
