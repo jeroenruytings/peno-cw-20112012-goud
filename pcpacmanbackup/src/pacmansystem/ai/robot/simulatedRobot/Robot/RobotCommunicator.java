@@ -10,19 +10,12 @@ public class RobotCommunicator {
 	private DataOutputStream out;
 	private DataInputStream in;
 
-	public static RobotCommunicator instance() {
-		if (instance == null)
-			instance = new RobotCommunicator();
-		return instance;
-	}
-
-	private RobotCommunicator() {
+	
+	public RobotCommunicator(DataInputStream in,DataOutputStream out) {
 		System.out.println("waiting..");
-		
-		BTConnection con = Bluetooth.waitForConnection();
 		System.out.println("connection established");
-		in = con.openDataInputStream();
-		out = con.openDataOutputStream();
+		this.in = in;
+		this.out = out;
 	}
 
 	synchronized public void send(Message message) {

@@ -17,15 +17,27 @@ public class OwnSimulatedConnection
 		output=out;
 		
 	}
-	public OutputStream getOut()
+	/**
+	 * 
+	 * @return
+	 */
+	public OutputStream getPcOut()
 	{
 		return  output.getOut();
 		
 	}
-	public InputStream getIn()
+	public OutputStream getRobotOut()
+	{
+		return input.getOut();
+	}
+	public InputStream getPCIN()
 	{
 		return input.getIn();
 		
+	}
+	public InputStream getRobotIN()
+	{
+		return output.getIn();
 	}
 
 }

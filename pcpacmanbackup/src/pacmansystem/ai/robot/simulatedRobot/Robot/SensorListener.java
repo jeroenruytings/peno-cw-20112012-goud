@@ -10,10 +10,8 @@ public class SensorListener implements Runnable {
 	Motor head = new Motor(MotorPort.C);
 	RobotCommunicator communicator;
 	
-	public SensorListener(){
-		
-		communicator = RobotCommunicator.instance();
-		
+	public SensorListener(RobotCommunicator comm){
+		this.communicator=comm;
 	}
 	
 	private int sonarValue;

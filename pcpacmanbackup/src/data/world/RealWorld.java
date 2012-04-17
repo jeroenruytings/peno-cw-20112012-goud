@@ -98,6 +98,29 @@ public class RealWorld
 		}
 		return result;	
 	}
+	public static RealWorld getRealWorld(File file)
+	{
+		Scanner scr;
+		try {
+			scr = new Scanner(file);
+		} catch (FileNotFoundException e1) {
+			throw new Error("file does not exist");
+		}
+	
+		ArrayList<String> tmp = new ArrayList<String>();
+		while(scr.hasNext()){
+			String command = scr.nextLine();
+			tmp.add(command);
+		}
+		RealWorld result = null;
+		String[] commands = new String[10];
+		try {
+			result = BoardCreator.createBoard(tmp.toArray(commands));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return result;	
+	}
 
 	/**
 	 * Ask a RealWorld from the user.

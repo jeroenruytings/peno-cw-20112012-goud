@@ -34,17 +34,13 @@ public class CommandoListener implements Runnable {
 	int White;
 	int Brown;
 	
-	public CommandoListener(SensorListener listener){
+	public CommandoListener(SensorListener listener,RobotCommunicator comm){
 		
-		communicator = RobotCommunicator.instance();
+		communicator =comm;
 		pilot = new DifferentialPilot(54.5f, 54.75f, 148.35f, Motor.A, Motor.B, false);
 		this.listener = listener;
 	}
 	
-	public void start(){
-		Thread listener = new Thread(this);
-	    listener.start();
-	}
 
 	@Override
 	public void run() {

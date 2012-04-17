@@ -1,82 +1,43 @@
 package pacmansystem.ai.robot.simulatedRobot;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Scanner;
 
 import pacmansystem.ai.robot.simulatedRobot.stream.QueuedStream;
 
 
 public class SimulationConnection
 {
-	private QueuedStream out;
-	private QueuedStream in;
+	private QueuedStream input;
+	private QueuedStream output;
 	public SimulationConnection()
 	{
-		 in = new QueuedStream();
-		 out = new QueuedStream();
+		input=new QueuedStream();
+		output=new QueuedStream();
 		
 	}
-
-	public OutputStream getOut()
+	/**
+	 * 
+	 * @return
+	 */
+	public OutputStream getPcOut()
 	{
-		return out.getOut();
-	}
-
-	public InputStream getIn()
-	{
-		return in.getIn();
-	}
-
-	
-	public static void main(String[] args)
-	{
-		final SimulationConnection c = new SimulationConnection();
+		return  output.getOut();
 		
-		new Thread(new Runnable()
-		{
-			
-			@Override
-			public void run()
-			{
-				while(true)
-					try {
-						OutputStream stream = c.getOut();
-						DataOutputStream data = new DataOutputStream(stream);
-						data.writeUTF(new Scanner(System.in).next());
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-			}
-		}).start();
-		final	OwnSimulatedConnection s = c.getOwn();
-		new Thread(new Runnable()
-		{
-			
-			@Override
-			public void run()
-			{
-				while(true)
-					try {
-						DataInputStream d = new DataInputStream(s.getIn());
-						System.out.println(d.readUTF());
-						
-					
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-			}
-		}).start();
+	}
+	OutputStream getRobotOut()
+	{
+		return input.getOut();
+	}
+	public InputStream getPCIN()
+	{
+		return input.getIn();
+		
+	}
+	InputStream getRobotIN()
+	{
+		return output.getIn();
 	}
 
-	public OwnSimulatedConnection getOwn()
-	{
-		
-		return new OwnSimulatedConnection(out, in);
-	}
 
 }
