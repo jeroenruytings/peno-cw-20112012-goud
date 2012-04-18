@@ -33,14 +33,4 @@ public class NullMessage extends Message
 		return false;
 	}
 
-	@Override
-	public boolean correctMessage() {
-		return true;
-	}
-
-	@Override
-	protected String getParameterString() {
-		return "";
-	}
-
 }

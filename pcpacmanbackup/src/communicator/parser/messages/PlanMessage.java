@@ -14,6 +14,8 @@ public class PlanMessage extends Message
 	public PlanMessage(String nameFrom, Point... path)
 	{
 		super(nameFrom);
+		for (Point point : path)
+			setParameter(point);
 		_path = path;
 	}
 
@@ -47,17 +49,5 @@ public class PlanMessage extends Message
 				return true;
 		}
 		return false;
-	}
-
-	@Override
-	public boolean correctMessage() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	protected String getParameterString() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

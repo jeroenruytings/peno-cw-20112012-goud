@@ -10,6 +10,7 @@ public class NameMessage extends Message
 	public NameMessage(String name, String version)
 	{
 		super(name);
+		setParameter(version);
 		_version = version;
 	}
 
@@ -45,18 +46,6 @@ public class NameMessage extends Message
 				return true;
 		}
 		return false;
-	}
-
-	@Override
-	public boolean correctMessage() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	protected String getParameterString() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

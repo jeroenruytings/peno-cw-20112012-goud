@@ -14,8 +14,6 @@ public class Command
 	 * 				The message to execute.
 	 */
 	public Command(Message message){
-		if(!message.correctMessage())
-			throw new IllegalArgumentException("The given message is not valid");
 		_myMessage = message;
 	}
 	

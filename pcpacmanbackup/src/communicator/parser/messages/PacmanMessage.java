@@ -11,6 +11,7 @@ public class PacmanMessage extends Message
 	public PacmanMessage(String nameFrom, Point coordinate)
 	{
 		super(nameFrom);
+		setParameter(coordinate);
 		this._coordinate = coordinate;
 	}
 
@@ -43,18 +44,6 @@ public class PacmanMessage extends Message
 				return true;
 		}
 		return false;
-	}
-
-	@Override
-	public boolean correctMessage() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	protected String getParameterString() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

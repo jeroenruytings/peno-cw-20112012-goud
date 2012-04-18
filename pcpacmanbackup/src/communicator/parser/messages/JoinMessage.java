@@ -35,16 +35,4 @@ public class JoinMessage extends Message
 		return false;
 	}
 
-	@Override
-	public boolean correctMessage() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	protected String getParameterString() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

@@ -18,15 +18,20 @@ public class DiscoverMessage extends Message
 	private byte _south;
 	private byte _west;
 
-	public DiscoverMessage(String name, Point coordinate, int i,
-			int j, int k, int l)
+	public DiscoverMessage(String nameFrom, Point coordinate, int n,
+			int e, int s, int w)
 	{
-		super(name);
+		super(nameFrom);
+		setParameter(coordinate);
+		setParameter(n);
+		setParameter(e);
+		setParameter(s);
+		setParameter(w);
 		this._coordinate = coordinate;
-		this._north = (byte) i;
-		this._east = (byte) j;
-		this._south =(byte) k;
-		this._west = (byte) l;
+		this._north = (byte) n;
+		this._east = (byte) e;
+		this._south =(byte) s;
+		this._west = (byte) w;
 	}
 
 	@Override
@@ -88,18 +93,6 @@ public class DiscoverMessage extends Message
 				return true;
 		}
 		return false;
-	}
-
-	@Override
-	public boolean correctMessage() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	protected String getParameterString() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

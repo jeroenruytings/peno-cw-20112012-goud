@@ -10,6 +10,8 @@ public class PingMessage extends Message {
 	
 	public PingMessage(String nameFrom, String bestemmeling, String string){
 		super(nameFrom);
+		setParameter(bestemmeling);
+		setParameter(string);
 		this._bestemmeling = bestemmeling;
 		this._string = string;
 	}
@@ -46,18 +48,6 @@ public class PingMessage extends Message {
 				return true;
 		}
 		return false;
-	}
-
-	@Override
-	public boolean correctMessage() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	protected String getParameterString() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

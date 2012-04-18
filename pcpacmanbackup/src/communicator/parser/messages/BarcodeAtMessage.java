@@ -17,6 +17,9 @@ public class BarcodeAtMessage extends Message {
 
 	public BarcodeAtMessage(String name, Point coordinate, int barcode, int direction){
 		super(name);
+		setParameter(coordinate);
+		setParameter(barcode);
+		setParameter(direction);
 		this._coordinate = coordinate;
 		this._barcode = barcode;
 		this._direction = direction;
@@ -82,17 +85,5 @@ public class BarcodeAtMessage extends Message {
 				return true;
 		}
 		return false;
-	}
-
-	@Override
-	public boolean correctMessage() {
-		// TODO: Check if all the fields are set.
-		return false;
-	}
-
-	@Override
-	protected String getParameterString() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }
