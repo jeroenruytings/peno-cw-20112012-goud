@@ -68,6 +68,8 @@ public class MoverLayer
 			for(int i = 0; i<k.length ; i++)
 				System.out.print(k[i]);
 			System.out.println("");
+			System.out.println(bar.name().toString());
+			System.out.println("");
 			try {
 				rv.put(k, new Barcode(k));
 			} catch (Exception e) {

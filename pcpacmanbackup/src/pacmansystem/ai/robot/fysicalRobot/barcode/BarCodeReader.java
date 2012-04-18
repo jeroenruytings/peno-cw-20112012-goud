@@ -28,6 +28,10 @@ public class BarCodeReader
 
 	private Barcode closestHamming(int[] thi)
 	{
+		String print = "";
+			for (int i : thi)
+				print += i;
+		System.out.println("gelezen voor closest hamming " + print);
 		int max = -1;
 		Barcode best = null;
 		for (int[] key : _codes.keySet()) {
@@ -38,17 +42,6 @@ public class BarCodeReader
 				}
 			}
 		}
-		
-//		Barcode temp = null;
-//		try {
-//			temp = new Barcode(thi);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			System.out.println("fout in closesthamming");
-//			e.printStackTrace();
-//		}
-//		return temp;
-		
 		return best;
 	}
 

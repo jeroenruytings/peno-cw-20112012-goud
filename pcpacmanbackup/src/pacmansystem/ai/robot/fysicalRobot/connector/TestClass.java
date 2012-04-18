@@ -32,8 +32,8 @@ public class TestClass {
 		
 		
 		Panel paneel = panel.getPanel(Orientation.NORTH);
-		panel.go(Direction.UP);
-		paneel = panel.getPanel(Orientation.NORTH);
+//		panel.go(Direction.UP);
+//		paneel = panel.getPanel(Orientation.NORTH);
 		
 		
 //		for(int i = 0 ; i<5 ; i++){
