@@ -102,7 +102,8 @@ public class SensorListener implements Runnable {
 		//sent Tachocount
 			if(tachoCount != getTachoCount() && getTachoCount()>=0){
 				tachoCount = getTachoCount();
-		sendValue(tachoCount, SensorIdentifier.TachoCount);
+				System.out.println(tachoCount);
+				sendValue(tachoCount, SensorIdentifier.TachoCount);
 			}
 		Thread.yield();
 		
@@ -141,6 +142,7 @@ public class SensorListener implements Runnable {
 		else if (distances[4]== 255)
 			distance = distances[3];
 		return distance;
+
 	}
 
 	public int getLightValue() {
