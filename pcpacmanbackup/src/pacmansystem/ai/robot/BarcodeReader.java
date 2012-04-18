@@ -101,7 +101,12 @@ public class BarcodeReader implements Runnable
 				twentythree(0, 1, 0, 0, 0, 1, 1, 0), twentyfour(0, 1, 0, 0, 1, 0, 1, 0), twentyfive(0, 1, 0, 0, 1, 1, 1, 0), twentysix(0, 1, 0, 1, 0, 1, 1, 0),
 				twentyseven(0, 1, 0, 1, 1, 1, 1, 0), twentyeight(0, 1, 1, 0, 1, 1, 1, 0), onereversed(0, 1, 0, 0, 0, 0, 0, 0), tworeversed(0, 0, 1, 0, 0, 0, 0, 0),
 				threereversed(0, 1, 1, 0, 0, 0, 0, 0), fourreversed(0, 0, 0, 1, 0, 0, 0, 0), fivereversed(0, 1, 0, 1, 0, 0, 0, 0), sixreversed(0, 0, 1, 1, 0, 0, 0, 0), 
-				thirteenreversed(0, 1, 0, 1, 1, 0, 0, 0), seventeenreversed(0, 1, 0, 0, 0, 1, 0, 0);
+				sevenreversed(0, 1, 1, 1, 0, 0, 0, 0), eightreversed(0, 1, 0, 0, 1, 0, 0, 0), ninereversed(0, 1, 1, 0, 1, 0, 0, 0), tenreversed(0, 1, 1, 0, 1, 0, 0, 0), 
+				elevenreversed(0, 1, 0, 1, 1, 0, 0, 0), twelfreversed(0, 0, 1, 1, 1, 0, 0, 0), thirteenreversed(0, 1, 0, 1, 1, 0, 0, 0), fourteenreversed(0, 1, 0, 0, 0, 1, 0, 0), 
+				fifteenreversed(0, 1, 1, 0, 0, 1, 0, 0), sixteenreversed(0, 1, 0, 1, 0, 1, 0, 0), seventeenreversed(0, 1, 0, 0, 0, 1, 0, 0), eighteenreversed(0, 1, 1, 1, 0, 1, 0, 0),
+				nineteenreversed(0, 1, 0, 0, 1, 1, 0, 0), twentyreversed(0, 1, 1, 0, 1, 1, 0, 0), twentyonereversed(0, 1, 0, 1, 1, 1, 0, 0), twentytworeversed(0, 1, 1, 1, 1, 1, 0, 0),
+				twentythreereversed(0, 1, 1, 0, 0, 0, 1, 0), twentyfourreversed(0, 1, 0, 1, 0, 0, 1, 0), twentyfivereversed(0, 1, 1, 1, 0, 0, 1, 0), twentysixreversed(0, 1, 1, 0, 1, 0, 1, 0),
+				twentysevenreversed(0, 1, 1, 1, 1, 0, 1, 0), twentyeighreversed(0, 1, 1, 1, 0, 1, 1, 0);
 				
 		private final int[] code;
 
