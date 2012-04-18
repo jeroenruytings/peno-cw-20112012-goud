@@ -1,8 +1,14 @@
 package pacmansystem.ai.strategy;
 
 import java.awt.Point;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
+
+import data.board.shortestpathfinder.dijkstra.DijkstraFinder;
+import data.board.shortestpathfinder.dijkstra.PathNotPossibleException;
+import data.world.RobotData;
 
 import pacmansystem.ai.RobotController;
 
@@ -26,7 +32,6 @@ public class Roam implements Strategy {
 	
 	@Override
 	public Queue<Point> constructRoute() {
-		do {
 		Set<Point> allPoints = getController().getBoard().getPanels().keySet();
 		Point[] pointsArray = new Point[allPoints.size()];
 		int i = 0;
@@ -34,24 +39,44 @@ public class Roam implements Strategy {
 			pointsArray[i] = point;
 			i++;
 		}
-		int randomNumber = (int) (Math.random() * allPoints.size());
-		Point randomPoint = pointsArray[randomNumber];
-		} while (); //while (randomPoint behoort niet tot iemand anders zijn pad)
-		//TODO: fix the red
-		
-		return null;
+		boolean conflictingPoint = true;
+		Point randomPoint = null;
+		while(conflictingPoint){
+			conflictingPoint = false;
+			int randomNumber = (int) (Math.random() * allPoints.size());
+			randomPoint = pointsArray[randomNumber];
+			for(RobotData data : getController().getOtherBots()){
+				if(data.getRemainingPlan().contains(randomPoint)){
+					conflictingPoint = true;
+				}
+			}
+		}
+		Queue<Point> plan = new LinkedList<Point>();
+		DijkstraFinder finder = new DijkstraFinder(getController().getData());
+		Iterator<Point> path = null;
+		try {
+			path = finder.shortestPath(getController().getCurrentPoint(), randomPoint).iterator();
+		} catch (PathNotPossibleException e) {
+			e.printStackTrace();
+		}
+		while (path.hasNext()){
+			plan.add(path.next());
+		}
+		return plan;
 	}
 
 	@Override
 	public boolean hasToSwitchStrategy() {
-		// TODO Auto-generated method stub
+		if(getController().getOwnData().getPacmanLastSighted() != null)
+			return true;
 		return false;
 	}
 
 	@Override
 	public Strategy getReplacingStrategy() {
-		// TODO Auto-generated method stub
-		return null;
+		if(getController().getOwnData().getPacmanLastSighted() != null)
+			return new Hunt(getController());
+		return this;
 	}
 
 	@Override

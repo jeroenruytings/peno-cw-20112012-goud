@@ -21,9 +21,11 @@ import pacmansystem.ai.RobotController;
 public class Explore implements Strategy {
 	
 	private RobotController controller;
+	private boolean finishedExploring;
 	
 	public Explore(RobotController controller) {
 		this.controller = controller;
+		finishedExploring = false;
 	}
 	
 	public RobotController getController() {
@@ -39,18 +41,24 @@ public class Explore implements Strategy {
 			destination = searchNext();
 		else
 			destination = orientation.addTo(getController().getCurrentPoint());
-		Queue<Point> plan = new LinkedList<Point>();
-		DijkstraFinder finder = new DijkstraFinder(getController().getData());
-		Iterator<Point> path = null;
-		try {
-			path = finder.shortestPath(getController().getCurrentPoint(), destination).iterator();
-		} catch (PathNotPossibleException e) {
-			e.printStackTrace();
+		if(destination != null){
+			Queue<Point> plan = new LinkedList<Point>();
+			DijkstraFinder finder = new DijkstraFinder(getController().getData());
+			Iterator<Point> path = null;
+			try {
+				path = finder.shortestPath(getController().getCurrentPoint(), destination).iterator();
+			} catch (PathNotPossibleException e) {
+				e.printStackTrace();
+			}
+			while (path.hasNext()){
+				plan.add(path.next());
+			}
+			return plan;
 		}
-		while (path.hasNext()){
-			plan.add(path.next());
+		else{
+			finishedExploring = true;
+			return getReplacingStrategy().constructRoute();
 		}
-		return plan;
 	}
 	
 	/**
@@ -110,18 +118,28 @@ public class Explore implements Strategy {
 
 	@Override
 	public boolean hasToSwitchStrategy() {
-		// TODO Auto-generated method stub
+		if(hasFinishedExploring() && getController().getOwnData().getPacmanLastSighted()!=null)
+			return true;
+		if(hasFinishedExploring() && getController().getOwnData().getPacmanLastSighted()==null)
+			return true;
+		if(!hasFinishedExploring() && getController().getOwnData().getPacmanLastSighted()!=null)
+			return true;
 		return false;
 	}
 
 	@Override
 	public Strategy getReplacingStrategy() {
-		// TODO Auto-generated method stub
-		return null;
+		if(hasFinishedExploring() && getController().getOwnData().getPacmanLastSighted()!=null)
+			return new Hunt(getController());
+		if(hasFinishedExploring() && getController().getOwnData().getPacmanLastSighted()==null)
+			return new Roam(getController());
+		if(!hasFinishedExploring() && getController().getOwnData().getPacmanLastSighted()!=null)
+			return new Catch(getController());
+		return this;
 	}
 
 	@Override
 	public boolean hasFinishedExploring() {
-		return false;
+		return finishedExploring;
 	}
 }

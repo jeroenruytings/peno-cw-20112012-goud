@@ -52,14 +52,14 @@ public class Catch implements Strategy {
 
 	@Override
 	public boolean hasToSwitchStrategy() {
-		// TODO Auto-generated method stub
+		if(getController().getOwnData().getPacmanLastSighted().equals(getController().getCurrentPoint()))
+			return true;
 		return false;
 	}
 
 	@Override
 	public Strategy getReplacingStrategy() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Explore(getController());
 	}
 
 	@Override
