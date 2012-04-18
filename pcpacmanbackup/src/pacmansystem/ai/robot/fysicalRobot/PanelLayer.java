@@ -68,6 +68,7 @@ public class PanelLayer implements PanelLayerInterface
 	@Override
 	public WallState hasBorder(Direction d)
 	{
+		int distanceAllowed = 40;
 		int distanceToWall;
 		switch (d.ordinal())
 		{
@@ -89,7 +90,7 @@ public class PanelLayer implements PanelLayerInterface
 			distanceToWall = mover.getUltrasonic();
 			System.out.println("Hasborder up: " + distanceToWall);
 			}
-			if (distanceToWall < 32){
+			if (distanceToWall < distanceAllowed){
 					hasToCorrect = true;
 				System.out.println("true");
 				return WallState.WALL;
@@ -120,7 +121,7 @@ public class PanelLayer implements PanelLayerInterface
 				System.out.println("Hasborder left: " + distanceToWall);
 				}
 			mover.turnHead(90);
-			if (distanceToWall < 32){
+			if (distanceToWall < distanceAllowed - 7){
 				if(distanceToWall < 10)
 					hasToCorrect = true;
 				System.out.println("true");
@@ -148,7 +149,7 @@ public class PanelLayer implements PanelLayerInterface
 				System.out.println("Hasborder right: " + distanceToWall);
 				}
 			mover.turnHead(-90);
-			if (distanceToWall < 32){
+			if (distanceToWall < distanceAllowed){
 				if(distanceToWall < 15)
 					hasToCorrect = true;
 				System.out.println("true");
@@ -198,7 +199,7 @@ public class PanelLayer implements PanelLayerInterface
 			if(code!=null)
 				System.out.println("CODE " + code);
 			else
-				System.out.println("niet kunnen lezen");
+				System.out.println("barcode niet kunnen lezen");
 			return code;
 		}
 		else{
@@ -262,6 +263,7 @@ public class PanelLayer implements PanelLayerInterface
 	}
 	
 	public WallState hasFirstBorder(Direction direction) {
+		int distanceAllowed = 40;
 		int distanceToWall;
 		switch (direction.ordinal())
 		{
@@ -275,7 +277,7 @@ public class PanelLayer implements PanelLayerInterface
 				distanceToWall = mover.getUltrasonic();
 				System.out.println("Hasborder up: " + distanceToWall);
 			}
-			if (distanceToWall < 32){
+			if (distanceToWall < distanceAllowed){
 				System.out.println("true");
 				return WallState.WALL;
 			}
@@ -293,7 +295,7 @@ public class PanelLayer implements PanelLayerInterface
 				distanceToWall = mover.getUltrasonic();
 				System.out.println("Hasborder down: " + distanceToWall);
 			}
-			if (distanceToWall < 32){
+			if (distanceToWall < distanceAllowed){
 				System.out.println("true");
 				mover.turn(-180);
 				return WallState.WALL;
@@ -321,7 +323,7 @@ public class PanelLayer implements PanelLayerInterface
 				System.out.println("Hasborder left: " + distanceToWall);
 				}
 			mover.turnHead(90);
-			if (distanceToWall < 32){
+			if (distanceToWall < distanceAllowed -7){
 				System.out.println("true");
 				return WallState.WALL;
 			}
@@ -347,7 +349,7 @@ public class PanelLayer implements PanelLayerInterface
 				System.out.println("Hasborder right: " + distanceToWall);
 				}
 			mover.turnHead(-90);
-			if (distanceToWall < 32){
+			if (distanceToWall < distanceAllowed){
 				System.out.println("true");
 				return WallState.WALL;
 			}

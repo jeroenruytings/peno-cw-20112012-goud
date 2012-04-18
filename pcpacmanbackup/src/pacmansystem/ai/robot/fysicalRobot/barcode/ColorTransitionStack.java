@@ -104,7 +104,8 @@ public class ColorTransitionStack
 
 	private int distance(ColorNode one, ColorNode two)
 	{
-		return Math.abs(one.get_dist() - two.get_dist());
+		int distance = Math.abs(one.get_dist() - two.get_dist());
+		return distance ;
 	}
 
 	public Integer getColor(PanelColor key)

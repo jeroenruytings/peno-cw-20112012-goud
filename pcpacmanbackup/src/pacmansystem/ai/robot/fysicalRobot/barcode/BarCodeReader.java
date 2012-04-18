@@ -38,6 +38,17 @@ public class BarCodeReader
 				}
 			}
 		}
+		
+//		Barcode temp = null;
+//		try {
+//			temp = new Barcode(thi);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			System.out.println("fout in closesthamming");
+//			e.printStackTrace();
+//		}
+//		return temp;
+		
 		return best;
 	}
 

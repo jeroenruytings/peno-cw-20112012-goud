@@ -65,7 +65,9 @@ public class MoverLayer
 		Map<int[], Barcode> rv = new HashMap<int[], Barcode>();
 		for(BarcodeReader.barcode bar: BarcodeReader.barcode.values()){
 			int[] k = bar.getCode();
-			System.out.println(k);
+			for(int i = 0; i<k.length ; i++)
+				System.out.print(k[i]);
+			System.out.println("");
 			try {
 				rv.put(k, new Barcode(k));
 			} catch (Exception e) {
@@ -274,11 +276,12 @@ public class MoverLayer
 	}
 	
 	public void correctToMiddle(){
-		releaseButton();
-		pcc.sendCommando(new Commando(Action.CORRECT, 0, ""));
-		while(!buttonIsPushed());
-		releaseButton();
-		System.out.println("is released");
+//		TODO terug aanzetten
+//		releaseButton();
+//		pcc.sendCommando(new Commando(Action.CORRECT, 0, ""));
+//		while(!buttonIsPushed());
+//		releaseButton();
+//		System.out.println("is released");
 	}
 
 

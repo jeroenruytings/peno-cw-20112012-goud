@@ -88,7 +88,7 @@ public class BarcodeReader implements Runnable
 		}
 	};
 	// Barcodes pacman
-	public enum barcode	//TODO barcodes van 8 bits ingeven
+	public enum barcode	
 	{
 		one(0, 0, 0, 0, 0, 0, 1, 0), two(0, 0, 0, 0, 0,
 				1, 0, 0), three(0, 0, 0, 0, 0, 1, 1, 0), four(0, 0, 0, 0, 1, 0, 0, 0), five(0, 
@@ -281,8 +281,8 @@ public class BarcodeReader implements Runnable
 		@SuppressWarnings("unused")
 		boolean castup = true;
 		double totaldist = buffer2[elems - 1].base - buffer2[0].base;
-		double basedist = totaldist / 7; // there are 7 bits tweede sem  TODO 8 nog aanpassen
-		int[] returnvalue = new int[7];
+		double basedist = totaldist / 8; 
+		int[] returnvalue = new int[8];
 		int filled = 0;
 		for (int i = 1; i < elems; i++) {
 			double dist = buffer2[i].base - buffer2[i - 1].base;

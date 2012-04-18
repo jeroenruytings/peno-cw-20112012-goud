@@ -32,6 +32,7 @@ public class Roam implements Strategy {
 	
 	@Override
 	public Queue<Point> constructRoute() {
+
 		Set<Point> allPoints = getController().getBoard().getPanels().keySet();
 		Point[] pointsArray = new Point[allPoints.size()];
 		int i = 0;
@@ -63,6 +64,7 @@ public class Roam implements Strategy {
 			plan.add(path.next());
 		}
 		return plan;
+
 	}
 
 	@Override

@@ -32,18 +32,21 @@ public class TestClass {
 		
 		
 		Panel paneel = panel.getPanel(Orientation.NORTH);
+		panel.go(Direction.UP);
+		paneel = panel.getPanel(Orientation.NORTH);
 		
-		for(int i = 0 ; i<5 ; i++){
-		System.out.println("now up");
-		panel.go(Direction.UP);
-		panel.correctToMiddle();
-		}
-		panel.go(Direction.LEFT);
-		panel.correctToMiddle();
-		panel.go(Direction.UP);
-		panel.correctToMiddle();
-		panel.go(Direction.UP);
-		panel.correctToMiddle();
+		
+//		for(int i = 0 ; i<5 ; i++){
+//		System.out.println("now up");
+//		panel.go(Direction.UP);
+//		panel.correctToMiddle();
+//		}
+//		panel.go(Direction.LEFT);
+//		panel.correctToMiddle();
+//		panel.go(Direction.UP);
+//		panel.correctToMiddle();
+//		panel.go(Direction.UP);
+//		panel.correctToMiddle();
 		
 		
 		
@@ -70,29 +73,29 @@ public class TestClass {
 //		System.out.println("");
 //		panel.go(Direction.UP);
 //		
-////		System.out.println("Op Paneel 1");
-//////		System.out.println("Up: " + panel.hasBorder(Direction.UP));
-//////		System.out.println("Right: " + panel.hasBorder(Direction.RIGHT));
-//////		System.out.println("Down: " + panel.hasBorder(Direction.DOWN));
-//////		System.out.println("Left: " + panel.hasBorder(Direction.LEFT));
-////		panel.getPanel(Orientation.NORTH);
-//////		System.out.println(panel.getBarcode().getValue());
-////		System.out.println("");
-////		System.out.println("Ga naar volgende paneel");
-////		System.out.println("");
-////		panel.go(Direction.LEFT);
+//		System.out.println("Op Paneel 1");
+////		System.out.println("Up: " + panel.hasBorder(Direction.UP));
+////		System.out.println("Right: " + panel.hasBorder(Direction.RIGHT));
+////		System.out.println("Down: " + panel.hasBorder(Direction.DOWN));
+////		System.out.println("Left: " + panel.hasBorder(Direction.LEFT));
+//		panel.getPanel(Orientation.NORTH);
+////		System.out.println(panel.getBarcode().getValue());
+//		System.out.println("");
+//		System.out.println("Ga naar volgende paneel");
+//		System.out.println("");
+//		panel.go(Direction.UP);
 //		
 //		System.out.println("Op Paneel 2");
 ////		System.out.println("Up: " + panel.hasBorder(Direction.UP));
 ////		System.out.println("Right: " + panel.hasBorder(Direction.RIGHT));
 ////		System.out.println("Down: " + panel.hasBorder(Direction.DOWN));
 ////		System.out.println("Left: " + panel.hasBorder(Direction.LEFT));
-//		panel.getPanel(Orientation.WEST);
+//		panel.getPanel(Orientation.NORTH);
 //	//	System.out.println(panel.getBarcode().getValue());
 //		System.out.println("");
 //		System.out.println("Ga naar volgende paneel");
 //		System.out.println("");
-//		panel.go(Direction.RIGHT);
+//		panel.go(Direction.UP);
 //		
 //		System.out.println("Op Paneel 3");
 ////		System.out.println("Up: " + panel.hasBorder(Direction.UP));
@@ -104,26 +107,26 @@ public class TestClass {
 //		System.out.println("");
 //		System.out.println("Ga naar volgende paneel");
 //		System.out.println("");
-//		panel.go(Direction.RIGHT);
+//		panel.go(Direction.LEFT);
 //		
 //		System.out.println("Op Paneel 4");
 ////		System.out.println("Up: " + panel.hasBorder(Direction.UP));
 ////		System.out.println("Right: " + panel.hasBorder(Direction.RIGHT));
 ////		System.out.println("Down: " + panel.hasBorder(Direction.DOWN));
 ////		System.out.println("Left: " + panel.hasBorder(Direction.LEFT));
-//		panel.getPanel(Orientation.EAST);
+//		panel.getPanel(Orientation.WEST);
 ////		System.out.println(panel.getBarcode().getValue());
 //		System.out.println("");
 //		System.out.println("Ga naar volgende paneel");
 //		System.out.println("");
-//		panel.go(Direction.LEFT);
+//		panel.go(Direction.UP);
 //		
 //		System.out.println("Op Paneel 5");
 ////		System.out.println("Up: " + panel.hasBorder(Direction.UP));
 ////		System.out.println("Right: " + panel.hasBorder(Direction.RIGHT));
 ////		System.out.println("Down: " + panel.hasBorder(Direction.DOWN));
 ////		System.out.println("Left: " + panel.hasBorder(Direction.LEFT));
-//		panel.getPanel(Orientation.NORTH);
+//		panel.getPanel(Orientation.WEST);
 //	//	System.out.println(panel.getBarcode().getValue());
 //		System.out.println("");
 //		System.out.println("Ga naar volgende paneel");
@@ -135,7 +138,7 @@ public class TestClass {
 ////		System.out.println("Right: " + panel.hasBorder(Direction.RIGHT));
 ////		System.out.println("Down: " + panel.hasBorder(Direction.DOWN));
 ////		System.out.println("Left: " + panel.hasBorder(Direction.LEFT));
-//		panel.getPanel(Orientation.NORTH);
+//		panel.getPanel(Orientation.WEST);
 //	//	System.out.println(panel.getBarcode().getValue());
 //		System.out.println("");
 //		System.out.println("Ga naar volgende paneel");
@@ -147,7 +150,7 @@ public class TestClass {
 ////		System.out.println("Right: " + panel.hasBorder(Direction.RIGHT));
 ////		System.out.println("Down: " + panel.hasBorder(Direction.DOWN));
 ////		System.out.println("Left: " + panel.hasBorder(Direction.LEFT));
-//		panel.getPanel(Orientation.WEST);
+//		panel.getPanel(Orientation.SOUTH);
 //	//	System.out.println(panel.getBarcode().getValue());
 //		System.out.println("");
 //		System.out.println("Ga naar volgende paneel");
@@ -159,26 +162,50 @@ public class TestClass {
 ////		System.out.println("Right: " + panel.hasBorder(Direction.RIGHT));
 ////		System.out.println("Down: " + panel.hasBorder(Direction.DOWN));
 ////		System.out.println("Left: " + panel.hasBorder(Direction.LEFT));
-//		panel.getPanel(Orientation.SOUTH);
-//	//	System.out.println(panel.getBarcode().getValue());
-//		System.out.println("");
-//		System.out.println("Ga naar volgende paneel");
-//		System.out.println("");
-//		panel.go(Direction.RIGHT);
-//		
-//		System.out.println("Op Paneel 9");
-////		System.out.println("Up: " + panel.hasBorder(Direction.UP));
-////		System.out.println("Right: " + panel.hasBorder(Direction.RIGHT));
-////		System.out.println("Down: " + panel.hasBorder(Direction.DOWN));
-////		System.out.println("Left: " + panel.hasBorder(Direction.LEFT));
-//		panel.getPanel(Orientation.WEST);
+//		panel.getPanel(Orientation.EAST);
 //	//	System.out.println(panel.getBarcode().getValue());
 //		System.out.println("");
 //		System.out.println("Ga naar volgende paneel");
 //		System.out.println("");
 //		panel.go(Direction.UP);
 //		
+//		System.out.println("Op Paneel 9");
+////		System.out.println("Up: " + panel.hasBorder(Direction.UP));
+////		System.out.println("Right: " + panel.hasBorder(Direction.RIGHT));
+////		System.out.println("Down: " + panel.hasBorder(Direction.DOWN));
+////		System.out.println("Left: " + panel.hasBorder(Direction.LEFT));
+//		panel.getPanel(Orientation.EAST);
+//	//	System.out.println(panel.getBarcode().getValue());
+//		System.out.println("");
+//		System.out.println("Ga naar volgende paneel");
+//		System.out.println("");
+//		panel.go(Direction.RIGHT);
+//		
 //		System.out.println("Op Paneel 10");
+////		System.out.println("Up: " + panel.hasBorder(Direction.UP));
+////		System.out.println("Right: " + panel.hasBorder(Direction.RIGHT));
+////		System.out.println("Down: " + panel.hasBorder(Direction.DOWN));
+////		System.out.println("Left: " + panel.hasBorder(Direction.LEFT));
+//		panel.getPanel(Orientation.SOUTH);
+////		System.out.println(panel.getBarcode().getValue());
+//		System.out.println("");
+//		System.out.println("Ga naar volgende paneel");
+//		System.out.println("");
+//		panel.go(Direction.UP);
+//		
+//		System.out.println("Op Paneel 11");
+////		System.out.println("Up: " + panel.hasBorder(Direction.UP));
+////		System.out.println("Right: " + panel.hasBorder(Direction.RIGHT));
+////		System.out.println("Down: " + panel.hasBorder(Direction.DOWN));
+////		System.out.println("Left: " + panel.hasBorder(Direction.LEFT));
+//		panel.getPanel(Orientation.SOUTH);
+////		System.out.println(panel.getBarcode().getValue());
+//		System.out.println("");
+//		System.out.println("Ga naar volgende paneel");
+//		System.out.println("");
+//		panel.go(Direction.RIGHT);
+//		
+//		System.out.println("Op Paneel 12");
 ////		System.out.println("Up: " + panel.hasBorder(Direction.UP));
 ////		System.out.println("Right: " + panel.hasBorder(Direction.RIGHT));
 ////		System.out.println("Down: " + panel.hasBorder(Direction.DOWN));
@@ -190,7 +217,7 @@ public class TestClass {
 //		System.out.println("");
 //		panel.go(Direction.RIGHT);
 //		
-//		System.out.println("Op Paneel 11");
+//		System.out.println("Op Paneel 13");
 ////		System.out.println("Up: " + panel.hasBorder(Direction.UP));
 ////		System.out.println("Right: " + panel.hasBorder(Direction.RIGHT));
 ////		System.out.println("Down: " + panel.hasBorder(Direction.DOWN));
@@ -200,7 +227,31 @@ public class TestClass {
 //		System.out.println("");
 //		System.out.println("Ga naar volgende paneel");
 //		System.out.println("");
-//		panel.go(Direction.RIGHT);
+//		panel.go(Direction.LEFT);
+//		
+//		System.out.println("Op Paneel 14");
+////		System.out.println("Up: " + panel.hasBorder(Direction.UP));
+////		System.out.println("Right: " + panel.hasBorder(Direction.RIGHT));
+////		System.out.println("Down: " + panel.hasBorder(Direction.DOWN));
+////		System.out.println("Left: " + panel.hasBorder(Direction.LEFT));
+//		panel.getPanel(Orientation.WEST);
+////		System.out.println(panel.getBarcode().getValue());
+//		System.out.println("");
+//		System.out.println("Ga naar volgende paneel");
+//		System.out.println("");
+//		panel.go(Direction.LEFT);
+//		
+//		System.out.println("Op Paneel 15");
+////		System.out.println("Up: " + panel.hasBorder(Direction.UP));
+////		System.out.println("Right: " + panel.hasBorder(Direction.RIGHT));
+////		System.out.println("Down: " + panel.hasBorder(Direction.DOWN));
+////		System.out.println("Left: " + panel.hasBorder(Direction.LEFT));
+//		panel.getPanel(Orientation.SOUTH);
+////		System.out.println(panel.getBarcode().getValue());
+////		System.out.println("");
+////		System.out.println("Ga naar volgende paneel");
+////		System.out.println("");
+////		panel.go(Direction.RIGHT);
 
 
 
