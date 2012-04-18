@@ -99,7 +99,9 @@ public class BarcodeReader implements Runnable
 				0, 1, 0, 0, 1, 1, 0), sixteen(0, 0, 1, 0, 1, 0, 1, 0), seventeen(0, 0, 1, 0, 1, 1, 0, 0), eighteen(0, 0, 1, 0, 1, 1, 1, 0),
 				nineteen(0, 0, 1, 1, 0, 0, 1, 0), twenty(0, 0, 1, 1, 0, 1, 1, 0), twentyone(0, 0, 1, 1, 1, 0, 1, 0),twentytwo(0, 0, 1, 1, 1, 1, 1, 0),
 				twentythree(0, 1, 0, 0, 0, 1, 1, 0), twentyfour(0, 1, 0, 0, 1, 0, 1, 0), twentyfive(0, 1, 0, 0, 1, 1, 1, 0), twentysix(0, 1, 0, 1, 0, 1, 1, 0),
-				twentyseven(0, 1, 0, 1, 1, 1, 1, 0), twentyeight(0, 1, 1, 0, 1, 1, 1, 0);
+				twentyseven(0, 1, 0, 1, 1, 1, 1, 0), twentyeight(0, 1, 1, 0, 1, 1, 1, 0), onereversed(0, 1, 0, 0, 0, 0, 0, 0), tworeversed(0, 0, 1, 0, 0, 0, 0, 0),
+				threereversed(0, 1, 1, 0, 0, 0, 0, 0), fourreversed(0, 0, 0, 1, 0, 0, 0, 0), fivereversed(0, 1, 0, 1, 0, 0, 0, 0), sixreversed(0, 0, 1, 1, 0, 0, 0, 0), 
+				thirteenreversed(0, 1, 0, 1, 1, 0, 0, 0), seventeenreversed(0, 1, 0, 0, 0, 1, 0, 0);
 				
 		private final int[] code;
 
