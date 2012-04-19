@@ -12,4 +12,6 @@ public interface Strategy {
 	public Strategy getReplacingStrategy();
 
 	public boolean hasFinishedExploring();
+	
+	public boolean hasCaughtPacman();
 }

@@ -54,7 +54,7 @@ public class Main
 			{
 				//c.join();
 				//c.sendName();
-				c.explore();
+				c.drive();
 			}
 		}).start();
 	}

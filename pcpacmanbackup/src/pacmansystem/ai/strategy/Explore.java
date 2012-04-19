@@ -32,6 +32,9 @@ public class Explore implements Strategy {
 		return controller;
 	}
 	
+	/**
+	 * Returns the route to follow. Returns an empty plan if the robot has finished exploring.
+	 */
 	@Override
 	public Queue<Point> constructRoute()
 	{
@@ -41,8 +44,8 @@ public class Explore implements Strategy {
 			destination = searchNext();
 		else
 			destination = orientation.addTo(getController().getCurrentPoint());
+		Queue<Point> plan = new LinkedList<Point>();
 		if(destination != null){
-			Queue<Point> plan = new LinkedList<Point>();
 			DijkstraFinder finder = new DijkstraFinder(getController().getData());
 			Iterator<Point> path = null;
 			try {
@@ -57,7 +60,7 @@ public class Explore implements Strategy {
 		}
 		else{
 			finishedExploring = true;
-			return getReplacingStrategy().constructRoute();
+			return plan;
 		}
 	}
 	
@@ -141,5 +144,10 @@ public class Explore implements Strategy {
 	@Override
 	public boolean hasFinishedExploring() {
 		return finishedExploring;
+	}
+
+	@Override
+	public boolean hasCaughtPacman() {
+		return false;
 	}
 }

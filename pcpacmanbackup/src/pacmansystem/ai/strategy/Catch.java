@@ -67,4 +67,9 @@ public class Catch implements Strategy {
 		return false;
 	}
 
+	@Override
+	public boolean hasCaughtPacman() {
+		return false;
+	}
+
 }

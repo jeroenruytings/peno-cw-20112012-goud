@@ -66,14 +66,16 @@ public class Hunt implements Strategy {
 
 	@Override
 	public boolean hasToSwitchStrategy() {
-		// TODO Auto-generated method stub
+		if (getController().getCurrentPoint().equals(getController().getOwnData().getPacmanLastSighted()))
+			return true;
 		return false;
 	}
 
 	@Override
 	public Strategy getReplacingStrategy() {
-		// TODO Auto-generated method stub
-		return null;
+		if (getController().getCurrentPoint().equals(getController().getOwnData().getPacmanLastSighted()))
+			return new Roam(controller);
+		return this;
 	}
 
 	@Override
@@ -117,15 +119,21 @@ public class Hunt implements Strategy {
 			otherGhosts.add(data.getPosition());
 		}
 		for(Orientation orientation : Orientation.values()){
-			Point point = orientation.addTo(p);
-			if(otherGhosts.contains(point))
+			Point neighbourPoint = orientation.addTo(p);
+			if(otherGhosts.contains(neighbourPoint))
 				continue;
-			if(pvalues.containsKey(point)){
-				if(!getController().getBoard().wallBetween(p,point))
-					result += pvalues.get(point);
+			if(pvalues.containsKey(neighbourPoint)){
+				if(!getController().getBoard().wallBetween(p,neighbourPoint))
+					result += pvalues.get(neighbourPoint);
 			}
 		}
 		return 0.25*result;
+	}
+
+	@Override
+	public boolean hasCaughtPacman() {
+		//TODO: behoorlijke return
+		return false;
 	}
 	
 }
