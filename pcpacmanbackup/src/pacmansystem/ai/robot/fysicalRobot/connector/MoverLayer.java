@@ -3,6 +3,7 @@ package pacmansystem.ai.robot.fysicalRobot.connector;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
 
 import pacmansystem.ai.robot.Barcode;
 import pacmansystem.ai.robot.BarcodeReader;
@@ -10,7 +11,7 @@ import pacmansystem.ai.robot.fysicalRobot.PanelColor;
 import pacmansystem.ai.robot.fysicalRobot.barcode.BarCodeReader;
 import pacmansystem.ai.robot.fysicalRobot.barcode.ColorTransitionStack;
 
-public class MoverLayer
+public class MoverLayer extends Observable
 {
 	class Button{
 		boolean _v=false;
@@ -41,6 +42,9 @@ public class MoverLayer
 	private BarCodeReader _reader;
 	private Map<int[], Barcode> _map;
 	private int headTacho = 0;
+	static boolean isCrashed;
+	private CrashListener crashListener;
+	
 	public MoverLayer()
 	{
 		initialiseMoverLayer();
@@ -49,11 +53,14 @@ public class MoverLayer
 	
 	private void initialiseMoverLayer(){
 		
+		isCrashed = false;
 		pcc = new PCCommunicator(this);
 		Thread communicator = new Thread(pcc);
 		_colorStack = new ColorTransitionStack(this);
 		_map = initbarcodes();
 		_reader = new BarCodeReader(_colorStack, _map);
+		crashListener = new CrashListener(this);
+		this.addObserver(crashListener);
 		communicator.start();
 		calibrateColors();
 		
@@ -315,6 +322,14 @@ public class MoverLayer
 
 	public void afterCrash() {
 		System.out.println("AAAAAAH ik ben gecrashed!!");
+		isCrashed = true;
+		setChanged();
+		notifyObservers();
+	}
+
+
+	public boolean getIsCrashed() {
+		return this.isCrashed;
 	}
 
 }
