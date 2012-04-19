@@ -15,9 +15,12 @@ public class PanelLayer implements PanelLayerInterface
 {
 
 	MoverLayer mover;
-	public final static int distance = 400;
-	boolean isFirst = true;
-	boolean hasToCorrect = false;
+	private final static int distance = 400;
+	private boolean isFirst = true;
+	private boolean hasToCorrect = false;
+	private Direction lastSeenDirectionPacman;
+	private int lastSeenDistancePacman;
+	private boolean pacmanSeen = false;
 	
 
 	public PanelLayer(MoverLayer mover)
@@ -131,6 +134,22 @@ public class PanelLayer implements PanelLayerInterface
 			if(distanceToWall == 255){	
 			mover.turnHead(0);
 			distanceToWall = mover.getUltrasonic();
+			if(mover.getInfraRedSensorValue() > 0){
+				if(mover.getInfraRedSensorValue() < 60){
+					setLastSeenDistancePacman(3);
+				}
+				
+				else if(mover.getInfraRedSensorValue() < 80){
+					setLastSeenDistancePacman(2);
+				}
+				else{
+					setLastSeenDistancePacman(1);
+				}
+				
+				setLastSeenDirectionPacman(Direction.UP);
+
+				
+			}
 			System.out.println("Hasborder up: " + distanceToWall);
 			}
 			if (distanceToWall < distanceAllowed){
@@ -163,6 +182,20 @@ public class PanelLayer implements PanelLayerInterface
 				distanceToWall = mover.getUltrasonic();
 				System.out.println("Hasborder left: " + distanceToWall);
 				}
+			if(mover.getInfraRedSensorValue() > 0){
+				if(mover.getInfraRedSensorValue() < 60){
+					setLastSeenDistancePacman(3);
+				}
+				
+				else if(mover.getInfraRedSensorValue() < 80){
+					setLastSeenDistancePacman(2);
+				}
+				else{
+					setLastSeenDistancePacman(1);
+				}
+				
+				setLastSeenDirectionPacman(Direction.LEFT);
+			}
 			mover.turnHead(90);
 			if (distanceToWall < distanceAllowed - 7){
 				if(distanceToWall < 10)
@@ -191,6 +224,20 @@ public class PanelLayer implements PanelLayerInterface
 				distanceToWall = mover.getUltrasonic();
 				System.out.println("Hasborder right: " + distanceToWall);
 				}
+			if(mover.getInfraRedSensorValue() > 0){
+				if(mover.getInfraRedSensorValue() < 60){
+					setLastSeenDistancePacman(3);
+				}
+				
+				else if(mover.getInfraRedSensorValue() < 80){
+					setLastSeenDistancePacman(2);
+				}
+				else{
+					setLastSeenDistancePacman(1);
+				}
+				
+				setLastSeenDirectionPacman(Direction.RIGHT);
+			}
 			mover.turnHead(-90);
 			if (distanceToWall < distanceAllowed){
 				if(distanceToWall < 15)
@@ -256,7 +303,7 @@ public class PanelLayer implements PanelLayerInterface
 	 * @see panel.PanelLayerInterface#getPacman()
 	 */
 	@Override
-	public Direction getPacman()
+	public Direction getPacmanDirection()
 	{
 	//TODO: make sure this works	
 //		if (mover.getInfraredSensorDirection() >0 && mover.getInfraredSensorDirection() < 10)
@@ -273,7 +320,7 @@ public class PanelLayer implements PanelLayerInterface
 	@Override
 	public Panel getPanel(Orientation currentOrientation)
 	{
-		
+		pacmanSeen = false;
 		Panel panel = new Panel();
 		for (Direction direction : Direction.values()) {
 
@@ -412,6 +459,34 @@ public class PanelLayer implements PanelLayerInterface
 	
 	public void pushed() {
 		//TODO: implement the crash method
+	}
+
+	public void setLastSeenDistancePacman(int lastSeenDistancePacman) throws IllegalArgumentException {
+		if(lastSeenDistancePacman < 1 || lastSeenDistancePacman > 3)
+			throw new IllegalArgumentException(); 
+		this.lastSeenDistancePacman = lastSeenDistancePacman;
+	}
+
+	public int getLastSeenDistancePacman() {
+		return lastSeenDistancePacman;
+	}
+
+	public void setLastSeenDirectionPacman(Direction lastSeenDirectionPacman) {
+		this.lastSeenDirectionPacman = lastSeenDirectionPacman;
+	}
+
+	public Direction getLastSeenDirectionPacman() {
+		return lastSeenDirectionPacman;
+	}
+
+	@Override
+	public int getPacmanDistance() {
+		return getLastSeenDistancePacman();
+	}
+
+	@Override
+	public boolean pacmanSeen() {
+		return pacmanSeen;
 	}
 
 }

@@ -62,7 +62,7 @@ public class OrientationLayer
 	
 	public Orientation getPacman(){
 		
-		return currentOrientation.addTo(getLayer().getPacman());
+		return currentOrientation.addTo(getLayer().getPacmanDirection());
 		}
 
 }

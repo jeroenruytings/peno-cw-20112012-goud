@@ -77,7 +77,7 @@ public class SimulatedRobot implements PanelLayerInterface
 	}
 
 	@Override
-	public Direction getPacman()
+	public Direction getPacmanDirection()
 	{
 		if(_realWorld.getPacmanLocation()==null)
 			return null;	
@@ -157,6 +157,18 @@ public class SimulatedRobot implements PanelLayerInterface
 	{
 		Direction d = Direction.diff(_startOrient, _currentRealOrientation);
 		return Orientation.NORTH.addTo(d);
+	}
+
+	@Override
+	public int getPacmanDistance() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean pacmanSeen() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

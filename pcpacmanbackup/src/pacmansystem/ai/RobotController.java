@@ -118,7 +118,7 @@ public class RobotController
 		tryAddingOtherRobots();
 		Panel p1 = getPathLayer().getPanel();
 		Direction pacmanSpotted = getPathLayer().getOrientationLayer()
-				.getLayer().getPacman();
+				.getLayer().getPacmanDirection();
 		if (pacmanSpotted != null) {
 			Point pacmanLocation = getData().getOrientation()
 					.addTo(pacmanSpotted).addTo(getCurrentPoint());

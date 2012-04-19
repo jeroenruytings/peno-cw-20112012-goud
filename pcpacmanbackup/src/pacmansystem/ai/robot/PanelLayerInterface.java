@@ -35,7 +35,11 @@ public interface PanelLayerInterface
 	 *Returns if you have seen pacman in a orientation
 	 * @return
 	 */
-	public abstract Direction getPacman();
+	public abstract Direction getPacmanDirection();
+	
+	public abstract int getPacmanDistance();
+	
+	public abstract boolean pacmanSeen();
 
 	public abstract Panel getPanel(Orientation currentOrientation);
 	
