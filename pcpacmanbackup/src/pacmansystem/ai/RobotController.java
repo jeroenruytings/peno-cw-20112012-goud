@@ -11,6 +11,7 @@ import java.util.Queue;
 import pacmansystem.ai.robot.Barcode;
 import pacmansystem.ai.robot.OrientationLayer;
 import pacmansystem.ai.robot.PathLayer;
+import pacmansystem.ai.robot.fysicalRobot.connector.CrashedException;
 import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
 import pacmansystem.ai.strategy.Explore;
 import pacmansystem.ai.strategy.Strategy;
@@ -83,7 +84,9 @@ public class RobotController
 					getPathLayer().goOneStep(getCurrentPoint(), destination);
 				} catch (IllegalDriveException e) {
 					e.printStackTrace();
-				} // gaat naar volgend punt
+				}catch (CrashedException e) {
+					getOwnData().getBoard().getPanels().remove(getCurrentPoint());
+				}
 			}
 		}
 		//pacman has been caught
@@ -260,60 +263,60 @@ public class RobotController
 				.size();
 	}
 
-	private void driveToPacman()
-	{
-		System.out.println("looking for pacman");
-		if (nextToPamam())
-			return;
-		if (getData().getPacmanLastSighted() != null) {
-
-			System.out.println(getData().getPacmanLastSighted());
-			Collection<Point> points = getBoard().getSurrounding(
-					getData().getPacmanLastSighted());
-			points = Filter.filter(points, new Filter<Point>()
-			{
-
-				@Override
-				public boolean accepts(Point arg)
-				{
-
-					return !getBoard().wallBetween(arg,
-							getData().getPacmanLastSighted());
-				}
-			});
-			
-			end: for (Point p : points) {
-
-				try {
-					getPathLayer().go(getCurrentPoint(), p);
-				} catch (IllegalDriveException e) {
-					continue;
-				}
-				break end;
-			
-			}
-
-		}
-		// else{
-		// Point target = null;
-		// for(RobotData data : world.get_robots().values()){
-		// if(data.getPacmanLastSighted()!=null){
-		// //TODO convert target
-		// target = data.getPacmanLastSighted();
-		// }
-		// }
-		// try {
-		// getPathLayer().go(getCurrentPoint(), target);
-		// } catch (IllegalDriveException e) {
-		// e.printStackTrace();
-		// } catch (NullPointerException e){
-		// System.out.println("Geen pacman gevonden!");
-		// }
-		// }
-		else {
-			System.out.println("Geen pacman gevonden!");
-		}
-	}
+//	private void driveToPacman()
+//	{
+//		System.out.println("looking for pacman");
+//		if (nextToPamam())
+//			return;
+//		if (getData().getPacmanLastSighted() != null) {
+//
+//			System.out.println(getData().getPacmanLastSighted());
+//			Collection<Point> points = getBoard().getSurrounding(
+//					getData().getPacmanLastSighted());
+//			points = Filter.filter(points, new Filter<Point>()
+//			{
+//
+//				@Override
+//				public boolean accepts(Point arg)
+//				{
+//
+//					return !getBoard().wallBetween(arg,
+//							getData().getPacmanLastSighted());
+//				}
+//			});
+//			
+//			end: for (Point p : points) {
+//
+//				try {
+//					getPathLayer().go(getCurrentPoint(), p);
+//				} catch (IllegalDriveException e) {
+//					continue;
+//				}
+//				break end;
+//			
+//			}
+//
+//		}
+//		// else{
+//		// Point target = null;
+//		// for(RobotData data : world.get_robots().values()){
+//		// if(data.getPacmanLastSighted()!=null){
+//		// //TODO convert target
+//		// target = data.getPacmanLastSighted();
+//		// }
+//		// }
+//		// try {
+//		// getPathLayer().go(getCurrentPoint(), target);
+//		// } catch (IllegalDriveException e) {
+//		// e.printStackTrace();
+//		// } catch (NullPointerException e){
+//		// System.out.println("Geen pacman gevonden!");
+//		// }
+//		// }
+//		else {
+//			System.out.println("Geen pacman gevonden!");
+//		}
+//	}
 
 	private boolean nextToPamam()
 	{

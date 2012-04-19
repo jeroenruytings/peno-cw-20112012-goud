@@ -42,7 +42,12 @@ public class MoverLayer extends Observable
 	private BarCodeReader _reader;
 	private Map<int[], Barcode> _map;
 	private int headTacho = 0;
-	static boolean isCrashed;
+	private boolean isCrashed;
+	public void setCrashed(boolean isCrashed) {
+		this.isCrashed = isCrashed;
+	}
+
+
 	private CrashListener crashListener;
 	
 	public MoverLayer()
@@ -115,13 +120,16 @@ public class MoverLayer extends Observable
 
 	}
 
-	public void drive(int distance)
+	public void drive(int distance) throws CrashedException
 	{
 		if (distance>=0){
 			pcc.sendCommando(new Commando(Action.FORWARD, distance, ""));
 		}
 		else{
 			pcc.sendCommando(new Commando(Action.BACKWARD, (-1*distance), ""));
+		}
+		if(isCrashed){
+			throw new CrashedException();
 		}
 	}
 	

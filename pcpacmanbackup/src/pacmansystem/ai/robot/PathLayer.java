@@ -3,6 +3,7 @@ package pacmansystem.ai.robot;
 import java.awt.Point;
 import java.util.Iterator;
 
+import pacmansystem.ai.robot.fysicalRobot.connector.CrashedException;
 import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
 import data.board.Board;
 import data.board.Panel;
@@ -36,7 +37,7 @@ public class PathLayer {
 	 * Going more then one step at a time is kinda silly in our design...
 	 * 
 	 * */
-	public void go(Point start, Point end) throws IllegalDriveException {
+	public void go(Point start, Point end) throws IllegalDriveException, CrashedException {
 		Iterable<Point> r = null;
 		try {
 			r = finder.shortestPath(start, end);
@@ -75,7 +76,7 @@ public class PathLayer {
 		return panel;
 	}
 
-	public void goOneStep(Point currentPoint, Point destination) throws IllegalDriveException
+	public void goOneStep(Point currentPoint, Point destination) throws IllegalDriveException, CrashedException
 	{
 		Iterable<Point> r;
 		try{
@@ -92,13 +93,12 @@ public class PathLayer {
 			
 			o = Board.getOrientationBetween(current,next);
 			orientationLayer.go(o);
+			data.position(next);
+			data.setOrientation(o);
 		} catch (IllegalDriveException e) {
 			System.out.println("exception");
 			e.printStackTrace();
 		
 		}
-		
-		data.position(next);
-		data.setOrientation(o);
 	}
 }

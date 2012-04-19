@@ -2,6 +2,7 @@ package pacmansystem.ai.robot;
 
 import java.io.IOException;
 
+import pacmansystem.ai.robot.fysicalRobot.connector.CrashedException;
 import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
 import data.board.Panel;
 import data.board.Panel.WallState;
@@ -11,7 +12,7 @@ import data.enums.Orientation;
 public interface PanelLayerInterface
 {
 
-	public abstract void go(Direction d) throws IllegalDriveException;
+	public abstract void go(Direction d) throws IllegalDriveException, CrashedException;
 
 	public abstract WallState hasBorder(Direction d) throws IOException;
 

@@ -35,6 +35,7 @@ public class SensorMonitor extends LeoMonitor
 			if (decoder.value() == 1){
 			virtu.setPushSensor(true);
 			virtu.afterCrash();
+			virtu.setCrashed(true);
 			}
 			else{
 				virtu.setPushSensor(false);

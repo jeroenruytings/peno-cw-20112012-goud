@@ -4,6 +4,7 @@ import pacmansystem.ai.robot.Barcode;
 import pacmansystem.ai.robot.PanelLayerInterface;
 import pacmansystem.ai.robot.fysicalRobot.connector.Action;
 import pacmansystem.ai.robot.fysicalRobot.connector.Commando;
+import pacmansystem.ai.robot.fysicalRobot.connector.CrashedException;
 import pacmansystem.ai.robot.fysicalRobot.connector.MoverLayer;
 import data.board.Panel;
 import data.board.Panel.WallState;
@@ -39,25 +40,67 @@ public class PanelLayer implements PanelLayerInterface
 	 * @see panel.PanelLayerInterface#go(direction.Direction)
 	 */
 	@Override
-	public void go(Direction d)
+	public void go(Direction d) throws CrashedException
 	{
-		switch (d.ordinal())
-		{
-		case 0:
-			mover.drive(distance);
-			break;
-		case 1:
-			mover.turn(180);
-			mover.drive(distance);
-			break;
-		case 2:
-			mover.turn(-90);
-			mover.drive(distance);
-			break;
-		case 3:
-			mover.turn(90);
-			mover.drive(distance);
-		}
+			switch (d.ordinal())
+			{
+			case 0:
+				try {
+					mover.drive(distance);
+				}catch (CrashedException e) {
+					mover.setCrashed(false);
+					try {
+						mover.drive(-13);
+					} catch (CrashedException e1) {
+						//This should never happen
+						e1.printStackTrace();
+					}
+					mover.correctToMiddle();
+					throw new CrashedException();
+				}
+				break;
+			case 1:
+				mover.turn(180);
+				try {
+					mover.drive(distance);
+				}catch (CrashedException e) {
+					//This should never happen
+				}
+				break;
+			case 2:
+				mover.turn(-90);
+				try {
+					mover.drive(distance);
+				} catch (CrashedException e) {
+					mover.setCrashed(false);
+					try {
+						mover.drive(-13);
+					} catch (CrashedException e1) {
+						//This should never happen
+						e1.printStackTrace();
+					}
+					mover.turn(90);
+					mover.correctToMiddle();
+					throw new CrashedException();
+				}
+				break;
+			case 3:
+				mover.turn(90);
+				try {
+					mover.drive(distance);
+				} catch (CrashedException e) {
+					mover.setCrashed(false);
+					try {
+						mover.drive(-13);
+					} catch (CrashedException e1) {
+						//This should never happen
+						e1.printStackTrace();
+					}
+					mover.turn(-90);
+					mover.correctToMiddle();
+					throw new CrashedException();
+				}
+			}
 	}
 
 	/*

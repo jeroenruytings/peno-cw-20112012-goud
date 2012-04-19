@@ -1,5 +1,6 @@
 package pacmansystem.ai.robot;
 
+import pacmansystem.ai.robot.fysicalRobot.connector.CrashedException;
 import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
 import data.board.Panel;
 import data.enums.Direction;
@@ -28,7 +29,7 @@ public class OrientationLayer
 //		layer = new SimulatedRobot(realworld);
 //	}
 
-	public void go(Orientation... o) throws IllegalDriveException
+	public void go(Orientation... o) throws IllegalDriveException, CrashedException
 	{
 		for (Orientation orient : o)
 			go(orient);
@@ -41,9 +42,10 @@ public class OrientationLayer
 
 	/**
 	 * @throws IllegalDriveException
+	 * @throws CrashedException 
 	 * 
 	 */
-	public void go(Orientation o) throws IllegalDriveException
+	public void go(Orientation o) throws IllegalDriveException, CrashedException
 	{
 		for (Direction d : Direction.values())
 			if (o == currentOrientation.addTo(d)) {
