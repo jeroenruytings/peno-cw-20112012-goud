@@ -3,13 +3,13 @@ package communicator.parser.decoder;
 import java.awt.Point;
 import java.text.ParseException;
 
-import communicator.parser.Decoder;
 import communicator.parser.messages.BarcodeAtMessage;
+import communicator.parser.messages.Message;
 
 
-public class BARCODEAT extends Decoder {
+public class BarcodeAtMessageDecoder extends MessageDecoder<BarcodeAtMessage> {
 
-	protected BARCODEAT(Decoder next){
+	protected BarcodeAtMessageDecoder(MessageDecoder<? extends Message> next){
 		super(next,"BARCODEAT");
 	}
 

@@ -2,14 +2,14 @@ package communicator.parser.decoder;
 
 import java.text.ParseException;
 
-import communicator.parser.Decoder;
 import communicator.parser.messages.CapturedMessage;
+import communicator.parser.messages.Message;
 
 
-public class CAPTURED extends Decoder
+public class CapturedMessageDecoder extends MessageDecoder<CapturedMessage>
 {
 
-	public CAPTURED(Decoder next)
+	public CapturedMessageDecoder(MessageDecoder<? extends Message> next)
 	{
 		super(next, "CAPTURED");
 	}

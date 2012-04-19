@@ -2,14 +2,14 @@ package communicator.parser.decoder;
 
 import java.text.ParseException;
 
-import communicator.parser.Decoder;
 import communicator.parser.messages.CancelPlanMessage;
+import communicator.parser.messages.Message;
 
 
-public class CANCELPLAN extends Decoder
+public class CancelPlanMessageDecoder extends MessageDecoder<CancelPlanMessage>
 {
 
-	public CANCELPLAN(Decoder next)
+	public CancelPlanMessageDecoder(MessageDecoder<? extends Message> next)
 	{
 		super(next, "CANCELPLAN");
 	}

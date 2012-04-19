@@ -2,14 +2,14 @@ package communicator.parser.decoder;
 
 import java.text.ParseException;
 
-import communicator.parser.Decoder;
+import communicator.parser.messages.Message;
 import communicator.parser.messages.NameMessage;
 
 
-public class NAME extends Decoder
+public class NameMessageDecoder extends MessageDecoder<NameMessage>
 {
 
-	protected NAME(Decoder next)
+	protected NameMessageDecoder(MessageDecoder<? extends Message> next)
 	{
 		super(next, "NAME");
 	}

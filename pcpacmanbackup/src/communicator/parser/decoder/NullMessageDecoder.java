@@ -1,12 +1,12 @@
-package communicator.parser;
+package communicator.parser.decoder;
 
 import communicator.parser.messages.NullMessage;
 
-public class NullDecoder extends Decoder
+public class NullMessageDecoder extends MessageDecoder<NullMessage>
 {
 
 	
-	public NullDecoder()
+	public NullMessageDecoder()
 	{
 		super(null,"");
 	}

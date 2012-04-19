@@ -3,14 +3,14 @@ package communicator.parser.decoder;
 import java.awt.Point;
 import java.text.ParseException;
 
-import communicator.parser.Decoder;
+import communicator.parser.messages.Message;
 import communicator.parser.messages.PositionMessage;
 
 
-public class POSITION extends Decoder
+public class PositionMessageDecoder extends MessageDecoder<PositionMessage>
 {
 
-	protected POSITION(Decoder next)
+	protected PositionMessageDecoder(MessageDecoder<? extends Message> next)
 	{
 		super(next, "POSITION");
 	}

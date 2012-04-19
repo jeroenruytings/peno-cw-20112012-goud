@@ -2,14 +2,14 @@ package communicator.parser.decoder;
 
 import java.text.ParseException;
 
-import communicator.parser.Decoder;
+import communicator.parser.messages.Message;
 import communicator.parser.messages.PongMessage;
 
 
-public class PONG extends Decoder
+public class PongMessageDecoder extends MessageDecoder<PongMessage>
 {
 
-	protected PONG(Decoder next)
+	protected PongMessageDecoder(MessageDecoder<? extends Message> next)
 	{
 		super(next, "PONG");
 	}

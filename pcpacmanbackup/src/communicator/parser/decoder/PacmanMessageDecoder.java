@@ -3,15 +3,14 @@ package communicator.parser.decoder;
 import java.awt.Point;
 import java.text.ParseException;
 
-import communicator.parser.Decoder;
 import communicator.parser.messages.Message;
 import communicator.parser.messages.PacmanMessage;
 
 
-public class PACMAN extends Decoder
+public class PacmanMessageDecoder extends MessageDecoder<PacmanMessage>
 {
 
-	protected PACMAN(Decoder next)
+	protected PacmanMessageDecoder(MessageDecoder<? extends Message> next)
 	{
 		super(next, "PACMAN");
 	}
@@ -25,7 +24,7 @@ public class PACMAN extends Decoder
 	}
 
 	@Override
-	public Message parse(String message) throws ParseException
+	public PacmanMessage parse(String message) throws ParseException
 	{
 		String msg = stripMessage(message);
 		String[] mes = msg.split(" ");

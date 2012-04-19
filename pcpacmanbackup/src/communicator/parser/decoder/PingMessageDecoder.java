@@ -2,14 +2,14 @@ package communicator.parser.decoder;
 
 import java.text.ParseException;
 
-import communicator.parser.Decoder;
+import communicator.parser.messages.Message;
 import communicator.parser.messages.PingMessage;
 
 
-public class PING extends Decoder
+public class PingMessageDecoder extends MessageDecoder<PingMessage>
 {
 
-	protected PING(Decoder next)
+	protected PingMessageDecoder(MessageDecoder<? extends Message> next)
 	{
 		super(next, "PING");
 	}

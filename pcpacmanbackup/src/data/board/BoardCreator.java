@@ -5,7 +5,7 @@ import java.text.ParseException;
 
 import pacmansystem.ai.robot.Barcode;
 
-import communicator.parser.ProtocolDecoder;
+import communicator.parser.decoder.ProtocolDecoder;
 import communicator.parser.messages.BarcodeAtMessage;
 import communicator.parser.messages.Command;
 import communicator.parser.messages.DiscoverMessage;

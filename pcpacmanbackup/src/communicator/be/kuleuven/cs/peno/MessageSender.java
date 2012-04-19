@@ -9,7 +9,9 @@ import java.util.Date;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
-import communicator.parser.ProtocolDecoder;
+
+import communicator.parser.decoder.ProtocolDecoder;
+import communicator.parser.messages.Message;
 
 
 public class MessageSender{
@@ -33,6 +35,11 @@ public class MessageSender{
 		return instance;
 	}
 	
+	public void sendMessage(Message message) throws IOException{
+		sendMessage(message.getSentString());
+	}
+	
+	//TODO maak deze methode private.
 	public void sendMessage(String message) throws IOException{
 		if (message != null) {
 			AMQP.BasicProperties props = new AMQP.BasicProperties();
@@ -47,7 +54,7 @@ public class MessageSender{
 				RabbitHistory.messageSend(message, decoder.parse(message).getNameFrom());
 			} catch (ParseException e) {
 				e.printStackTrace();
-				System.err.println("\n Het berich dat word uitgezonden is geen correct bericht.");
+				System.err.println("\n Het berich dat wordt uitgezonden is geen correct bericht.");
 			}
 		}
 	}

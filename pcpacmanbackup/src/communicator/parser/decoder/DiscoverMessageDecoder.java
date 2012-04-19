@@ -3,14 +3,14 @@ package communicator.parser.decoder;
 import java.awt.Point;
 import java.text.ParseException;
 
-import communicator.parser.Decoder;
 import communicator.parser.messages.DiscoverMessage;
+import communicator.parser.messages.Message;
 
 
-public class DISCOVER extends Decoder
+public class DiscoverMessageDecoder extends MessageDecoder<DiscoverMessage>
 {
 
-	public DISCOVER(Decoder next)
+	public DiscoverMessageDecoder(MessageDecoder<? extends Message> next)
 	{
 		super(next, "DISCOVER");
 	}

@@ -1,14 +1,14 @@
-package communicator.parser;
+package communicator.parser.decoder;
 
 import java.text.ParseException;
 import java.util.Arrays;
 
 import communicator.parser.messages.Message;
 
-public abstract class Decoder
+public abstract class MessageDecoder<M extends Message>
 {
 	protected String _key;
-	private Decoder _next;
+	private MessageDecoder<? extends Message> _next;
 
 //	public Decoder(String key)
 //	{
@@ -16,7 +16,7 @@ public abstract class Decoder
 //		_next = new NullDecoder();
 //	}
 
-	protected Decoder(Decoder next, String key)
+	protected MessageDecoder(MessageDecoder<? extends Message> next, String key)
 	{
 		this._key = key;
 		_next = next;
@@ -24,7 +24,7 @@ public abstract class Decoder
 
 	public abstract boolean canDecode(String message);
 
-	public abstract Message parse(String message) throws ParseException;
+	public abstract M parse(String message) throws ParseException;
 	
 	/**
 	 * This message strips messages to the right format for the parse method.
@@ -39,21 +39,21 @@ public abstract class Decoder
 		
 	}
 
-	public Decoder next()
+	public MessageDecoder<? extends Message> next()
 	{
 		if (_next == null)
-			return new NullDecoder();
+			return new NullMessageDecoder();
 		return _next;
 	}
 
-	public void setNext(Decoder next)
+	public void setNext(MessageDecoder<? extends Message> next)
 	{
 		_next = next;
 	}
 
 	protected boolean correctKey(String message)
 	{
-		Decoder.stripMessage(message);
+		MessageDecoder.stripMessage(message);
 		String[] mes = message.split(" ");
 		try{
 		if (!mes[1].equals(_key))
@@ -67,7 +67,7 @@ public abstract class Decoder
 	
 	public static void main(String[] args){
 		String s = "Goud0.8831854161306725 NAME 1.0\n";
-		s = Decoder.stripMessage(s);
+		s = MessageDecoder.stripMessage(s);
 		System.out.print(s);
 		System.out.print(Arrays.toString(s.split(" ")));
 		//Scanner scr = new Scanner(System.in);
