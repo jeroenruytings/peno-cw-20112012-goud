@@ -31,9 +31,8 @@ public class PositionMessageDecoder extends MessageDecoder<PositionMessage>
 	{
 		String msg = stripMessage(message);
 		String[] mes = msg.split(" ");
-		String[] coord = mes[2].split(",");
-		return new PositionMessage(mes[0], new Point(
-				Integer.parseInt(coord[0]), Integer.parseInt(coord[1])));
+		Point coord = MessageDecoder.ghostCoordinateParameterToPoint(mes[2]);
+		return new PositionMessage(mes[0], coord);
 	}
 
 }

@@ -12,7 +12,7 @@ public class PositionMessage extends Message
 	public PositionMessage(String nameFrom, Point position)
 	{
 		super(nameFrom);
-		setParameter(_position);
+		setParameter(position);
 		this._position = position;
 	}
 

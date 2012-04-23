@@ -1,5 +1,6 @@
 package communicator.parser.decoder;
 
+import java.awt.Point;
 import java.text.ParseException;
 import java.util.Arrays;
 
@@ -22,7 +23,11 @@ public abstract class MessageDecoder<M extends Message>
 		_next = next;
 	}
 
-	public abstract boolean canDecode(String message);
+	public boolean canDecode(String message){
+		if (!correctKey(message))
+			return false;
+		return true;
+	}
 
 	public abstract M parse(String message) throws ParseException;
 	
@@ -63,6 +68,20 @@ public abstract class MessageDecoder<M extends Message>
 			System.out.println(message);
 		}
 		return true;
+	}
+	
+	public static Point ghostCoordinateParameterToPoint(String parameter){
+		Point coordinate = null;
+		try{
+			String[] coord = parameter.split(",");
+			coordinate = new Point(Integer.parseInt(coord[0]),Integer.parseInt(coord[1]));
+		}
+		catch(Exception e)
+		{
+			new IllegalArgumentException("De volgende string werd doorgegeven om er een coordinaat van te maken" + parameter);
+		}
+		return coordinate;
+		
 	}
 	
 	public static void main(String[] args){

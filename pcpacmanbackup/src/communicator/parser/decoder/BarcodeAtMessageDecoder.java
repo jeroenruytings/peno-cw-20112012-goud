@@ -26,8 +26,7 @@ public class BarcodeAtMessageDecoder extends MessageDecoder<BarcodeAtMessage> {
 	{
 		String msg = stripMessage(message);
 		String[] mes = msg.split(" ");
-		String[] coord = mes[2].split(",");
-		Point coordinate = new Point(Integer.parseInt(coord[0]),Integer.parseInt(coord[1]));
+		Point coordinate = MessageDecoder.ghostCoordinateParameterToPoint(mes[2]);
 		return new BarcodeAtMessage(mes[0], coordinate,Integer.parseInt(mes[3]),
 				Integer.parseInt(mes[4]));
 	}
