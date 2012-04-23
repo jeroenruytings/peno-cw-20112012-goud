@@ -71,14 +71,18 @@ public class Hunt implements Strategy {
 
 	@Override
 	public boolean hasToSwitchStrategy() {
-		if (getController().getCurrentPoint().equals(getController().getOwnData().getPacmanLastSighted()))
+		Point pacmanPos = getController().getOwnData().getPacmanLastSighted();
+		Point currentPos = getController().getCurrentPoint();
+		if(pacmanPos.distance(currentPos) == 1 && !getController().getData().getBoard().wallBetween(pacmanPos, currentPos))
 			return true;
 		return false;
 	}
 
 	@Override
 	public Strategy getReplacingStrategy() {
-		if (getController().getCurrentPoint().equals(getController().getOwnData().getPacmanLastSighted())) {
+		Point pacmanPos = getController().getOwnData().getPacmanLastSighted();
+		Point currentPos = getController().getCurrentPoint();
+		if(pacmanPos.distance(currentPos) == 1 && !getController().getData().getBoard().wallBetween(pacmanPos, currentPos)) {
 			getController().getData().setPacman(null);
 			return new Roam(controller);
 		}
