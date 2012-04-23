@@ -41,15 +41,7 @@ public class Hunt implements Strategy {
 	@Override
 	public Queue<Point> constructRoute() {
 		updatePValues();
-		Point destination = null;
-		double best = 0.0;
-		for(Point p : pvalues.keySet()){
-			double value = pvalues.get(p);
-			if(value > best){
-				best = value;
-				destination = p;
-			}
-		}
+		Point destination = getBestDestination();
 		DijkstraFinder finder = new DijkstraFinder(getController().getData());
 		List<Point> path = null;
 		try {
@@ -62,6 +54,19 @@ public class Hunt implements Strategy {
 		for (Point point: path)
 			route.add(point);
 		return route;
+	}
+	
+	private Point getBestDestination() {
+		Point destination = null;
+		double best = 0.0;
+		for(Point p : pvalues.keySet()){
+			double value = pvalues.get(p);
+			if(value > best){
+				best = value;
+				destination = p;
+			}
+		}
+		return destination;
 	}
 
 	@Override
