@@ -1,6 +1,8 @@
 package pacmansystem.ai.robot.fysicalRobot.connector;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
@@ -10,6 +12,7 @@ import pacmansystem.ai.robot.BarcodeReader;
 import pacmansystem.ai.robot.fysicalRobot.PanelColor;
 import pacmansystem.ai.robot.fysicalRobot.barcode.BarCodeReader;
 import pacmansystem.ai.robot.fysicalRobot.barcode.ColorTransitionStack;
+import pacmansystem.ai.robot.simulatedRobot.SimulationConnection;
 
 public class MoverLayer extends Observable
 {
@@ -55,7 +58,19 @@ public class MoverLayer extends Observable
 		initialiseMoverLayer();
 	}
 	
-	
+	public MoverLayer(PCCommunicator comm)
+	{
+		isCrashed = false;
+		pcc = comm;
+		Thread communicator = new Thread(pcc);
+		_colorStack = new ColorTransitionStack(this);
+		_map = initbarcodes();
+		_reader = new BarCodeReader(_colorStack, _map);
+		crashListener = new CrashListener(this);
+		this.addObserver(crashListener);
+		communicator.start();
+		calibrateColors();
+	}
 	private void initialiseMoverLayer(){
 		
 		isCrashed = false;
