@@ -4,7 +4,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class PCCommunicator implements Runnable
+import pacmansystem.ai.robot.simulatedRobot.SimulationConnection;
+
+public class PCCommunicator implements Runnable,Communicator
 {
 
 	private LeoMonitor startOfChain;
@@ -33,6 +35,11 @@ public class PCCommunicator implements Runnable
 //		t.start();
 //	}
 
+	public PCCommunicator(SimulationConnection connection2)
+	{
+		streamIn = new DataInputStream(connection2.getPCIN());
+		streamOut =new DataOutputStream( connection2.getPcOut());
+	}
 	private LeoMonitor buildMonitors(MoverLayer mover)
 	{
 		return new SensorMonitor(new NullMonitor(null), mover);

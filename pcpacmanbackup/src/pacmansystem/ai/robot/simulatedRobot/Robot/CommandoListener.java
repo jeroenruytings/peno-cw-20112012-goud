@@ -59,41 +59,41 @@ public class CommandoListener implements Runnable {
 			return;
 		}
 		else{
-			switch (receivedCommando.getAction().ordinal()){
-				case 0:
+			switch (receivedCommando.getAction()){
+				case STOP:
 					stop();
 					break;
-				case 1:
+				case FORWARD:
 					forward(receivedCommando.getArgument());
 					break;
-				case 2:
+				case BACKWARD:
 					backward(receivedCommando.getArgument());
 					break;
-				case 3:
+				case LEFT:
 					left(receivedCommando.getArgument());
 					break;
-				case 4:
+				case RIGHT:
 					right(receivedCommando.getArgument());
 					break;
-				case 5:
+				case CALIBRATEBLACK:
 					calibrateBlack();
 					break;
-				case 6:
+				case CALIBRATEWHITE:
 					calibrateWhite();
 					break;
-				case 7:
+				case CALIBRATEBROWN:
 					calibrateBrown();
 					break;
-				case 8:
+				case READBARCODE:
 					readBarcode();
 					break;
-				case 9:
+				case HEADRIGHT:
 					turnHeadRight(receivedCommando.getArgument());
 					break;
-				case 10:
+				case HEADLEFT:
 					turnHeadLeft(receivedCommando.getArgument());
 					break;
-				case 11:
+				case CORRECT:
 					correctToMiddle();
 					break;
 				default:;

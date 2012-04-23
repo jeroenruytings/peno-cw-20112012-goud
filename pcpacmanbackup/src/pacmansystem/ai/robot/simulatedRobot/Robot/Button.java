@@ -1,5 +1,7 @@
 package pacmansystem.ai.robot.simulatedRobot.Robot;
 
+import java.io.IOException;
+
 public class Button
 {
 
@@ -7,7 +9,13 @@ public class Button
 
 	public void waitForPressAndRelease()
 	{
-		// TODO Auto-generated method stub
+		System.out.println("Pres enter to advance.");
+		try {
+			System.in.read();
+		} catch (IOException e) {
+			
+		}
+		
 		
 	}
 
