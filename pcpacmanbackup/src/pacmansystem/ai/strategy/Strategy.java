@@ -14,4 +14,6 @@ public interface Strategy {
 	public boolean hasFinishedExploring();
 	
 	public boolean hasCaughtPacman();
+	
+	public boolean hasToUpdatePlan();
 }

@@ -78,6 +78,11 @@ public class RobotController
 					break;
 				}
 				
+				if (strategy.hasToUpdatePlan()) {
+					getOwnData().cancelPlan();
+					break;
+				}
+				
 				destination = getOwnData().getRemainingPlan().get(0); // zoekt volgend punt om naartoe te
 																		// gaan
 				try {

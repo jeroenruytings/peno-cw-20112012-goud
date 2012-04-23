@@ -80,4 +80,12 @@ public class Catch implements Strategy {
 		return !getController().pacmanCanMoveToOtherPanel();
 	}
 
+	@Override
+	public boolean hasToUpdatePlan() {
+		Point pacmanPos = getController().getData().getPacmanLastSighted();
+		if (getController().getOwnData().getRemainingPlan().contains(pacmanPos))
+			return true;
+		return false;
+	}
+
 }

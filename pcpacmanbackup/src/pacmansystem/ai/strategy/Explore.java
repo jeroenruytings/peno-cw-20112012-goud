@@ -150,4 +150,9 @@ public class Explore implements Strategy {
 	public boolean hasCaughtPacman() {
 		return false;
 	}
+
+	@Override
+	public boolean hasToUpdatePlan() {
+		return false;
+	}
 }

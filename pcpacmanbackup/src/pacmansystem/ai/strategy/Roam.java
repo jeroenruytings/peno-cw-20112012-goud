@@ -103,4 +103,9 @@ public class Roam implements Strategy {
 		return false;
 	}
 
+	@Override
+	public boolean hasToUpdatePlan() {
+		return false;
+	}
+
 }
