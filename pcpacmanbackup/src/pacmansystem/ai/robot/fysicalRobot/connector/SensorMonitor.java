@@ -41,11 +41,11 @@ public class SensorMonitor extends LeoMonitor
 				virtu.setPushSensor(false);
 			}
 			break;
-		case DIRECTIONIRSENSOR:
-			// gevolg invullen
-//			System.out.println("direction irsensor: " + decoder.value());
-			virtu.setInfraredSensorDirection(decoder.value());
-			break;
+//		case DIRECTIONIRSENSOR:
+//			// gevolg invullen
+////			System.out.println("direction irsensor: " + decoder.value());
+//			virtu.setInfraredSensorDirection(decoder.value());
+//			break;
 		case VALUEIRSENSOR:
 			// gevolg invullen
 //			System.out.println("value irsensor: " + decoder.value());
@@ -53,7 +53,6 @@ public class SensorMonitor extends LeoMonitor
 			break;
 		case LIGHTSENSOR:
 			// gevolg invullen
-//			System.out.println("lichtsensor: " + decoder.value());
 			virtu.setLightSensor(decoder.value()*4);
 			break;
 		case ULTRASONIC:

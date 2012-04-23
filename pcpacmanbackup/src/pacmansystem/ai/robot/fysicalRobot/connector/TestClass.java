@@ -32,6 +32,9 @@ public class TestClass {
 		
 		
 		Panel paneel = panel.getPanel(Orientation.NORTH);
+		System.out.println("PacmanSeen? " + panel.isPacmanSeen());
+		System.out.println("PacmanDirection? " + panel.getPacmanDirection());
+		System.out.println("PacmanDistance? " + panel.getPacmanDistance());
 //		panel.go(Direction.UP);
 //		paneel = panel.getPanel(Orientation.NORTH);
 		
