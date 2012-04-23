@@ -8,6 +8,7 @@ import pacmansystem.ai.robot.Barcode;
 
 import communicator.be.kuleuven.cs.peno.MessageSender;
 
+import data.board.Board;
 import data.board.Panel;
 import data.enums.Orientation;
 
@@ -15,9 +16,12 @@ import data.enums.Orientation;
 
 public class OwnRobotData extends RobotData
 {
+	private Board mergedBoard;
+	
 	public OwnRobotData(String name)
 	{
 		super(name);
+		mergedBoard = new Board();
 	}
 	private String pointToString(Point p)
 	{
@@ -189,5 +193,13 @@ public class OwnRobotData extends RobotData
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public Board getMergedBoard() {
+		return mergedBoard;
+	}
+	
+	public void setMergedBoard(Board newBoard) {
+		mergedBoard = newBoard;
 	}
 }

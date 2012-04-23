@@ -29,7 +29,7 @@ public class Hunt implements Strategy {
 	public Hunt(RobotController controller) {
 		this.controller = controller;
 		pvalues = new HashMap<Point, Double>(); 
-		for(Point p : getController().getBoard().getPanels().keySet()){
+		for(Point p : getController().getMergedBoard().getPanels().keySet()){
 			pvalues.put(p,0.0);
 		}
 	}
@@ -128,7 +128,7 @@ public class Hunt implements Strategy {
 			if(otherGhosts.contains(neighbourPoint))
 				continue;
 			if(pvalues.containsKey(neighbourPoint)){
-				if(!getController().getBoard().wallBetween(p,neighbourPoint))
+				if(!getController().getMergedBoard().wallBetween(p,neighbourPoint))
 					result += pvalues.get(neighbourPoint);
 			}
 		}

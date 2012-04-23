@@ -75,12 +75,12 @@ public class Explore implements Strategy {
 		Orientation best = null;
 		int nbUnknowns = 0;
 		for (Orientation orientation : Orientation.values()) {
-			if (getController().getBoard().wallBetween(position, orientation))
+			if (getController().getMergedBoard().wallBetween(position, orientation))
 				continue;
-			if(getController().getBoard().hasPanelAt(orientation.addTo(getController().getCurrentPoint())))
+			if(getController().getMergedBoard().hasPanelAt(orientation.addTo(getController().getCurrentPoint())))
 				continue;
 			Point possibleDest = orientation.addTo(getController().getCurrentPoint());
-			int temp = getController().getBoard().nbOfUnknowns(possibleDest);
+			int temp = getController().getMergedBoard().nbOfUnknowns(possibleDest);
 			if (temp >= nbUnknowns) {
 				best = orientation;
 				nbUnknowns = temp;
@@ -98,10 +98,10 @@ public class Explore implements Strategy {
 	{
 		Point best = null;
 		int waarde = 1000;
-		for (Point point : getController().getBoard().getPanels().keySet()) {
+		for (Point point : getController().getMergedBoard().getPanels().keySet()) {
 			if (point.equals(getController().getCurrentPoint()))
 				continue;
-			int nbKnown = 4 - getController().getBoard().nbOfUnknowns(point);
+			int nbKnown = 4 - getController().getMergedBoard().nbOfUnknowns(point);
 			if (nbKnown == 4)
 				continue;
 			int temp = nbKnown + heuristiek(point);

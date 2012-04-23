@@ -48,8 +48,11 @@ public class Roam implements Strategy {
 		return plan;
 	}
 	
+	/**
+	 * Returns a random point from the robot's own board
+	 */
 	private Point getRandomPoint() {
-		Set<Point> allPoints = getController().getBoard().getPanels().keySet();
+		Set<Point> allPoints = getController().getMergedBoard().getPanels().keySet();
 		Point[] pointsArray = new Point[allPoints.size()];
 		int i = 0;
 		for (Point point: allPoints) {

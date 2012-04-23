@@ -123,7 +123,7 @@ public class RobotController
 			Point pacmanLocation = getData().getOrientation()
 					.addTo(pacmanSpotted).addTo(getCurrentPoint());
 			getOwnData().pacman(pacmanLocation);
-			if (!this.getBoard().hasPanelAt(pacmanLocation)) {
+			if (!this.getMergedBoard().hasPanelAt(pacmanLocation)) {
 				Panel pacmanPanel = new Panel();
 
 				this.getOwnData().discover(pacmanLocation, pacmanPanel);
@@ -135,9 +135,9 @@ public class RobotController
 		}
 		// kijken
 		try {
-			getBoard().add(p1, getCurrentPoint());
+			getMergedBoard().add(p1, getCurrentPoint());
 		} catch (IllegalArgumentException e) {
-			getBoard().addForced(p1, getCurrentPoint());
+			getMergedBoard().addForced(p1, getCurrentPoint());
 		} // voegt panel toe aan board
 	}
 
@@ -145,18 +145,18 @@ public class RobotController
 	{
 		for (RobotDataView robot : getOtherBots())
 			for (Point p : robot.getBoard().getFilledPoints())
-				if (!this.getBoard().hasPanelAt(p)) {
+				if (!this.getMergedBoard().hasPanelAt(p)) {
 					try {
-						this.getBoard().add(robot.getBoard().getPanelAt(p), p);
+						this.getMergedBoard().add(robot.getBoard().getPanelAt(p), p);
 					} catch (IllegalArgumentException e) {
 						// getBoard().addForced(robot.getBoard().getPanelAt(p),
 						// p);
 					}
 					//	getOwnData().discover(p, robot.getBoard().getPanelAt(p));
-					if (this.getBoard().getPanelAt(p).hasBarcode()) {
+					if (this.getMergedBoard().getPanelAt(p).hasBarcode()) {
 						getOwnData().barcode(
-								getBoard().getPanelAt(p).getBarcode(),
-								getBoard().getPanelAt(p)
+								getMergedBoard().getPanelAt(p).getBarcode(),
+								getMergedBoard().getPanelAt(p)
 										.getBarcodeOrientation(), p);
 					}
 				}
@@ -322,12 +322,16 @@ public class RobotController
 	{
 		if (getData().getPacmanLastSighted() == null)
 			return false;
-		return getBoard().getSurrounding(getData().getPacmanLastSighted())
+		return getMergedBoard().getSurrounding(getData().getPacmanLastSighted())
 				.contains(getCurrentPoint());
 	}
 
-	public Board getBoard()
+	public Board getMergedBoard()
 	{
+		return ((OwnRobotData) getData()).getMergedBoard();
+	}
+	
+	public Board getOwnBoard() {
 		return getData().getBoard();
 	}
 
@@ -364,7 +368,7 @@ public class RobotController
 		Point shortest = null;
 		int min = 10000;
 		DijkstraFinder f = new DijkstraFinder(getData());
-		for (Point point : getBoard().getUnfilledPoints()) {
+		for (Point point : getMergedBoard().getUnfilledPoints()) {
 			List<Point> path = null;
 			try {
 				path = f.shortestPath(getCurrentPoint(), point);
@@ -384,10 +388,10 @@ public class RobotController
 	{
 		Point shortest = null;
 		int max = 0;
-		for (Point point : getBoard().getUnfilledPoints()) {
+		for (Point point : getMergedBoard().getUnfilledPoints()) {
 			int c = 1;
-			for (Point p : getBoard().getSurrounding(point)) {
-				if (getBoard().hasPanelAt(p))
+			for (Point p : getMergedBoard().getSurrounding(point)) {
+				if (getMergedBoard().hasPanelAt(p))
 					c++;
 			}
 			// c = c - dist(getCurrentPoint(), point);
@@ -403,10 +407,10 @@ public class RobotController
 	{
 		Point shortest = null;
 		int max = -1000;
-		for (Point point : getBoard().getUnfilledPoints()) {
+		for (Point point : getMergedBoard().getUnfilledPoints()) {
 			int c = -1;
-			for (Point p : getBoard().getSurrounding(point)) {
-				if (!getBoard().hasPanelAt(p))
+			for (Point p : getMergedBoard().getSurrounding(point)) {
+				if (!getMergedBoard().hasPanelAt(p))
 					c++;
 			}
 			try {
