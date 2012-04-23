@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 import data.board.shortestpathfinder.dijkstra.DijkstraFinder;
@@ -36,7 +37,7 @@ public class Explore implements Strategy {
 	 * Returns the route to follow. Returns an empty plan if the robot has finished exploring.
 	 */
 	@Override
-	public Queue<Point> constructRoute()
+	public List<Point> constructRoute()
 	{
 		Point destination = null;
 		Orientation orientation = nextMove();
@@ -44,7 +45,7 @@ public class Explore implements Strategy {
 			destination = searchNext();
 		else
 			destination = orientation.addTo(getController().getCurrentPoint());
-		Queue<Point> plan = new LinkedList<Point>();
+		List<Point> plan = new LinkedList<Point>();
 		if(destination != null){
 			DijkstraFinder finder = new DijkstraFinder(getController().getData());
 			Iterator<Point> path = null;

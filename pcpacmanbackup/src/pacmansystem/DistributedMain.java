@@ -21,7 +21,7 @@ public class DistributedMain
 	private static boolean isSimulated;
 	private static World world = new World();
 	private static boolean visible = true;
-	private static int speed = 100000;
+	private static int speed = 100;
 	//name number simulated visibible speed txt
 	public static void main(String[] args)
 	{
@@ -80,7 +80,7 @@ public class DistributedMain
 			RealWorld simulatorWorld = RealWorld.getRealWorld();
 			PanelLayerInterface p = new SimulatedRobot(simulatorWorld,
 					simulatorWorld.getStartingPoint(robotNumber),
-					Orientation.random(),1000);
+					Orientation.random(),100);
 			OrientationLayer directionlayer = new OrientationLayer(p);
 			controller = new RobotController(directionlayer, robotName, world);
 			return controller;

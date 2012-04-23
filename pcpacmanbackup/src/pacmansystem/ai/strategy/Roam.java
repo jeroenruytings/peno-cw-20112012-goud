@@ -3,6 +3,7 @@ package pacmansystem.ai.strategy;
 import java.awt.Point;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
@@ -31,9 +32,9 @@ public class Roam implements Strategy {
 	}
 	
 	@Override
-	public Queue<Point> constructRoute() {
+	public List<Point> constructRoute() {
 		Point randomPoint = getRandomPoint();
-		Queue<Point> plan = new LinkedList<Point>();
+		List<Point> plan = new LinkedList<Point>();
 		DijkstraFinder finder = new DijkstraFinder(getController().getData());
 		Iterator<Point> path = null;
 		try {

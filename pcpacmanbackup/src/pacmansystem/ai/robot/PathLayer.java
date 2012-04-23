@@ -2,6 +2,7 @@ package pacmansystem.ai.robot;
 
 import java.awt.Point;
 import java.util.Iterator;
+import java.util.List;
 
 import pacmansystem.ai.robot.fysicalRobot.connector.CrashedException;
 import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
@@ -78,16 +79,16 @@ public class PathLayer {
 
 	public void goOneStep(Point currentPoint, Point destination) throws IllegalDriveException, CrashedException
 	{
-		Iterable<Point> r;
+		List<Point> r;
 		try{
 		r = finder.shortestPath(currentPoint,destination);
 		}catch(PathNotPossibleException e){
 			throw new IllegalDriveException();
 			
 		}
-		Iterator<Point> s = r.iterator();
-		Point current = s.next();
-		Point next = s.next();
+		//Iterator<Point> s = r.iterator();
+		Point current = r.get(0);
+		Point next = r.get(1);
 		Orientation o =null;
 		try {
 			

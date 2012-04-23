@@ -14,9 +14,12 @@ public class CancelPlanMessage extends Message
 	}
 
 	@Override
-	void execute(World simulator)
+	void execute(World world)
 	{
-		simulator.getRobot(getNameFrom()).clearPlan();
+		world.getRobot(getNameFrom()).clearPlan();
+		synchronized (world.getRobot(getNameFrom())) {
+			world.getRobot(getNameFrom()).notify();
+		}
 	}
 
 	@Override

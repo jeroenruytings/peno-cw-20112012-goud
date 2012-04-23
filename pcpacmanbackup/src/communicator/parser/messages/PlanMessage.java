@@ -26,13 +26,16 @@ public class PlanMessage extends Message
 	}
 
 	@Override
-	void execute(World simulator)
+	void execute(World world)
 	{
 		ArrayList<Point> plan = new ArrayList<Point>();
 		for (Point point : _path) {
 			plan.add(point);
 		}
-		simulator.getRobot(getNameFrom()).addPlan(plan);
+		world.getRobot(getNameFrom()).addPlan(plan);
+		synchronized (world.getRobot(getNameFrom())) {
+			world.getRobot(getNameFrom()).notify();
+		}
 	}
 
 	@Override

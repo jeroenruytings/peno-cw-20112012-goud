@@ -11,12 +11,6 @@ public abstract class MessageDecoder<M extends Message>
 	protected String _key;
 	private MessageDecoder<? extends Message> _next;
 
-//	public Decoder(String key)
-//	{
-//		this._key = key;
-//		_next = new NullDecoder();
-//	}
-
 	protected MessageDecoder(MessageDecoder<? extends Message> next, String key)
 	{
 		this._key = key;

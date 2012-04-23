@@ -6,7 +6,13 @@ public class Barcode
 	int barcode;
 	
 	public Barcode (int barcode){
+		if (!correctBarcode(barcode))
+			throw new IllegalArgumentException("Foute barcode gemaakt:" + barcode);
 		this.barcode = barcode;
+	}
+	
+	private boolean correctBarcode(int barcode){
+		return (barcode != 0);
 	}
 	public Barcode(int... code) throws Exception
 	{
@@ -22,37 +28,21 @@ public class Barcode
 	 * @return This barcode read in the other direction.
 	 */
 	public int getReverse() throws BarcodeException{
-		char[] result = new char[8];
-		try{
-		char[] binairy = Integer.toBinaryString(barcode).toCharArray();
-//		if (binairy.length != 8)
-//			throw new BarcodeException("The given barcode-value does not exist!");
-		result[0] = binairy[0];
-		result[7] = binairy[7];
-		result[1] = binairy[6];
-		result[2] = binairy[5];
-		result[3] = binairy[4];
-		result[4] = binairy[3];
-		result[5] = binairy[2];
-		result[6] = binairy[1];
+		char[] result = new char[6];
+		char[] binairy = this.toString().toCharArray();//Integer.toBinaryString(getValue()).toCharArray();
+		if (binairy.length != 6)
+			throw new BarcodeException("The given barcode-value does not exist!");
+		result[0] = binairy[5];
+		result[1] = binairy[4];
+		result[2] = binairy[3];
+		result[3] = binairy[2];
+		result[4] = binairy[1];
+		result[5] = binairy[0];
 		return Integer.parseInt(new String(result), 2);
-		}
-		
-		catch(Exception e){
-			return 00000000;
-		}
-
-		
 	}
 	
-	public int getBitString(){
-		char[] binairy = Integer.toBinaryString(barcode).toCharArray();
-	//	if (binairy.length != 8)
-		///	throw new BarcodeException("The given barcode-value does not exist!");
-		return Integer.parseInt((new String(binairy)));
-	}
-	public char[] getBitString2(){
-		return  Integer.toBinaryString(barcode).toCharArray();
+	public char[] getBitString(){
+		return  Integer.toBinaryString(getValue()).toCharArray();
 //		if (binairy.length != 8)
 //			throw new BarcodeException("The given barcode-value does not exist!");
 //		return Integer.parseInt((new String(binairy)));
@@ -92,7 +82,7 @@ public class Barcode
 	@Override
 	public String toString()
 	{
-		char[] rv =getBitString2();
+		char[] rv =getBitString();
 		String rev = new String(rv);
 		for(int i = 8;i>rv.length;i--)
 			rev="0"+rev;

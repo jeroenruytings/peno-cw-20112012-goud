@@ -13,8 +13,8 @@ public class PongMessage extends Message {
 	
 	public PongMessage(String nameFrom, String bestemmeling, String string) {
 		super(nameFrom);
-		setParameter(_bestemmeling);
-		setParameter(_string);
+		setParameter(bestemmeling);
+		setParameter(string);
 		this._bestemmeling = bestemmeling;
 		this._string = string;
 	}

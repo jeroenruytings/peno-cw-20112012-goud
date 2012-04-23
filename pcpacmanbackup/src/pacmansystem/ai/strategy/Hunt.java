@@ -39,7 +39,7 @@ public class Hunt implements Strategy {
 	}
 	
 	@Override
-	public Queue<Point> constructRoute() {
+	public List<Point> constructRoute() {
 		updatePValues();
 		Point destination = getBestDestination();
 		DijkstraFinder finder = new DijkstraFinder(getController().getData());
@@ -50,10 +50,7 @@ public class Hunt implements Strategy {
 			e.printStackTrace();
 		}
 		path.remove(path.size()-1);
-		Queue<Point> route = new LinkedList<Point>();
-		for (Point point: path)
-			route.add(point);
-		return route;
+		return path;
 	}
 	
 	private Point getBestDestination() {

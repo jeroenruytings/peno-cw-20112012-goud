@@ -34,7 +34,7 @@ public class Catch implements Strategy {
 	 * pacman, with the position of pacman removed from the queue.
 	 */
 	@Override
-	public Queue<Point> constructRoute() {
+	public List<Point> constructRoute() {
 		Point destination = getController().getOwnData().getPacmanLastSighted();
 		DijkstraFinder finder = new DijkstraFinder(getController().getData());
 		List<Point> path = null;
@@ -44,7 +44,7 @@ public class Catch implements Strategy {
 			e.printStackTrace();
 		}
 		path.remove(path.size()-1);
-		Queue<Point> route = new LinkedList<Point>();
+		List<Point> route = new LinkedList<Point>();
 		for (Point point: path)
 			route.add(point);
 		return route;

@@ -17,10 +17,9 @@ public class CancelPlanMessageDecoder extends MessageDecoder<CancelPlanMessage>
 	@Override
 	public boolean canDecode(String message)
 	{
-		return false;
-//		if (!correctKey(message))
-//			return false;
-//		return true;
+		if (!correctKey(message))
+			return false;
+		return true;
 	}
 
 	@Override

@@ -57,12 +57,14 @@ public class RobotController
 	public void drive()
 	{
 		Point destination = null;
-		Queue<Point> plan = null;
-		getOwnData().position(new Point(0, 0));
+		List<Point> plan = null;
+		getOwnData().position(new Point(0, 0));		
 		while (!strategy.hasCaughtPacman()) {
 			if (strategy.hasToSwitchStrategy())
 				switchStrategy(strategy.getReplacingStrategy());
-			
+			addPanel();
+			fixInfoFromOtherRobots();
+			addPacman();
 			plan = strategy.constructRoute();
 			getOwnData().plan(plan);
 			while (getOwnData().getRemainingPlan().size() > 0) {
@@ -85,6 +87,7 @@ public class RobotController
 				
 				destination = getOwnData().getRemainingPlan().get(0); // zoekt volgend punt om naartoe te
 																		// gaan
+				System.out.println("riding from " + getCurrentPoint() + " to "+destination);
 				try {
 					getPathLayer().goOneStep(getCurrentPoint(), destination);
 				} catch (IllegalDriveException e) {

@@ -34,10 +34,10 @@ public class DijkstraFinder implements ShortestPathFinderInterface
 		fillMaps(getRobot().getBoard());
 		
 		Board boardWithWallsForPacmanAndGhosts = new Board(getRobot().getBoard());
-		if (getRobot().getPacmanLastSighted() != null){
-			Panel pacman = new Panel(1,1,1,1);
-			boardWithWallsForPacmanAndGhosts.addForced(pacman, getRobot().getPacmanLastSighted());
-		}
+//		if (getRobot().getPacmanLastSighted() != null){
+//			Panel pacman = new Panel(1,1,1,1);
+//			boardWithWallsForPacmanAndGhosts.addForced(pacman, getRobot().getPacmanLastSighted());
+//		}
 		
 		EdgeWeightedDigraph graph = new EdgeWeightedDigraph(v);
 		for (Point p : boardWithWallsForPacmanAndGhosts.getPanels().keySet()) {

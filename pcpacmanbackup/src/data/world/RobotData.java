@@ -168,10 +168,12 @@ public class RobotData implements RobotDataView
 	@Override
 	public void clearPlan()
 	{
-		Iterator<Point> it = plan.iterator();
-		while (it.hasNext()) {
-			it.remove();
-			it.next();
+		if(plan != null){
+			Iterator<Point> it = plan.iterator();
+			while (it.hasNext()) {
+				it.remove();
+				it.next();
+			}
 		}
 	}
 
@@ -181,7 +183,7 @@ public class RobotData implements RobotDataView
 	@Override
 	public void addPlan(ArrayList<Point> newPlan)
 	{
-		clearPlan();
+		//clearPlan();
 		plan = newPlan;
 	}
 	
@@ -202,8 +204,10 @@ public class RobotData implements RobotDataView
 	public ArrayList<Point> getRemainingPlan() {
 		ArrayList<Point> remainingPlan = getPlan();
 		while (remainingPlan.size() > 0 && !remainingPlan.get(0).equals(getPosition())) {
-				remainingPlan.remove(0);
+			remainingPlan.remove(0);
 		}
+		if(remainingPlan.get(0).equals(getPosition()))
+			remainingPlan.remove(0);
 		return remainingPlan;
 	}
 	
