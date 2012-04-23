@@ -11,7 +11,6 @@ import data.world.World;
 public class DiscoverMessage extends Message
 {
 
-	private String _name;
 	private Point _coordinate;
 	private byte _north;
 	private byte _east;
@@ -34,12 +33,6 @@ public class DiscoverMessage extends Message
 		this._west = (byte) w;
 	}
 
-	@Override
-	public String getNameFrom()
-	{
-		return _name;
-	}
-
 	public Point getCoordinate()
 	{
 		return _coordinate;
@@ -59,8 +52,8 @@ public class DiscoverMessage extends Message
 	public void execute(World world)
 	{
 		Panel p = getPanel();
-		if (world.getRobot(_name) != null){
-			Board b = world.getRobot(_name).getBoard();
+		if (world.getRobot(getNameFrom()) != null){
+			Board b = world.getRobot(getNameFrom()).getBoard();
 			if(!b.hasPanelAt(_coordinate))
 				b.add(p, _coordinate);
 			else if(!p.equals(b.getPanelAt(_coordinate))){
@@ -72,8 +65,8 @@ public class DiscoverMessage extends Message
 				b.add(e, _coordinate);
 			}
 			
-			synchronized (world.getRobot(_name)) {
-				world.getRobot(_name).notify();
+			synchronized (world.getRobot(getNameFrom())) {
+				world.getRobot(getNameFrom()).notify();
 			}
 		}
 	}
