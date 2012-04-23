@@ -78,8 +78,10 @@ public class Hunt implements Strategy {
 
 	@Override
 	public Strategy getReplacingStrategy() {
-		if (getController().getCurrentPoint().equals(getController().getOwnData().getPacmanLastSighted()))
+		if (getController().getCurrentPoint().equals(getController().getOwnData().getPacmanLastSighted())) {
+			getController().getData().setPacman(null);
 			return new Roam(controller);
+		}
 		return this;
 	}
 
@@ -137,8 +139,7 @@ public class Hunt implements Strategy {
 
 	@Override
 	public boolean hasCaughtPacman() {
-		//TODO: behoorlijke return
-		return false;
+		return !getController().pacmanCanMoveToOtherPanel();
 	}
 	
 }

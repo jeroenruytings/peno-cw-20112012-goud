@@ -442,4 +442,21 @@ public class RobotController
 			}
 		}
 	}
+
+	public boolean hasRobotAt(Point point) {
+		for (RobotData data : otherRobots.keySet()) {
+			if (data.getPosition().equals(point))
+				return true;
+		}
+		return false;
+	}
+	
+	public boolean pacmanCanMoveToOtherPanel() {
+		Point pacmanPosition = getData().getPacmanLastSighted();
+		for (Point neighbour : getMergedBoard().getSurrounding(pacmanPosition)) {
+			if (!getMergedBoard().wallBetween(pacmanPosition, neighbour) && !hasRobotAt(neighbour))
+				return true;
+		}
+		return false;
+	}
 }

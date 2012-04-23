@@ -90,7 +90,8 @@ public class Roam implements Strategy {
 
 	/**
 	 * Returns false. The robot SHOULD be done exploring in this case, but
-	 * because of an error, it might not.
+	 * there might have been an error. Returning false allows the possibility
+	 * to fix that error.
 	 */
 	@Override
 	public boolean hasFinishedExploring() {

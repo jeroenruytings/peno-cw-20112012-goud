@@ -59,7 +59,11 @@ public class Catch implements Strategy {
 
 	@Override
 	public Strategy getReplacingStrategy() {
-		return new Explore(getController());
+		if(getController().getOwnData().getPacmanLastSighted().equals(getController().getCurrentPoint())) {
+			getController().getData().setPacman(null);
+			return new Explore(getController());
+		}
+		return this;
 	}
 
 	@Override
@@ -69,7 +73,7 @@ public class Catch implements Strategy {
 
 	@Override
 	public boolean hasCaughtPacman() {
-		return false;
+		return !getController().pacmanCanMoveToOtherPanel();
 	}
 
 }
