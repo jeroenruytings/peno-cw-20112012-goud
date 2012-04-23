@@ -32,6 +32,23 @@ public class Roam implements Strategy {
 	
 	@Override
 	public Queue<Point> constructRoute() {
+		Point randomPoint = getRandomPoint();
+		Queue<Point> plan = new LinkedList<Point>();
+		DijkstraFinder finder = new DijkstraFinder(getController().getData());
+		Iterator<Point> path = null;
+		try {
+			path = finder.shortestPath(getController().getCurrentPoint(), randomPoint).iterator();
+			//TODO: path niet korste pad, maar zo weinig mogelijk overlappend
+		} catch (PathNotPossibleException e) {
+			e.printStackTrace();
+		}
+		while (path.hasNext()){
+			plan.add(path.next());
+		}
+		return plan;
+	}
+	
+	private Point getRandomPoint() {
 		Set<Point> allPoints = getController().getBoard().getPanels().keySet();
 		Point[] pointsArray = new Point[allPoints.size()];
 		int i = 0;
@@ -51,19 +68,7 @@ public class Roam implements Strategy {
 				}
 			}
 		}
-		Queue<Point> plan = new LinkedList<Point>();
-		DijkstraFinder finder = new DijkstraFinder(getController().getData());
-		Iterator<Point> path = null;
-		try {
-			path = finder.shortestPath(getController().getCurrentPoint(), randomPoint).iterator();
-			//TODO: path niet korste pad, maar zo weinig mogelijk overlappend
-		} catch (PathNotPossibleException e) {
-			e.printStackTrace();
-		}
-		while (path.hasNext()){
-			plan.add(path.next());
-		}
-		return plan;
+		return randomPoint;
 	}
 
 	@Override
