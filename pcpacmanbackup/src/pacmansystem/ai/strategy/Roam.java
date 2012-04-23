@@ -60,7 +60,7 @@ public class Roam implements Strategy {
 		Point randomPoint = null;
 		while(conflictingPoint){
 			conflictingPoint = false;
-			int randomNumber = (int) (Math.random() * allPoints.size());
+			int randomNumber = (int) (Math.random() * pointsArray.length);
 			randomPoint = pointsArray[randomNumber];
 			for(RobotData data : getController().getOtherBots()){
 				if(data.getRemainingPlan().contains(randomPoint)){
