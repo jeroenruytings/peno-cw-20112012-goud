@@ -39,10 +39,22 @@ public class DijkstraFinder implements ShortestPathFinderInterface
 //			boardWithWallsForPacmanAndGhosts.addForced(pacman, getRobot().getPacmanLastSighted());
 //		}
 		
+		EdgeWeightedDigraph graph = createGraphFromBoard(boardWithWallsForPacmanAndGhosts);
+
+		return graph;
+	}
+
+	/**
+	 * Create a graph from the given board. Each panel is a vertex, if there is no wall between two neighboring panels, an edge will be created.
+	 * @param 	board
+	 * 				The board to create the graph from.
+	 * @return	The graph create from the given board.
+	 */
+	private EdgeWeightedDigraph createGraphFromBoard(Board board) {
 		EdgeWeightedDigraph graph = new EdgeWeightedDigraph(v);
-		for (Point p : boardWithWallsForPacmanAndGhosts.getPanels().keySet()) {
-			for (Point point : boardWithWallsForPacmanAndGhosts.getSurrounding(p)) {
-				if (!boardWithWallsForPacmanAndGhosts.wallBetween(p, point)) {
+		for (Point p : board.getPanels().keySet()) {
+			for (Point point : board.getSurrounding(p)) {
+				if (!board.wallBetween(p, point)) {
 					graph.addEdge(new DirectedEdge(linearize(p),
 							linearize(point), 1));
 					graph.addEdge(new DirectedEdge(linearize(point),
@@ -51,7 +63,6 @@ public class DijkstraFinder implements ShortestPathFinderInterface
 				}
 			}
 		}
-
 		return graph;
 	}
 
