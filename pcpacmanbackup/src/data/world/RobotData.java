@@ -168,13 +168,15 @@ public class RobotData implements RobotDataView
 	@Override
 	public void clearPlan()
 	{
-		if(plan != null){
-			Iterator<Point> it = plan.iterator();
-			while (it.hasNext()) {
-				it.remove();
-				it.next();
-			}
-		}
+		plan = new ArrayList<Point>();
+		//if(plan != null){
+			//Iterator<Point> it = plan.iterator();
+			//Point p = it.next();
+			//while (it.hasNext()) {
+				//it.remove();
+				//it.next();
+			//}
+		//}
 	}
 
 	/* (non-Javadoc)

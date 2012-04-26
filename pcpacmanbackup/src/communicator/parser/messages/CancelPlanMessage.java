@@ -7,7 +7,7 @@ import data.world.World;
 
 public class CancelPlanMessage extends Message
 {
-
+	
 	public CancelPlanMessage(String nameFrom)
 	{
 		super(nameFrom);

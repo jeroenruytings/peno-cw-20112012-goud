@@ -56,7 +56,10 @@ public abstract class MessageDecoder<M extends Message>
 		String[] mes = message.split(" ");
 		try{
 		if (!mes[1].equals(_key))
-			return false;
+			if (!mes[1].equals(_key+"\n"))
+				if (!mes[1].equals(_key+"\\n"))
+					return false;
+
 		}
 		catch (ArrayIndexOutOfBoundsException e){
 			System.out.println(message);
