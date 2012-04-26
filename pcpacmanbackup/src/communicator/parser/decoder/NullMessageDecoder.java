@@ -21,7 +21,7 @@ public class NullMessageDecoder extends MessageDecoder<NullMessage>
 	public NullMessage parse(String message)
 	{
 		System.err.println("Het bericht: \"" + message + "\"" + " is weggesmeten");
-		System.err.println("De fout zit waarscheinlijk in de corresponderende message decoder.");
+		System.err.println("De fout zit waarschijnlijk in de corresponderende message decoder.");
 		System.err.println("Kijk eens of de canDecode() methode klopt.");
 		return new NullMessage();
 	}
