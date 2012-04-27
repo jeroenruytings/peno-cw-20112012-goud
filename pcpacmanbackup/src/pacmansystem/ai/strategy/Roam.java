@@ -31,6 +31,11 @@ public class Roam implements Strategy {
 		return controller;
 	}
 	
+	/**
+	 * Returns the route to follow. A random point that does
+	 * not belong to another robot's path is chosen. The robot
+	 * then drives to this point.
+	 */
 	@Override
 	public List<Point> constructRoute() {
 		Point randomPoint = getRandomPoint();

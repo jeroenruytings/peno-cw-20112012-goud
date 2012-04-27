@@ -38,6 +38,12 @@ public class Hunt implements Strategy {
 		return controller;
 	}
 	
+	/**
+	 * Constructs the route to follow. The robot will
+	 * drive towards pacman according to collaborative
+	 * diffusion:
+	 * //http://scalablegamedesign.cs.colorado.edu/wiki/Collaborative_Diffusion
+	 */
 	@Override
 	public List<Point> constructRoute() {
 		updatePValues();
