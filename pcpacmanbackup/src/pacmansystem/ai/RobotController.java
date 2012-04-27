@@ -143,9 +143,9 @@ public class RobotController
 		}
 		// kijken
 		try {
-			getMergedBoard().add(p1, getCurrentPoint());
+			addToBothBoards(p1, getCurrentPoint());
 		} catch (IllegalArgumentException e) {
-			getMergedBoard().addForced(p1, getCurrentPoint());
+			addForcedToBothBoards(p1, getCurrentPoint());
 		} // voegt panel toe aan board
 	}
 
@@ -169,6 +169,16 @@ public class RobotController
 					}
 				}
 
+	}
+	
+	private void addToBothBoards(Panel panel, Point point) {
+		getMergedBoard().add(panel, getCurrentPoint());
+		getOwnBoard().add(panel, getCurrentPoint());
+	}
+	
+	private void addForcedToBothBoards(Panel panel, Point point) {
+		getMergedBoard().addForced(panel, getCurrentPoint());
+		getOwnBoard().addForced(panel, getCurrentPoint());
 	}
 
 	public Orientation getCurrentOrientation()
@@ -336,7 +346,7 @@ public class RobotController
 
 	public Board getMergedBoard()
 	{
-		return ((OwnRobotData) getData()).getMergedBoard();
+		return getOwnData().getMergedBoard();
 	}
 	
 	public Board getOwnBoard() {
