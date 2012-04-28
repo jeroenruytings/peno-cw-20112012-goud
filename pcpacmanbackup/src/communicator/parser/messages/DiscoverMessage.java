@@ -87,5 +87,28 @@ public class DiscoverMessage extends Message
 		}
 		return false;
 	}
+	
+	public int getN(){
+		return _north;
+	}
+	
+	public int getE(){
+		return _east;
+	}
+	
+	public int getS(){
+		return _south;
+	}
+	
+	public int getW(){
+		return _west;
+	}
+
+	@Override
+	public Message getShowMapMessage() {
+		return new RediscoverMessage(getNameFrom(), getCoordinate(), getN(), getE(), getS(), getW());
+	}
+	
+	
 
 }

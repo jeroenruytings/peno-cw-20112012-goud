@@ -85,7 +85,7 @@ public abstract class Message {
 	
 	
 	public String getSentString(){
-		return getNameFrom() + getKeyword() + getParameterString() + "\n";
+		return getNameFrom() + getKeyword() + getParameterString();
 	}
 	
 	abstract void execute(World world);
@@ -117,9 +117,15 @@ public abstract class Message {
 	 * It alows the parameters to be converted to ghost-protocol strings.
 	 */
 	abstract class ParameterToStringWrapper{
-		
-		public abstract String toString();
-		
+		public abstract String toString();	
+	}
+	
+	/**
+	 * @return 	the message that needs to be send when an other robot send the showMap-message.
+	 * @note	Null is no message needs to be send.
+	 */
+	public Message getShowMapMessage(){
+		return null;
 	}
 
 }

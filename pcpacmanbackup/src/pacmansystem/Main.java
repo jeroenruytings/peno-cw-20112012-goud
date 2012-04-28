@@ -40,7 +40,7 @@ public class Main
 		Mainscreen gui = new Mainscreen();
 
 		for (RobotController r : robot)
-			gui.setRobotData(r.getData());
+			gui.setRobotData(r.getOwnData());
 		
 		gui.setWorld(robot[0].getWorld());
 		gui.start();

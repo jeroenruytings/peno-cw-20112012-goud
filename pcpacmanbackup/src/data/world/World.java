@@ -33,14 +33,10 @@ public class World implements Observer
 	public World()
 	{
 		_robots = new ConcurrentHashMap<String, RobotData>();
-		try {
-			rec = new MessageReceiver();
+			rec = MessageReceiver.getInstance();
 			rec.addObserver(this);
 			Thread t = new Thread(rec);
 			t.start();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public void start(RobotData me)

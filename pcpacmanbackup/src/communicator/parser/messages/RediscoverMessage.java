@@ -4,9 +4,9 @@ import java.awt.Point;
 
 public class RediscoverMessage extends DiscoverMessage {
 
-	public RediscoverMessage(String name, Point coordinate, int i, int j,
-			int k, int l) {
-		super(name, coordinate, i, j, k, l);
+	public RediscoverMessage(String name, Point coordinate, int n, int e,
+			int s, int w) {
+		super(name, coordinate, n, e, s, w);
 	}
 	
 	@Override

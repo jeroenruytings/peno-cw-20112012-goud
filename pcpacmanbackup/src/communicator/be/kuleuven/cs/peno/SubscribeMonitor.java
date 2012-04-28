@@ -13,7 +13,6 @@ import com.rabbitmq.client.Envelope;
 
 import communicator.parser.decoder.ProtocolDecoder;
 import communicator.parser.messages.Command;
-import communicator.parser.messages.Message;
 
 import data.world.World;
 

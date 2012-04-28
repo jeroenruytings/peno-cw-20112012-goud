@@ -35,7 +35,7 @@ public class MessageReceiver extends Observable implements Runnable{
 		}
 	}
 	
-	public MessageReceiver() throws IOException{
+	private MessageReceiver() throws IOException{
 		decoder = new ProtocolDecoder();
 		conn = MQ.createConnection();
 		channel = MQ.createChannel(conn);
@@ -100,5 +100,18 @@ public class MessageReceiver extends Observable implements Runnable{
 	public Command getCommand() {
 		return command;
 	}
+
+	public static MessageReceiver getInstance() {
+		if (receiver == null)
+			try {
+				receiver = new MessageReceiver();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		return receiver;
+	}
+	
+	
+	private static MessageReceiver receiver;
 	
 }

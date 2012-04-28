@@ -27,15 +27,19 @@ public class DistributedMain
 	{
 		//ComponentFrame.showFrame("RabbitMQ", new RabbitHistory());
 		if (!goodArgs(args)) {
+			System.out.println("DistributedMain invoked without (correct) arguments");
 			RobotOptionPane robotOptions = new RobotOptionPane();
 			robotName = robotOptions.getRobotName();
 			robotNumber = robotOptions.getRobotNumber();
 			isSimulated = robotOptions.isSimulatedRobot();
+			printRobotInfo();
 		} else {
+			
 			robotName = args[0];
 			robotNumber = new Integer(args[1]);
 			isSimulated = new Boolean(args[2]);
 			visible = new Boolean(args[3]);
+			printRobotInfo();
 		}
 		RobotController robot;
 		if (args.length < 5)
@@ -50,14 +54,29 @@ public class DistributedMain
 		if (visible)
 			gui.start(); 
 		robot.establishConnection();
-		gui.setRobotData(robot.getData());
+		gui.setRobotData(robot.getOwnData());
 		for (RobotData r : robot.getWorld().get_robots().values()){
-			if (r != robot.getData())
+			if (r != robot.getOwnData())
 				gui.setRobotData(r);
 		}
 		
 		//gui.setWorld(robot.getWorld());
 		robot.start();
+	}
+
+	/**
+	 * Prints the info of the created robot.
+	 */
+	private static void printRobotInfo() {
+		if (robotName == null)
+			throw new IllegalStateException("This print robot method was invoked before the robots parameters where given.");
+		System.out.println("DistributedMain started:");
+		System.out.println("Robot name: " + robotName);
+		System.out.println("Robot starting position number: " + robotNumber);
+		if (isSimulated)
+			System.out.println("This robot is simulated");
+		else
+			System.out.println("This robot is physical");
 	}
 
 	private static boolean goodArgs(String[] args)

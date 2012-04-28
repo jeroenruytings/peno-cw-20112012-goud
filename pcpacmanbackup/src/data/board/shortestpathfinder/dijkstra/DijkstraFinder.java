@@ -7,9 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import data.board.Board;
-import data.board.Panel;
 import data.board.shortestpathfinder.ShortestPathFinderInterface;
-import data.world.RobotData;
+import data.world.OwnRobotData;
 
 
 public class DijkstraFinder implements ShortestPathFinderInterface
@@ -18,22 +17,24 @@ public class DijkstraFinder implements ShortestPathFinderInterface
 	private Map<Point, Integer> _m1;
 	private Map<Integer, Point> _m2;
 	int v;
-	private RobotData robot;
+	private OwnRobotData robot;
 
-	public DijkstraFinder(RobotData robot)
+	//TODO: Misschien is het geen slecht idee om aan dijkstra finder enkel een bord te geven.
+	//		Op die manier is het niet de verantwoordelijkheid van dijkstra-finder om te te kiezen tussen merged/niet-gemerged
+	public DijkstraFinder(OwnRobotData robot)
 	{
 		this.robot=robot;
 	}
 	
-	private RobotData getRobot(){
+	private OwnRobotData getRobot(){
 		return robot;
 	}
 	
 	private EdgeWeightedDigraph make()
 	{
-		fillMaps(getRobot().getBoard());
+		fillMaps(getRobot().getMergedBoard());
 		
-		Board boardWithWallsForPacmanAndGhosts = new Board(getRobot().getBoard());
+		Board boardWithWallsForPacmanAndGhosts = new Board(getRobot().getMergedBoard());
 //		if (getRobot().getPacmanLastSighted() != null){
 //			Panel pacman = new Panel(1,1,1,1);
 //			boardWithWallsForPacmanAndGhosts.addForced(pacman, getRobot().getPacmanLastSighted());
@@ -92,10 +93,10 @@ public class DijkstraFinder implements ShortestPathFinderInterface
 	public int linearize(Point p)
 	{
 		if(p==null||_m1==null)
-			System.out.println("fuc,k dit");
+			throw new IllegalArgumentException("Hoe moet ik weten of 'null' op het bord ligt?");
 		Integer i= _m1.get(p);
 		if(i==null)
-			System.out.println("asdf");
+			throw new IllegalStateException("Je vraag naar een punt dat niet op het bord ligt");
 		return i;
 	}
 

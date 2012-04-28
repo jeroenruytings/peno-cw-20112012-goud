@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 
 import pacmansystem.ai.robot.Barcode;
 import pacmansystem.ai.robot.OrientationLayer;
@@ -21,7 +20,6 @@ import data.board.shortestpathfinder.dijkstra.DijkstraFinder;
 import data.board.shortestpathfinder.dijkstra.PathNotPossibleException;
 import data.enums.Direction;
 import data.enums.Orientation;
-import data.help.Filter;
 import data.lazy.TransformedRobotData;
 import data.transformed.Transformation;
 import data.world.OwnRobotData;
@@ -51,7 +49,7 @@ public class RobotController
 
 	public void establishConnection()
 	{
-		world.start(getData());
+		world.start(getOwnData());
 	}
 
 	public void drive()
@@ -128,7 +126,7 @@ public class RobotController
 		Direction pacmanSpotted = getPathLayer().getOrientationLayer()
 				.getLayer().getPacmanDirection();
 		if (pacmanSpotted != null) {
-			Point pacmanLocation = getData().getOrientation()
+			Point pacmanLocation = getOwnData().getOrientation()
 					.addTo(pacmanSpotted).addTo(getCurrentPoint());
 			getOwnData().pacman(pacmanLocation);
 			if (!this.getMergedBoard().hasPanelAt(pacmanLocation)) {
@@ -186,11 +184,6 @@ public class RobotController
 		return getPathLayer().getOrientationLayer().getOrientation();
 	}
 
-	public RobotData getData()
-	{
-		return world.getRobot(getName());
-	}
-
 	public String getName()
 	{
 		return name_;
@@ -244,7 +237,7 @@ public class RobotController
 			return null;
 		Map<RobotData, Point> robots = new HashMap<RobotData, Point>();
 		for (RobotData robot : world.get_robots().values()) {
-			if (robot.getName().equals(getData().getName()))
+			if (robot.getName().equals(getOwnData().getName()))
 				continue;
 			for (Barcode code : robot.getBarcodes().keySet()) {
 				if (code.equals(barcode))
@@ -277,7 +270,7 @@ public class RobotController
 	private int dist(Point position, Point point)
 			throws PathNotPossibleException
 	{
-		return new DijkstraFinder(getData()).shortestPath(position, point)
+		return new DijkstraFinder(getOwnData()).shortestPath(position, point)
 				.size();
 	}
 
@@ -338,9 +331,9 @@ public class RobotController
 
 	private boolean nextToPamam()
 	{
-		if (getData().getPacmanLastSighted() == null)
+		if (getOwnData().getPacmanLastSighted() == null)
 			return false;
-		return getMergedBoard().getSurrounding(getData().getPacmanLastSighted())
+		return getMergedBoard().getSurrounding(getOwnData().getPacmanLastSighted())
 				.contains(getCurrentPoint());
 	}
 
@@ -350,12 +343,12 @@ public class RobotController
 	}
 	
 	public Board getOwnBoard() {
-		return getData().getBoard();
+		return getOwnData().getBoard();
 	}
 
 	public Point getCurrentPoint()
 	{
-		return getData().getPosition();
+		return getOwnData().getPosition();
 	}
 
 	public OwnRobotData getOwnData()
@@ -367,7 +360,7 @@ public class RobotController
 			RobotData data, Iterable<Point> filledPoints)
 	{// TODO:maak floodfil
 		ArrayList<Point> rv = new ArrayList<Point>();
-		DijkstraFinder d = new DijkstraFinder(data);
+		DijkstraFinder d = new DijkstraFinder(getOwnData());
 		for (Point point : filledPoints) {
 			try {
 				d.shortestPath(currentPoint, point);
@@ -385,7 +378,7 @@ public class RobotController
 	{
 		Point shortest = null;
 		int min = 10000;
-		DijkstraFinder f = new DijkstraFinder(getData());
+		DijkstraFinder f = new DijkstraFinder(getOwnData());
 		for (Point point : getMergedBoard().getUnfilledPoints()) {
 			List<Point> path = null;
 			try {
@@ -450,10 +443,10 @@ public class RobotController
 		synchronized (world.get_robots()) {
 			for (RobotData data : world.get_robots().values()) {
 				if (!data.getName().equals(this.getName())) {
-					if (Transformation.canBeBuild(this.getData(), data)) {
+					if (Transformation.canBeBuild(this.getOwnData(), data)) {
 						if (!otherRobots.containsKey(data))
 							otherRobots.put(data, new TransformedRobotData(
-									new Transformation(this.getData(), data),
+									new Transformation(this.getOwnData(), data),
 									data));
 					}
 				}
@@ -470,7 +463,7 @@ public class RobotController
 	}
 	
 	public boolean pacmanCanMoveToOtherPanel() {
-		Point pacmanPosition = getData().getPacmanLastSighted();
+		Point pacmanPosition = getOwnData().getPacmanLastSighted();
 		for (Point neighbour : getMergedBoard().getSurrounding(pacmanPosition)) {
 			if (!getMergedBoard().wallBetween(pacmanPosition, neighbour) && !hasRobotAt(neighbour))
 				return true;

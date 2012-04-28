@@ -86,4 +86,9 @@ public class BarcodeAtMessage extends Message {
 		}
 		return false;
 	}
+
+	@Override
+	public Message getShowMapMessage() {
+		return new RebarcodeAtMessage(getNameFrom(), getCoordinate(), getBarcode(), _direction);
+	}
 }

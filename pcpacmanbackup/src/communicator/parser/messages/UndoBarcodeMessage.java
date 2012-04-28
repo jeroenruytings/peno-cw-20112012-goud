@@ -41,4 +41,9 @@ public class UndoBarcodeMessage extends Message {
 						&& ((UndoBarcodeMessage) undoBarcodeMessage).getCoordinate().equals(this.getCoordinate());
 	}
 
+	@Override
+	public Message getShowMapMessage() {
+		return new ReUndoBarcodeMessage(getNameFrom(), getCoordinate());
+	}
+
 }

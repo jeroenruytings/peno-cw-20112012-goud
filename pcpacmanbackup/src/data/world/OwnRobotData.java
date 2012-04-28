@@ -25,6 +25,11 @@ public class OwnRobotData extends RobotData
 		super(name);
 		mergedBoard = new Board();
 	}
+	public OwnRobotData(Board board, String name){
+		super(board);
+		mergedBoard = new Board(board);
+		setName(name);
+	}
 	private String pointToString(Point p)
 	{
 		return p.x + "," + p.y;

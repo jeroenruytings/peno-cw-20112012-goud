@@ -41,13 +41,14 @@ public class Explore implements Strategy {
 	{
 		Point destination = null;
 		Orientation orientation = nextMove();
-		if (orientation == null)
+		if (orientation == null){
 			destination = searchNext();
+		}
 		else
 			destination = orientation.addTo(getController().getCurrentPoint());
 		List<Point> plan = new LinkedList<Point>();
 		if(destination != null){
-			DijkstraFinder finder = new DijkstraFinder(getController().getData());
+			DijkstraFinder finder = new DijkstraFinder(getController().getOwnData());
 			Iterator<Point> path = null;
 			try {
 				path = finder.shortestPath(getController().getCurrentPoint(), destination).iterator();

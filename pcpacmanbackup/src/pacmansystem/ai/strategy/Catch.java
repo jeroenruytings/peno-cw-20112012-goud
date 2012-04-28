@@ -36,7 +36,7 @@ public class Catch implements Strategy {
 	@Override
 	public List<Point> constructRoute() {
 		Point destination = getController().getOwnData().getPacmanLastSighted();
-		DijkstraFinder finder = new DijkstraFinder(getController().getData());
+		DijkstraFinder finder = new DijkstraFinder(getController().getOwnData());
 		List<Point> path = null;
 		try {
 			path = finder.shortestPath(getController().getCurrentPoint(), destination);
@@ -54,7 +54,7 @@ public class Catch implements Strategy {
 	public boolean hasToSwitchStrategy() {
 		Point pacmanPos = getController().getOwnData().getPacmanLastSighted();
 		Point currentPos = getController().getCurrentPoint();
-		if(pacmanPos.distance(currentPos) == 1 && !getController().getData().getBoard().wallBetween(pacmanPos, currentPos))
+		if(pacmanPos.distance(currentPos) == 1 && !getController().getOwnData().getBoard().wallBetween(pacmanPos, currentPos))
 			return true;
 		return false;
 	}
@@ -63,8 +63,8 @@ public class Catch implements Strategy {
 	public Strategy getReplacingStrategy() {
 		Point pacmanPos = getController().getOwnData().getPacmanLastSighted();
 		Point currentPos = getController().getCurrentPoint();
-		if(pacmanPos.distance(currentPos) == 1 && !getController().getData().getBoard().wallBetween(pacmanPos, currentPos)) {
-			getController().getData().setPacman(null);
+		if(pacmanPos.distance(currentPos) == 1 && !getController().getOwnData().getBoard().wallBetween(pacmanPos, currentPos)) {
+			getController().getOwnData().setPacman(null);
 			return new Explore(getController());
 		}
 		return this;
@@ -82,7 +82,7 @@ public class Catch implements Strategy {
 
 	@Override
 	public boolean hasToUpdatePlan() {
-		Point pacmanPos = getController().getData().getPacmanLastSighted();
+		Point pacmanPos = getController().getOwnData().getPacmanLastSighted();
 		if (getController().getOwnData().getRemainingPlan().contains(pacmanPos))
 			return true;
 		return false;

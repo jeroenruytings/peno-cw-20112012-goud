@@ -8,6 +8,7 @@ import data.board.Board;
 import data.board.Panel;
 import data.board.shortestpathfinder.dijkstra.DijkstraFinder;
 import data.board.shortestpathfinder.dijkstra.PathNotPossibleException;
+import data.world.OwnRobotData;
 import data.world.RobotData;
 
 
@@ -75,7 +76,9 @@ public class _ShortestPathFinderTest
 		for(int i = 0; i < size;i++)
 			for(int j=0;j<size;j++)
 				one.add(new Panel(), new Point(i,j));
-		RobotData robot = new RobotData(one);
+		// TODO: Werkt deze test nog? ik heb hem aangepast maar niet over nagedacht. GAAT DUS NIET WERKEN WAARSCHEINLIJK!
+		//		De test maakt nu een OwnRobotData object.
+		OwnRobotData robot = new OwnRobotData(one,"Hallo");
 		ShortestPathFinderInterface f = new DijkstraFinder(robot);
 		Iterable<Point> points = null;
 		try {
