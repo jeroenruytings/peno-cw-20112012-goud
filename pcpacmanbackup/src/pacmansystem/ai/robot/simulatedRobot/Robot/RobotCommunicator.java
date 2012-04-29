@@ -42,7 +42,10 @@ public class RobotCommunicator {
 		Commando commando = null;
 		try {
 			LCD.clear();
+			int i = in.readInt();
 			commando = CommandoListener.decodeCommando(in.readInt());
+			System.out.println(commando.getAction().name());
+			return null;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println("fout gegaan in het lezen van de inputstream");
