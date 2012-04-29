@@ -1,8 +1,10 @@
-package pacmansystem.ai.robot.simulatedRobot.location;
+package pacmansystem.ai.robot.simulatedRobot.location.components;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import pacmansystem.ai.robot.simulatedRobot.point.Pointf;
 
 public abstract class LocationComponent
 {

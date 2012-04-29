@@ -6,6 +6,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import pacmansystem.ai.robot.simulatedRobot.location.components.LocationComponent;
+import pacmansystem.ai.robot.simulatedRobot.point.Pointf;
+import pacmansystem.ai.robot.simulatedRobot.point.Pointfs;
+
 public class RealWorldViewNoMoving implements RealWorldView
 {
 	private Collection<LocationComponent> comps_;
@@ -94,8 +98,7 @@ public class RealWorldViewNoMoving implements RealWorldView
 	}
 
 	
-	public static final boolean in(List<Pointf> points, Pointf origin,
-			Pointf direction)
+	public static final boolean in(List<Pointf> points, Pointf origin,Pointf direction)
 	{
 
 		return false;

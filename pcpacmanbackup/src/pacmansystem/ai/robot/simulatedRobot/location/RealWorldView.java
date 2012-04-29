@@ -2,6 +2,9 @@ package pacmansystem.ai.robot.simulatedRobot.location;
 
 import java.util.List;
 
+import pacmansystem.ai.robot.simulatedRobot.location.components.LocationComponent;
+import pacmansystem.ai.robot.simulatedRobot.point.Pointf;
+
 public interface RealWorldView
 {
 

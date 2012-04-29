@@ -1,6 +1,8 @@
-package pacmansystem.ai.robot.simulatedRobot.location;
+package pacmansystem.ai.robot.simulatedRobot.location.components;
 
 import java.util.List;
+
+import pacmansystem.ai.robot.simulatedRobot.point.Pointf;
 
 public class OpenComponent extends LocationComponent
 {

@@ -8,6 +8,9 @@ import java.util.Collection;
 import org.junit.Before;
 import org.junit.Test;
 
+import pacmansystem.ai.robot.simulatedRobot.SIMINFO;
+import pacmansystem.ai.robot.simulatedRobot.point.Pointf;
+
 public class _RealWorldViewBuilderTest
 {
 	private RealWorldViewFromRealWorldObject builder;

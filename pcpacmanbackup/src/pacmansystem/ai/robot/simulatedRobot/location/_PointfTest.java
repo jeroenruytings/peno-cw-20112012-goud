@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import pacmansystem.ai.robot.simulatedRobot.point.Pointf;
+
 public class _PointfTest
 {
 	@Test

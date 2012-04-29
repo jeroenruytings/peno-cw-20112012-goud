@@ -1,4 +1,4 @@
-package pacmansystem.ai.robot.simulatedRobot.location;
+package pacmansystem.ai.robot.simulatedRobot.point;
 
 import java.util.List;
 

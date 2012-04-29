@@ -5,12 +5,18 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import pacmansystem.ai.robot.simulatedRobot.SIMINFO;
+import pacmansystem.ai.robot.simulatedRobot.location.components.LocationComponent;
+import pacmansystem.ai.robot.simulatedRobot.location.components.OpenComponent;
+import pacmansystem.ai.robot.simulatedRobot.location.components.WallComponent;
+import pacmansystem.ai.robot.simulatedRobot.point.Pointf;
+
 import data.board.Board;
 import data.board.Panel;
 import data.board.Panel.WallState;
 import data.enums.Orientation;
 import data.world.RealWorld;
-import static pacmansystem.ai.robot.simulatedRobot.location.Pointfs.*;
+import static pacmansystem.ai.robot.simulatedRobot.point.Pointfs.*;
 
 public class RealWorldViewFromRealWorldObject implements RealWorldViewBuilder
 {
@@ -54,8 +60,7 @@ public class RealWorldViewFromRealWorldObject implements RealWorldViewBuilder
 			returnValue.add(component);
 		for (LocationComponent component : generateWalls())
 			returnValue.add(component);
-
-		return null;
+		return returnValue;
 	}
 
 	Collection<LocationComponent> generateWalls()
@@ -176,8 +181,8 @@ public class RealWorldViewFromRealWorldObject implements RealWorldViewBuilder
 
 	Collection<LocationComponent> generateBarcodes()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		// TODO implement
+		return new ArrayList<LocationComponent>();
 	}
 
 	Collection<LocationComponent> generatePanels()

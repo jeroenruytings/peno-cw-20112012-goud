@@ -1,8 +1,10 @@
-package pacmansystem.ai.robot.simulatedRobot.location;
+package pacmansystem.ai.robot.simulatedRobot.point;
 
 import java.util.Arrays;
 
-public final class Pointf
+import pacmansystem.ai.robot.simulatedRobot.Vector;
+
+public final class Pointf implements Vector
 {
 	private float xy[] = new float[2];
 
@@ -40,5 +42,12 @@ public final class Pointf
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public Pointf add(Pointf point)
+	{
+		
+		return new Pointf(this.X()+point.X(),this.Y()+point.Y());
 	}
 }

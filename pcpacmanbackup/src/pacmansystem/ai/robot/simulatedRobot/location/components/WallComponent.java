@@ -1,8 +1,10 @@
-package pacmansystem.ai.robot.simulatedRobot.location;
+package pacmansystem.ai.robot.simulatedRobot.location.components;
 
 import java.util.List;
 
-class WallComponent extends LocationComponent
+import pacmansystem.ai.robot.simulatedRobot.point.Pointf;
+
+public class WallComponent extends LocationComponent
 {
 	
 	public WallComponent(List<Pointf> points, int priority)

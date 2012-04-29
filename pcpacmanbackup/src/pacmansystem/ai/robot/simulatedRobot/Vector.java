@@ -1,6 +1,8 @@
 package pacmansystem.ai.robot.simulatedRobot;
 
+import pacmansystem.ai.robot.simulatedRobot.point.Pointf;
+
 public interface Vector 
 {
-	public FloatPoint add(FloatPoint point);
+	public Pointf add(Pointf point);
 }

@@ -56,9 +56,11 @@ public class PanelLayer implements PanelLayerInterface
 	 * @see panel.PanelLayerInterface#go(direction.Direction)
 	 */
 	@Override
-	public void go(Direction d) throws CrashedException
+	public void 
+	go(Direction d) throws CrashedException
 	{
-			switch (d.ordinal())
+
+		switch (d.ordinal())
 			{
 			case 0:
 				try {

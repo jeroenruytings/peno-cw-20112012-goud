@@ -1,9 +1,9 @@
-package pacmansystem.ai.robot.simulatedRobot.location;
+package pacmansystem.ai.robot.simulatedRobot.point;
 
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-import static pacmansystem.ai.robot.simulatedRobot.location.Pointfs.*;
+import static pacmansystem.ai.robot.simulatedRobot.point.Pointfs.*;
 
 public class PointfsTest
 {
