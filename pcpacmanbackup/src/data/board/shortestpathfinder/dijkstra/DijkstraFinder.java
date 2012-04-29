@@ -17,24 +17,23 @@ public class DijkstraFinder implements ShortestPathFinderInterface
 	private Map<Point, Integer> _m1;
 	private Map<Integer, Point> _m2;
 	int v;
-	private OwnRobotData robot;
+	private Board board;
 
 	//TODO: Misschien is het geen slecht idee om aan dijkstra finder enkel een bord te geven.
 	//		Op die manier is het niet de verantwoordelijkheid van dijkstra-finder om te te kiezen tussen merged/niet-gemerged
-	public DijkstraFinder(OwnRobotData robot)
+	public DijkstraFinder(Board board)
 	{
-		this.robot=robot;
+		this.board=board;
 	}
-	
-	private OwnRobotData getRobot(){
-		return robot;
+	private Board getBoard(){
+		return board;
 	}
 	
 	private EdgeWeightedDigraph make()
 	{
-		fillMaps(getRobot().getMergedBoard());
+		fillMaps(getBoard());
 		
-		Board boardWithWallsForPacmanAndGhosts = new Board(getRobot().getMergedBoard());
+		Board boardWithWallsForPacmanAndGhosts = new Board(getBoard());
 //		if (getRobot().getPacmanLastSighted() != null){
 //			Panel pacman = new Panel(1,1,1,1);
 //			boardWithWallsForPacmanAndGhosts.addForced(pacman, getRobot().getPacmanLastSighted());

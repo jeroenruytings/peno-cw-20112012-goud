@@ -48,7 +48,7 @@ public class Hunt implements Strategy {
 	public List<Point> constructRoute() {
 		updatePValues();
 		Point destination = getBestDestination();
-		DijkstraFinder finder = new DijkstraFinder(getController().getOwnData());
+		DijkstraFinder finder = new DijkstraFinder(getController().getOwnData().getMergedBoard());
 		List<Point> path = null;
 		try {
 			path = finder.shortestPath(getController().getCurrentPoint(), destination);

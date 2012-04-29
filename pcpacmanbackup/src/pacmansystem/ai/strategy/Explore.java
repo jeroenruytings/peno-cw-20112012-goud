@@ -48,7 +48,7 @@ public class Explore implements Strategy {
 			destination = orientation.addTo(getController().getCurrentPoint());
 		List<Point> plan = new LinkedList<Point>();
 		if(destination != null){
-			DijkstraFinder finder = new DijkstraFinder(getController().getOwnData());
+			DijkstraFinder finder = new DijkstraFinder(getController().getOwnData().getMergedBoard());
 			Iterator<Point> path = null;
 			try {
 				path = finder.shortestPath(getController().getCurrentPoint(), destination).iterator();

@@ -270,7 +270,7 @@ public class RobotController
 	private int dist(Point position, Point point)
 			throws PathNotPossibleException
 	{
-		return new DijkstraFinder(getOwnData()).shortestPath(position, point)
+		return new DijkstraFinder(getOwnData().getMergedBoard()).shortestPath(position, point)
 				.size();
 	}
 
@@ -360,7 +360,7 @@ public class RobotController
 			RobotData data, Iterable<Point> filledPoints)
 	{// TODO:maak floodfil
 		ArrayList<Point> rv = new ArrayList<Point>();
-		DijkstraFinder d = new DijkstraFinder(getOwnData());
+		DijkstraFinder d = new DijkstraFinder(getOwnData().getMergedBoard());
 		for (Point point : filledPoints) {
 			try {
 				d.shortestPath(currentPoint, point);
@@ -378,7 +378,7 @@ public class RobotController
 	{
 		Point shortest = null;
 		int min = 10000;
-		DijkstraFinder f = new DijkstraFinder(getOwnData());
+		DijkstraFinder f = new DijkstraFinder(getOwnData().getMergedBoard());
 		for (Point point : getMergedBoard().getUnfilledPoints()) {
 			List<Point> path = null;
 			try {

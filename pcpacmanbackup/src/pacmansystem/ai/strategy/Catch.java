@@ -36,7 +36,7 @@ public class Catch implements Strategy {
 	@Override
 	public List<Point> constructRoute() {
 		Point destination = getController().getOwnData().getPacmanLastSighted();
-		DijkstraFinder finder = new DijkstraFinder(getController().getOwnData());
+		DijkstraFinder finder = new DijkstraFinder(getController().getOwnData().getMergedBoard());
 		List<Point> path = null;
 		try {
 			path = finder.shortestPath(getController().getCurrentPoint(), destination);

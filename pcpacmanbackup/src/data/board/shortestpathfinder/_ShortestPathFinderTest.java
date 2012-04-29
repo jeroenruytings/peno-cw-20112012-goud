@@ -76,10 +76,7 @@ public class _ShortestPathFinderTest
 		for(int i = 0; i < size;i++)
 			for(int j=0;j<size;j++)
 				one.add(new Panel(), new Point(i,j));
-		// TODO: Werkt deze test nog? ik heb hem aangepast maar niet over nagedacht. GAAT DUS NIET WERKEN WAARSCHEINLIJK!
-		//		De test maakt nu een OwnRobotData object.
-		OwnRobotData robot = new OwnRobotData(one,"Hallo");
-		ShortestPathFinderInterface f = new DijkstraFinder(robot);
+		ShortestPathFinderInterface f = new DijkstraFinder(one);
 		Iterable<Point> points = null;
 		try {
 			points = f.shortestPath(new Point(0,0),new Point(3,3));

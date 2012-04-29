@@ -25,7 +25,7 @@ public class PathLayer {
 	
 	public PathLayer(OwnRobotData data, OrientationLayer layer){
 		orientationLayer = layer;
-		finder = new DijkstraFinder(data);
+		finder = new DijkstraFinder(data.getMergedBoard());
 		this.data = data;
 	}
 	

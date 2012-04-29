@@ -40,7 +40,7 @@ public class Roam implements Strategy {
 	public List<Point> constructRoute() {
 		Point randomPoint = getRandomPoint();
 		List<Point> plan = new LinkedList<Point>();
-		DijkstraFinder finder = new DijkstraFinder(getController().getOwnData());
+		DijkstraFinder finder = new DijkstraFinder(getController().getOwnData().getMergedBoard());
 		Iterator<Point> path = null;
 		try {
 			path = finder.shortestPath(getController().getCurrentPoint(), randomPoint).iterator();
