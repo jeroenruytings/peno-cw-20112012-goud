@@ -1,11 +1,14 @@
 package pacmansystem.ai.robot.simulatedRobot.Robot;
 
+import pacmansystem.ai.robot.simulatedRobot.ticking.Tickable;
+import pacmansystem.ai.robot.simulatedRobot.ticking.Ticker;
+
 /*
  * WARNING: THIS CLASS IS SHARED BETWEEN THE classes AND pccomms PROJECTS.
  * DO NOT EDIT THE VERSION IN pccomms AS IT WILL BE OVERWRITTEN WHEN THE PROJECT IS BUILT.
  */
 
-public class IRSeekerV2
+public class IRSeekerV2 implements Tickable
 {
 	public static enum Mode
 	{
@@ -32,6 +35,13 @@ public class IRSeekerV2
 	public void setMode(Mode mode)
 	{
 		this.mode = mode;
+	}
+
+	@Override
+	public void tick(Ticker ticker)
+	{
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -6,7 +6,6 @@ import java.io.OutputStream;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 /**
  * Class representing an input & outputstream.

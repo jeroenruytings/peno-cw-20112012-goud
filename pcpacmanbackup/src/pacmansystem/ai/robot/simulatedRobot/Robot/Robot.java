@@ -7,7 +7,7 @@ import pacmansystem.ai.robot.simulatedRobot.ticking.Tickable;
 import pacmansystem.ai.robot.simulatedRobot.ticking.Ticker;
 
 //TODO: implement
-public class Robot implements MovingComponent 
+public class Robot implements MovingComponent
 {
 	private interface Movement extends Tickable
 	{
@@ -83,7 +83,8 @@ public class Robot implements MovingComponent
 			SIMINFO.PANELHEIGHT / 2);
 	private int degrees =0; // The direction the robot is facing aka North at start
 	private LightSensor lightSensor= null;
-	private MovingComponent movingComponent;
+	private SensorHolder movingComponent;
+	protected TouchSensor touch;
 
 	/**
 	 * 
@@ -224,11 +225,6 @@ public class Robot implements MovingComponent
 		return 0;
 	}
 
-	public TurningComponent getHead()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
 	/**
 	 * MUST ONLY BE CALLED BY LIGHTSENSOR,MAKES DOUBLE BIND BETWEEN THE 2 OBJECTS
 	 * @param object
@@ -239,15 +235,9 @@ public class Robot implements MovingComponent
 			throw new IllegalStateException("Robot's lightsensor can only be set once");
 		this.lightSensor = lightSensor;
 	}
-	public LightSensor getLightSensor()
-	{
-		return this.lightSensor;
-	}
-	/**
-	 * MUST ONLY BE CALLED BY MOVINGCOMPONENT.
-	 * @param movingComponent
-	 */
-	public void setMovingComponent(MovingComponent movingComponent)
+	
+
+	public void setMovingComponent(SensorHolder movingComponent)
 	{
 		
 		this.movingComponent = movingComponent;
@@ -257,5 +247,39 @@ public class Robot implements MovingComponent
 	{
 		return this.origin;
 	}
-
+	public SensorFacade getSensors()
+	{
+		return new SensorFacade()
+		{
+			
+			@Override
+			public UltrasonicSensor getUltraSonicSensor()
+			{
+				return Robot.this.movingComponent.getUltraSonicSensor();
+			}
+			
+			@Override
+			public TouchSensor getTouchSensor()
+			{
+				// TODO Auto-generated method stub
+				return Robot.this.touch;
+			}
+			
+			@Override
+			public LightSensor getLightSensor()
+			{
+				return lightSensor;
+			}
+			
+			@Override
+			public IRSeekerV2 getInfraRedSensor()
+			{
+				return Robot.this.movingComponent.getIrSeekerV2();
+			}
+		};
+	}
+	public SensorHolder getHead()
+	{
+		return this.movingComponent;
+	}
 }

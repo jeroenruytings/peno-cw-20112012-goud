@@ -43,5 +43,18 @@ public class SensorHolder implements MovingComponent
 		
 		return null;
 	}
+	public UltrasonicSensor getUltraSonicSensor()
+	{
+		return ultra;
+	}
+	public IRSeekerV2 getIrSeekerV2()
+	{
+		return seeker;
+	}
+	public void rotate(int i)
+	{
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

@@ -1,5 +1,8 @@
 package pacmansystem.ai.robot.simulatedRobot.Robot;
 
+import static pacmansystem.ai.robot.simulatedRobot.point.Pointfs.fromDegrees;
+import static pacmansystem.ai.robot.simulatedRobot.point.Pointfs.multiply;
+import static pacmansystem.ai.robot.simulatedRobot.point.Pointfs.translate;
 import pacmansystem.ai.robot.simulatedRobot.SIMINFO;
 import pacmansystem.ai.robot.simulatedRobot.location.components.LocationComponent;
 import pacmansystem.ai.robot.simulatedRobot.location.components.LocationComponentVisitor;
@@ -7,7 +10,6 @@ import pacmansystem.ai.robot.simulatedRobot.location.components.OpenComponent;
 import pacmansystem.ai.robot.simulatedRobot.location.components.WallComponent;
 import pacmansystem.ai.robot.simulatedRobot.point.Pointf;
 import pacmansystem.ai.robot.simulatedRobot.ticking.Ticker;
-import static pacmansystem.ai.robot.simulatedRobot.point.Pointfs.*;
 public class LightSensor  implements Sensor
 {
 	private Robot robot;

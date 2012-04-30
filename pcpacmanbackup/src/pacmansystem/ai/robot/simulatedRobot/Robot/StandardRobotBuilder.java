@@ -1,10 +1,10 @@
 package pacmansystem.ai.robot.simulatedRobot.Robot;
 
-import data.world.RealWorld;
 import pacmansystem.ai.robot.simulatedRobot.location.RealWorldView;
 import pacmansystem.ai.robot.simulatedRobot.location.RealWorldViewFromRealWorldObject;
 import pacmansystem.ai.robot.simulatedRobot.point.Pointf;
 import pacmansystem.ai.robot.simulatedRobot.ticking.Ticker;
+import data.world.RealWorld;
 
 public class StandardRobotBuilder implements RobotBuilder
 {
@@ -19,22 +19,20 @@ public class StandardRobotBuilder implements RobotBuilder
 	{
 		
 	}
-	
+	/**
+	 * Builds a robot object & all the sensors.
+	 */
 	@Override
 	public Robot build()
 	{
-		Ticker ticker = new Ticker();
 		Robot r = new Robot(speed, view, origin, degrees);
 		LightSensor lightSensor = new LightSensor(r);
 		SensorHolder holder = new SensorHolder(r);
 		UltrasonicSensor ultraSonicSensor = new UltrasonicSensor(r, holder);
 		holder.setUltraSonicSensor(ultraSonicSensor);
 		IRSeekerV2 seeker = new IRSeekerV2(r,holder);
+		TouchSensor touch = new TouchSensor(null);
 		holder.setIRSensor(seeker);
-		
-		ticker.add(r);
-		ticker.add(lightSensor);
-		
 		
 		return r;
 	}

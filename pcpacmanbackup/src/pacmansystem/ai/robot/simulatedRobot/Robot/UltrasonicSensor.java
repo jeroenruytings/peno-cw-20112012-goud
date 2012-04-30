@@ -1,8 +1,10 @@
 package pacmansystem.ai.robot.simulatedRobot.Robot;
 
 import pacmansystem.ai.robot.simulatedRobot.point.Pointf;
+import pacmansystem.ai.robot.simulatedRobot.ticking.Tickable;
+import pacmansystem.ai.robot.simulatedRobot.ticking.Ticker;
 
-public class UltrasonicSensor
+public class UltrasonicSensor implements Tickable
 {
 
 	private Robot robot;
@@ -31,5 +33,12 @@ public class UltrasonicSensor
 	{
 		Pointf here = moving.getLocation();
 		return here;
+	}
+
+	@Override
+	public void tick(Ticker ticker)
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }
