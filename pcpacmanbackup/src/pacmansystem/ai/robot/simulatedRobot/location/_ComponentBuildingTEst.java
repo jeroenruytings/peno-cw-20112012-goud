@@ -7,7 +7,7 @@ import pacmansystem.ai.robot.simulatedRobot.test.CreationTest;
 
 import data.world.RealWorld;
 
-public class _LocationTests
+public class _ComponentBuildingTEst
 {
 	RealWorld w1;
 	RealWorld w2;
@@ -23,7 +23,6 @@ public class _LocationTests
 	@Test
 	public void test0()
 	{
-		RealWorldViewBuilder builder  = new RealWorldViewFromRealWorldObject(w1);
-		builder.build();
+		builder.genNorthBarcodes(point, barcode);
 	}
 }
