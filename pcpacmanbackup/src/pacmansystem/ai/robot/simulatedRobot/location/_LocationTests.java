@@ -1,6 +1,7 @@
 package pacmansystem.ai.robot.simulatedRobot.location;
 
 import org.junit.Before;
+import org.junit.Test;
 
 import pacmansystem.ai.robot.simulatedRobot.test.CreationTest;
 
@@ -19,5 +20,10 @@ public class _LocationTests
 		w1 = RealWorld.getRealWorld(CreationTest.class.getResource("/resources/testworld.txt").getFile());
 		
 	}
-	
+	@Test
+	public void test0()
+	{
+		RealWorldViewBuilder builder  = new RealWorldViewFromRealWorldObject(w1);
+		builder.build();
+	}
 }

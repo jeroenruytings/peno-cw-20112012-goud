@@ -203,7 +203,7 @@ public class RealWorldViewFromRealWorldObject implements RealWorldViewBuilder
 		return rv;
 	}
 
-	private Collection<LocationComponent> generateBarcode(Point point, Barcode barcode,
+	Collection<LocationComponent> generateBarcode(Point point, Barcode barcode,
 			Orientation orientation)
 	{
 		//Generate all the seperate rectangles.
@@ -233,7 +233,7 @@ public class RealWorldViewFromRealWorldObject implements RealWorldViewBuilder
 		return null;
 	}
 
-	private Collection<LocationComponent> genWestBarcode(Point point,
+	 Collection<LocationComponent> genWestBarcode(Point point,
 			Barcode barcode)
 	{
 		Collection<LocationComponent> rv = new ArrayList<LocationComponent>();
@@ -265,7 +265,7 @@ public class RealWorldViewFromRealWorldObject implements RealWorldViewBuilder
 		return rv;
 	}
 
-	private Collection<LocationComponent> genSouthBarcode(Point point,
+	Collection<LocationComponent> genSouthBarcode(Point point,
 			Barcode barcode)
 	{
 		Collection<LocationComponent> rv = new ArrayList<LocationComponent>();
@@ -297,7 +297,7 @@ public class RealWorldViewFromRealWorldObject implements RealWorldViewBuilder
 		return rv;
 	}
 
-	private Collection<LocationComponent> genEastBarcodes(Point point,
+	Collection<LocationComponent> genEastBarcodes(Point point,
 			Barcode barcode)
 	{
 		Collection<LocationComponent> rv = new ArrayList<LocationComponent>();
@@ -329,7 +329,7 @@ public class RealWorldViewFromRealWorldObject implements RealWorldViewBuilder
 		return rv;
 	}
 
-	private Collection<LocationComponent> genNorthBarcodes(Point point,
+	Collection<LocationComponent> genNorthBarcodes(Point point,
 			Barcode barcode)
 	{
 		Collection<LocationComponent> rv = new ArrayList<LocationComponent>();
