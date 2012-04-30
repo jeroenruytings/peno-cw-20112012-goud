@@ -2,10 +2,14 @@ package pacmansystem.ai.robot.simulatedRobot.Robot;
 
 import pacmansystem.ai.robot.simulatedRobot.ticking.Tickable;
 
-public interface Sensor extends Tickable
+public abstract class Sensor implements Tickable
 {
-
-	public int readRawValue();
-	public boolean hasChanged();
+	protected final Robot robot;
+	public Sensor(Robot robot)
+	{
+		this.robot =robot;
+	}
+	public abstract int readRawValue();
+	public abstract boolean hasChanged();
 
 }

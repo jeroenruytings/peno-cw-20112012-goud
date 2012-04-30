@@ -10,14 +10,13 @@ import pacmansystem.ai.robot.simulatedRobot.location.components.OpenComponent;
 import pacmansystem.ai.robot.simulatedRobot.location.components.WallComponent;
 import pacmansystem.ai.robot.simulatedRobot.point.Pointf;
 import pacmansystem.ai.robot.simulatedRobot.ticking.Ticker;
-public class LightSensor  implements Sensor
+public class LightSensor  extends Sensor
 {
-	private Robot robot;
 	private int value;
 	private boolean changed =false;
 	public LightSensor(Robot pilot)
 	{
-		this.robot=pilot;
+		super(pilot);
 		robot.setLightSensor(this);
 	}
 

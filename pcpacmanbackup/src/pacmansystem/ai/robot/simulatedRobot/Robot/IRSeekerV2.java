@@ -8,7 +8,7 @@ import pacmansystem.ai.robot.simulatedRobot.ticking.Ticker;
  * DO NOT EDIT THE VERSION IN pccomms AS IT WILL BE OVERWRITTEN WHEN THE PROJECT IS BUILT.
  */
 
-public class IRSeekerV2 implements Tickable
+public class IRSeekerV2 extends Sensor
 {
 	public static enum Mode
 	{
@@ -21,11 +21,10 @@ public class IRSeekerV2 implements Tickable
 
 	private Mode mode;
 	private MovingComponent holder;
-	private Robot robot;
 
 	public IRSeekerV2(Robot r, SensorHolder holder)
 	{
-		this.robot = r;
+		super(r);
 		this.holder = holder;
 	}
 
@@ -42,6 +41,20 @@ public class IRSeekerV2 implements Tickable
 	{
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public int readRawValue()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean hasChanged()
+	{
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

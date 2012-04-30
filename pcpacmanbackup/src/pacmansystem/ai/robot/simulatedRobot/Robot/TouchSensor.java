@@ -1,14 +1,37 @@
 package pacmansystem.ai.robot.simulatedRobot.Robot;
 
-public class TouchSensor
+import pacmansystem.ai.robot.simulatedRobot.ticking.Ticker;
+
+public class TouchSensor extends Sensor
 {
 
-	public TouchSensor(Sensor s4)
+	public TouchSensor(Robot s4)
 	{
-		// TODO Auto-generated constructor stub
+		super(s4);
 	}
 
 	public boolean isPressed()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void tick(Ticker ticker)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int readRawValue()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean hasChanged()
 	{
 		// TODO Auto-generated method stub
 		return false;

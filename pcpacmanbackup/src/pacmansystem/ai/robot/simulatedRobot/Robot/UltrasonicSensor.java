@@ -4,15 +4,14 @@ import pacmansystem.ai.robot.simulatedRobot.point.Pointf;
 import pacmansystem.ai.robot.simulatedRobot.ticking.Tickable;
 import pacmansystem.ai.robot.simulatedRobot.ticking.Ticker;
 
-public class UltrasonicSensor implements Tickable
+public class UltrasonicSensor extends Sensor
 {
 
-	private Robot robot;
 	private MovingComponent moving;
 
 	public UltrasonicSensor(Robot robot,MovingComponent moving)
 	{
-		this.robot=robot;
+		super(robot);
 		this.moving =moving;
 		}
 
@@ -40,5 +39,19 @@ public class UltrasonicSensor implements Tickable
 	{
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public int readRawValue()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean hasChanged()
+	{
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
