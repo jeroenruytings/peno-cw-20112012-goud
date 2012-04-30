@@ -143,7 +143,6 @@ public class RobotController
 		try {
 			addToBothBoards(p1, getCurrentPoint());
 		} catch (IllegalArgumentException e) {
-			getOwnData().foundMistake(true);
 			addForcedToBothBoards(p1, getCurrentPoint());
 		} // voegt panel toe aan board
 	}
@@ -176,6 +175,7 @@ public class RobotController
 	}
 	
 	private void addForcedToBothBoards(Panel panel, Point point) {
+		getOwnData().foundMistake(true);
 		getMergedBoard().addForced(panel, getCurrentPoint());
 		getOwnBoard().addForced(panel, getCurrentPoint());
 	}
