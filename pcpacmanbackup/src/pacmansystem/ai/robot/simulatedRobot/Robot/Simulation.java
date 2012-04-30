@@ -20,6 +20,7 @@ public class Simulation implements Runnable
 		CommandoListener commandoListner = new CommandoListener(listener, comm);
 		commandoListner.run();
 		
+		
 	}
 
 }

@@ -3,9 +3,7 @@ package pacmansystem.ai.robot.simulatedRobot.Robot;
 public class Motor
 {
 
-	public static final Motor A = null;
-	public static final Motor B = null;
-	public static final Motor C = null;
+
 	public Motor(String c2)
 	{
 		// TODO Auto-generated constructor stub

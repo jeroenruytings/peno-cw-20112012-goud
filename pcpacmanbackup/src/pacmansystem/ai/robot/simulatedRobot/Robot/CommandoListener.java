@@ -37,7 +37,7 @@ public class CommandoListener implements Runnable {
 	public CommandoListener(SensorListener listener,RobotCommunicator comm){
 		
 		communicator =comm;
-		pilot = new DifferentialPilot(54.5f, 54.75f, 148.35f, Motor.A, Motor.B, false);
+		pilot = new DifferentialPilot(0);
 		this.listener = listener;
 	}
 	
@@ -51,11 +51,9 @@ public class CommandoListener implements Runnable {
 	}
 	
 	private void executeCommando(Commando receivedCommando) {
-		LCD.clear();
-		LCD.drawString("EXECUTE COMMAND", 0, 0);
 		
 		if (receivedCommando == null){
-			LCD.drawString("NULL", 0, 2);
+			
 			return;
 		}
 		else{
@@ -105,31 +103,22 @@ public class CommandoListener implements Runnable {
 	private void correctToMiddle() {
 		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
 		pilot.rotate(180);
-		Motor.A.setSpeed(360);
-		Motor.B.setSpeed(360);
+		pilot.setSpeed(360);
 		
 		while(!iswhite(listener.getLightValue())){
-			Motor.A.forward();
-			Motor.B.forward();
+			pilot.forward();
 		}
 			
 		pilot.stop();
-		
-		Motor.A.setSpeed(60);
-		Motor.B.setSpeed(60);
-		
-		Motor.A.resetTachoCount();
+		pilot.setSpeed(60);
+		pilot.resetTachoCount();
 		
 		while(iswhite(listener.getLightValue())){
-			Motor.A.forward();
-			Motor.B.forward();
+			pilot.forward();
 		}
 			
 		pilot.stop();
-		int lineWidth = Motor.A.getTachoCount();
-		
-		System.out.println("breedte = " + lineWidth);
-		Button.ENTER.waitForPressAndRelease();
+		pilot.waitForPress();
 		communicator.send(message);
 		
 		
@@ -138,8 +127,7 @@ public class CommandoListener implements Runnable {
 
 	private void turnHeadLeft(int argument){
 		
-		Motor.C.rotate(argument);
-		System.out.println("L: " + Motor.C.getTachoCount());
+		pilot.getHead().rotate(argument);
 		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.UltrasonicSensor, new SensorValue((byte) listener.getSonarValue()));
 		communicator.send(message);
 		message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
@@ -148,8 +136,7 @@ public class CommandoListener implements Runnable {
 
 	private void turnHeadRight(int argument){
 		
-		Motor.C.rotate(-argument);
-		System.out.println("R: " + Motor.C.getTachoCount());
+		pilot.getHead().rotate(-argument);
 		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.UltrasonicSensor, new SensorValue((byte) listener.getSonarValue()));
 		communicator.send(message);
 		message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
@@ -159,18 +146,14 @@ public class CommandoListener implements Runnable {
 
 
 	private void calibrateBrown() {
-		LCD.clear();
-		LCD.drawString("BRUIN (enter)", 0, 0);
 		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
-		Button.ENTER.waitForPressAndRelease();
+		pilot.waitForPress();
 		setBrown(listener.getLightValue());
 		communicator.send(message);
 		System.out.println("OK");
 	}
 
 	private void calibrateWhite() {
-		LCD.clear();
-		LCD.drawString("WIT (enter)", 0, 0);
 	//	Button.ENTER.waitForPressAndRelease();
 	//	System.out.println("Wit:" + listener.getLightValue()*4);
 	//	Button.ENTER.waitForPressAndRelease();
@@ -178,20 +161,19 @@ public class CommandoListener implements Runnable {
 	//	communicator.send(message);
 		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
 	//	System.out.println("send message enter");
-		Button.ENTER.waitForPressAndRelease();
+		pilot.waitForPress();
 		setWhite(listener.getLightValue());
 		communicator.send(message);
 		System.out.println("OK");
 	}
 
 	private void calibrateBlack() {
-		LCD.clear();
-		LCD.drawString("BLACK (enter)", 0, 0);
-		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
-		Button.ENTER.waitForPressAndRelease();
-		setBlack(listener.getLightValue());
-		communicator.send(message);
-		System.out.println("OK");
+		//TODO:FIX
+//		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
+//		pilot.waitForPress();
+//		setBlack(listener.getLightValue());
+//		communicator.send(message);
+//		System.out.println("OK");
 	}
 	
 	public boolean iswhite(int value)
@@ -210,7 +192,6 @@ public class CommandoListener implements Runnable {
 	}
 
 	public static Commando decodeCommando(int comm){
-		LCD.clear();
 		System.out.println("IN decode!");
 		int k = comm/1000;
 		switch(k){
@@ -246,19 +227,15 @@ public class CommandoListener implements Runnable {
 	}
 	
 	public void readBarcode(){
-		Motor.A.resetTachoCount();
-//		Button.ENTER.waitForPressAndRelease();
+		pilot.resetTachoCount();
 		pilot.travel(-160);
-		Motor.A.resetTachoCount();
-//		Button.ENTER.waitForPressAndRelease();
+		pilot.resetTachoCount();
 		pilot.travel(320);
 		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
 		communicator.send(message);
-		Motor.A.resetTachoCount();
-//		Button.ENTER.waitForPressAndRelease();
+		pilot.resetTachoCount();
 		pilot.travel(-160);
-		Motor.A.resetTachoCount();
-//		Button.ENTER.waitForPressAndRelease();
+		pilot.resetTachoCount();
 	}
 	
 private void right(int i) {
@@ -287,8 +264,7 @@ private void forward(int i) {
 }
 
 private void stop() {
-	Motor.A.stop();
-	Motor.B.stop();
+	pilot.stop();
 }
 
 }

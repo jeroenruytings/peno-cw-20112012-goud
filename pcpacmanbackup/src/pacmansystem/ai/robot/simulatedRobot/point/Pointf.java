@@ -2,7 +2,6 @@ package pacmansystem.ai.robot.simulatedRobot.point;
 
 import java.util.Arrays;
 
-import pacmansystem.ai.robot.simulatedRobot.Vector;
 
 public final class Pointf implements Vector
 {

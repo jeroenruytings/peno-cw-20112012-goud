@@ -1,28 +1,20 @@
 package pacmansystem.ai.robot.simulatedRobot.location.components;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import pacmansystem.ai.robot.simulatedRobot.point.Pointf;
 
 public abstract class LocationComponent
 {
-	
-	private List<Pointf> points_;
 	private final int zIndex;
-	LocationComponent(List<Pointf> points, int priority)
+	protected LocationComponent(int zIndex)
 	{
-		points_ = Collections.unmodifiableList(points);
-		this.zIndex = priority;
+		this.zIndex=zIndex;
 	}
-	public List<Pointf> getConvexPoints()
-	{
-		return new ArrayList<Pointf>(points_);
-	}
+	
+	public abstract List<Pointf> getConvexPoints();
 	public abstract void visit(LocationComponentVisitor visitor);
-	public int getPrior()
-	{
-		return  zIndex;
+	public  int getZIndex(){
+		return zIndex;
 	}
 }

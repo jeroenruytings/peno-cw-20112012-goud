@@ -40,8 +40,8 @@ public class RealWorldViewNoMoving implements RealWorldView
 			@Override
 			public int compare(LocationComponent o1, LocationComponent o2)
 			{
-				Comparable<Integer> thiz = o1.getPrior();
-				Integer that = o2.getPrior();
+				Comparable<Integer> thiz = o1.getZIndex();
+				Integer that = o2.getZIndex();
 				return thiz.compareTo(that);
 			}
 

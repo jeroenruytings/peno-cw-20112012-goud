@@ -41,7 +41,6 @@ public class RobotCommunicator {
 	public Commando receiveCommando() {
 		Commando commando = null;
 		try {
-			LCD.clear();
 			int i = in.readInt();
 			commando = CommandoListener.decodeCommando(in.readInt());
 			System.out.println(commando.getAction().name());

@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import pacmansystem.ai.robot.Barcode;
 import pacmansystem.ai.robot.simulatedRobot.SIMINFO;
 import pacmansystem.ai.robot.simulatedRobot.location.components.LocationComponent;
 import pacmansystem.ai.robot.simulatedRobot.location.components.OpenComponent;
 import pacmansystem.ai.robot.simulatedRobot.location.components.WallComponent;
 import pacmansystem.ai.robot.simulatedRobot.point.Pointf;
+import pacmansystem.ai.robot.simulatedRobot.point.Pointfs;
+import pacmansystem.ai.robot.simulatedRobot.point.Vector;
 
 import data.board.Board;
 import data.board.Panel;
@@ -88,30 +91,32 @@ public class RealWorldViewFromRealWorldObject implements RealWorldViewBuilder
 
 	LocationComponent genOneWallComponent(Point point, Orientation o)
 	{
-		List<Pointf> convexPoints = new ArrayList<Pointf>();
+		List<Pointf> convexPoints  ;
 		switch (o)
 		{
 		case NORTH:
-			convexPoints.addAll(northPointsWall(point));
+			convexPoints=northPointsWall(point);
 			break;
 		case EAST:
-			convexPoints.addAll(eastPointsWall(point));
+			convexPoints=eastPointsWall(point);
 			break;
 		case SOUTH:
-			convexPoints.addAll(southPointsWall(point));
+			convexPoints= southPointsWall(point);
 			break;
 		case WEST:
-			convexPoints.addAll(westPointsWall(point));
+			convexPoints= westPointsWall(point);
 			break;
+		default:
+			throw new Error("een nieuwe direction enum waarde is toegevoegd, fok of");
 		}
 		LocationComponent rv = new WallComponent(convexPoints, WALLPRIOR);
 		
 		return rv;
 	}
 
-	Collection<Pointf> westPointsWall(Point point)
+	List<Pointf> westPointsWall(Point point)
 	{
-		Collection<Pointf> rv = new ArrayList<Pointf>();
+		List<Pointf> rv = new ArrayList<Pointf>();
 		// vertically placed panel
 		Pointf vectorUP = new Pointf(0, SIMINFO.WALLWIDTH);
 		Pointf vectorRight = new Pointf(SIMINFO.WALLHEIGHT, 0);
@@ -125,9 +130,9 @@ public class RealWorldViewFromRealWorldObject implements RealWorldViewBuilder
 		return rv;
 	}
 
-	Collection<Pointf> southPointsWall(Point point)
+	List<Pointf> southPointsWall(Point point)
 	{
-		Collection<Pointf> rv = new ArrayList<Pointf>();
+		List<Pointf> rv = new ArrayList<Pointf>();
 		Pointf vectorUP = new Pointf(0, SIMINFO.WALLHEIGHT);
 		Pointf vectorRight = new Pointf(SIMINFO.WALLWIDTH, 0);
 		Pointf origin = origin(point);
@@ -140,9 +145,9 @@ public class RealWorldViewFromRealWorldObject implements RealWorldViewBuilder
 		return rv;
 	}
 
-	Collection<Pointf> eastPointsWall(Point point)
+	List<Pointf> eastPointsWall(Point point)
 	{
-		Collection<Pointf> rv = new ArrayList<Pointf>();
+		List<Pointf> rv = new ArrayList<Pointf>();
 		// vertically placed panel
 		Pointf vectorUP = new Pointf(0, SIMINFO.WALLWIDTH);
 		Pointf vectorRight = new Pointf(SIMINFO.WALLHEIGHT, 0);
@@ -157,9 +162,9 @@ public class RealWorldViewFromRealWorldObject implements RealWorldViewBuilder
 		return rv;
 	}
 
-	Collection<Pointf> northPointsWall(Point point)
+	List<Pointf> northPointsWall(Point point)
 	{
-		Collection<Pointf> rv = new ArrayList<Pointf>();
+		List<Pointf> rv = new ArrayList<Pointf>();
 		Pointf vectorUP = new Pointf(0, SIMINFO.WALLHEIGHT);
 		Pointf vectorRight = new Pointf(SIMINFO.WALLWIDTH, 0);
 		Pointf origin = origin(point);
@@ -181,8 +186,104 @@ public class RealWorldViewFromRealWorldObject implements RealWorldViewBuilder
 
 	Collection<LocationComponent> generateBarcodes()
 	{
-		// TODO implement
-		return new ArrayList<LocationComponent>();
+		Collection<LocationComponent> rv = new ArrayList<LocationComponent>();
+		Board board = realworld_.getGlobalBoard();
+		for(Point point :board.getFilledPoints())
+		{
+			Panel panel = board.getPanelAt(point);
+			if(!panel.hasBarcode())
+				continue;
+			Barcode barcode = panel.getBarcode();
+			Orientation orientation = panel.getBarcodeOrientation();
+			if(barcode==null||orientation==null)
+				continue;
+			for(LocationComponent component:generateBarcode(point,barcode,orientation))
+				rv.add(component);
+		}
+		return rv;
+	}
+
+	private Collection<LocationComponent> generateBarcode(Point point, Barcode barcode,
+			Orientation orientation)
+	{
+		//Generate all the seperate rectangles.
+		Collection<LocationComponent> rv;
+		switch (orientation)
+		{
+		case NORTH:
+			rv = genNorthBarcodes(point,barcode);
+			break;
+
+		case EAST:
+			rv = genEastBarcodes(point,barcode);
+			break;
+
+		case SOUTH:
+			rv = genSouthBarcode(point,barcode);
+			break;
+
+		case WEST:
+			rv = genWestBarcode(point,barcode);
+			break;
+			
+		default:
+			throw new Error("Blahblah orientation realworldview barcodes");
+		}
+		
+		return null;
+	}
+
+	private Collection<LocationComponent> genWestBarcode(Point point,
+			Barcode barcode)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private Collection<LocationComponent> genSouthBarcode(Point point,
+			Barcode barcode)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private Collection<LocationComponent> genEastBarcodes(Point point,
+			Barcode barcode)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private Collection<LocationComponent> genNorthBarcodes(Point point,
+			Barcode barcode)
+	{
+		Collection<LocationComponent> rv = new ArrayList<LocationComponent>();
+		Pointf origin = new Pointf(point.x*SIMINFO.PANELWIDTH,point.y*SIMINFO.PANELHEIGHT);
+		Pointf barcodeUp = new Pointf(SIMINFO.PANELWIDTH, SIMINFO.BARCODEHEIGHT);
+		Pointf barcodeRight = new Pointf(SIMINFO.PANELWIDTH, 0);
+		Pointf tomiddle = new Pointf(0,SIMINFO.PANELHEIGHT/2);
+		origin= translate(origin, tomiddle);
+		origin = translate(origin, multiply(barcodeUp,-4));
+		
+		for(boolean c: barcode.getBinaryValues())
+		{
+			//Now origin should be in the bottom left corner
+			//generating all 8 barcodes 
+			List<Pointf> points = new ArrayList<Pointf>();
+			points.add(origin);
+			points.add(translate(origin, barcodeUp));
+			points.add(translate(translate(origin, barcodeRight), barcodeUp));
+			points.add(translate(origin, barcodeRight));
+			int color = 0;
+			if(c)
+				color= SIMINFO.WHITE;
+			else
+				color = SIMINFO.BLACK;
+			LocationComponent component = new OpenComponent(points, SIMINFO.BARCODEZ,color);
+			rv.add(component);
+			origin = translate(origin, barcodeUp);
+		}
+		return rv;
 	}
 
 	Collection<LocationComponent> generatePanels()
@@ -205,6 +306,6 @@ public class RealWorldViewFromRealWorldObject implements RealWorldViewBuilder
 		points.add(translate(origin, vectorUp));
 		points.add(translate(translate(origin, vectorUp), vectorRight));
 		points.add(translate(origin, vectorRight));
-		return new OpenComponent(points, NORMALBOARD);
+		return new OpenComponent(points, NORMALBOARD,SIMINFO.BROWN);
 	}
 }

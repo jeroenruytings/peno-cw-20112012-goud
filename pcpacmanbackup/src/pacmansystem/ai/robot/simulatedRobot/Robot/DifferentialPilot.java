@@ -1,30 +1,187 @@
 package pacmansystem.ai.robot.simulatedRobot.Robot;
 
-public class DifferentialPilot
-{
+import pacmansystem.ai.robot.simulatedRobot.ticking.Tickable;
+import pacmansystem.ai.robot.simulatedRobot.ticking.Ticker;
 
-	public DifferentialPilot(float f, float g, float h, Motor a, Motor b,
-			boolean c)
+//TODO: implement
+public class DifferentialPilot implements Tickable
+{
+	private interface Movement extends Tickable
 	{
-		// TODO Auto-generated constructor stub
+		boolean isFinished();
 	}
 
+	private class Idle implements Movement
+	{
+
+		@Override
+		public void tick(Ticker ticker)
+		{
+			
+			// do nothing
+		}
+
+		@Override
+		public boolean isFinished()
+		{
+			return true;
+		}
+
+	}
+
+	private class Forward implements Movement
+	{
+
+		public Forward(int i)
+		{
+		}
+
+		@Override
+		public void tick(Ticker ticker)
+		{
+
+		}
+
+		@Override
+		public boolean isFinished()
+		{
+			return false;
+		}
+
+	}
+
+	private class Rotate implements Movement
+	{
+
+		Rotate(int degrees)
+		{
+
+		}
+
+		@Override
+		public void tick(Ticker ticker)
+		{
+
+		}
+
+		@Override
+		public boolean isFinished()
+		{
+
+			return false;
+		}
+
+	}
+
+	private Movement currentMovement = new Idle();
+	private Movement nextMove;
+/**
+ * 
+ * @param speed
+ * 	the amount of mm the robot drives each tick.
+ */
+	public DifferentialPilot(float speed)
+	{
+		// TODO implement
+	}
+	
 	public void stop()
 	{
-		// TODO Auto-generated method stub
-		
+		setNextMove(new Idle());
 	}
 
-	public void rotate(int i)
+	public void rotate(int degrees)
 	{
-		// TODO Auto-generated method stub
-		
+		Movement rotate = new Rotate(degrees);
+		setNextMove(rotate);
+		waitForCompletion(rotate);
 	}
 
+	/**
+	 * 
+	 * @param i
+	 */
 	public void travel(int i)
 	{
+		setNextMove(new Forward(i));
+
+	}
+
+	@Override
+	public void tick(Ticker ticker)
+	{
+		if (nextMove != null) {
+			currentMovement = nextMove;
+			nextMove = null;
+		}
+		currentMovement.tick(ticker);
+		if (currentMovement.isFinished()) {
+			notifyCurrentMethod(currentMovement);
+			currentMovement = new Idle();
+
+		}
+
+	}
+
+	private void waitForCompletion(Movement rotate)
+	{
+		while (!rotate.isFinished())
+			synchronized (rotate) {
+				try {
+					rotate.wait();
+				} catch (InterruptedException e) {
+				}
+			}
+	}
+
+	private void setNextMove(Movement move)
+	{
+		nextMove = move;
+
+	}
+
+	private void notifyCurrentMethod(Movement currentMovement2)
+	{
+		synchronized (currentMovement2) {
+
+			currentMovement2.notify();
+
+		}
+	}
+
+	public void waitForPress()
+	{
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void setSpeed(int i)
+	{
+		
+	}
+
+	public void forward()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void resetTachoCount()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	public int getTachoCount()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public TurningComponent getHead()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

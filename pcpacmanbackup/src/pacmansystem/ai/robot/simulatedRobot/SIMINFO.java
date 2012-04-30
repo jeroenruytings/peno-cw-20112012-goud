@@ -20,4 +20,12 @@ public class SIMINFO
 	 * As seen from a horizontal placement of a barcode.
 	 */
 	public static final float BARCODEHEIGHT = 20;
+	public static final int PANELZ	= 0;
+	public static final int WALLZ	= 10;
+	public static final int BARCODEZ = 9;
+	public static final int BORDERZ = 8;
+	public static final int BLACK = 500;
+	public static final int BROWN = 250;
+	public static final int WHITE = 100;
+	
 }

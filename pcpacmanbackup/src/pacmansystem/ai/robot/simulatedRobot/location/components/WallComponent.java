@@ -4,7 +4,7 @@ import java.util.List;
 
 import pacmansystem.ai.robot.simulatedRobot.point.Pointf;
 
-public class WallComponent extends LocationComponent
+public class WallComponent extends NonMovingComponents
 {
 	
 	public WallComponent(List<Pointf> points, int priority)

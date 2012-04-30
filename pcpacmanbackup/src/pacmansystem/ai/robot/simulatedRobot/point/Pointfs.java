@@ -129,4 +129,10 @@ public final class Pointfs
 			return -1;
 		return 0;
 	}
+
+	public static boolean convexPoints(List<Pointf> points)
+	{
+		//TODO:Implement
+		return true;
+	}
 }

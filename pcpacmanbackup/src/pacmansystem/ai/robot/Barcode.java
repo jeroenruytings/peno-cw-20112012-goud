@@ -40,7 +40,11 @@ public class Barcode
 		result[5] = binairy[0];
 		return Integer.parseInt(new String(result), 2);
 	}
-	
+	/**
+	 * 
+	 * @return 
+	 * the 
+	 */
 	public char[] getBitString(){
 		return  Integer.toBinaryString(getValue()).toCharArray();
 //		if (binairy.length != 8)
@@ -89,6 +93,36 @@ public class Barcode
 		for(int i = 6;i>rv.length;i--)
 			rev="0"+rev;
 		return rev;
+	}
+	/**
+	 * Don't use this method.
+	 * 
+	 * @return an array of booleans where true is white and black is false. Length 8
+	 */
+	@Deprecated
+	public boolean[] getBinaryValues()
+	{
+		boolean[] rv = new boolean[8];
+		rv[0]=false;
+		rv[8]=false;
+		for (int i = 1; i < rv.length-1; i++) {
+			rv[i]=fromchar(getBitString()[i-1]);
+		}
+		
+		return rv;
+	}
+	/**
+	 * Dont even consider using this
+	 * returns true if c=='1' and false if c=='0' throws error otherwise
+	 */
+	@Deprecated
+	private boolean fromchar(char c)
+	{
+		if(c=='0')
+			return false;
+		if(c=='1')
+			return true;
+		throw new Error("Fatal conversion error");
 	}
 	
 }
