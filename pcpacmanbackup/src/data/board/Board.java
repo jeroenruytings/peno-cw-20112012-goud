@@ -88,11 +88,12 @@ public class Board
 	 * throws an exception
 	 * 
 	 */
-	public void add(Panel panel, Point p)
+	public void add(Panel panel, Point p) throws IllegalArgumentException
 	{
-		if (conflicting(p, panel))
+		if (conflicting(p, panel)){
 			System.out.println("Paneel conflicting");
-			//throw new IllegalArgumentException("Paneel fout: " + p);
+			throw new IllegalArgumentException("Paneel fout: " + p);
+		}
 		if(panel==null){
 			panels.remove(p);return;}
 		panels.put(p, panel);
@@ -357,6 +358,17 @@ public class Board
 	 */
 	private boolean conflicting(Point p, Panel panel)
 	{
+		if(hasPanelAt(p)){
+			System.err.println("HELP!");
+			Panel old = getPanelAt(p);
+			for(Orientation d : Orientation.values()){
+				System.out.println("nog meer help!");
+				if(!(old.getWallState(d) == panel.getWallState(d))){
+					System.err.println("Hier ben ik geraakt");
+					return true;
+				}
+			}
+		}
 		for (Orientation d : Orientation.values())
 			if (hasPanelAt(d.addTo(p))) {
 				if (panel.getWallState(d)==WallState.UNKNOWN || this.getPanelAt(d.addTo(p))
