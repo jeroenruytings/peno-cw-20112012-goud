@@ -8,6 +8,9 @@ import org.junit.Test;
 import pacmansystem.ai.robot.fysicalRobot.connector.MoverLayer;
 import pacmansystem.ai.robot.fysicalRobot.connector.PCCommunicator;
 import pacmansystem.ai.robot.simulatedRobot.SimulatedRobotBehindStreams;
+import pacmansystem.ai.robot.simulatedRobot.location.RealWorldView;
+import pacmansystem.ai.robot.simulatedRobot.location.RealWorldViewBuilder;
+import pacmansystem.ai.robot.simulatedRobot.location.RealWorldViewFromRealWorldObject;
 import data.enums.Orientation;
 import data.world.RealWorld;
 
@@ -21,7 +24,9 @@ public class CreationTest
 		realWorld = RealWorld.getRealWorld(CreationTest.class.getResource("/resources/testworld.txt").getFile());
 		SimulatedRobotBehindStreams sim = new SimulatedRobotBehindStreams(
 				realWorld, new Point(0, 0), Orientation.NORTH);
-	moverlayer = new MoverLayer(new PCCommunicator(sim.getConnection()));
+	RealWorldViewBuilder r = new RealWorldViewFromRealWorldObject(realWorld);
+	r.build();
+	//moverlayer = new MoverLayer(new PCCommunicator(sim.getConnection()));
 	
 	}
 
