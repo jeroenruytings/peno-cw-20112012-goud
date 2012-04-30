@@ -2,6 +2,7 @@ package pacmansystem.ai.robot.simulatedRobot.location;
 
 import java.awt.Point;
 import java.util.Collection;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,13 +23,9 @@ public class _ComponentBuildingTEst
 	@Test
 	public void testNorth()
 	{
-		Collection<LocationComponent> comps = builder.genNorthBarcodes(new Point(0,0), new Barcode(1,1,1,0,1,1));
-		for(LocationComponent component : comps)
-		{
-			System.out.println("Color:"+((OpenComponent)component).getColor());
-			for(Pointf point:component.getConvexPoints())
-				System.out.println(point);
-		}
+		List<LocationComponent> comps = builder.genNorthBarcodes(new Point(0,0), new Barcode(1,1,1,0,1,1));
+		
+	
 	}
 	@Test
 	public void testEast()

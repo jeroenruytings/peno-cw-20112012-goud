@@ -328,11 +328,17 @@ public class RealWorldViewFromRealWorldObject implements RealWorldViewBuilder
 		}
 		return rv;
 	}
-
-	Collection<LocationComponent> genNorthBarcodes(Point point,
+	/**
+	 * Returns the components starting from the most bottom one to the top( top being the
+	 * North in this case.
+	 * @param point
+	 * @param barcode
+	 * @return
+	 */
+	List<LocationComponent> genNorthBarcodes(Point point,
 			Barcode barcode)
 	{
-		Collection<LocationComponent> rv = new ArrayList<LocationComponent>();
+		List<LocationComponent> rv = new ArrayList<LocationComponent>();
 		Pointf origin = new Pointf(point.x*SIMINFO.PANELWIDTH,point.y*SIMINFO.PANELHEIGHT);
 		Pointf barcodeUp = new Pointf(0, SIMINFO.BARCODEHEIGHT);
 		Pointf barcodeRight = new Pointf(SIMINFO.PANELWIDTH, 0);
