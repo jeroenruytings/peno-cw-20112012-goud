@@ -236,22 +236,100 @@ public class RealWorldViewFromRealWorldObject implements RealWorldViewBuilder
 	private Collection<LocationComponent> genWestBarcode(Point point,
 			Barcode barcode)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		//XXX:not finishede
+		Collection<LocationComponent> rv = new ArrayList<LocationComponent>();
+		Pointf origin = new Pointf(point.x*SIMINFO.PANELWIDTH,point.y*SIMINFO.PANELHEIGHT);
+		Pointf barcodeUp = new Pointf(SIMINFO.PANELWIDTH, SIMINFO.BARCODEHEIGHT);
+		Pointf barcodeRight = new Pointf(SIMINFO.PANELWIDTH, 0);
+		Pointf tomiddle = new Pointf(0,SIMINFO.PANELHEIGHT/2);
+		origin= translate(origin, tomiddle);
+		origin = translate(origin, multiply(barcodeUp,-4));
+		
+		for(boolean c: barcode.getBinaryValues())
+		{
+			//Now origin should be in the bottom left corner
+			//generating all 8 barcodes 
+			List<Pointf> points = new ArrayList<Pointf>();
+			points.add(origin);
+			points.add(translate(origin, barcodeUp));
+			points.add(translate(translate(origin, barcodeRight), barcodeUp));
+			points.add(translate(origin, barcodeRight));
+			int color = 0;
+			if(c)
+				color= SIMINFO.WHITE;
+			else
+				color = SIMINFO.BLACK;
+			LocationComponent component = new OpenComponent(points, SIMINFO.BARCODEZ,color);
+			rv.add(component);
+			origin = translate(origin, barcodeUp);
+		}
+		return rv;
 	}
 
 	private Collection<LocationComponent> genSouthBarcode(Point point,
 			Barcode barcode)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		//XXX:not finishede
+		Collection<LocationComponent> rv = new ArrayList<LocationComponent>();
+		Pointf origin = new Pointf(point.x*SIMINFO.PANELWIDTH,point.y*SIMINFO.PANELHEIGHT);
+		Pointf barcodeUp = new Pointf(SIMINFO.PANELWIDTH, -SIMINFO.BARCODEHEIGHT);
+		Pointf barcodeRight = new Pointf(SIMINFO.PANELWIDTH, 0);
+		Pointf tomiddle = new Pointf(0,SIMINFO.PANELHEIGHT/2);
+		origin= translate(origin, tomiddle);
+		origin = translate(origin, multiply(barcodeUp,-4));
+		
+		for(boolean c: barcode.getBinaryValues())
+		{
+			//Now origin should be in the bottom left corner
+			//generating all 8 barcodes 
+			List<Pointf> points = new ArrayList<Pointf>();
+			points.add(origin);
+			points.add(translate(origin, barcodeUp));
+			points.add(translate(translate(origin, barcodeRight), barcodeUp));
+			points.add(translate(origin, barcodeRight));
+			int color = 0;
+			if(c)
+				color= SIMINFO.WHITE;
+			else
+				color = SIMINFO.BLACK;
+			LocationComponent component = new OpenComponent(points, SIMINFO.BARCODEZ,color);
+			rv.add(component);
+			origin = translate(origin, barcodeUp);
+		}
+		return rv;
 	}
 
 	private Collection<LocationComponent> genEastBarcodes(Point point,
 			Barcode barcode)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		//XXX:not finishede
+		Collection<LocationComponent> rv = new ArrayList<LocationComponent>();
+		Pointf origin = new Pointf(point.x*SIMINFO.PANELWIDTH,point.y*SIMINFO.PANELHEIGHT);
+		Pointf barcodeUp = new Pointf(-SIMINFO.BARCODEHEIGHT, SIMINFO.PANELHEIGHT);
+		Pointf barcodeRight = new Pointf(0, SIMINFO.PANELHEIGHT);
+		Pointf tomiddle = new Pointf(SIMINFO.PANELWIDTH/2,0);
+		origin= translate(origin, tomiddle);
+		origin = translate(origin, multiply(barcodeUp,-4));
+		
+		for(boolean c: barcode.getBinaryValues())
+		{
+			//Now origin should be in the bottom left corner
+			//generating all 8 barcodes 
+			List<Pointf> points = new ArrayList<Pointf>();
+			points.add(origin);
+			points.add(translate(origin, barcodeUp));
+			points.add(translate(translate(origin, barcodeRight), barcodeUp));
+			points.add(translate(origin, barcodeRight));
+			int color = 0;
+			if(c)
+				color= SIMINFO.WHITE;
+			else
+				color = SIMINFO.BLACK;
+			LocationComponent component = new OpenComponent(points, SIMINFO.BARCODEZ,color);
+			rv.add(component);
+			origin = translate(origin, barcodeUp);
+		}
+		return rv;
 	}
 
 	private Collection<LocationComponent> genNorthBarcodes(Point point,
