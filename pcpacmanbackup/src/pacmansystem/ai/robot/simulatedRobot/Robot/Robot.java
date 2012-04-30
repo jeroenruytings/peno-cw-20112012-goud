@@ -237,7 +237,7 @@ public class Robot implements MovingComponent
 	}
 	
 
-	public void setMovingComponent(SensorHolder movingComponent)
+	public void setSensorHolder(SensorHolder movingComponent)
 	{
 		
 		this.movingComponent = movingComponent;

@@ -113,4 +113,11 @@ public class RealWorldViewNoMoving implements RealWorldView
 	{
 		return null;
 	}
+
+	@Override
+	public boolean conflicting(List<Pointf> points)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

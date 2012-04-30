@@ -28,5 +28,10 @@ public interface RealWorldView
 	 * Gets the LocationComponents that are in the range [point0->point1]
 	 */
 	public abstract List<LocationComponent> getIn(Pointf point0, Pointf point1);
-
+	/**
+	 * Checks if this convex figure conflicts with the current realworldview.
+	 * @param points
+	 * @return
+	 */
+	public boolean conflicting (List<Pointf> points);
 }
