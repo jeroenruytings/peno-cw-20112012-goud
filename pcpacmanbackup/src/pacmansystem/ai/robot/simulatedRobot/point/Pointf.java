@@ -12,6 +12,16 @@ public final class Pointf implements Vector
 		xy[0] = x;
 		xy[1] = y;
 	}
+	/**
+	 * This constuctor should be used with care, it will cast the double to floats.
+	 * @param x
+	 * 	
+	 * @param y
+	 */
+	public Pointf(double x, double y)
+	{
+		this((float)x,(float)y);
+	}
 
 	public float[] xy()
 	{

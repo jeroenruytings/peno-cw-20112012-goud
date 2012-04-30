@@ -1,144 +1,122 @@
 package pacmansystem.ai.robot.simulatedRobot.Robot;
 
-public class SensorListener implements Runnable {
-	
-	UltrasonicSensor sonar = new UltrasonicSensor(SensorPort.S3); //check
-	LightSensor light = new LightSensor(SensorPort.S1);	//check
-	TouchSensor push = new TouchSensor(SensorPort.S4);	//check
-	//TODO:fixIRSeekerV2 ir = new IRSeekerV2(SensorPort.S2);	//check
+import pacmansystem.ai.robot.simulatedRobot.ticking.Tickable;
+import pacmansystem.ai.robot.simulatedRobot.ticking.Ticker;
+
+public class SensorListener implements Tickable
+{
+
+	private final UltrasonicSensor sonar;  
+	private final LightSensor light; 
+	private final TouchSensor push;
+	private final IRSeekerV2 ir ;
 	Motor motor = new Motor(MotorPort.A);
 	Motor head = new Motor(MotorPort.C);
 	RobotCommunicator communicator;
-	
-	public SensorListener(RobotCommunicator comm){
-		this.communicator=comm;
+
+	public SensorListener(RobotCommunicator comm,UltrasonicSensor sensor,LightSensor lights,TouchSensor touch,IRSeekerV2 irseekr)
+	{
+		this.communicator = comm;
+		this.sonar=sensor;
+		this.light=lights;
+		this.push=touch;
+		this.ir=irseekr;
 	}
 	
-	private int sonarValue;
-	private int lightValue;
-	private int pushValue; 
-	private int irValue; 
-	private int irDirection;
-	private int tachoCount;
-	private int headTacho;
 	
+	private void sendValue(int Value, SensorIdentifier sensorID)
+	{
 
-
-	
-	
-	public void start(){
-	sonarValue = sonar.getDistance(); 
-	lightValue = light.getLightValue();
-	pushValue = 0;
-	//irDirection = ir.getDirection();	
-	//irValue = ir.getSensorValue(irDirection); 
-	tachoCount = motor.getTachoCount();
-	headTacho = head.getTachoCount();
-	
-	Thread listener = new Thread(this);
-    listener.start();
+		Message mes = new Message(Monitor.SensorMonitor, sensorID,
+				new SensorValue((byte) Value));
+		communicator.send(mes);
 	}
+
+
 
 	@Override
-	public void run() {
+	public void tick(Ticker ticker)
+	{
+		sendPush();
+		sendLight();
+		sendSonar();
+		sendIR();
+
+		sendHeadTacho();
+
+		// // send sonar value
+		// if(irValue != getIrValue()){
+		// irValue = getIrValue();
+		// sendValue(irValue, SensorIdentifier.ValueIrSensor);
+		// }
+		// Thread.yield();
+
+		sendTacho();
+
+	}
+
+	private void sendTacho()
+	{
 		
-		while (true){
-			
-		//send push value
-			if(pushValue != getPushValue()){
-				pushValue = getPushValue();
-		sendValue(pushValue, SensorIdentifier.PushSensor);
-			}
-		Thread.yield();
-				
-		//send light value
-			if(lightValue != getLightValue()){
-				lightValue = getLightValue();
-		sendValue(lightValue, SensorIdentifier.LightSensor);
-			}
-		Thread.yield();
-		
-		// send sonar value
-			if(sonarValue != getSonarValue()){
-				sonarValue = getSonarValue();
-		sendValue(sonarValue, SensorIdentifier.UltrasonicSensor);
-			}
-		Thread.yield();
-		
-		// send direction ir	
-			if(irDirection != getIrDirection()){
-				irDirection = getIrDirection();
-				System.out.println(irDirection);
-		sendValue(irDirection, SensorIdentifier.DirectionIrSensor);
-			}
-		Thread.yield();
-		
-		//send head tacho
-		if(headTacho != getHeadTacho()){
-			headTacho = getHeadTacho();
-			System.out.println(headTacho);
-	sendValue(headTacho, SensorIdentifier.HeadTacho);
-		}
-	Thread.yield();
-		
-//		// send sonar value
-//			if(irValue != getIrValue()){
-//				irValue = getIrValue();
-//		sendValue(irValue, SensorIdentifier.ValueIrSensor);
-//			}
-//		Thread.yield();
-		
-		//sent Tachocount
-			if(tachoCount != getTachoCount() && getTachoCount()>=0){
-				tachoCount = getTachoCount();
-		sendValue(tachoCount, SensorIdentifier.TachoCount);
-			}
-		Thread.yield();
-		
-		
-		}	
+//		if (tachoCount != getTachoCount() && getTachoCount() >= 0) {
+//			tachoCount = getTachoCount();
+//			sendValue(tachoCount, SensorIdentifier.TachoCount);
+//		}
+	}
+
+	private void sendHeadTacho()
+	{
+//		if (headTacho != getHeadTacho()) {
+//			headTacho = getHeadTacho();
+//			System.out.println(headTacho);
+//			sendValue(headTacho, SensorIdentifier.HeadTacho);
+//		}
+	}
+
+	private void sendIR()
+	{
+//		if (irDirection != getIrDirection()) {
+//			irDirection = getIrDirection();
+//			System.out.println(irDirection);
+//			sendValue(irDirection, SensorIdentifier.DirectionIrSensor);
+//		}
+	}
+
+	private void sendSonar()
+	{
+//		if (sonarValue != getSonarValue()) {
+//			sonarValue = getSonarValue();
+//			sendValue(sonarValue, SensorIdentifier.UltrasonicSensor);
+//		}
+	}
+
+	private void sendLight()
+	{
+		if(!light.hasChanged())
+			return;
+	sendValue(light.getLightValue(), SensorIdentifier.LightSensor);
 		
 	}
 
-	private int getHeadTacho() {
-		return head.getTachoCount();
-	}
-
-	public int getTachoCount() {
-		return motor.getTachoCount()/4;
-	}
-
-	public int getIrDirection() {
+	private void sendPush()
+	{
 		
-		return 0;// ir.getDirection();
+//		if (pushValue != getPushValue()) {
+//			pushValue = getPushValue();
+//			sendValue(pushValue, SensorIdentifier.PushSensor);
+//		}
 	}
 
-	public int getSonarValue() {
-		//sonar.ping();
+
+	public int getLightValue()
+	{
+		return light.getLightValue();
+	}
+
+
+	public int getSonarValue()
+	{
 		return sonar.getDistance();
-	}
-
-	public int getLightValue() {
-		return (SensorPort.S1.readRawValue()/4);
-	}
-
-	public int getIrValue() {
-		return 0;// ir.getSensorValue(getIrDirection());
-	}
-
-	private void sendValue(int Value, SensorIdentifier sensorID) {
-		
-        Message mes = new Message(Monitor.SensorMonitor, sensorID, new SensorValue((byte)Value));
-        communicator.send(mes);	
-	}
-
-	public int getPushValue() {
-		if (push.isPressed()){
-			return 1;
-		}
-		else {
-			return 0;
-		}
 	}
 
 }

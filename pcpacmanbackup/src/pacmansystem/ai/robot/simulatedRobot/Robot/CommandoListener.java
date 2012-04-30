@@ -4,7 +4,7 @@ package pacmansystem.ai.robot.simulatedRobot.Robot;
 public class CommandoListener implements Runnable {
 	
 	private RobotCommunicator communicator;
-	DifferentialPilot pilot;
+	Robot pilot;
 	SensorListener listener;
 	public int getBlack() {
 		return Black;
@@ -34,10 +34,10 @@ public class CommandoListener implements Runnable {
 	int White;
 	int Brown;
 	
-	public CommandoListener(SensorListener listener,RobotCommunicator comm){
+	public CommandoListener(SensorListener listener,RobotCommunicator comm,Robot robot){
 		
 		communicator =comm;
-		pilot = new DifferentialPilot(0);
+		pilot = robot;
 		this.listener = listener;
 	}
 	

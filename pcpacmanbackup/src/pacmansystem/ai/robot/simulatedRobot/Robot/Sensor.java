@@ -1,12 +1,11 @@
 package pacmansystem.ai.robot.simulatedRobot.Robot;
 
-public class Sensor
+import pacmansystem.ai.robot.simulatedRobot.ticking.Tickable;
+
+public interface Sensor extends Tickable
 {
 
-	public int readRawValue()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	public int readRawValue();
+	public boolean hasChanged();
 
 }

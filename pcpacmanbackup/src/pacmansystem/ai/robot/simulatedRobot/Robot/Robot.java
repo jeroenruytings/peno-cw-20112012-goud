@@ -1,10 +1,13 @@
 package pacmansystem.ai.robot.simulatedRobot.Robot;
 
+import pacmansystem.ai.robot.simulatedRobot.SIMINFO;
+import pacmansystem.ai.robot.simulatedRobot.location.RealWorldView;
+import pacmansystem.ai.robot.simulatedRobot.point.Pointf;
 import pacmansystem.ai.robot.simulatedRobot.ticking.Tickable;
 import pacmansystem.ai.robot.simulatedRobot.ticking.Ticker;
 
 //TODO: implement
-public class DifferentialPilot implements Tickable
+public class Robot implements Tickable
 {
 	private interface Movement extends Tickable
 	{
@@ -17,7 +20,7 @@ public class DifferentialPilot implements Tickable
 		@Override
 		public void tick(Ticker ticker)
 		{
-			
+
 			// do nothing
 		}
 
@@ -75,16 +78,61 @@ public class DifferentialPilot implements Tickable
 
 	private Movement currentMovement = new Idle();
 	private Movement nextMove;
-/**
- * 
- * @param speed
- * 	the amount of mm the robot drives each tick.
- */
-	public DifferentialPilot(float speed)
+	private final RealWorldView view;
+	private Pointf origin = new Pointf(SIMINFO.PANELWIDTH / 2,
+			SIMINFO.PANELHEIGHT / 2);
+	private int degrees =0; // The direction the robot is facing aka North at start
+
+	/**
+	 * 
+	 * @param speed
+	 *  The speed of the robot in mm / tick
+	 * @param view
+	 *  The Realworld view of our simulation, this contains our walls,barcodes & other robots
+	 * @param origin
+	 * 	The Continu location of the robot.
+	 * @param degrees
+	 *  The Degrees the robot is away from north,</br> 
+	 *  	This means 0 is North and 90 is West
+	 * 
+	 */
+	public Robot(int speed, RealWorldView view,Pointf origin,int degrees)
 	{
-		// TODO implement
+		if (view == null)
+			throw new IllegalArgumentException("Passed in view cannot be null");
+		if(origin == null)
+			throw new IllegalArgumentException("passed in origin cannot be null");
+		this.view = view;
+		setDegrees(degrees+90);//hack to make sure 0 is north.
 	}
-	
+	/**
+	 * Generates a vector in the direction the robot is currently facing of length 1.
+	 * @return
+	 */
+	public Pointf getDirection()
+	{
+		return new Pointf(Math.cos(degrees),Math.sin(degrees));
+	}
+	/**
+	 * Sets the degree value % 360
+	 * @param degrees
+	 */
+	private void setDegrees(int degrees)
+	{
+		this.degrees=degrees%360;
+	}
+
+	public Pointf getCenterPoint()
+	{
+		return origin;
+
+	}
+
+	public RealWorldView getView()
+	{
+		return view;
+	}
+
 	public void stop()
 	{
 		setNextMove(new Idle());
@@ -152,24 +200,24 @@ public class DifferentialPilot implements Tickable
 	public void waitForPress()
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void setSpeed(int i)
 	{
-		
+
 	}
 
 	public void forward()
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void resetTachoCount()
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public int getTachoCount()

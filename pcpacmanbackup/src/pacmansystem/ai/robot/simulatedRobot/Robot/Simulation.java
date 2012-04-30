@@ -15,10 +15,10 @@ public class Simulation implements Runnable
 	@Override
 	public void run()
 	{
-		SensorListener listener = new SensorListener(comm);
-		new Thread(listener).start();
-		CommandoListener commandoListner = new CommandoListener(listener, comm);
-		commandoListner.run();
+//		SensorListener listener = new SensorListener(comm);
+//		new Thread(listener).start();
+		//CommandoListener commandoListner = new CommandoListener(listener, comm);
+		//commandoListner.run();
 		
 		
 	}
