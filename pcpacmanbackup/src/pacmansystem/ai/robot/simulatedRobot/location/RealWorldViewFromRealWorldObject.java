@@ -233,14 +233,14 @@ public class RealWorldViewFromRealWorldObject implements RealWorldViewBuilder
 		return null;
 	}
 
-	 Collection<LocationComponent> genWestBarcode(Point point,
+	 List<LocationComponent> genWestBarcode(Point point,
 			Barcode barcode)
 	{
-		Collection<LocationComponent> rv = new ArrayList<LocationComponent>();
+		List<LocationComponent> rv = new ArrayList<LocationComponent>();
 		Pointf origin = new Pointf(point.x*SIMINFO.PANELWIDTH,point.y*SIMINFO.PANELHEIGHT);
 		Pointf barcodeUp = new Pointf(-SIMINFO.BARCODEHEIGHT, 0);
 		Pointf barcodeRight = new Pointf(0, SIMINFO.PANELWIDTH);
-		Pointf tomiddle = new Pointf(0,SIMINFO.PANELHEIGHT/2);
+		Pointf tomiddle = new Pointf(SIMINFO.PANELWIDTH/2,0);
 		origin= translate(origin, tomiddle);
 		origin = translate(origin, multiply(barcodeUp,-4));
 		
@@ -265,10 +265,10 @@ public class RealWorldViewFromRealWorldObject implements RealWorldViewBuilder
 		return rv;
 	}
 
-	Collection<LocationComponent> genSouthBarcode(Point point,
+	List<LocationComponent> genSouthBarcode(Point point,
 			Barcode barcode)
 	{
-		Collection<LocationComponent> rv = new ArrayList<LocationComponent>();
+		List<LocationComponent> rv = new ArrayList<LocationComponent>();
 		Pointf origin = new Pointf(point.x*SIMINFO.PANELWIDTH,point.y*SIMINFO.PANELHEIGHT);
 		Pointf barcodeUp = new Pointf(0, -SIMINFO.BARCODEHEIGHT);
 		Pointf barcodeRight = new Pointf(-SIMINFO.PANELWIDTH, 0);
@@ -297,10 +297,10 @@ public class RealWorldViewFromRealWorldObject implements RealWorldViewBuilder
 		return rv;
 	}
 
-	Collection<LocationComponent> genEastBarcodes(Point point,
+	List<LocationComponent> genEastBarcodes(Point point,
 			Barcode barcode)
 	{
-		Collection<LocationComponent> rv = new ArrayList<LocationComponent>();
+		List<LocationComponent> rv = new ArrayList<LocationComponent>();
 		Pointf origin = new Pointf(point.x*SIMINFO.PANELWIDTH,point.y*SIMINFO.PANELHEIGHT);
 		Pointf barcodeUp = new Pointf(SIMINFO.BARCODEHEIGHT, 0);
 		Pointf barcodeRight = new Pointf(0, -SIMINFO.PANELHEIGHT);
