@@ -67,7 +67,6 @@ public class LightSensor  implements Sensor
 			return;
 		value=color;
 		changed=true;
-		// now here magic has to happen
 	}
 	private Pointf getLocation()
 	{

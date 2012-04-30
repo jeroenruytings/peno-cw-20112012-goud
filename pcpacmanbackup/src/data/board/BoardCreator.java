@@ -113,7 +113,7 @@ public class BoardCreator
 				realWorld.addStartingPoint(cmd.getPosition());
 			}
 		}
-		
+		realWorld.init();
 		return realWorld;
 		
 	}

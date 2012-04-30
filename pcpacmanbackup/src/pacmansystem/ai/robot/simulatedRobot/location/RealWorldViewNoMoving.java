@@ -24,8 +24,8 @@ public class RealWorldViewNoMoving implements RealWorldView
 		comps_.add(component);  	
 	}
 
-	/* (non-Javadoc)
-	 * @see pacmansystem.ai.robot.simulatedRobot.location.RealWorldView#get(pacmansystem.ai.robot.simulatedRobot.location.Pointf)
+	/**
+	 * Gets the Componnent with the highest z-value on this point
 	 */
 	@Override
 	public LocationComponent get(Pointf point)

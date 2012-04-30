@@ -99,8 +99,20 @@ public class Transformation
 			rv =rv.addTo(Turn.RIGHT.getDir());
 		return rv;
 	}
+	/**
+	 * Checks if a transformation can be build from the 2 passed in robotdata objects.
+	 * @param thiz
+	 * first robot
+	 * @param that
+	 * second robot
+	 * @return
+	 * 	true if the constructor Transformation(RobotData,RobotData) can be called succesfully
+	 *  false if thiz is null or that is null && if the constructor cannot be called succesfull.
+	 */
 	public static boolean canBeBuild(RobotData thiz,RobotData that)
 	{
+		if(thiz==null||that ==null)
+			return false;
 		return filterCodes(findBarcodes(thiz.getBoard()), findBarcodes(that.getBoard())).size()>0;
 	}
 	
