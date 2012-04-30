@@ -14,7 +14,9 @@ public abstract class NonMovingComponents extends LocationComponent
 	{
 		super(zIndex);
 		this.zIndex = zIndex;
-		convexPoints = Collections.unmodifiableList(convexPoints);
+		if(convexPoints==null)
+			throw new IllegalArgumentException("convext points cannot be null");
+		this.convexPoints = Collections.unmodifiableList(convexPoints);
 	}
 	public int getZIndex()
 	{

@@ -14,11 +14,9 @@ public class Barcode
 	private boolean correctBarcode(int barcode){
 		return (barcode != 0);
 	}
-	public Barcode(int... code) throws Exception
+	public Barcode(int... code) 
 	{
 		String s = "";
-		if(code.length!=8)
-			throw new Exception("barcode length wrong");
 		for(int i : code)
 			s+=i;
 		this.barcode = (Integer.parseInt(s,2));
@@ -104,7 +102,7 @@ public class Barcode
 	{
 		boolean[] rv = new boolean[8];
 		rv[0]=false;
-		rv[8]=false;
+		rv[7]=false;
 		for (int i = 1; i < rv.length-1; i++) {
 			rv[i]=fromchar(getBitString()[i-1]);
 		}
