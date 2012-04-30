@@ -26,6 +26,7 @@ public class Explore implements Strategy {
 	
 	public Explore(RobotController controller) {
 		this.controller = controller;
+		controller.getOwnData().foundMistake(false);
 		finishedExploring = false;
 	}
 	
@@ -123,6 +124,8 @@ public class Explore implements Strategy {
 
 	@Override
 	public boolean hasToSwitchStrategy() {
+		if(getController().getOwnData().foundMistakes())
+			return true;
 		if(hasFinishedExploring() && getController().getOwnData().getPacmanLastSighted()!=null)
 			return true;
 		if(hasFinishedExploring() && getController().getOwnData().getPacmanLastSighted()==null)
@@ -134,6 +137,8 @@ public class Explore implements Strategy {
 
 	@Override
 	public Strategy getReplacingStrategy() {
+		if(getController().getOwnData().foundMistakes())
+			return new Explore(getController());
 		if(hasFinishedExploring() && getController().getOwnData().getPacmanLastSighted()!=null)
 			return new Hunt(getController());
 		if(hasFinishedExploring() && getController().getOwnData().getPacmanLastSighted()==null)

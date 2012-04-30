@@ -52,6 +52,8 @@ public class Catch implements Strategy {
 
 	@Override
 	public boolean hasToSwitchStrategy() {
+		if(getController().getOwnData().foundMistakes())
+			return true;
 		Point pacmanPos = getController().getOwnData().getPacmanLastSighted();
 		Point currentPos = getController().getCurrentPoint();
 		if(pacmanPos.distance(currentPos) == 1 && !getController().getOwnData().getBoard().wallBetween(pacmanPos, currentPos))
@@ -61,6 +63,8 @@ public class Catch implements Strategy {
 
 	@Override
 	public Strategy getReplacingStrategy() {
+		if(getController().getOwnData().foundMistakes())
+			return new Explore(getController());
 		Point pacmanPos = getController().getOwnData().getPacmanLastSighted();
 		Point currentPos = getController().getCurrentPoint();
 		if(pacmanPos.distance(currentPos) == 1 && !getController().getOwnData().getBoard().wallBetween(pacmanPos, currentPos)) {

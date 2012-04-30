@@ -143,6 +143,7 @@ public class RobotController
 		try {
 			addToBothBoards(p1, getCurrentPoint());
 		} catch (IllegalArgumentException e) {
+			getOwnData().foundMistake(true);
 			addForcedToBothBoards(p1, getCurrentPoint());
 		} // voegt panel toe aan board
 	}

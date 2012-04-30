@@ -19,6 +19,7 @@ import data.enums.Orientation;
 public class OwnRobotData extends RobotData
 {
 	private Board mergedBoard;
+	private boolean foundMistake;
 	
 	public OwnRobotData(String name)
 	{
@@ -229,5 +230,12 @@ public class OwnRobotData extends RobotData
 	
 	public void setMergedBoard(Board newBoard) {
 		mergedBoard = newBoard;
+	}
+	public void foundMistake(boolean b) {
+		foundMistake = b;
+	}
+	
+	public boolean foundMistakes(){
+		return foundMistake;
 	}
 }

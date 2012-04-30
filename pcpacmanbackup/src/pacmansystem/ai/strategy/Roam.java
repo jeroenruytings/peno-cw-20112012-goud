@@ -82,6 +82,8 @@ public class Roam implements Strategy {
 
 	@Override
 	public boolean hasToSwitchStrategy() {
+		if(getController().getOwnData().foundMistakes())
+			return true;
 		if(getController().getOwnData().getPacmanLastSighted() != null)
 			return true;
 		return false;
@@ -89,6 +91,8 @@ public class Roam implements Strategy {
 
 	@Override
 	public Strategy getReplacingStrategy() {
+		if(getController().getOwnData().foundMistakes())
+			return new Explore(getController());
 		if(getController().getOwnData().getPacmanLastSighted() != null)
 			return new Hunt(getController());
 		return this;
