@@ -236,11 +236,10 @@ public class RealWorldViewFromRealWorldObject implements RealWorldViewBuilder
 	private Collection<LocationComponent> genWestBarcode(Point point,
 			Barcode barcode)
 	{
-		//XXX:not finishede
 		Collection<LocationComponent> rv = new ArrayList<LocationComponent>();
 		Pointf origin = new Pointf(point.x*SIMINFO.PANELWIDTH,point.y*SIMINFO.PANELHEIGHT);
-		Pointf barcodeUp = new Pointf(SIMINFO.PANELWIDTH, SIMINFO.BARCODEHEIGHT);
-		Pointf barcodeRight = new Pointf(SIMINFO.PANELWIDTH, 0);
+		Pointf barcodeUp = new Pointf(-SIMINFO.BARCODEHEIGHT, 0);
+		Pointf barcodeRight = new Pointf(0, SIMINFO.PANELWIDTH);
 		Pointf tomiddle = new Pointf(0,SIMINFO.PANELHEIGHT/2);
 		origin= translate(origin, tomiddle);
 		origin = translate(origin, multiply(barcodeUp,-4));
@@ -269,12 +268,11 @@ public class RealWorldViewFromRealWorldObject implements RealWorldViewBuilder
 	private Collection<LocationComponent> genSouthBarcode(Point point,
 			Barcode barcode)
 	{
-		//XXX:not finishede
 		Collection<LocationComponent> rv = new ArrayList<LocationComponent>();
 		Pointf origin = new Pointf(point.x*SIMINFO.PANELWIDTH,point.y*SIMINFO.PANELHEIGHT);
-		Pointf barcodeUp = new Pointf(SIMINFO.PANELWIDTH, -SIMINFO.BARCODEHEIGHT);
-		Pointf barcodeRight = new Pointf(SIMINFO.PANELWIDTH, 0);
-		Pointf tomiddle = new Pointf(0,SIMINFO.PANELHEIGHT/2);
+		Pointf barcodeUp = new Pointf(0, -SIMINFO.BARCODEHEIGHT);
+		Pointf barcodeRight = new Pointf(-SIMINFO.PANELWIDTH, 0);
+		Pointf tomiddle = new Pointf(SIMINFO.PANELWIDTH,SIMINFO.PANELHEIGHT/2);
 		origin= translate(origin, tomiddle);
 		origin = translate(origin, multiply(barcodeUp,-4));
 		
@@ -302,12 +300,11 @@ public class RealWorldViewFromRealWorldObject implements RealWorldViewBuilder
 	private Collection<LocationComponent> genEastBarcodes(Point point,
 			Barcode barcode)
 	{
-		//XXX:not finishede
 		Collection<LocationComponent> rv = new ArrayList<LocationComponent>();
 		Pointf origin = new Pointf(point.x*SIMINFO.PANELWIDTH,point.y*SIMINFO.PANELHEIGHT);
-		Pointf barcodeUp = new Pointf(-SIMINFO.BARCODEHEIGHT, SIMINFO.PANELHEIGHT);
-		Pointf barcodeRight = new Pointf(0, SIMINFO.PANELHEIGHT);
-		Pointf tomiddle = new Pointf(SIMINFO.PANELWIDTH/2,0);
+		Pointf barcodeUp = new Pointf(SIMINFO.BARCODEHEIGHT, 0);
+		Pointf barcodeRight = new Pointf(0, -SIMINFO.PANELHEIGHT);
+		Pointf tomiddle = new Pointf(SIMINFO.PANELWIDTH/2,SIMINFO.PANELHEIGHT);
 		origin= translate(origin, tomiddle);
 		origin = translate(origin, multiply(barcodeUp,-4));
 		
@@ -337,7 +334,7 @@ public class RealWorldViewFromRealWorldObject implements RealWorldViewBuilder
 	{
 		Collection<LocationComponent> rv = new ArrayList<LocationComponent>();
 		Pointf origin = new Pointf(point.x*SIMINFO.PANELWIDTH,point.y*SIMINFO.PANELHEIGHT);
-		Pointf barcodeUp = new Pointf(SIMINFO.PANELWIDTH, SIMINFO.BARCODEHEIGHT);
+		Pointf barcodeUp = new Pointf(0, SIMINFO.BARCODEHEIGHT);
 		Pointf barcodeRight = new Pointf(SIMINFO.PANELWIDTH, 0);
 		Pointf tomiddle = new Pointf(0,SIMINFO.PANELHEIGHT/2);
 		origin= translate(origin, tomiddle);
