@@ -329,14 +329,6 @@ public class RobotController
 //		}
 //	}
 
-	private boolean nextToPamam()
-	{
-		if (getOwnData().getPacmanLastSighted() == null)
-			return false;
-		return getMergedBoard().getSurrounding(getOwnData().getPacmanLastSighted())
-				.contains(getCurrentPoint());
-	}
-
 	public Board getMergedBoard()
 	{
 		return getOwnData().getMergedBoard();

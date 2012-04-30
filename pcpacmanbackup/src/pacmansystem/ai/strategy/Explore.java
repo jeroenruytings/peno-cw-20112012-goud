@@ -127,7 +127,7 @@ public class Explore implements Strategy {
 			return true;
 		if(hasFinishedExploring() && getController().getOwnData().getPacmanLastSighted()==null)
 			return true;
-		if(!hasFinishedExploring() && getController().getOwnData().getPacmanLastSighted()!=null)
+		if(!hasFinishedExploring() && nextToPacman())
 			return true;
 		return false;
 	}
@@ -138,7 +138,7 @@ public class Explore implements Strategy {
 			return new Hunt(getController());
 		if(hasFinishedExploring() && getController().getOwnData().getPacmanLastSighted()==null)
 			return new Roam(getController());
-		if(!hasFinishedExploring() && getController().getOwnData().getPacmanLastSighted()!=null)
+		if(!hasFinishedExploring() && nextToPacman())
 			return new Catch(getController());
 		return this;
 	}
@@ -156,5 +156,14 @@ public class Explore implements Strategy {
 	@Override
 	public boolean hasToUpdatePlan() {
 		return false;
+	}
+	
+
+	private boolean nextToPacman()
+	{
+		if (getController().getOwnData().getPacmanLastSighted() == null)
+			return false;
+		return getController().getMergedBoard().getSurrounding(getController().getOwnData().getPacmanLastSighted())
+				.contains(getController().getCurrentPoint());
 	}
 }
