@@ -7,7 +7,7 @@ import pacmansystem.ai.robot.simulatedRobot.ticking.Tickable;
 import pacmansystem.ai.robot.simulatedRobot.ticking.Ticker;
 
 //TODO: implement
-public class Robot implements Tickable
+public class Robot implements MovingComponent 
 {
 	private interface Movement extends Tickable
 	{
@@ -82,6 +82,8 @@ public class Robot implements Tickable
 	private Pointf origin = new Pointf(SIMINFO.PANELWIDTH / 2,
 			SIMINFO.PANELHEIGHT / 2);
 	private int degrees =0; // The direction the robot is facing aka North at start
+	private LightSensor lightSensor= null;
+	private MovingComponent movingComponent;
 
 	/**
 	 * 
@@ -96,7 +98,7 @@ public class Robot implements Tickable
 	 *  	This means 0 is North and 90 is West
 	 * 
 	 */
-	public Robot(int speed, RealWorldView view,Pointf origin,int degrees)
+	Robot(int speed, RealWorldView view,Pointf origin,int degrees)
 	{
 		if (view == null)
 			throw new IllegalArgumentException("Passed in view cannot be null");
@@ -106,13 +108,15 @@ public class Robot implements Tickable
 		setDegrees(degrees+90);//hack to make sure 0 is north.
 	}
 	/**
-	 * Generates a vector in the direction the robot is currently facing of length 1.
-	 * @return
+	 * Gets the number of degrees this component is facing away from straight ahead.
+	 *  @return
 	 */
-	public Pointf getDirection()
+	public int getDirection()
 	{
-		return new Pointf(Math.cos(degrees),Math.sin(degrees));
+		return degrees-90;
 	}
+	
+	
 	/**
 	 * Sets the degree value % 360
 	 * @param degrees
@@ -120,12 +124,6 @@ public class Robot implements Tickable
 	private void setDegrees(int degrees)
 	{
 		this.degrees=degrees%360;
-	}
-
-	public Pointf getCenterPoint()
-	{
-		return origin;
-
 	}
 
 	public RealWorldView getView()
@@ -230,6 +228,34 @@ public class Robot implements Tickable
 	{
 		// TODO Auto-generated method stub
 		return null;
+	}
+	/**
+	 * MUST ONLY BE CALLED BY LIGHTSENSOR,MAKES DOUBLE BIND BETWEEN THE 2 OBJECTS
+	 * @param object
+	 */
+	void setLightSensor(LightSensor lightSensor)
+	{
+		if(this.lightSensor!=null)
+			throw new IllegalStateException("Robot's lightsensor can only be set once");
+		this.lightSensor = lightSensor;
+	}
+	public LightSensor getLightSensor()
+	{
+		return this.lightSensor;
+	}
+	/**
+	 * MUST ONLY BE CALLED BY MOVINGCOMPONENT.
+	 * @param movingComponent
+	 */
+	public void setMovingComponent(MovingComponent movingComponent)
+	{
+		
+		this.movingComponent = movingComponent;
+	}
+	@Override
+	public Pointf getLocation()
+	{
+		return this.origin;
 	}
 
 }

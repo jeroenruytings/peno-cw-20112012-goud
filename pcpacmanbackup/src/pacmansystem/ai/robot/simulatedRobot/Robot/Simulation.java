@@ -15,6 +15,8 @@ public class Simulation implements Runnable
 	@Override
 	public void run()
 	{
+		//Step one build the robot with its components.
+		
 //		SensorListener listener = new SensorListener(comm);
 //		new Thread(listener).start();
 		//CommandoListener commandoListner = new CommandoListener(listener, comm);

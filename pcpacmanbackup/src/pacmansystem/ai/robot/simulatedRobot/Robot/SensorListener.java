@@ -10,8 +10,6 @@ public class SensorListener implements Tickable
 	private final LightSensor light; 
 	private final TouchSensor push;
 	private final IRSeekerV2 ir ;
-	Motor motor = new Motor(MotorPort.A);
-	Motor head = new Motor(MotorPort.C);
 	RobotCommunicator communicator;
 
 	public SensorListener(RobotCommunicator comm,UltrasonicSensor sensor,LightSensor lights,TouchSensor touch,IRSeekerV2 irseekr)

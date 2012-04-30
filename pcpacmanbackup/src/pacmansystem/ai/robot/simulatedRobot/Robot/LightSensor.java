@@ -1,5 +1,6 @@
 package pacmansystem.ai.robot.simulatedRobot.Robot;
 
+import pacmansystem.ai.robot.simulatedRobot.SIMINFO;
 import pacmansystem.ai.robot.simulatedRobot.location.components.LocationComponent;
 import pacmansystem.ai.robot.simulatedRobot.location.components.LocationComponentVisitor;
 import pacmansystem.ai.robot.simulatedRobot.location.components.OpenComponent;
@@ -15,6 +16,7 @@ public class LightSensor  implements Sensor
 	public LightSensor(Robot pilot)
 	{
 		this.robot=pilot;
+		robot.setLightSensor(this);
 	}
 
 	public int getLightValue()
@@ -70,7 +72,9 @@ public class LightSensor  implements Sensor
 	}
 	private Pointf getLocation()
 	{
-		return translate(robot.getCenterPoint(),multiply(robot.getDirection(),3));
+		int degrees = robot.getDirection()-SIMINFO.LIGHTSENSORPOSITION;
+		Pointf direction =new Pointf(Math.cos(degrees),Math.sin(degrees));
+		return translate(robot.getLocation(),multiply(fromDegrees(degrees),SIMINFO.LIGHTSENSORDISTANCE));
 	}
 
 

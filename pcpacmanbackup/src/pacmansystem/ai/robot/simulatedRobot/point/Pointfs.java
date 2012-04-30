@@ -135,4 +135,8 @@ public final class Pointfs
 		//TODO:Implement
 		return true;
 	}
+	public static final Pointf fromDegrees(int degrees)
+	{
+		return new Pointf(Math.cos(degrees),Math.sin(degrees));
+	}
 }

@@ -27,5 +27,6 @@ public class SIMINFO
 	public static final int BLACK = 500;
 	public static final int BROWN = 250;
 	public static final int WHITE = 100;
-	
+	public static final int LIGHTSENSORPOSITION = -20;
+	public static final int LIGHTSENSORDISTANCE = 30;
 }
