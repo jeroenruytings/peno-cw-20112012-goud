@@ -61,8 +61,16 @@ public class DiscoverMessage extends Message
 				for(Orientation d : Orientation.values()){
 					if(e.getWallState(d) == WallState.UNKNOWN)
 					e.setBorder(d, p.getWallState(d));
+					if(e.getWallState(d) != p.getWallState(d)){
+						e.setBorder(d, p.getWallState(d));
+					}
 				}
-				b.add(e, _coordinate);
+				try{
+					b.add(e, _coordinate);
+				}catch (IllegalArgumentException err){
+					b.addForced(e,_coordinate);
+					System.err.println(_coordinate);
+				}
 			}
 			
 			synchronized (world.getRobot(getNameFrom())) {

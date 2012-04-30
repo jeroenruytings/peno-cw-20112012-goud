@@ -308,12 +308,11 @@ public class MoverLayer extends Observable
 	}
 	
 	public void correctToMiddle(){
-//		TODO terug aanzetten
-//		releaseButton();
-//		pcc.sendCommando(new Commando(Action.CORRECT, 0, ""));
-//		while(!buttonIsPushed());
-//		releaseButton();
-//		System.out.println("is released");
+		releaseButton();
+		pcc.sendCommando(new Commando(Action.CORRECT, 0, ""));
+		while(!buttonIsPushed());
+		releaseButton();
+		System.out.println("is released");
 	}
 
 

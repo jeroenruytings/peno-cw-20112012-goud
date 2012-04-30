@@ -22,6 +22,7 @@ public class PanelLayer implements PanelLayerInterface
 	private int lastSeenDistancePacman;
 	private boolean pacmanSeen = false;
 	private int lastSeenIrDistance = 0;
+	private int infraredValue = 100;
 	
 
 	public int getLastSeenIrDistance() {
@@ -59,7 +60,7 @@ public class PanelLayer implements PanelLayerInterface
 	public void 
 	go(Direction d) throws CrashedException
 	{
-
+		System.out.println(d.name());
 		switch (d.ordinal())
 			{
 			case 0:
@@ -136,25 +137,18 @@ public class PanelLayer implements PanelLayerInterface
 		case 0:
 			System.out.println(mover.buttonIsPushed());
 			mover.turnHead(0);
-			
-
-//			try {
-//				System.in.read();
-//			} catch (IOException e) {
-			
-//				e.printStackTrace();
-//			}
 			distanceToWall = mover.getUltrasonic();
 			System.out.println("Hasborder up: " + distanceToWall);
+			
 			if(distanceToWall == 255){	
 			mover.turnHead(0);
 			distanceToWall = mover.getUltrasonic();
-			if(mover.getInfraRedSensorValue() > 0 && mover.getInfraRedSensorValue() > getLastSeenIrDistance()){
+			
+			if(mover.getInfraRedSensorValue() > infraredValue && mover.getInfraRedSensorValue() > getLastSeenIrDistance()){
 				setLastSeenIrDistance(mover.getInfraRedSensorValue());
 				pacmanSeen = true;
 				if(mover.getInfraRedSensorValue() < 60){
-					setLastSeenDistancePacman(3);
-					
+					setLastSeenDistancePacman(3);	
 				}
 				
 				else if(mover.getInfraRedSensorValue() < 80){
@@ -165,14 +159,10 @@ public class PanelLayer implements PanelLayerInterface
 				}
 				
 				setLastSeenDirectionPacman(Direction.UP);
-
-				
-			}
-			System.out.println("Hasborder up: " + distanceToWall);
+				}
 			}
 			if (distanceToWall < distanceAllowed){
 					hasToCorrect = true;
-				System.out.println("true");
 				return WallState.WALL;
 			}
 			else {
@@ -188,21 +178,19 @@ public class PanelLayer implements PanelLayerInterface
 			//LEFT
 			mover.turnHead(-90);
 			
-//			try {
-//				System.in.read();
-//			} catch (IOException e) {
-//				e.printStackTrace();
-	//		}
 			distanceToWall = mover.getUltrasonic();
 			System.out.println("Hasborder left: " + distanceToWall);
+			
 			if(distanceToWall == 255){	
 				mover.turnHead(0);
 				distanceToWall = mover.getUltrasonic();
 				System.out.println("Hasborder left: " + distanceToWall);
 				}
-			if(mover.getInfraRedSensorValue() > 0 && mover.getInfraRedSensorValue() > getLastSeenIrDistance()){
+			
+			if(mover.getInfraRedSensorValue() > infraredValue && mover.getInfraRedSensorValue() > getLastSeenIrDistance()){
 				setLastSeenIrDistance(mover.getInfraRedSensorValue());
 				pacmanSeen = true;
+				
 				if(mover.getInfraRedSensorValue() < 60){
 					setLastSeenDistancePacman(3);
 				}
@@ -213,14 +201,14 @@ public class PanelLayer implements PanelLayerInterface
 				else{
 					setLastSeenDistancePacman(1);
 				}
-				
 				setLastSeenDirectionPacman(Direction.LEFT);
 			}
+			
 			mover.turnHead(90);
+			
 			if (distanceToWall < distanceAllowed - 7){
 				if(distanceToWall < 10)
 					hasToCorrect = true;
-				System.out.println("true");
 				return WallState.WALL;
 			}
 			else{
@@ -232,19 +220,16 @@ public class PanelLayer implements PanelLayerInterface
 			//RIGHT
 			mover.turnHead(90);
 			
-//			try {
-//				System.in.read();
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
 			distanceToWall = mover.getUltrasonic();
 			System.out.println("Hasborder right: " + distanceToWall);
+			
 			if(distanceToWall == 255){	
 				mover.turnHead(0);
 				distanceToWall = mover.getUltrasonic();
 				System.out.println("Hasborder right: " + distanceToWall);
 				}
-			if(mover.getInfraRedSensorValue() > 0 && mover.getInfraRedSensorValue() > getLastSeenIrDistance()){
+			
+			if(mover.getInfraRedSensorValue() > infraredValue && mover.getInfraRedSensorValue() > getLastSeenIrDistance()){
 				setLastSeenIrDistance(mover.getInfraRedSensorValue());
 				pacmanSeen = true;
 				if(mover.getInfraRedSensorValue() < 60){
@@ -264,11 +249,9 @@ public class PanelLayer implements PanelLayerInterface
 			if (distanceToWall < distanceAllowed){
 				if(distanceToWall < 15)
 					hasToCorrect = true;
-				System.out.println("true");
 				return WallState.WALL;
 			}
 			else{
-				System.out.println("false");
 				return WallState.PASSAGE;
 			}
 		}
@@ -285,11 +268,9 @@ public class PanelLayer implements PanelLayerInterface
 		// verantwoordelijkheid van barcode reader?
 		PanelColor color = mover.getColorStack().getColor(mover.getLightSensor());
 		if (color != PanelColor.BROWN){
-			System.out.println("hasbarcode true");
 			return true;
 		}
-		else{
-			System.out.println("hasbarcode false");		
+		else{	
 			return false;
 		}
 	}
@@ -352,19 +333,18 @@ public class PanelLayer implements PanelLayerInterface
 				
 					
 			}
-
 		isFirst = false;
-		mover.setHead(0);
 		if(hasBarcode()){
 			panel.setBarcode(getBarcode(), currentOrientation);
 		}
-		System.out.println("return panel");
 		
-		System.out.println("correct to middle is " + hasToCorrect);
 		if(hasToCorrect){
 			correctToMiddle();
 			hasToCorrect = false;
 		}
+		
+		mover.setHead(0);
+
 		
 		return panel;
 	}
@@ -385,7 +365,7 @@ public class PanelLayer implements PanelLayerInterface
 				System.out.println("Hasborder up: " + distanceToWall);
 			}
 			
-			if(mover.getInfraRedSensorValue() > 0 && mover.getInfraRedSensorValue() > getLastSeenIrDistance()){
+			if(mover.getInfraRedSensorValue() > infraredValue && mover.getInfraRedSensorValue() > getLastSeenIrDistance()){
 				setLastSeenIrDistance(mover.getInfraRedSensorValue());
 				pacmanSeen = true;
 				System.out.println("Upinfrared: " + mover.getInfraRedSensorValue() );
@@ -421,12 +401,10 @@ public class PanelLayer implements PanelLayerInterface
 				System.out.println("Hasborder down: " + distanceToWall);
 			}
 			if (distanceToWall < distanceAllowed){
-				System.out.println("true");
 				mover.turn(-180);
 				return WallState.WALL;
 			}
 			else {
-				System.out.println("false");
 				mover.turn(-180);
 				return WallState.PASSAGE;
 			}
@@ -435,11 +413,6 @@ public class PanelLayer implements PanelLayerInterface
 			//LEFT
 			mover.turnHead(-90);
 			
-//			try {
-//				System.in.read();
-//			} catch (IOException e) {
-//				e.printStackTrace();
-	//		}
 			distanceToWall = mover.getUltrasonic();
 			System.out.println("Hasborder left: " + distanceToWall);
 			if(distanceToWall == 255){	
@@ -447,7 +420,7 @@ public class PanelLayer implements PanelLayerInterface
 				distanceToWall = mover.getUltrasonic();
 				System.out.println("Hasborder left: " + distanceToWall);
 				}
-			if(mover.getInfraRedSensorValue() > 0 && mover.getInfraRedSensorValue() > getLastSeenIrDistance()){
+			if(mover.getInfraRedSensorValue() > infraredValue && mover.getInfraRedSensorValue() > getLastSeenIrDistance()){
 				setLastSeenIrDistance(mover.getInfraRedSensorValue());
 				pacmanSeen = true;
 				System.out.println("Leftinfrared: " + mover.getInfraRedSensorValue() );
@@ -466,11 +439,9 @@ public class PanelLayer implements PanelLayerInterface
 			}
 			mover.turnHead(90);
 			if (distanceToWall < distanceAllowed -7){
-				System.out.println("true");
 				return WallState.WALL;
 			}
 			else{
-				System.out.println("false");
 				return WallState.PASSAGE;
 			}
 		
@@ -478,11 +449,6 @@ public class PanelLayer implements PanelLayerInterface
 			//RIGHT
 			mover.turnHead(90);
 			
-//			try {
-//				System.in.read();
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
 			distanceToWall = mover.getUltrasonic();
 			System.out.println("Hasborder right: " + distanceToWall);
 			if(distanceToWall == 255){	
@@ -490,7 +456,7 @@ public class PanelLayer implements PanelLayerInterface
 				distanceToWall = mover.getUltrasonic();
 				System.out.println("Hasborder right: " + distanceToWall);
 				}
-			if(mover.getInfraRedSensorValue() > 0 && mover.getInfraRedSensorValue() > getLastSeenIrDistance()){
+			if(mover.getInfraRedSensorValue() > infraredValue && mover.getInfraRedSensorValue() > getLastSeenIrDistance()){
 				System.out.println("Rightinfrared: " + mover.getInfraRedSensorValue() );
 				setLastSeenIrDistance(mover.getInfraRedSensorValue());
 				pacmanSeen = true;
@@ -509,11 +475,9 @@ public class PanelLayer implements PanelLayerInterface
 			}
 			mover.turnHead(-90);
 			if (distanceToWall < distanceAllowed){
-				System.out.println("true");
 				return WallState.WALL;
 			}
 			else{
-				System.out.println("false");
 				return WallState.PASSAGE;
 			}
 		}

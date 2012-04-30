@@ -362,8 +362,9 @@ public class Board
 			System.err.println("HELP!");
 			Panel old = getPanelAt(p);
 			for(Orientation d : Orientation.values()){
-				System.out.println("nog meer help!");
-				if(!(old.getWallState(d) == panel.getWallState(d))){
+				System.out.println(old.getWallState(d));
+				System.out.println(panel.getWallState(d));
+				if(!old.getWallState(d).equals(panel.getWallState(d))){
 					System.err.println("Hier ben ik geraakt");
 					return true;
 				}

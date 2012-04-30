@@ -56,7 +56,9 @@ public class RobotController
 	{
 		Point destination = null;
 		List<Point> plan = null;
-		getOwnData().position(new Point(0, 0));		
+		getOwnData().position(new Point(0, 0));	
+		driveFirstStep();
+		
 		while (!strategy.hasCaughtPacman()) {
 			if (strategy.hasToSwitchStrategy())
 				switchStrategy(strategy.getReplacingStrategy());
@@ -64,6 +66,8 @@ public class RobotController
 			fixInfoFromOtherRobots();
 			addPacman();
 			plan = strategy.constructRoute();
+//			if(plan == null)
+//				continue;
 			getOwnData().plan(plan);
 			while (getOwnData().getRemainingPlan().size() > 0) {
 				if (!strategy.hasFinishedExploring()) {
@@ -71,13 +75,12 @@ public class RobotController
 					fixInfoFromOtherRobots();
 				}
 				addPacman();
-				
 				if (strategy.hasToSwitchStrategy()) {
+					System.out.println("has to switch!");
 					switchStrategy(strategy.getReplacingStrategy());
 					getOwnData().cancelPlan();
 					break;
 				}
-				
 				if (strategy.hasToUpdatePlan()) {
 					getOwnData().cancelPlan();
 					break;
@@ -87,6 +90,7 @@ public class RobotController
 																		// gaan
 				System.out.println("riding from " + getCurrentPoint() + " to "+destination);
 				try {
+					System.out.println("go to : "+destination);
 					getPathLayer().goOneStep(getCurrentPoint(), destination);
 				} catch (IllegalDriveException e) {
 					e.printStackTrace();
@@ -97,6 +101,26 @@ public class RobotController
 		}
 		//pacman has been caught
 
+	}
+
+	private void driveFirstStep() {
+		Point destination;
+		List<Point> plan;
+		addPanel();
+		fixInfoFromOtherRobots();
+		addPacman();
+		plan = strategy.constructRoute();
+		getOwnData().plan(plan);
+		destination = getOwnData().getRemainingPlan().get(0); 
+		System.out.println("riding from " + getCurrentPoint() + " to "+destination);
+		try {
+			System.out.println("go to : "+destination);
+			getPathLayer().goOneStep(getCurrentPoint(), destination);
+		} catch (IllegalDriveException e) {
+			e.printStackTrace();
+		}catch (CrashedException e) {
+			getOwnData().getBoard().getPanels().remove(getCurrentPoint());
+		}
 	}
 	
 	private void switchStrategy(Strategy strategy) {
