@@ -124,9 +124,7 @@ public class Explore implements Strategy {
 	public boolean hasToSwitchStrategy() {
 		if(getController().getOwnData().foundMistakes())
 			return true;
-		if(hasFinishedExploring() && getController().getOwnData().getPacmanLastSighted()!=null)
-			return true;
-		if(hasFinishedExploring() && getController().getOwnData().getPacmanLastSighted()==null)
+		if(hasFinishedExploring())
 			return true;
 		if(!hasFinishedExploring() && nextToPacman())
 			return true;
@@ -137,9 +135,9 @@ public class Explore implements Strategy {
 	public Strategy getReplacingStrategy() {
 		if(getController().getOwnData().foundMistakes())
 			return new Explore(getController());
-		if(hasFinishedExploring() && getController().getOwnData().getPacmanLastSighted()!=null)
+		if(hasFinishedExploring() && getController().somebodyHasSeenPacmanRecently())
 			return new Hunt(getController());
-		if(hasFinishedExploring() && getController().getOwnData().getPacmanLastSighted()==null)
+		if(hasFinishedExploring() && !getController().somebodyHasSeenPacmanRecently())
 			return new Roam(getController());
 		if(!hasFinishedExploring() && nextToPacman())
 			return new Catch(getController());
@@ -161,7 +159,6 @@ public class Explore implements Strategy {
 		return false;
 	}
 	
-
 	private boolean nextToPacman()
 	{
 		if (getController().getOwnData().getPacmanLastSighted() == null)

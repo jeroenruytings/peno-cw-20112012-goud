@@ -2,6 +2,7 @@ package pacmansystem.ai.strategy;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -83,6 +84,7 @@ public class Hunt implements Strategy {
 		Point currentPos = getController().getCurrentPoint();
 		if(pacmanPos.distance(currentPos) == 1 && !getController().getOwnData().getBoard().wallBetween(pacmanPos, currentPos)) {
 			getController().getOwnData().setPacman(null);
+			getController().getOwnData().setLastChecked(new Date());
 			return new Roam(controller);
 		}
 		return this;
@@ -96,7 +98,15 @@ public class Hunt implements Strategy {
 	//http://scalablegamedesign.cs.colorado.edu/wiki/Collaborative_Diffusion
 	private void updatePValues(){
 		resetPValues();
-		Point pacman = getController().getOwnData().getPacmanLastSighted();
+		Date bestDate = getController().getOwnData().getLastChecked();
+		Point pacman = null;
+		for (RobotData robot : getController().getWorld().get_robots().values()) {
+			Date date = robot.getPacman().getDate();
+			if (date.after(bestDate)) {
+				bestDate = date;
+				pacman = robot.getPacman().getPosition();
+			}
+		}
 		ArrayList<Point> adapted = new ArrayList<Point>();
 		pvalues.put(pacman, 1000.0);
 		adapted.add(pacman);

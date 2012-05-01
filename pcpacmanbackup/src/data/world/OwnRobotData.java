@@ -2,6 +2,7 @@ package data.world;
 
 import java.awt.Point;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import pacmansystem.ai.robot.Barcode;
@@ -18,17 +19,19 @@ public class OwnRobotData extends RobotData
 {
 	private Board mergedBoard;
 	private boolean foundMistake;
-	private Point ownPacman;
+	private Date lastChecked;
 	
 	public OwnRobotData(String name)
 	{
 		super(name);
 		mergedBoard = new Board();
+		lastChecked = new Date(0);
 	}
 	public OwnRobotData(Board board, String name){
 		super(board);
 		mergedBoard = new Board(board);
 		setName(name);
+		lastChecked = new Date(0);
 	}
 	private String pointToString(Point p)
 	{
@@ -236,8 +239,10 @@ public class OwnRobotData extends RobotData
 	public boolean foundMistakes(){
 		return foundMistake;
 	}
-	
-	public Point getOwnPacman() {
-		return ownPacman;
+	public Date getLastChecked() {
+		return lastChecked;
+	}
+	public void setLastChecked(Date lastChecked) {
+		this.lastChecked = lastChecked;
 	}
 }

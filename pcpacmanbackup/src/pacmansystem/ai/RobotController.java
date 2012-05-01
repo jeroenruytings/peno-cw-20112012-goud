@@ -434,4 +434,12 @@ public class RobotController
 		}
 		return false;
 	}
+	
+	public boolean somebodyHasSeenPacmanRecently() {
+		for (RobotData robot : getWorld().get_robots().values()) {
+			if (robot.getPacman() != null && robot.getPacman().getDate().after(getOwnData().getLastChecked()))
+				return true;
+		}
+		return false;
+	}
 }

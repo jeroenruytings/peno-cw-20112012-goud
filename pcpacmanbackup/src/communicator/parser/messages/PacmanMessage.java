@@ -1,7 +1,9 @@
 package communicator.parser.messages;
 
 import java.awt.Point;
+import java.util.Date;
 
+import data.world.Pacman;
 import data.world.World;
 
 public class PacmanMessage extends Message
@@ -26,7 +28,7 @@ public class PacmanMessage extends Message
 	{
 		if (!canExecute(world))
 			throw new MessageExecuteException();
-		world.getRobot(getNameFrom()).setPacman(_coordinate);
+		world.getRobot(getNameFrom()).setPacman(new Pacman(_coordinate, new Date()));
 		synchronized (world.getRobot(getNameFrom())) {
 			world.getRobot(getNameFrom()).notify();
 		}

@@ -18,7 +18,7 @@ public class RobotData implements RobotDataView
 
 	private Board board;
 	// Pacman's location.
-	private Point pacman = null;
+	private Pacman pacman = null;
 	// All the locations pacman was sighted by this robot.
 	private List<Point> pacmanHistory;
 	// The amount of previous data to be hold.
@@ -96,15 +96,9 @@ public class RobotData implements RobotDataView
 	 * @param location
 	 *            The new location.
 	 */
-	public void setPacman(Point location)
+	public void setPacman(Pacman pacman)
 	{
-		if (pacman != null) {
-			if (pacmanHistory.size() >= pacmanhistorylength) {
-				pacmanHistory.remove(0);
-			}
-			pacmanHistory.add((Point) pacman.clone());
-		}
-		pacman = location;
+		this.pacman = pacman;
 	}
 
 	/* (non-Javadoc)
@@ -122,6 +116,10 @@ public class RobotData implements RobotDataView
 	@Override
 	public Point getPacmanLastSighted()
 	{
+		return pacman.getPosition();
+	}
+	
+	public Pacman getPacman() {
 		return pacman;
 	}
 

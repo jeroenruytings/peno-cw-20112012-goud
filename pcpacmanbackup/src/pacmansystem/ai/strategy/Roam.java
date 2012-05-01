@@ -2,6 +2,7 @@ package pacmansystem.ai.strategy;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -99,7 +100,7 @@ public class Roam implements Strategy {
 	public boolean hasToSwitchStrategy() {
 		if(getController().getOwnData().foundMistakes())
 			return true;
-		if(getController().getOwnData().getPacmanLastSighted() != null)
+		if(getController().somebodyHasSeenPacmanRecently())
 			return true;
 		return false;
 	}
@@ -108,7 +109,7 @@ public class Roam implements Strategy {
 	public Strategy getReplacingStrategy() {
 		if(getController().getOwnData().foundMistakes())
 			return new Explore(getController());
-		if(getController().getOwnData().getPacmanLastSighted() != null)
+		if(getController().somebodyHasSeenPacmanRecently())
 			return new Hunt(getController());
 		return this;
 	}

@@ -1,6 +1,7 @@
 package pacmansystem.ai.strategy;
 
 import java.awt.Point;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -66,6 +67,7 @@ public class Catch implements Strategy {
 		Point currentPos = getController().getCurrentPoint();
 		if(pacmanPos.distance(currentPos) == 1 && !getController().getOwnData().getBoard().wallBetween(pacmanPos, currentPos)) {
 			getController().getOwnData().setPacman(null);
+			getController().getOwnData().setLastChecked(new Date());
 			return new Explore(getController());
 		}
 		return this;
