@@ -65,8 +65,8 @@ public class RobotController
 		while (!strategy.hasCaughtPacman()) {
 			if (strategy.hasToSwitchStrategy())
 				switchStrategy(strategy.getReplacingStrategy());
-			addPanel();
-			fixInfoFromOtherRobots();
+//			addPanel();
+//			fixInfoFromOtherRobots();
 //			addPacman();
 			plan = strategy.constructRoute();
 			if(plan == null || plan.size()==0)
@@ -152,13 +152,7 @@ public class RobotController
 		Direction pacmanSpotted = getPathLayer().getOrientationLayer()
 				.getLayer().getPacmanDirection();
 		if (pacmanSpotted != null) {
-			Orientation pacmanSpotd = getOwnData().getOrientation().addTo(pacmanSpotted);
-			Point pacmanLocation = getCurrentPoint();
-			for (int i = 0; i < getPathLayer().getOrientationLayer().getLayer().getPacmanDistance(); i++) {
-				pacmanLocation = pacmanSpotd.addTo(pacmanLocation);
-				if (!getOwnBoard().hasPanelAt(pacmanLocation))
-					getOwnData().discover(pacmanLocation, new Panel(2,2,2,2));
-			}
+			Point pacmanLocation = getPacmanLocation(pacmanSpotted);
 			getOwnData().pacman(pacmanLocation);
 			if (!this.getMergedBoard().hasPanelAt(pacmanLocation)) {
 				Panel pacmanPanel = new Panel();
@@ -176,6 +170,41 @@ public class RobotController
 		} catch (IllegalArgumentException e) {
 			addForcedToBothBoards(p1, getCurrentPoint());
 		} // voegt panel toe aan board
+	}
+
+	/**
+	 * Returns the location of pacman given the direction
+	 * @param pacmanSpotted
+	 * 			The direction in which pacman was seen
+	 * @return	pacman's location
+	 * @effect	Adds all panels in between the robot's current position
+	 * 			and pacman's location if they do not yet exist
+	 */
+	public Point getPacmanLocation(Direction pacmanSpotted) {
+		Orientation pacmanSpotd = getOwnData().getOrientation().addTo(pacmanSpotted);
+		Point pacmanLocation = getCurrentPoint();
+		for (int i = 0; i < getPathLayer().getOrientationLayer().getLayer().getPacmanDistance()-1; i++) {
+			pacmanLocation = pacmanSpotd.addTo(pacmanLocation);
+			if (!getOwnBoard().hasPanelAt(pacmanLocation)){
+				if (pacmanSpotd.equals(Orientation.NORTH) || pacmanSpotd.equals(Orientation.SOUTH))
+					getOwnData().discover(pacmanLocation, new Panel(0,2,0,2));
+				else
+					getOwnData().discover(pacmanLocation, new Panel(2,0,2,0));
+			}
+		}
+		pacmanLocation = pacmanSpotd.addTo(pacmanLocation);
+		if (!getOwnBoard().hasPanelAt(pacmanLocation)){
+			if (pacmanSpotd.equals(Orientation.NORTH))
+				getOwnData().discover(pacmanLocation, new Panel(2,2,0,2));
+			else if (pacmanSpotd.equals(Orientation.SOUTH))
+				getOwnData().discover(pacmanLocation, new Panel(0,2,2,2));
+			else if (pacmanSpotd.equals(Orientation.EAST))
+				getOwnData().discover(pacmanLocation, new Panel(2,2,2,0));
+			else if (pacmanSpotd.equals(Orientation.WEST))
+				getOwnData().discover(pacmanLocation, new Panel(2,0,2,2));
+				
+		}
+		return pacmanLocation;
 	}
 
 	private void fixInfoFromOtherRobots()
