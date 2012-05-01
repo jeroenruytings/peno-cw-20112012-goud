@@ -1,28 +1,38 @@
 package pacmansystem.ai.robot.simulatedRobot.Robot;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+import pacmansystem.ai.robot.simulatedRobot.ticking.Ticker;
 
 public class Simulation implements Runnable
 {
-	private final RobotCommunicator comm;
-	public Simulation(InputStream in,OutputStream out)
+	
+	private Ticker ticker;
+	private Robot robot;
+	private RobotCommunicator comm;
+	/**
+	 * 
+	 * @param robot
+	 * @param ticker
+	 * @param comm
+	 */
+	public Simulation(Robot robot,Ticker ticker,RobotCommunicator comm)
 	{
-		comm = new RobotCommunicator(new DataInputStream(in), new DataOutputStream(out));
+		this.comm = comm;
+		this.robot=robot;
+		this.ticker=ticker;
 	}
 	@Override
 	public void run()
 	{
-		//Step one build the robot with its components.
+		ticker.start();
 		
-//		SensorListener listener = new SensorListener(comm);
-//		new Thread(listener).start();
-		//CommandoListener commandoListner = new CommandoListener(listener, comm);
-		//commandoListner.run();
-		
-		
+		comm.receiveCommando();
 	}
-
+	public Robot getRobot()
+	{
+		return robot;
+	}
+	public Ticker getTicker()
+	{
+		return ticker;
+	}
 }

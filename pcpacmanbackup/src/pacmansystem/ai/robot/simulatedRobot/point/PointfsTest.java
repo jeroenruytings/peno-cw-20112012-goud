@@ -4,7 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static pacmansystem.ai.robot.simulatedRobot.point.Pointfs.crossing;
 import static pacmansystem.ai.robot.simulatedRobot.point.Pointfs.dotProduct;
-import static pacmansystem.ai.robot.simulatedRobot.point.Pointfs.in;
+import static pacmansystem.ai.robot.simulatedRobot.point.Pointfs.*;
 
 import org.junit.Test;
 
@@ -81,4 +81,22 @@ public class PointfsTest
 		assertTrue(in(in, one, two, three, four));
 	
 	}
+	@Test
+	public void rotateTest()
+	{
+		Pointf origin = new Pointf(1,1);
+		Pointf that = new Pointf(2,1);
+		Pointf rotated = rotate(that,origin,90);
+		assertTrue(rotated.equals(new Pointf(1,2)));
+	}
+	@Test
+	public void harderRotateTest()
+	{
+		Pointf origin = new Pointf(1,1);
+		Pointf that = new Pointf(2,1);
+		Pointf rotated = rotate(that,origin,-90);
+		assertTrue(rotated.equals(new Pointf(1,0)));
+	}
+	
+	
 }

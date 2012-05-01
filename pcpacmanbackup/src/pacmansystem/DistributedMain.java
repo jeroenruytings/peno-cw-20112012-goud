@@ -1,6 +1,8 @@
 
 package pacmansystem;
 
+import communicator.be.kuleuven.cs.peno.MessageReceiver;
+
 import interfaces.mainscreen.Mainscreen;
 import interfaces.pacmancomponents.RobotOptionPane;
 import pacmansystem.ai.RobotController;
@@ -20,7 +22,7 @@ public class DistributedMain
 	private static int robotNumber;
 	private static String robotName;
 	private static boolean isSimulated;
-	private static World world = new World();
+	private static World world = World.getWorldWithRabbbitMQ();
 	private static boolean visible = true;
 	private static int speed = 100;
 	//name number simulated visibible speed txt

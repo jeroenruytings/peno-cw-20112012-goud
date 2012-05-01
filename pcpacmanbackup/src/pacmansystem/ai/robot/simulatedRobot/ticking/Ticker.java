@@ -1,14 +1,44 @@
 package pacmansystem.ai.robot.simulatedRobot.ticking;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.swing.Timer;
+
 public class Ticker
 {
-	private long ticks = 0;
-	private Collection<Tickable> tickables_ = new ArrayList<Tickable>();
+	Timer timer ;
+	private  int _tickspersecond = 10;
+	protected long ticks = 0;
+	protected Collection<Tickable> tickables_ = new ArrayList<Tickable>();
 	private boolean running = false;
-
+	ActionListener listener;
+	private long now;
+	private long newNow;
+	public Ticker()
+	{
+		this._tickspersecond = 10;
+		 listener = new ActionListener()
+		{
+			
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				now = newNow;
+				newNow = System.currentTimeMillis();
+				Ticker.this.tickAll();
+				
+			}
+		};
+		this.timer = new Timer(1000/_tickspersecond,listener);
+	}
+	protected void tickAll()
+	{
+		for(Tickable t : tickables_)
+			t.tick(this);
+	}
 	public void add(Tickable tick)
 	{
 		synchronized (tickables_) {
@@ -18,42 +48,22 @@ public class Ticker
 
 	public void start()
 	{
-		if (running)
-			return;
-		new Thread(new Runnable()
-		{
-
-			@Override
-			public void run()
-			{
-				Ticker.this.run();
-			}
-		}).start();
-		running = true;
+		timer.start();
 	}
 
-	/**
-	 * Tick every 10 ms;
-	 */
-	private void run()
-	{
-		while (true) {
-			try {
-				Thread.sleep(10);
-			} catch (InterruptedException e) {
-			}
-			ticks++;
-			synchronized (tickables_) {
 
-				for (Tickable tick : tickables_)
-					tick.tick(this);
-
-			}
-		}
-	}
 
 	public long getTicks()
 	{
 		return ticks;
 	}
+	public int getTicksPerSecond()
+	{
+		return _tickspersecond;
+	}
+	public void setTicksPerSecond(int t)
+	{
+		this._tickspersecond=t;
+	}
+
 }

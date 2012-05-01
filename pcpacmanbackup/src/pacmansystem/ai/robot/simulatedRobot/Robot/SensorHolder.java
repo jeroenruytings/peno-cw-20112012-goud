@@ -13,9 +13,10 @@ public class SensorHolder implements MovingComponent
 	private IRSeekerV2 seeker;
 	private MovingComponent moving;
 	private int angle =0;
-	public SensorHolder(MovingComponent moving)
+	public SensorHolder(Robot moving)
 	{
 		this.moving = moving;
+		moving.setSensorHolder(this);
 	}
 	@Override
 	public void tick(Ticker ticker)
@@ -31,7 +32,7 @@ public class SensorHolder implements MovingComponent
 		this.seeker=seeker;
 	}
 	@Override
-	public int getDirection()
+	public double getDirection()
 	{
 		
 		return 0;

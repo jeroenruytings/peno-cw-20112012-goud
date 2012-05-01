@@ -4,6 +4,6 @@ import pacmansystem.ai.robot.simulatedRobot.point.Pointf;
 import pacmansystem.ai.robot.simulatedRobot.ticking.Tickable;
 public interface MovingComponent extends Tickable
 {
-	public int getDirection();
+	public double getDirection();
 	public Pointf getLocation();
 }

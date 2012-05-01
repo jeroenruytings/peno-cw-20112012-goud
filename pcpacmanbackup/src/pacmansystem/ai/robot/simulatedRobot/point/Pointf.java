@@ -52,6 +52,7 @@ public final class Pointf implements Vector
 			return false;
 		}
 	}
+	
 
 	@Override
 	public Pointf add(Pointf point)

@@ -12,8 +12,6 @@ public class RobotCommunicator {
 
 	
 	public RobotCommunicator(DataInputStream in,DataOutputStream out) {
-		System.out.println("waiting..");
-		System.out.println("connection established");
 		this.in = in;
 		this.out = out;
 	}
@@ -42,9 +40,8 @@ public class RobotCommunicator {
 		Commando commando = null;
 		try {
 			int i = in.readInt();
-			commando = CommandoListener.decodeCommando(in.readInt());
-			System.out.println(commando.getAction().name());
-			return null;
+			commando = CommandoListener.decodeCommando(i);
+			return commando;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println("fout gegaan in het lezen van de inputstream");

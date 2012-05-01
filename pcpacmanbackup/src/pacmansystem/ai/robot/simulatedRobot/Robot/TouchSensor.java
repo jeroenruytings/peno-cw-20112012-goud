@@ -8,6 +8,7 @@ public class TouchSensor extends Sensor
 	public TouchSensor(Robot s4)
 	{
 		super(s4);
+		s4.setTouch(this);
 	}
 
 	public boolean isPressed()

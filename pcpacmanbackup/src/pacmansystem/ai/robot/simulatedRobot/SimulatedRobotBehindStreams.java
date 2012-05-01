@@ -17,7 +17,7 @@ public class SimulatedRobotBehindStreams
 	{
 		locationManager_=new RealWorldViewFromRealWorldObject(world).build();
 		connection_ = new SimulationConnection();
-		sim = new Simulation(connection_.getRobotIN(), connection_.getRobotOut());
+		
 		new Thread(sim).start();
 	}
 	public SimulationConnection getConnection(){

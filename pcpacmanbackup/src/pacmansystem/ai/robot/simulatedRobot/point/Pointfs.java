@@ -1,6 +1,8 @@
 package pacmansystem.ai.robot.simulatedRobot.point;
 
+import java.util.ArrayList;
 import java.util.List;
+import static java.lang.Math.*;
 
 public final class Pointfs
 {
@@ -96,19 +98,21 @@ public final class Pointfs
 	 */
 	public static boolean in(Pointf point, Pointf... points)
 	{
-		if(point == null)
+		if (point == null)
 			throw new IllegalArgumentException("Dont pass in null as a point");
-		if(points.length<2)
-			throw new IllegalArgumentException("There must be at least 2 points passed");
-		if(points.length==2)
-			return crossing(point,point, points[0], points[1]);
+		if (points.length < 2)
+			throw new IllegalArgumentException(
+					"There must be at least 2 points passed");
+		if (points.length == 2)
+			return crossing(point, point, points[0], points[1]);
 		// if point is on the same side of all pairs in points then all is well
 		// :)
 		int sign = 0;
 		int i = 0;
 		Pointf current = points[i];
 		while (++i < points.length) {
-			float prod = dotProduct(translate(point,invert(current)),translate(points[i], invert(current)));
+			float prod = dotProduct(translate(point, invert(current)),
+					translate(points[i], invert(current)));
 			if (sign != 0 && sign(prod) != sign)
 				return false;
 			sign = sign(prod);
@@ -116,11 +120,14 @@ public final class Pointfs
 		}
 		return true;
 	}
+
 	private static final Pointf[] arr = new Pointf[1];
-	public static boolean in(Pointf point,List<Pointf> points)
+
+	public static boolean in(Pointf point, List<Pointf> points)
 	{
-		return in(point,points.toArray(arr));
+		return in(point, points.toArray(arr));
 	}
+
 	private static int sign(float prod)
 	{
 		if (prod > 0)
@@ -132,11 +139,40 @@ public final class Pointfs
 
 	public static boolean convexPoints(List<Pointf> points)
 	{
-		//TODO:Implement
+		// TODO:Implement
 		return true;
 	}
-	public static final Pointf fromDegrees(int degrees)
+
+	/**
+	 * Gives a vector with length one in the direction of degrees where 0 is
+	 * (1,0) and 90 is (0,1)
+	 * 
+	 * @param degrees
+	 * @return
+	 */
+	public static final Pointf fromDegrees(double degrees)
 	{
-		return new Pointf(Math.cos(degrees),Math.sin(degrees));
+		return new Pointf(Math.cos(toRadians(degrees)),
+				Math.sin(toRadians(degrees)));
+	}
+
+	public static final Pointf rotate(Pointf point, Pointf around, double degree)
+	{
+		double radian = toRadians(degree);
+		Pointf rv = point;
+		rv = translate(rv, invert(around));
+		rv = new Pointf(cos(radian) * rv.X() - sin(radian) * rv.Y(),
+				sin(radian) * rv.X() + sin(radian) * rv.Y());
+		rv = translate(rv, around);
+		return rv;
+	}
+
+	public static final List<Pointf> rotate(List<Pointf> points, Pointf around,
+			double degrees)
+	{
+		ArrayList<Pointf> rv = new ArrayList<Pointf>();
+		for (Pointf point : points)
+			rv.add(rotate(point, around, degrees));
+		return rv;
 	}
 }

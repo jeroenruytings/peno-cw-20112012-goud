@@ -73,7 +73,7 @@ public class LightSensor  extends Sensor
 	}
 	private Pointf getLocation()
 	{
-		int degrees = robot.getDirection()-SIMINFO.LIGHTSENSORPOSITION;
+		double degrees = robot.getDirection()-SIMINFO.LIGHTSENSORPOSITION;
 		Pointf direction =new Pointf(Math.cos(degrees),Math.sin(degrees));
 		return translate(robot.getLocation(),multiply(fromDegrees(degrees),SIMINFO.LIGHTSENSORDISTANCE));
 	}
