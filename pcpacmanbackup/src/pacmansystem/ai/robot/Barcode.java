@@ -19,7 +19,7 @@ public class Barcode
 		String s = "";
 		if (code.length != 8)
 			throw new IllegalArgumentException("Deze constructor mag enkel met 8 argumenten worden opgeroepen.");
-		for(int i = 1; i < code.length -2; i++)
+		for(int i = 1; i < (code.length - 1); i++)
 			s+=code[i];
 		this.barcode = (Integer.parseInt(s,2));
 	}
@@ -76,8 +76,8 @@ public class Barcode
 	public static void main(String[] args){
 		Barcode test = new Barcode(24);
 		test.getReverse();
-		test = new Barcode(Integer.parseInt("10010001", 2));
-		System.out.println(new Barcode(test.getReverse()).getBitString());
+		test = new Barcode(Integer.parseInt("00010000", 2));
+		//System.out.println(new Barcode(test.getReverse()).getBitString());
 		try {
 			System.out.println(new Barcode(0,1,0,1,0,0,0,0));
 		} catch (Exception e) {
