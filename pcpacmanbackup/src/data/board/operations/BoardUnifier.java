@@ -90,7 +90,6 @@ public class BoardUnifier
 			if(!thiz.hasPanelAt(p))
 				{
 				thiz.add(OtherData.getBoard().getPanelAt(p), p);
-				System.out.println("we are unifying !");
 				}
 		
 		return thiz;

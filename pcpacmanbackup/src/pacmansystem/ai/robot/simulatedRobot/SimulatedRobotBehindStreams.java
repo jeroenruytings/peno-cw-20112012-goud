@@ -3,8 +3,8 @@ package pacmansystem.ai.robot.simulatedRobot;
 import java.awt.Point;
 
 import pacmansystem.ai.robot.simulatedRobot.Robot.Simulation;
-import pacmansystem.ai.robot.simulatedRobot.location.RealWorldViewNoMoving;
 import pacmansystem.ai.robot.simulatedRobot.location.RealWorldViewFromRealWorldObject;
+import pacmansystem.ai.robot.simulatedRobot.location.RealWorldViewNoMoving;
 import data.enums.Orientation;
 import data.world.RealWorld;
 

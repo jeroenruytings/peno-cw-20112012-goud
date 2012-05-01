@@ -4,14 +4,12 @@ import java.awt.Point;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import java.util.Set;
 
+import pacmansystem.ai.RobotController;
 import data.board.shortestpathfinder.dijkstra.DijkstraFinder;
 import data.board.shortestpathfinder.dijkstra.PathNotPossibleException;
 import data.world.RobotData;
-
-import pacmansystem.ai.RobotController;
 
 /**
  * This strategy roams around the board when it is fully constructed and pacman has

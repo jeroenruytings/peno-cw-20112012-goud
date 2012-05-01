@@ -14,6 +14,9 @@ import pacmansystem.ai.robot.fysicalRobot.connector.CrashedException;
 import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
 import pacmansystem.ai.strategy.Explore;
 import pacmansystem.ai.strategy.Strategy;
+
+import communicator.parser.messages.Message;
+
 import data.board.Board;
 import data.board.Panel;
 import data.board.shortestpathfinder.dijkstra.DijkstraFinder;
@@ -88,7 +91,7 @@ public class RobotController
 				
 				destination = getOwnData().getRemainingPlan().get(0); // zoekt volgend punt om naartoe te
 																		// gaan
-				System.out.println("riding from " + getCurrentPoint() + " to "+destination);
+				System.out.println("Rijden van (" + Message.pointToMessageString(getCurrentPoint()) + ") naar ("+Message.pointToMessageString(destination) + ")");
 				try {
 					System.out.println("go to : "+destination);
 					getPathLayer().goOneStep(getCurrentPoint(), destination);
@@ -298,61 +301,6 @@ public class RobotController
 		return new DijkstraFinder(getOwnData().getMergedBoard()).shortestPath(position, point)
 				.size();
 	}
-
-//	private void driveToPacman()
-//	{
-//		System.out.println("looking for pacman");
-//		if (nextToPamam())
-//			return;
-//		if (getData().getPacmanLastSighted() != null) {
-//
-//			System.out.println(getData().getPacmanLastSighted());
-//			Collection<Point> points = getBoard().getSurrounding(
-//					getData().getPacmanLastSighted());
-//			points = Filter.filter(points, new Filter<Point>()
-//			{
-//
-//				@Override
-//				public boolean accepts(Point arg)
-//				{
-//
-//					return !getBoard().wallBetween(arg,
-//							getData().getPacmanLastSighted());
-//				}
-//			});
-//			
-//			end: for (Point p : points) {
-//
-//				try {
-//					getPathLayer().go(getCurrentPoint(), p);
-//				} catch (IllegalDriveException e) {
-//					continue;
-//				}
-//				break end;
-//			
-//			}
-//
-//		}
-//		// else{
-//		// Point target = null;
-//		// for(RobotData data : world.get_robots().values()){
-//		// if(data.getPacmanLastSighted()!=null){
-//		// //TODO convert target
-//		// target = data.getPacmanLastSighted();
-//		// }
-//		// }
-//		// try {
-//		// getPathLayer().go(getCurrentPoint(), target);
-//		// } catch (IllegalDriveException e) {
-//		// e.printStackTrace();
-//		// } catch (NullPointerException e){
-//		// System.out.println("Geen pacman gevonden!");
-//		// }
-//		// }
-//		else {
-//			System.out.println("Geen pacman gevonden!");
-//		}
-//	}
 
 	public Board getMergedBoard()
 	{

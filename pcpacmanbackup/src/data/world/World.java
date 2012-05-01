@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import communicator.be.kuleuven.cs.peno.MessageReceiver;
 import communicator.be.kuleuven.cs.peno.MessageSender;
+import communicator.be.kuleuven.cs.peno.RabbitMQHistory;
 import communicator.parser.messages.Command;
 import communicator.parser.messages.Message;
 
@@ -19,7 +20,8 @@ public class World implements Observer
 	private int registeredRobots;
 	private int named=0;
 	private int amountOfRobotsNeeded = 4;
-	private MessageReceiver rec;
+	private MessageReceiver rabbitMQReceiver;
+	private RabbitMQHistory rabbitMQhistory;
 
 	
 	/**
@@ -33,9 +35,14 @@ public class World implements Observer
 	public World()
 	{
 		_robots = new ConcurrentHashMap<String, RobotData>();
-			rec = MessageReceiver.getInstance();
-			rec.addObserver(this);
-			Thread t = new Thread(rec);
+			try {
+				rabbitMQReceiver = new MessageReceiver();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			rabbitMQReceiver.addObserver(this);
+			rabbitMQhistory = new RabbitMQHistory(rabbitMQReceiver);
+			Thread t = new Thread(rabbitMQReceiver);
 			t.start();
 	}
 
@@ -50,15 +57,14 @@ public class World implements Observer
 		try {
 			synchronized (this) {
 				this.wait();
-				System.out.println("total recieved joins:"+registeredRobots);
+				System.out.println("Totaal aantal ontvangen joins:"+registeredRobots);
 			}
 		} catch (InterruptedException e) {
-			throw new Error("STarting of the world failed for robot:"
+			throw new Error("Starting of the world failed for robot:"
 					+ me.getName());
 		}}
-		System.out.println("sufficient joins");
+		System.out.println("Voldoende aantal joins bereikt");
 		sendName(me.getName());
-		System.out.println(me.getName());
 		
 		while(named!=amountOfRobotsNeeded)
 			try {
@@ -66,14 +72,14 @@ public class World implements Observer
 					this.wait();
 				}
 			} catch (InterruptedException e) {
-				throw new Error("STarting of the world failed for robot:"
+				throw new Error("Starting of the world failed for robot:"
 						+ me.getName());
 			};
 	}
 
 	public void join()
 	{
-		System.out.println("join send");
+		System.out.println("Join send");
 		try {
 			MessageSender.getInstance().sendMessage("JOIN\n");
 		} catch (IOException e1) {
@@ -84,7 +90,7 @@ public class World implements Observer
 	public void sendName(String name)
 	{
 		try {
-			MessageSender.getInstance().sendMessage(name + " NAME 1.0\n");
+			MessageSender.getInstance().sendMessage(name + " NAME 2.2\n");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -151,7 +157,7 @@ public class World implements Observer
 	@Override
 	public void update(Observable o, Object arg)
 	{
-		if (o == rec) {
+		if (o == rabbitMQReceiver) {
 			// arg is een Message-object
 			Command cmd = new Command((Message) arg);
 			cmd.execute(this);
@@ -163,6 +169,10 @@ public class World implements Observer
 		_robots.put(name, data);
 		name();
 
+	}
+	
+	public RabbitMQHistory getHistory(){
+		return rabbitMQhistory;
 	}
 }
 

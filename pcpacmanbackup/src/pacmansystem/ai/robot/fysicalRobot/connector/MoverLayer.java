@@ -1,8 +1,6 @@
 package pacmansystem.ai.robot.fysicalRobot.connector;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
@@ -12,7 +10,6 @@ import pacmansystem.ai.robot.BarcodeReader;
 import pacmansystem.ai.robot.fysicalRobot.PanelColor;
 import pacmansystem.ai.robot.fysicalRobot.barcode.BarCodeReader;
 import pacmansystem.ai.robot.fysicalRobot.barcode.ColorTransitionStack;
-import pacmansystem.ai.robot.simulatedRobot.SimulationConnection;
 
 public class MoverLayer extends Observable
 {
@@ -94,13 +91,13 @@ public class MoverLayer extends Observable
 			int[] k = bar.getCode();
 			for(int i = 0; i<k.length ; i++)
 				System.out.print(k[i]);
-			System.out.println("");
-			System.out.println(bar.name().toString());
-			System.out.println("");
+//			System.out.println("");
+//			System.out.println(bar.name().toString());
+//			System.out.println("");
 			try {
 				rv.put(k, new Barcode(k));
 			} catch (Exception e) {
-				System.out.println("probleem met map van barcodes");
+				System.out.println("Probleem met map van barcodes");
 				e.printStackTrace();
 			}
 		}
@@ -330,20 +327,20 @@ public class MoverLayer extends Observable
 		int currentPosition = getHeadTacho();
 		if (currentPosition<128){
 			int degrees = currentPosition - i;
-			System.out.println("post i " + i + degrees  );
+//			System.out.println("post i " + i + degrees  );
 			turnHead(degrees);
 		}
 		else{
 			currentPosition = currentPosition - 256;
 			int degrees = currentPosition - i;
-			System.out.println(" neg i " + i + degrees  );
+//			System.out.println("neg i " + i + degrees  );
 			turnHead(degrees);
 		}
 	}
 
 
 	public void afterCrash() {
-		System.out.println("AAAAAAH ik ben gecrashed!!");
+		System.out.println("AAAAAAH, ik ben gecrashed!");
 		isCrashed = true;
 		setChanged();
 		notifyObservers();

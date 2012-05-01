@@ -1,6 +1,5 @@
 package pacmansystem.ai.robot.simulatedRobot.Robot;
 
-import pacmansystem.ai.robot.simulatedRobot.ticking.Tickable;
 import pacmansystem.ai.robot.simulatedRobot.ticking.Ticker;
 
 /*

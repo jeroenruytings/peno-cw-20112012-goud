@@ -16,7 +16,7 @@ public class BarcodeReader implements Runnable
 	
 	public BarcodeReader(MoverLayer mover){
 		this.virtu = mover;
-		System.out.println("VLAK VOOR CALIBREREN");
+//		System.out.println("VLAK VOOR CALIBREREN");
 	}
 
 	public int getWHITE()

@@ -1,5 +1,8 @@
 package pacmansystem.ai.robot.simulatedRobot.location;
 
+import static pacmansystem.ai.robot.simulatedRobot.point.Pointfs.multiply;
+import static pacmansystem.ai.robot.simulatedRobot.point.Pointfs.translate;
+
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,15 +14,11 @@ import pacmansystem.ai.robot.simulatedRobot.location.components.LocationComponen
 import pacmansystem.ai.robot.simulatedRobot.location.components.OpenComponent;
 import pacmansystem.ai.robot.simulatedRobot.location.components.WallComponent;
 import pacmansystem.ai.robot.simulatedRobot.point.Pointf;
-import pacmansystem.ai.robot.simulatedRobot.point.Pointfs;
-import pacmansystem.ai.robot.simulatedRobot.point.Vector;
-
 import data.board.Board;
 import data.board.Panel;
 import data.board.Panel.WallState;
 import data.enums.Orientation;
 import data.world.RealWorld;
-import static pacmansystem.ai.robot.simulatedRobot.point.Pointfs.*;
 
 public class RealWorldViewFromRealWorldObject implements RealWorldViewBuilder
 {

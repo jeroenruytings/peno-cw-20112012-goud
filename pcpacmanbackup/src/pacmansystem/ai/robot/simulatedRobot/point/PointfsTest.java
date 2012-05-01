@@ -1,9 +1,12 @@
 package pacmansystem.ai.robot.simulatedRobot.point;
 
-import org.junit.Test;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static pacmansystem.ai.robot.simulatedRobot.point.Pointfs.crossing;
+import static pacmansystem.ai.robot.simulatedRobot.point.Pointfs.dotProduct;
+import static pacmansystem.ai.robot.simulatedRobot.point.Pointfs.in;
 
-import static org.junit.Assert.*;
-import static pacmansystem.ai.robot.simulatedRobot.point.Pointfs.*;
+import org.junit.Test;
 
 public class PointfsTest
 {

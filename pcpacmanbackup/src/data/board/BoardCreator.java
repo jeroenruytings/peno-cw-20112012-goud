@@ -7,7 +7,6 @@ import pacmansystem.ai.robot.Barcode;
 
 import communicator.parser.decoder.ProtocolDecoder;
 import communicator.parser.messages.BarcodeAtMessage;
-import communicator.parser.messages.Command;
 import communicator.parser.messages.DiscoverMessage;
 import communicator.parser.messages.Message;
 import communicator.parser.messages.NameMessage;

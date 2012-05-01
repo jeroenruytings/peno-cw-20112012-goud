@@ -3,8 +3,6 @@ package communicator.parser.decoder;
 import java.awt.Point;
 import java.text.ParseException;
 
-import pacmansystem.ai.robot.Barcode;
-
 import communicator.parser.messages.BarcodeAtMessage;
 import communicator.parser.messages.Message;
 

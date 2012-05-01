@@ -8,8 +8,6 @@ import data.board.Board;
 import data.board.Panel;
 import data.board.shortestpathfinder.dijkstra.DijkstraFinder;
 import data.board.shortestpathfinder.dijkstra.PathNotPossibleException;
-import data.world.OwnRobotData;
-import data.world.RobotData;
 
 
 public class _ShortestPathFinderTest

@@ -31,7 +31,7 @@ public class BarCodeReader
 		String print = "";
 			for (int i : thi)
 				print += i;
-		System.out.println("gelezen voor closest hamming " + print);
+		System.out.println("Gelezen voor closest hamming " + print);
 		int max = -1;
 		Barcode best = null;
 		for (int[] key : _codes.keySet()) {

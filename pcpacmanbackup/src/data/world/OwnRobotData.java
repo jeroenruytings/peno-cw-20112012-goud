@@ -2,9 +2,7 @@ package data.world;
 
 import java.awt.Point;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 
 import pacmansystem.ai.robot.Barcode;
 
@@ -66,7 +64,6 @@ public class OwnRobotData extends RobotData
 			MessageSender.getInstance().sendMessage(
 					getName() + " BARCODEAT "+pointToString(point)+" " + barcode.getValue() + " "
 							+ orientationToString(orientation) + "\n");
-			System.out.println("barcode: "+barcode.getValue());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

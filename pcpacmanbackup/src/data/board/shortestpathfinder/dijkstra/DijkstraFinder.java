@@ -8,7 +8,6 @@ import java.util.Map;
 
 import data.board.Board;
 import data.board.shortestpathfinder.ShortestPathFinderInterface;
-import data.world.OwnRobotData;
 
 
 public class DijkstraFinder implements ShortestPathFinderInterface

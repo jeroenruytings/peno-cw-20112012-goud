@@ -3,7 +3,6 @@ package pacmansystem.ai.robot.simulatedRobot.Robot;
 import pacmansystem.ai.robot.simulatedRobot.location.RealWorldView;
 import pacmansystem.ai.robot.simulatedRobot.location.RealWorldViewFromRealWorldObject;
 import pacmansystem.ai.robot.simulatedRobot.point.Pointf;
-import pacmansystem.ai.robot.simulatedRobot.ticking.Ticker;
 import data.world.RealWorld;
 
 public class StandardRobotBuilder implements RobotBuilder

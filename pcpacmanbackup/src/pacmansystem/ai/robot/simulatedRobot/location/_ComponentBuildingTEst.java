@@ -1,7 +1,14 @@
 package pacmansystem.ai.robot.simulatedRobot.location;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static pacmansystem.ai.robot.simulatedRobot.SIMINFO.BARCODEHEIGHT;
+import static pacmansystem.ai.robot.simulatedRobot.SIMINFO.BLACK;
+import static pacmansystem.ai.robot.simulatedRobot.SIMINFO.PANELHEIGHT;
+import static pacmansystem.ai.robot.simulatedRobot.SIMINFO.PANELWIDTH;
+import static pacmansystem.ai.robot.simulatedRobot.SIMINFO.WHITE;
+
 import java.awt.Point;
-import java.util.Collection;
 import java.util.List;
 
 import org.junit.Before;
@@ -11,8 +18,6 @@ import pacmansystem.ai.robot.Barcode;
 import pacmansystem.ai.robot.simulatedRobot.location.components.LocationComponent;
 import pacmansystem.ai.robot.simulatedRobot.location.components.OpenComponent;
 import pacmansystem.ai.robot.simulatedRobot.point.Pointf;
-import static org.junit.Assert.*;
-import static pacmansystem.ai.robot.simulatedRobot.SIMINFO.*;
 public class _ComponentBuildingTEst
 {
 	RealWorldViewFromRealWorldObject builder;
@@ -22,7 +27,7 @@ public class _ComponentBuildingTEst
 		builder = new RealWorldViewFromRealWorldObject(null);
 	}
 	@Test
-	public void testNorth()
+	public void testNorthBarcode()
 	{
 		List<LocationComponent> comps = builder.genNorthBarcodes(new Point(0,0), new Barcode(1,1,1,0,1,1));
 		// LINKER ONDERHOEK
@@ -39,7 +44,7 @@ public class _ComponentBuildingTEst
 		assertEquals(((OpenComponent) comps.get(6)).getColor(), WHITE);
 	}
 	@Test
-	public void testEast()
+	public void testEastBarcode()
 	{
 		List<LocationComponent> comps = builder.genEastBarcodes(new Point(0,0), new Barcode(1,1,1,0,1,1));
 		// LINKER ONDERHOEK
@@ -56,7 +61,7 @@ public class _ComponentBuildingTEst
 		assertEquals(((OpenComponent) comps.get(6)).getColor(), WHITE);
 	}
 	@Test
-	public void testWest()
+	public void testWestBarcode()
 	{
 		List<LocationComponent> comps = builder.genWestBarcode(new Point(0,0), new Barcode(1,1,1,0,1,1));
 		// LINKER ONDERHOEK
@@ -73,7 +78,7 @@ public class _ComponentBuildingTEst
 		assertEquals(((OpenComponent) comps.get(6)).getColor(), WHITE);
 	}
 	@Test
-	public void testSouth()
+	public void testSouthBarcode()
 	{
 		List<LocationComponent> comps = builder.genSouthBarcode(new Point(0,0), new Barcode(1,1,1,0,1,1));
 		// LINKER ONDERHOEK

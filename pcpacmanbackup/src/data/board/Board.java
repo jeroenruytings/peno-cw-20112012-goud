@@ -359,13 +359,9 @@ public class Board
 	private boolean conflicting(Point p, Panel panel)
 	{
 		if(hasPanelAt(p)){
-			System.err.println("HELP!");
 			Panel old = getPanelAt(p);
 			for(Orientation d : Orientation.values()){
-				System.out.println(old.getWallState(d));
-				System.out.println(panel.getWallState(d));
 				if(!old.getWallState(d).equals(panel.getWallState(d))){
-					System.err.println("Hier ben ik geraakt");
 					return true;
 				}
 			}

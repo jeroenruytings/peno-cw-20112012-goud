@@ -1,6 +1,6 @@
 package pacmansystem.ai.robot.simulatedRobot.location;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 

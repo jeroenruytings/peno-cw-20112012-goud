@@ -3,17 +3,13 @@ package pacmansystem.ai.strategy;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
-
-import data.board.shortestpathfinder.dijkstra.DijkstraFinder;
-import data.board.shortestpathfinder.dijkstra.PathNotPossibleException;
-import data.enums.Direction;
-import data.enums.Orientation;
-import data.world.RobotData;
 
 import pacmansystem.ai.RobotController;
+import data.board.shortestpathfinder.dijkstra.DijkstraFinder;
+import data.board.shortestpathfinder.dijkstra.PathNotPossibleException;
+import data.enums.Orientation;
+import data.world.RobotData;
 
 /**
  * This strategy hunts pacman down when the maze is fully constructed and pacman has

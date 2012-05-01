@@ -4,7 +4,7 @@ package pacmansystem.ai.robot.simulatedRobot.Robot;
 public class Message {
 	public Message(Monitor id,Identifier message,Value value){
 		if(!message.validMonitor(id)){
-			System.out.println("Something Went wrong ERROR ");
+			System.out.println("Bericht heeft niet de juiste structuur.");
 		}		
 		encodedMessage = new byte[2];
 		encodedMessage[0]|=id.getMask();

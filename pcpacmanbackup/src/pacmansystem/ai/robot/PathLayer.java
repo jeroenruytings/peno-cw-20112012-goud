@@ -98,7 +98,6 @@ public class PathLayer {
 			data.position(next);
 			data.setOrientation(o);
 		} catch (IllegalDriveException e) {
-			System.out.println("exception");
 			e.printStackTrace();
 		
 		}

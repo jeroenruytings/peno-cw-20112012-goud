@@ -1,15 +1,12 @@
 package pacmansystem.ai.strategy;
 
 import java.awt.Point;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
-
-import data.board.shortestpathfinder.dijkstra.DijkstraFinder;
-import data.board.shortestpathfinder.dijkstra.PathNotPossibleException;
 
 import pacmansystem.ai.RobotController;
+import data.board.shortestpathfinder.dijkstra.DijkstraFinder;
+import data.board.shortestpathfinder.dijkstra.PathNotPossibleException;
 
 /**
  * This strategy attempts to catch pacman while the maze is not yet fully constructed

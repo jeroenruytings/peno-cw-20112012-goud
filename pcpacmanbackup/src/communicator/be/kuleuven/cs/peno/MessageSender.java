@@ -10,7 +10,6 @@ import java.util.Observable;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
-
 import communicator.parser.decoder.ProtocolDecoder;
 import communicator.parser.messages.Message;
 

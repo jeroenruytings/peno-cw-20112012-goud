@@ -32,15 +32,8 @@ public class PlanMessageDecoder extends MessageDecoder<PlanMessage>
 		int x = 0;
 		int y = 0;
 		for(int i = 2; i <  mes.length; i++){
-			try{
 			x = Integer.parseInt(mes[i].split(",")[0]);
 			y = Integer.parseInt(mes[i].split(",")[1]);
-			} catch(NumberFormatException e)
-			{
-				System.out.println(message);
-				System.out.println(mes[i].split(",")[0]);
-				System.out.println(mes[i].split(",")[1]);
-			}
 			param[i - 2] = new Point(x,y);
 		}
 		return new PlanMessage(mes[0], param);

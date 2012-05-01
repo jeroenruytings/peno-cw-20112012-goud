@@ -1,17 +1,14 @@
 package pacmansystem.ai.strategy;
 
 import java.awt.Point;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
+import pacmansystem.ai.RobotController;
 import data.board.shortestpathfinder.dijkstra.DijkstraFinder;
 import data.board.shortestpathfinder.dijkstra.PathNotPossibleException;
 import data.enums.Orientation;
-
-import pacmansystem.ai.RobotController;
 
 
 /**

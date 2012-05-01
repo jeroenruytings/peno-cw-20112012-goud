@@ -17,7 +17,6 @@ import javax.swing.JFileChooser;
 
 import communicator.parser.messages.Command;
 import communicator.parser.messages.Message;
-import communicator.parser.messages.PacmanMessage;
 
 import data.board.Board;
 import data.board.BoardCreator;

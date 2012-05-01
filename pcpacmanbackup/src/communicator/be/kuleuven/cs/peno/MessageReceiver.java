@@ -11,7 +11,6 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
-
 import communicator.parser.decoder.ProtocolDecoder;
 import communicator.parser.messages.Command;
 import communicator.parser.messages.Message;
@@ -35,7 +34,7 @@ public class MessageReceiver extends Observable implements Runnable{
 		}
 	}
 	
-	private MessageReceiver() throws IOException{
+	public MessageReceiver() throws IOException{
 		decoder = new ProtocolDecoder();
 		conn = MQ.createConnection();
 		channel = MQ.createChannel(conn);
@@ -74,7 +73,7 @@ public class MessageReceiver extends Observable implements Runnable{
 						notifyObservers(decodedMessage);
 
 					} catch (ParseException e) {
-						System.out.println("fail");
+						System.out.println("Het decoderen van het ontvangen bericht is mislukt.");
 					}
 					
 					
@@ -92,7 +91,6 @@ public class MessageReceiver extends Observable implements Runnable{
 
 	protected void setCommand(Command command) {
 		this.command = command;
-		System.out.println(command);
 		setChanged();
 		notifyObservers(command);
 	}
@@ -100,18 +98,5 @@ public class MessageReceiver extends Observable implements Runnable{
 	public Command getCommand() {
 		return command;
 	}
-
-	public static MessageReceiver getInstance() {
-		if (receiver == null)
-			try {
-				receiver = new MessageReceiver();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		return receiver;
-	}
-	
-	
-	private static MessageReceiver receiver;
 	
 }

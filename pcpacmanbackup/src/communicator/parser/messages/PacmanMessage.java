@@ -1,6 +1,7 @@
 package communicator.parser.messages;
 
 import java.awt.Point;
+
 import data.world.World;
 
 public class PacmanMessage extends Message

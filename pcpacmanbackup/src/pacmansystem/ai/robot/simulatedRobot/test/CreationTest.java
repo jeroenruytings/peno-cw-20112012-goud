@@ -6,9 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import pacmansystem.ai.robot.fysicalRobot.connector.MoverLayer;
-import pacmansystem.ai.robot.fysicalRobot.connector.PCCommunicator;
 import pacmansystem.ai.robot.simulatedRobot.SimulatedRobotBehindStreams;
-import pacmansystem.ai.robot.simulatedRobot.location.RealWorldView;
 import pacmansystem.ai.robot.simulatedRobot.location.RealWorldViewBuilder;
 import pacmansystem.ai.robot.simulatedRobot.location.RealWorldViewFromRealWorldObject;
 import data.enums.Orientation;
