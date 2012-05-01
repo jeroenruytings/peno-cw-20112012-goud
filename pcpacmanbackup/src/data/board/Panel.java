@@ -57,6 +57,10 @@ public class Panel
 	{
 		return borders.get(d)==WallState.WALL;
 	}
+	
+	public boolean hasPassage(Orientation d) {
+		return borders.get(d) == WallState.PASSAGE;
+	}
 
 	@Override
 	public Object clone()
@@ -114,11 +118,14 @@ public class Panel
 			panel = (Panel)o;
 		else
 			return false;
-		for(Orientation d:Orientation.values())
-			if(this.hasBorder(d)!=panel.hasBorder(d))
+		for(Orientation d:Orientation.values()) {
+			if (this.getWallState(d)==WallState.UNKNOWN || panel.getWallState(d) == WallState.UNKNOWN)
+				continue;
+			if(this.getWallState(d)!=panel.getWallState(d))
 				return false;
-		if(this.hasBarcode() != panel.hasBarcode())
+			if(this.hasBarcode() != panel.hasBarcode())
 				return false;
+		}
 		return true;
 	}
 	
