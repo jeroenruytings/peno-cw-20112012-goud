@@ -38,4 +38,7 @@ public interface Strategy {
 	 * but remain in the same strategy
 	 */
 	public boolean hasToUpdatePlan();
+	
+	@Override
+	public String toString();
 }

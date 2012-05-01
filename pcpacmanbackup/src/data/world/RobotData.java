@@ -118,7 +118,7 @@ public class RobotData implements RobotDataView
 	{
 		if(pacman == null)
 			return null;
-		return pacman.getPosition();
+		return getPacman().getPosition();
 	}
 	
 	public Pacman getPacman() {

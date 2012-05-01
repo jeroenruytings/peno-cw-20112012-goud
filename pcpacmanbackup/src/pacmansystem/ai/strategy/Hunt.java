@@ -163,4 +163,9 @@ public class Hunt implements Strategy {
 		return false;
 	}
 	
+	@Override
+	public String toString() {
+		return "HUNT";
+	}
+	
 }

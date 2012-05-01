@@ -90,5 +90,10 @@ public class Catch implements Strategy {
 			return true;
 		return false;
 	}
+	
+	@Override
+	public String toString() {
+		return "CATCH";
+	}
 
 }

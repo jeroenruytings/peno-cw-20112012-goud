@@ -133,5 +133,10 @@ public class Roam implements Strategy {
 	public boolean hasToUpdatePlan() {
 		return false;
 	}
+	
+	@Override
+	public String toString() {
+		return "ROAM";
+	}
 
 }

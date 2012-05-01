@@ -79,8 +79,9 @@ public class RobotController
 				}
 //				addPacman();
 				if (strategy.hasToSwitchStrategy()) {
-					System.out.println("Veranderen van strategie...");
-					switchStrategy(strategy.getReplacingStrategy());
+					Strategy newStrat = strategy.getReplacingStrategy();
+					switchStrategy(newStrat);
+					System.out.println("Veranderen naar strategie: " + newStrat.toString());
 					getOwnData().cancelPlan();
 					break;
 				}
@@ -154,11 +155,6 @@ public class RobotController
 		if (pacmanSpotted != null) {
 			Point pacmanLocation = getPacmanLocation(pacmanSpotted);
 			getOwnData().pacman(pacmanLocation);
-			if (!this.getMergedBoard().hasPanelAt(pacmanLocation)) {
-				Panel pacmanPanel = new Panel();
-
-				this.getOwnData().discover(pacmanLocation, pacmanPanel);
-			}
 		}
 		if (p1.hasBarcode()) {
 			getOwnData().barcode(p1.getBarcode(), p1.getBarcodeOrientation(),
@@ -214,17 +210,17 @@ public class RobotController
 				if (!this.getMergedBoard().hasPanelAt(p)) {
 					try {
 						this.getMergedBoard().add(robot.getBoard().getPanelAt(p), p);
+						if (this.getMergedBoard().getPanelAt(p).hasBarcode()) {
+							getOwnData().barcode(
+									getMergedBoard().getPanelAt(p).getBarcode(),
+									getMergedBoard().getPanelAt(p)
+											.getBarcodeOrientation(), p);
+						}
 					} catch (IllegalArgumentException e) {
 						// getBoard().addForced(robot.getBoard().getPanelAt(p),
 						// p);
 					}
 					//	getOwnData().discover(p, robot.getBoard().getPanelAt(p));
-					if (this.getMergedBoard().getPanelAt(p).hasBarcode()) {
-						getOwnData().barcode(
-								getMergedBoard().getPanelAt(p).getBarcode(),
-								getMergedBoard().getPanelAt(p)
-										.getBarcodeOrientation(), p);
-					}
 				}
 
 	}
