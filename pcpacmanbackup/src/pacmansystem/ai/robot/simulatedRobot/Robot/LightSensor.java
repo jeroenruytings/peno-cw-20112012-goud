@@ -19,22 +19,22 @@ public class LightSensor  extends Sensor
 		super(pilot);
 		robot.setLightSensor(this);
 	}
-
+	/**
+	 * Consumes the changed value.
+	 * Gives a value between 0 and 
+	 * @return
+	 */
 	public int getLightValue()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		changed=false;
+		return value/4;
 	}
 
-	public int readRawValue()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
 
 	public boolean hasChanged()
 	{
-		return false;
+		return changed;
 	}
 
 	@Override

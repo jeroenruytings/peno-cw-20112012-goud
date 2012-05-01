@@ -9,7 +9,6 @@ public abstract class Sensor implements Tickable
 	{
 		this.robot =robot;
 	}
-	public abstract int readRawValue();
 	public abstract boolean hasChanged();
 
 }

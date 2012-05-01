@@ -106,7 +106,7 @@ public class Barcode
 		rv[0]=false;
 		rv[7]=false;
 		for (int i = 1; i < rv.length-1; i++) {
-			rv[i]=fromchar(getBitString()[i-1]);
+			rv[i]=fromchar(toString().toCharArray()[i-1]);
 		}
 		
 		return rv;

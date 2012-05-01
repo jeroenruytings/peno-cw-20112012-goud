@@ -11,6 +11,8 @@ public class SensorListener implements Tickable
 	private final TouchSensor push;
 	private final IRSeekerV2 ir ;
 	RobotCommunicator communicator;
+	private boolean forcelight;
+	private int lightValue;
 
 	public SensorListener(RobotCommunicator comm,UltrasonicSensor sensor,LightSensor lights,TouchSensor touch,IRSeekerV2 irseekr)
 	{
@@ -90,9 +92,7 @@ public class SensorListener implements Tickable
 
 	private void sendLight()
 	{
-		if(!light.hasChanged())
-			return;
-	sendValue(light.getLightValue(), SensorIdentifier.LightSensor);
+		sendValue(light.getLightValue(), SensorIdentifier.LightSensor);
 		
 	}
 
@@ -108,6 +108,8 @@ public class SensorListener implements Tickable
 
 	public int getLightValue()
 	{
+		if(forcelight)
+			return lightValue;
 		return light.getLightValue();
 	}
 
@@ -115,6 +117,20 @@ public class SensorListener implements Tickable
 	public int getSonarValue()
 	{
 		return sonar.getDistance();
+	}
+
+
+	public void forceLight(int light)
+	{
+		forcelight=true;
+		lightValue=light;
+	}
+
+
+	public void unforceLight()
+	{
+		forcelight=false;
+		
 	}
 
 }

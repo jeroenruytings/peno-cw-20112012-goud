@@ -25,7 +25,7 @@ public class Simulation implements Runnable
 	{
 		ticker.start();
 		
-		comm.receiveCommando();
+
 	}
 	public Robot getRobot()
 	{
@@ -34,5 +34,9 @@ public class Simulation implements Runnable
 	public Ticker getTicker()
 	{
 		return ticker;
+	}
+	public void start()
+	{
+		new Thread(this).start();
 	}
 }

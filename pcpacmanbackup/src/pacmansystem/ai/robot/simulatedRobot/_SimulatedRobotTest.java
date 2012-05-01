@@ -1,19 +1,11 @@
 package pacmansystem.ai.robot.simulatedRobot;
 
-import static org.junit.Assert.assertTrue;
-
-import java.io.IOException;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import pacmansystem.ai.robot.fysicalRobot.connector.Action;
-import pacmansystem.ai.robot.fysicalRobot.connector.Commando;
-import pacmansystem.ai.robot.fysicalRobot.connector.PCCommunicator;
+import pacmansystem.ai.robot.fysicalRobot.connector.MoverLayer;
 import pacmansystem.ai.robot.simulatedRobot.Robot.Robot;
 import pacmansystem.ai.robot.simulatedRobot.Robot.Simulation;
-import pacmansystem.ai.robot.simulatedRobot.point.Pointf;
-import pacmansystem.ai.robot.simulatedRobot.point.Pointfs;
 import pacmansystem.ai.robot.simulatedRobot.ticking.Ticker;
 import data.world.RealWorld;
 
@@ -24,7 +16,8 @@ public class _SimulatedRobotTest
 	private RealWorld rw;
 	private Simulation simulation;
 	private SimulationConnection conn;
-	private float speedmmps=171;
+	private float speedmmps = 171;
+
 	@Before
 	public void simulationTest1()
 	{
@@ -45,16 +38,15 @@ public class _SimulatedRobotTest
 	{
 		Robot robot = simulation.getRobot();
 		robot.getPilot().setSpeed(360);
-		PCCommunicator comm = new PCCommunicator(conn);
-		comm.sendCommando(new Commando(Action.FORWARD, 10, "noreason"));
-		System.out.println(robot.getLocation());
-		sleep(100f/speedmmps+1);
-		System.out.println(robot.getLocation());
+		MoverLayer layer = new MoverLayer(conn);
+		while (true)
+			System.out.println(layer.getLightSensor());
 	}
+
 	private void sleep(float time)
 	{
 		try {
-			Thread.sleep((long)(1000*time));
+			Thread.sleep((long) (1000 * time));
 		} catch (InterruptedException e) {
 		}
 	}

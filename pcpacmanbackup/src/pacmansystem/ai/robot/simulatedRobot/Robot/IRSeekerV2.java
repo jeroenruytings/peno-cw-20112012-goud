@@ -42,12 +42,6 @@ public class IRSeekerV2 extends Sensor
 		
 	}
 
-	@Override
-	public int readRawValue()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public boolean hasChanged()

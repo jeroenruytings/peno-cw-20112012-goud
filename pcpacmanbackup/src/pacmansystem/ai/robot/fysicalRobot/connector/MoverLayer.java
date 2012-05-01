@@ -10,6 +10,7 @@ import pacmansystem.ai.robot.BarcodeReader;
 import pacmansystem.ai.robot.fysicalRobot.PanelColor;
 import pacmansystem.ai.robot.fysicalRobot.barcode.BarCodeReader;
 import pacmansystem.ai.robot.fysicalRobot.barcode.ColorTransitionStack;
+import pacmansystem.ai.robot.simulatedRobot.SimulationConnection;
 
 public class MoverLayer extends Observable
 {
@@ -55,10 +56,10 @@ public class MoverLayer extends Observable
 		initialiseMoverLayer();
 	}
 	
-	public MoverLayer(PCCommunicator comm)
+	public MoverLayer(SimulationConnection sim)
 	{
 		isCrashed = false;
-		pcc = comm;
+		pcc = new PCCommunicator(this,sim);
 		Thread communicator = new Thread(pcc);
 		_colorStack = new ColorTransitionStack(this);
 		_map = initbarcodes();
@@ -109,6 +110,7 @@ public class MoverLayer extends Observable
 		calibrateBlack();
 		calibrateBrown();
 		calibrateWhite();
+		System.out.println("press enter to continue");
 		try {
 			System.in.read();
 		} catch (IOException e) {
@@ -211,6 +213,7 @@ public class MoverLayer extends Observable
 
 	public void calibrateBlack()
 	{
+		System.out.println();
 		System.out.println("Sending to calibrate BLACK");
 		releaseButton();
 		pcc.sendCommando(new Commando(Action.CALIBRATEBLACK,0, "Calibrate black"));

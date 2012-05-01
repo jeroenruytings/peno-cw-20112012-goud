@@ -41,13 +41,6 @@ public class UltrasonicSensor extends Sensor
 	}
 
 	@Override
-	public int readRawValue()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public boolean hasChanged()
 	{
 		// TODO Auto-generated method stub

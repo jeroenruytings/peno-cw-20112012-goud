@@ -24,12 +24,7 @@ public class TouchSensor extends Sensor
 		
 	}
 
-	@Override
-	public int readRawValue()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 
 	@Override
 	public boolean hasChanged()

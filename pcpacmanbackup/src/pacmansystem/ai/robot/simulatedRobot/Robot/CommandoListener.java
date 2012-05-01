@@ -1,5 +1,7 @@
 package pacmansystem.ai.robot.simulatedRobot.Robot;
 
+import pacmansystem.ai.robot.simulatedRobot.SIMINFO;
+
 public class CommandoListener implements Runnable
 {
 
@@ -44,7 +46,8 @@ public class CommandoListener implements Runnable
 	public CommandoListener(SensorListener listener, RobotCommunicator comm,
 			Robot robot)
 	{
-
+		if(listener==null||comm==null||robot==null)
+			throw new IllegalArgumentException("dont give null@ a listener communicator or robot");
 		communicator = comm;
 		this.robot = robot;
 		this.listener = listener;
@@ -165,40 +168,52 @@ public class CommandoListener implements Runnable
 
 	private void calibrateBrown()
 	{
-		Message message = new Message(Monitor.SensorMonitor,
-				SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
-		robot.waitForPress();
-		setBrown(listener.getLightValue());
+
+		 Message message = new Message(Monitor.SensorMonitor,
+		 SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
+		listener.forceLight(SIMINFO.BROWN/4);
+		 setBlack(listener.getLightValue());
 		communicator.send(message);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+		}
+		listener.unforceLight();
 	}
 
 	private void calibrateWhite()
 	{
-		// Button.ENTER.waitForPressAndRelease();
-		// System.out.println("Wit:" + listener.getLightValue()*4);
-		// Button.ENTER.waitForPressAndRelease();
-		// Message message = new Message(Monitor.SensorMonitor,
-		// SensorIdentifier.LightSensor, new
-		// SensorValue((byte)listener.getLightValue()));
-		// communicator.send(message);
-		Message message = new Message(Monitor.SensorMonitor,
-				SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
-		// System.out.println("send message enter");
-		robot.waitForPress();
-		setWhite(listener.getLightValue());
+
+		 Message message = new Message(Monitor.SensorMonitor,
+		 SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
+		listener.forceLight(SIMINFO.WHITE/4);
+		 setBlack(listener.getLightValue());
 		communicator.send(message);
-		System.out.println("OK");
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+		}
+		listener.unforceLight();
 	}
 
 	private void calibrateBlack()
 	{
-		// TODO:FIX
-		// Message message = new Message(Monitor.SensorMonitor,
-		// SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
-		// pilot.waitForPress();
-		// setBlack(listener.getLightValue());
-		// communicator.send(message);
-		// System.out.println("OK");
+		
+	
+		 Message message = new Message(Monitor.SensorMonitor,
+		 SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
+		listener.forceLight(SIMINFO.BLACK/4);
+		 setBlack(listener.getLightValue());
+		 try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+			}
+		communicator.send(message);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+		}
+		listener.unforceLight();
 	}
 
 	public boolean iswhite(int value)

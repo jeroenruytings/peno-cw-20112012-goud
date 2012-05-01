@@ -35,14 +35,17 @@ public class StandardSimulationBuilder implements SimulationBuilder
 		robotBuilder.setSpeed(5);
 		robotBuilder.setTicker(ticker);
 		Robot robot = robotBuilder.build();
+		SensorFacade s = robot.getSensors();
+		
 		RobotCommunicator comm = new RobotCommunicator(new DataInputStream(
 				conn.getRobotIN()), new DataOutputStream(conn.getRobotOut()));
-		CommandoListener l = new CommandoListener(sensorlistener, comm,
-				robot);
+		 sensorlistener = new SensorListener(comm,
+				s.getUltraSonicSensor(), s.getLightSensor(),
+				s.getTouchSensor(), s.getInfraRedSensor());
+		
+		CommandoListener l = new CommandoListener(sensorlistener, comm, robot);
 		new Thread(l).start();
-		SensorFacade s = robot.getSensors();
-		SensorListener listener = new SensorListener(comm, s.getUltraSonicSensor(),s.getLightSensor(),s.getTouchSensor(), s.getInfraRedSensor());
-		ticker.add(listener);
+		ticker.add(sensorlistener);
 		Simulation sim = new Simulation(robot, ticker, comm);
 		return sim;
 	}

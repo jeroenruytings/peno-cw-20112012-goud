@@ -61,6 +61,7 @@ public class SensorMonitor extends LeoMonitor
 			virtu.setUltrasonic(decoder.value());
 			break;
 		case BUTTON:
+			System.out.println("recieved button push");
 			if(decoder.value() == 1)
 				virtu.pushButton();
 			else if(decoder.value() == 0)

@@ -35,10 +35,12 @@ public class PCCommunicator implements Runnable,Communicator
 //		t.start();
 //	}
 
-	public PCCommunicator(SimulationConnection connection2)
+	public PCCommunicator(MoverLayer virtu,SimulationConnection sim)
 	{
-		streamIn = new DataInputStream(connection2.getPCIN());
-		streamOut =new DataOutputStream( connection2.getPcOut());
+		this.virtu = virtu;
+		startOfChain = buildMonitors(virtu);
+		streamOut =new DataOutputStream(sim.getPcOut());
+		streamIn = new DataInputStream(sim.getPCIN());
 	}
 	private LeoMonitor buildMonitors(MoverLayer mover)
 	{
