@@ -17,9 +17,11 @@ import data.board.shortestpathfinder.dijkstra.PathNotPossibleException;
 public class Catch implements Strategy {
 	
 	private RobotController controller;
+	private boolean pathNotPossible;
 	
 	public Catch(RobotController controller) {
 		this.controller = controller;
+		pathNotPossible = false;
 	}
 	
 	public RobotController getController() {
@@ -39,7 +41,8 @@ public class Catch implements Strategy {
 		try {
 			path = finder.shortestPath(getController().getCurrentPoint(), destination);
 		} catch (PathNotPossibleException e) {
-			e.printStackTrace();
+			pathNotPossible = true;
+			return path;
 		}
 		path.remove(path.size()-1);
 		List<Point> route = new LinkedList<Point>();
@@ -50,6 +53,8 @@ public class Catch implements Strategy {
 
 	@Override
 	public boolean hasToSwitchStrategy() {
+		if(pathNotPossible)
+			return true;
 		if(getController().getOwnData().foundMistakes())
 			return true;
 		Point pacmanPos = getController().getOwnData().getPacmanLastSighted();
@@ -61,6 +66,8 @@ public class Catch implements Strategy {
 
 	@Override
 	public Strategy getReplacingStrategy() {
+		if(pathNotPossible)
+			return new Explore(getController());
 		if(getController().getOwnData().foundMistakes())
 			return new Explore(getController());
 		Point pacmanPos = getController().getOwnData().getPacmanLastSighted();

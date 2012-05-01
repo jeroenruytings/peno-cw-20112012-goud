@@ -51,7 +51,7 @@ public class Roam implements Strategy {
 			path = finder.shortestPath(getController().getCurrentPoint(), randomPoint).iterator();
 			//TODO: path niet korste pad, maar zo weinig mogelijk overlappend
 		} catch (PathNotPossibleException e) {
-			e.printStackTrace();
+			return constructRoute();
 		}
 		while (path.hasNext()){
 			plan.add(path.next());

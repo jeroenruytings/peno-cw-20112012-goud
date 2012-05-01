@@ -22,7 +22,7 @@ public class PanelLayer implements PanelLayerInterface
 	private int lastSeenDistancePacman;
 	private boolean pacmanSeen = false;
 	private int lastSeenIrDistance = 0;
-	private int infraredValue = 100;
+	private int infraredValue = 50;
 	private int numberOfWallsToCorrect = 1;
 	
 
@@ -70,7 +70,7 @@ public class PanelLayer implements PanelLayerInterface
 				}catch (CrashedException e) {
 					mover.setCrashed(false);
 					try {
-						mover.drive(-13);
+						mover.drive(-16);
 					} catch (CrashedException e1) {
 						//This should never happen
 						e1.printStackTrace();
@@ -94,7 +94,7 @@ public class PanelLayer implements PanelLayerInterface
 				} catch (CrashedException e) {
 					mover.setCrashed(false);
 					try {
-						mover.drive(-13);
+						mover.drive(-16);
 					} catch (CrashedException e1) {
 						//This should never happen
 						e1.printStackTrace();
@@ -111,7 +111,7 @@ public class PanelLayer implements PanelLayerInterface
 				} catch (CrashedException e) {
 					mover.setCrashed(false);
 					try {
-						mover.drive(-13);
+						mover.drive(-16);
 					} catch (CrashedException e1) {
 						//This should never happen
 						e1.printStackTrace();
@@ -161,7 +161,9 @@ public class PanelLayer implements PanelLayerInterface
 				
 				setLastSeenDirectionPacman(Direction.UP);
 				}
-			}
+			} else
+				pacmanSeen = false;
+			
 			if (distanceToWall < distanceAllowed){
 					hasToCorrect = true;
 					numberOfWallsToCorrect++;
@@ -204,7 +206,8 @@ public class PanelLayer implements PanelLayerInterface
 					setLastSeenDistancePacman(1);
 				}
 				setLastSeenDirectionPacman(Direction.LEFT);
-			}
+			} else
+				pacmanSeen = false;
 			
 			mover.turnHead(90);
 			
@@ -246,7 +249,9 @@ public class PanelLayer implements PanelLayerInterface
 				}
 				
 				setLastSeenDirectionPacman(Direction.RIGHT);
-			}
+			} else
+				pacmanSeen = false;
+			
 			mover.turnHead(-90);
 			if (distanceToWall < distanceAllowed){
 				if(distanceToWall < 15)
@@ -383,7 +388,10 @@ public class PanelLayer implements PanelLayerInterface
 				}
 				
 				setLastSeenDirectionPacman(Direction.UP);	
-			}
+			}else
+				pacmanSeen = false;
+			
+			
 			if (distanceToWall < distanceAllowed){
 				System.out.println("true");
 				return WallState.WALL;
@@ -438,7 +446,9 @@ public class PanelLayer implements PanelLayerInterface
 				}
 				
 				setLastSeenDirectionPacman(Direction.LEFT);
-			}
+			}else
+				pacmanSeen = false;
+			
 			mover.turnHead(90);
 			if (distanceToWall < distanceAllowed -7){
 				return WallState.WALL;
@@ -474,7 +484,9 @@ public class PanelLayer implements PanelLayerInterface
 				}
 				
 				setLastSeenDirectionPacman(Direction.RIGHT);
-			}
+			}else
+				pacmanSeen = false;
+			
 			mover.turnHead(-90);
 			if (distanceToWall < distanceAllowed){
 				return WallState.WALL;

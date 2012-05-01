@@ -57,7 +57,11 @@ public class DiscoverMessage extends Message
 		Panel p = getPanel();
 		Board b = world.getRobot(getNameFrom()).getBoard();
 		if(!b.hasPanelAt(_coordinate))
-			b.add(p, _coordinate);
+			try {
+				b.add(p, _coordinate);
+			} catch (IllegalArgumentException e1) {
+				b.addForced(p, _coordinate);
+			}
 		else if(!p.equals(b.getPanelAt(_coordinate))){
 			Panel e = b.getPanelAt(_coordinate);
 			for(Orientation d : Orientation.values()){

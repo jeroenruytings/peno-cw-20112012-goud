@@ -22,8 +22,10 @@ public class Hunt implements Strategy {
 	
 	private RobotController controller;
 	private HashMap<Point, Double> pvalues;
+	private boolean PathNotPossible;
 	
 	public Hunt(RobotController controller) {
+		PathNotPossible = false;
 		this.controller = controller;
 		pvalues = new HashMap<Point, Double>(); 
 		for(Point p : getController().getMergedBoard().getPanels().keySet()){
@@ -50,7 +52,8 @@ public class Hunt implements Strategy {
 		try {
 			path = finder.shortestPath(getController().getCurrentPoint(), destination);
 		} catch (PathNotPossibleException e) {
-			e.printStackTrace();
+			PathNotPossible = true;
+			return path;
 		}
 		path.remove(path.size()-1);
 		return path;
@@ -71,6 +74,8 @@ public class Hunt implements Strategy {
 
 	@Override
 	public boolean hasToSwitchStrategy() {
+		if(PathNotPossible)
+			return true;
 		Point pacmanPos = getController().getOwnData().getPacmanLastSighted();
 		Point currentPos = getController().getCurrentPoint();
 		if(pacmanPos.distance(currentPos) == 1 && !getController().getOwnData().getBoard().wallBetween(pacmanPos, currentPos))
@@ -80,6 +85,8 @@ public class Hunt implements Strategy {
 
 	@Override
 	public Strategy getReplacingStrategy() {
+		if(PathNotPossible)
+			return new Roam(getController());
 		Point pacmanPos = getController().getOwnData().getPacmanLastSighted();
 		Point currentPos = getController().getCurrentPoint();
 		if(pacmanPos.distance(currentPos) == 1 && !getController().getOwnData().getBoard().wallBetween(pacmanPos, currentPos)) {

@@ -20,8 +20,10 @@ public class Explore implements Strategy {
 	
 	private RobotController controller;
 	private boolean finishedExploring;
+	private boolean pathNotPossible;
 	
 	public Explore(RobotController controller) {
+		pathNotPossible = false;
 		this.controller = controller;
 		controller.getOwnData().foundMistake(false);
 		finishedExploring = false;
@@ -51,7 +53,8 @@ public class Explore implements Strategy {
 			try {
 				path = finder.shortestPath(getController().getCurrentPoint(), destination).iterator();
 			} catch (PathNotPossibleException e) {
-				e.printStackTrace();
+				pathNotPossible = true;
+				return plan;
 			}
 			while (path.hasNext()){
 				plan.add(path.next());
@@ -122,6 +125,8 @@ public class Explore implements Strategy {
 
 	@Override
 	public boolean hasToSwitchStrategy() {
+		if(pathNotPossible)
+			return true;
 		if(getController().getOwnData().foundMistakes())
 			return true;
 		if(hasFinishedExploring())
@@ -133,6 +138,8 @@ public class Explore implements Strategy {
 
 	@Override
 	public Strategy getReplacingStrategy() {
+		if(pathNotPossible)
+			return new Roam(getController());
 		if(getController().getOwnData().foundMistakes())
 			return new Explore(getController());
 		if(hasFinishedExploring() && getController().somebodyHasSeenPacmanRecently())

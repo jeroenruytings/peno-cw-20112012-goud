@@ -63,11 +63,19 @@ public class RobotController
 		driveFirstStep();
 		
 		while (!strategy.hasCaughtPacman()) {
-			if (strategy.hasToSwitchStrategy())
-				switchStrategy(strategy.getReplacingStrategy());
+			if (strategy.hasToSwitchStrategy()){
+				Strategy newStrat = strategy.getReplacingStrategy();
+				switchStrategy(newStrat);
+				System.out.println("Veranderen naar strategie: " + newStrat.toString());
+			}
 			addPanel();
 			fixInfoFromOtherRobots();
 //			addPacman();
+			if (strategy.hasToSwitchStrategy()){
+				Strategy newStrat = strategy.getReplacingStrategy();
+				switchStrategy(newStrat);
+				System.out.println("Veranderen naar strategie: " + newStrat.toString());
+			}
 			plan = strategy.constructRoute();
 			if(plan == null || plan.size()==0)
 				continue;
@@ -86,6 +94,7 @@ public class RobotController
 					break;
 				}
 				if (strategy.hasToUpdatePlan()) {
+					System.out.println("Pacman op route, route wijzigen...");
 					getOwnData().cancelPlan();
 					break;
 				}
@@ -227,13 +236,13 @@ public class RobotController
 	
 	private void addToBothBoards(Panel panel, Point point) {
 		getMergedBoard().add(panel, getCurrentPoint());
-		getOwnBoard().add(panel, getCurrentPoint());
+		//getOwnBoard().add(panel, getCurrentPoint());
 	}
 	
 	private void addForcedToBothBoards(Panel panel, Point point) {
 		getOwnData().foundMistake(true);
 		getMergedBoard().addForced(panel, getCurrentPoint());
-		getOwnBoard().addForced(panel, getCurrentPoint());
+		//getOwnBoard().addForced(panel, getCurrentPoint());
 	}
 
 	public Orientation getCurrentOrientation()
@@ -467,8 +476,10 @@ public class RobotController
 	
 	public boolean somebodyHasSeenPacmanRecently() {
 		for (RobotData robot : getWorld().get_robots().values()) {
-			if (robot.getPacman() != null && robot.getPacman().getDate().after(getOwnData().getLastChecked()))
+			if (robot.getPacman() != null && robot.getPacman().getDate().after(getOwnData().getLastChecked())){
+				//TODO: FIX THINGZ
 				return true;
+			}
 		}
 		return false;
 	}
