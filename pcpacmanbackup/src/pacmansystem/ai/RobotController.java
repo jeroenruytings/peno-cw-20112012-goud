@@ -67,7 +67,7 @@ public class RobotController
 				switchStrategy(strategy.getReplacingStrategy());
 			addPanel();
 			fixInfoFromOtherRobots();
-			addPacman();
+//			addPacman();
 			plan = strategy.constructRoute();
 			if(plan == null || plan.size()==0)
 				continue;
@@ -77,7 +77,7 @@ public class RobotController
 					addPanel();
 					fixInfoFromOtherRobots();
 				}
-				addPacman();
+//				addPacman();
 				if (strategy.hasToSwitchStrategy()) {
 					System.out.println("Veranderen van strategie...");
 					switchStrategy(strategy.getReplacingStrategy());
@@ -110,7 +110,7 @@ public class RobotController
 		List<Point> plan;
 		addPanel();
 		fixInfoFromOtherRobots();
-		addPacman();
+//		addPacman();
 		plan = strategy.constructRoute();
 		getOwnData().plan(plan);
 		destination = getOwnData().getRemainingPlan().get(0); 
@@ -129,21 +129,21 @@ public class RobotController
 		this.strategy = strategy;
 	}
 	
-	private void addPacman() {
-		for (RobotDataView robot : getOtherBots()) {
-			if (robot.getPacmanLastSighted() == null)
-				continue;
-			if (getOwnData().getPacmanLastSighted() != null
-					&& robot.getPacmanLastSighted().equals(
-							getOwnData().getPacmanLastSighted()))
-				continue;
-			if (robot.getPacmanLastSighted() == null
-					|| !robot.getPacmanLastSighted().equals(
-							getOwnData().getPacmanLastSighted())) {
-				getOwnData().pacman(robot.getPacmanLastSighted());
-			}
-		}
-	}
+//	private void addPacman() {
+//		for (RobotDataView robot : getOtherBots()) {
+//			if (robot.getPacmanLastSighted() == null)
+//				continue;
+//			if (getOwnData().getPacmanLastSighted() != null
+//					&& robot.getPacmanLastSighted().equals(
+//							getOwnData().getPacmanLastSighted()))
+//				continue;
+//			if (robot.getPacmanLastSighted() == null
+//					|| !robot.getPacmanLastSighted().equals(
+//							getOwnData().getPacmanLastSighted())) {
+//				getOwnData().pacman(robot.getPacmanLastSighted());
+//			}
+//		}
+//	}
 	
 	private void addPanel() {
 		// voegt panel toe aan board

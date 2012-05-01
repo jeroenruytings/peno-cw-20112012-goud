@@ -18,6 +18,7 @@ public class OwnRobotData extends RobotData
 {
 	private Board mergedBoard;
 	private boolean foundMistake;
+	private Point ownPacman;
 	
 	public OwnRobotData(String name)
 	{
@@ -234,5 +235,9 @@ public class OwnRobotData extends RobotData
 	
 	public boolean foundMistakes(){
 		return foundMistake;
+	}
+	
+	public Point getOwnPacman() {
+		return ownPacman;
 	}
 }
