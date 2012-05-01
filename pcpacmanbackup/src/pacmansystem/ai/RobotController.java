@@ -65,8 +65,8 @@ public class RobotController
 		while (!strategy.hasCaughtPacman()) {
 			if (strategy.hasToSwitchStrategy())
 				switchStrategy(strategy.getReplacingStrategy());
-//			addPanel();
-//			fixInfoFromOtherRobots();
+			addPanel();
+			fixInfoFromOtherRobots();
 //			addPacman();
 			plan = strategy.constructRoute();
 			if(plan == null || plan.size()==0)
