@@ -17,8 +17,10 @@ public class Barcode
 	public Barcode(int... code) 
 	{
 		String s = "";
-		for(int i : code)
-			s+=i;
+		if (code.length != 8)
+			throw new IllegalArgumentException("Deze constructor mag enkel met 8 argumenten worden opgeroepen.");
+		for(int i = 1; i < code.length -2; i++)
+			s+=code[i];
 		this.barcode = (Integer.parseInt(s,2));
 	}
 	
