@@ -18,10 +18,17 @@ public class NameMessage extends Message
 	{
 		return _version;
 	}
+	
+	@Override
+	public boolean canExecute(World world){
+		return true;
+	}
 
 	@Override
 	public void execute(World world)
 	{
+		if (!canExecute(world))
+			throw new MessageExecuteException();
 		try {
 			synchronized (world) {
 				world.notify();

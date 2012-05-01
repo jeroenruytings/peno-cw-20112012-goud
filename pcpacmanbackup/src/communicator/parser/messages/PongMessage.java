@@ -32,9 +32,16 @@ public class PongMessage extends Message {
 	public String getString(){
 		return _string;
 	}
-
+	
 	@Override
-	void execute(World simulator) {
+	public boolean canExecute(World world){
+		return true;
+	}
+	
+	@Override
+	void execute(World world) {
+		if (!canExecute(world))
+			throw new MessageExecuteException();
 		// TODO Hebben we zelf een ping uitgestuurt naar deze persoon?
 
 	}

@@ -25,7 +25,7 @@ public class RealWorldViewNoMoving implements RealWorldView
 	}
 
 	/**
-	 * Gets the Componnent with the highest z-value on this point
+	 * Gets the Component with the highest z-value on this point
 	 */
 	@Override
 	public LocationComponent get(Pointf point)

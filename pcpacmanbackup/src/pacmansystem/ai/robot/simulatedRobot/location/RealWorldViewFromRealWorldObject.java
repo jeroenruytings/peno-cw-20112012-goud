@@ -229,10 +229,11 @@ public class RealWorldViewFromRealWorldObject implements RealWorldViewBuilder
 			throw new Error("Blahblah orientation realworldview barcodes");
 		}
 		
-		return null;
+		return rv;
 	}
 
-	 List<LocationComponent> genWestBarcode(Point point,
+	 @SuppressWarnings("deprecation")
+	List<LocationComponent> genWestBarcode(Point point,
 			Barcode barcode)
 	{
 		List<LocationComponent> rv = new ArrayList<LocationComponent>();
@@ -264,6 +265,7 @@ public class RealWorldViewFromRealWorldObject implements RealWorldViewBuilder
 		return rv;
 	}
 
+	@SuppressWarnings("deprecation")
 	List<LocationComponent> genSouthBarcode(Point point,
 			Barcode barcode)
 	{
@@ -296,6 +298,7 @@ public class RealWorldViewFromRealWorldObject implements RealWorldViewBuilder
 		return rv;
 	}
 
+	@SuppressWarnings("deprecation")
 	List<LocationComponent> genEastBarcodes(Point point,
 			Barcode barcode)
 	{
@@ -334,6 +337,7 @@ public class RealWorldViewFromRealWorldObject implements RealWorldViewBuilder
 	 * @param barcode
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	List<LocationComponent> genNorthBarcodes(Point point,
 			Barcode barcode)
 	{

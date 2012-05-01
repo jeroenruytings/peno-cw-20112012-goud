@@ -51,7 +51,5 @@ public class RobotCommunicator {
 		}
 		return commando;
 		
-		
-		
 	}
 }

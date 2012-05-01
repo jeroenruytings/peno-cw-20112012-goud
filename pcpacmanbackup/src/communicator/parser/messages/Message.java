@@ -85,10 +85,19 @@ public abstract class Message {
 	
 	
 	public String getSentString(){
-		return getNameFrom() + getKeyword() + getParameterString();
+		return getNameFrom()+ " " + getKeyword() + " " + getParameterString();
 	}
 	
-	abstract void execute(World world);
+	/**
+	 * @param 	world
+	 * 				The world to execute on.
+	 * @return	True if this message can be executed on the given world.
+	 */
+	protected boolean canExecute(World world){
+		return world.getRobot(getNameFrom()) != null;
+	}
+	
+	abstract void execute(World world) throws MessageExecuteException;
 
 	public abstract boolean equals(Message cmd);
 
@@ -126,6 +135,10 @@ public abstract class Message {
 	 */
 	public Message getShowMapMessage(){
 		return null;
+	}
+	
+	public String toString(){
+		return getSentString();
 	}
 
 }

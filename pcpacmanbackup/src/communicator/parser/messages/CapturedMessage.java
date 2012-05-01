@@ -12,9 +12,11 @@ public class CapturedMessage extends Message
 	}
 
 	@Override
-	void execute(World simulator)
+	void execute(World world)
 	{
-		simulator.getRobot(getNameFrom()).setCapturedPacman(true);
+		if(!canExecute(world))
+			throw new MessageExecuteException();
+		world.getRobot(getNameFrom()).setCapturedPacman(true);
 	}
 
 	@Override

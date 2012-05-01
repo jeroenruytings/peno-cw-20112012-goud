@@ -28,6 +28,8 @@ public class UndoBarcodeMessage extends Message {
 
 	@Override
 	void execute(World world) {
+		if(!canExecute(world))
+			throw new MessageExecuteException();
 		// TODO Auto-generated method stub
 
 	}

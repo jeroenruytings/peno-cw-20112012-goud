@@ -25,8 +25,15 @@ public class PingMessage extends Message {
 	}
 
 	@Override
-	void execute(World simulator) {
-		for(RobotData robot : simulator.get_robots().values()){
+	public boolean canExecute(World world){
+		return true;
+	}
+	
+	@Override
+	void execute(World world) {
+		if (!canExecute(world))
+			throw new MessageExecuteException();
+		for(RobotData robot : world.get_robots().values()){
 			if(getBestemmeling().equals(robot.getName())||getBestemmeling().equals("*"))
 				robot.pong(getNameFrom(),getString());
 		}

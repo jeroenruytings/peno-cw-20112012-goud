@@ -24,6 +24,8 @@ public class PacmanMessage extends Message
 	@Override
 	public void execute(World world)
 	{
+		if (!canExecute(world))
+			throw new MessageExecuteException();
 		world.getRobot(getNameFrom()).setPacman(_coordinate);
 		synchronized (world.getRobot(getNameFrom())) {
 			world.getRobot(getNameFrom()).notify();

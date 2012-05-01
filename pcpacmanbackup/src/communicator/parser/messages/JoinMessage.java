@@ -10,10 +10,16 @@ public class JoinMessage extends Message
 		super("");
 	}
 
+	public boolean canExecute(World world){
+		return true;
+	}
+	
 	@Override
-	void execute(World simulator)
+	void execute(World world)
 	{
-		simulator.register();
+		if(!canExecute(world))
+			throw new MessageExecuteException();
+		world.register();
 	}
 
 	@Override

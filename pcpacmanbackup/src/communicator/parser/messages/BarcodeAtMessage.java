@@ -49,6 +49,8 @@ public class BarcodeAtMessage extends Message {
 	
 	@Override
 	void execute(World world) {
+		if (!canExecute(world))
+			throw new MessageExecuteException();
 		Panel p;
 		if(world.getRobot(getNameFrom()).getBoard().getPanelAt(getCoordinate()) == null){
 				p = new Panel();

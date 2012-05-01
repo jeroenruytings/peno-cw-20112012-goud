@@ -24,6 +24,8 @@ public class PositionMessage extends Message
 	@Override
 	void execute(World world)
 	{
+		if (!canExecute(world))
+			throw new MessageExecuteException();
 		world.getRobot(getNameFrom()).setPosition(_position);
 		synchronized (world.getRobot(getNameFrom())) {
 			world.getRobot(getNameFrom()).notify();

@@ -16,6 +16,8 @@ public class CancelPlanMessage extends Message
 	@Override
 	void execute(World world)
 	{
+		if(!canExecute(world))
+			throw new MessageExecuteException();
 		world.getRobot(getNameFrom()).clearPlan();
 		synchronized (world.getRobot(getNameFrom())) {
 			world.getRobot(getNameFrom()).notify();

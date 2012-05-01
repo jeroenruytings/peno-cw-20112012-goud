@@ -51,32 +51,34 @@ public class DiscoverMessage extends Message
 	@Override
 	public void execute(World world)
 	{
+		if (!canExecute(world))
+			throw new MessageExecuteException();
+		
 		Panel p = getPanel();
-		if (world.getRobot(getNameFrom()) != null){
-			Board b = world.getRobot(getNameFrom()).getBoard();
-			if(!b.hasPanelAt(_coordinate))
-				b.add(p, _coordinate);
-			else if(!p.equals(b.getPanelAt(_coordinate))){
-				Panel e = b.getPanelAt(_coordinate);
-				for(Orientation d : Orientation.values()){
-					if(e.getWallState(d) == WallState.UNKNOWN)
+		Board b = world.getRobot(getNameFrom()).getBoard();
+		if(!b.hasPanelAt(_coordinate))
+			b.add(p, _coordinate);
+		else if(!p.equals(b.getPanelAt(_coordinate))){
+			Panel e = b.getPanelAt(_coordinate);
+			for(Orientation d : Orientation.values()){
+				if(e.getWallState(d) == WallState.UNKNOWN)
 					e.setBorder(d, p.getWallState(d));
-					if(e.getWallState(d) != p.getWallState(d)){
-						e.setBorder(d, p.getWallState(d));
-					}
-				}
-				try{
-					b.add(e, _coordinate);
-				}catch (IllegalArgumentException err){
-					b.addForced(e,_coordinate);
-					System.err.println(_coordinate);
+				if(e.getWallState(d) != p.getWallState(d)){
+					e.setBorder(d, p.getWallState(d));
 				}
 			}
-			
-			synchronized (world.getRobot(getNameFrom())) {
-				world.getRobot(getNameFrom()).notify();
+			try{
+				b.add(e, _coordinate);
+			}catch (IllegalArgumentException err){
+				b.addForced(e,_coordinate);
+				System.err.println(_coordinate);
 			}
 		}
+
+		synchronized (world.getRobot(getNameFrom())) {
+			world.getRobot(getNameFrom()).notify();
+		}
+
 	}
 
 	@Override

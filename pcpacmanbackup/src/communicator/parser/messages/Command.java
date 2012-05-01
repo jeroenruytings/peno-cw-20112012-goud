@@ -23,7 +23,13 @@ public class Command
 	 * 				The world to execute this command on.
 	 */
 	public void execute(World world){
-		_myMessage.execute(world);
+		try{
+			_myMessage.execute(world);
+		}catch (MessageExecuteException e) {
+			System.err.println("De volgende Message is niet uitgevoerd: " + _myMessage);
+			System.err.println("Waarscheinlijk omdat de naam van de zendende robot niet gekent is.");
+			System.err.println("Kijk in de 'canExecute(world)' methode van de corresponderende message-klasse voor meer info.");
+		}
 	}
 
 	

@@ -28,6 +28,8 @@ public class PlanMessage extends Message
 	@Override
 	void execute(World world)
 	{
+		if (!canExecute(world))
+			throw new MessageExecuteException();
 		ArrayList<Point> plan = new ArrayList<Point>();
 		for (Point point : _path) {
 			plan.add(point);

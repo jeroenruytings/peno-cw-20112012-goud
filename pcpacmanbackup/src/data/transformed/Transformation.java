@@ -13,7 +13,6 @@ import data.board.Board;
 import data.board.Panel;
 import data.board.operations.Operations;
 import data.board.operations.Operations.Turn;
-import data.enums.Direction;
 import data.enums.Orientation;
 import data.world.RobotData;
 import data.world.RobotDataView;
@@ -61,7 +60,6 @@ public class Transformation
 	private static int calculateTurns(Panel panelThiz, Panel panelThat) {
 		Barcode one = panelThiz.getBarcode();
 		Barcode two = panelThat.getBarcode();
-		Direction direction;
 		Orientation orientation1 = panelThiz.getBarcodeOrientation();
 		Orientation orientation2 = panelThat.getBarcodeOrientation();
 		if(one.getValue()!=two.getValue())

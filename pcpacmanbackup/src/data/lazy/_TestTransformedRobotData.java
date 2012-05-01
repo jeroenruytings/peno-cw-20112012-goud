@@ -110,7 +110,7 @@ public class _TestTransformedRobotData
 	public void testAllthethings()
 	{
 		Barcode barcode = new Barcode(37);
-		Barcode barcode2=new Barcode(barcode.getReverse());
+		//Barcode barcode2=new Barcode(barcode.getReverse());
 		Panel one = new Panel();
 		one.setBarcode(barcode, Orientation.NORTH);
 		Panel two = new Panel();

@@ -23,9 +23,16 @@ public class ShowmapMessage extends Message {
 	public String getKeyword() {
 		return "SHOWMAP";
 	}
+	
+	@Override
+	public boolean canExecute(World world){
+		return world.getRobot(_receiver) != null;
+	}
 
 	@Override
 	void execute(World world) {
+		if (!canExecute(world))
+			throw new MessageExecuteException();
 		// TODO Auto-generated method stub
 
 	}
