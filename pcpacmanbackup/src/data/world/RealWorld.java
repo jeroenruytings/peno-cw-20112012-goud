@@ -25,7 +25,7 @@ import data.transformed.Transformation;
 
 public class RealWorld implements Observer
 {
-	private World managedWorld = new World();
+	private World managedWorld = World.getWorldWitNObbitMQ();
 
 	private Board globalBoard;
 	private Point pacman;

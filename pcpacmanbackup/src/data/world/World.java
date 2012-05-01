@@ -20,7 +20,6 @@ public class World implements Observer
 	private int registeredRobots;
 	private int named=0;
 	private int amountOfRobotsNeeded = 4;
-	private MessageReceiver rabbitMQReceiver;
 	private RabbitMQHistory rabbitMQhistory;
 
 	
@@ -32,18 +31,32 @@ public class World implements Observer
 		return _robots;
 	}
 
-	public World()
+	private World()
 	{
 		_robots = new ConcurrentHashMap<String, RobotData>();
-			try {
-				rabbitMQReceiver = new MessageReceiver();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			rabbitMQReceiver.addObserver(this);
-			rabbitMQhistory = new RabbitMQHistory(rabbitMQReceiver);
-			Thread t = new Thread(rabbitMQReceiver);
-			t.start();
+			
+	}
+	public static World getWorldWitNObbitMQ()
+	{
+		return new World();
+	}
+	/**
+	 * Creates a world objcet and starts the reciever.SA
+	 */
+	public static World getWorldWithRabbbitMQ()
+	{
+		World rv = new World();
+		MessageReceiver rabbitMQReceiver;
+		try {
+			rabbitMQReceiver = new MessageReceiver();
+		} catch (IOException e) {
+			throw new Error("Rabbit mq is down");
+		}
+		rabbitMQReceiver.addObserver(rv);
+		rv.rabbitMQhistory = new RabbitMQHistory(rabbitMQReceiver);
+		Thread t = new Thread(rabbitMQReceiver);
+		t.start();
+		return rv;
 	}
 
 	public void start(RobotData me)
@@ -157,11 +170,9 @@ public class World implements Observer
 	@Override
 	public void update(Observable o, Object arg)
 	{
-		if (o == rabbitMQReceiver) {
-			// arg is een Message-object
 			Command cmd = new Command((Message) arg);
 			cmd.execute(this);
-		}
+		
 	}
 
 	public void setRobot(RobotData data, String name)

@@ -72,7 +72,7 @@ public class SubscribeMonitor {
 					String message = new String(body);
 					try {
 						Command command = new Command(decoder.parse(message));
-						command.execute(new World());
+						command.execute(World.getWorldWithRabbbitMQ());
 					} catch (ParseException e) {
 						System.out.println("fail");
 					}
