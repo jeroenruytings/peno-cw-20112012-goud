@@ -2,6 +2,7 @@ package pacmansystem.ai.strategy;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class Roam implements Strategy {
 	
 	public Roam(RobotController controller) {
 		this.controller = controller;
-		visitedPoints = new TreeSet<Point>();
+		visitedPoints = new HashSet<Point>();
 	}
 	
 	public RobotController getController() {
@@ -86,7 +87,7 @@ public class Roam implements Strategy {
 	
 	private Set<Point> getUnVisitedPoints() {
 		Set<Point> allPoints = getController().getMergedBoard().getPanels().keySet();
-		if (visitedPoints.containsAll(allPoints))
+		if (visitedPoints.size() == allPoints.size())
 			visitedPoints = new TreeSet<Point>();
 		for (Point point : visitedPoints) {
 			allPoints.remove(point);

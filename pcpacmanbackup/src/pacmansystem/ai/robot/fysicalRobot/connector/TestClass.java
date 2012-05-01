@@ -102,19 +102,19 @@ public class TestClass {
 		System.out.println("");
 		System.out.println("Ga naar volgende paneel");
 		System.out.println("");
-		panel.go(Direction.LEFT);
+		panel.go(Direction.DOWN);
 		
 		System.out.println("Op Paneel 4");
 //		System.out.println("Up: " + panel.hasBorder(Direction.UP));
 //		System.out.println("Right: " + panel.hasBorder(Direction.RIGHT));
 //		System.out.println("Down: " + panel.hasBorder(Direction.DOWN));
 //		System.out.println("Left: " + panel.hasBorder(Direction.LEFT));
-		panel.getPanel(Orientation.WEST);
+		panel.getPanel(Orientation.SOUTH);
 //		System.out.println(panel.getBarcode().getValue());
 		System.out.println("");
 		System.out.println("Ga naar volgende paneel");
 		System.out.println("");
-		panel.go(Direction.LEFT);
+		panel.go(Direction.UP);
 		
 		System.out.println("Op Paneel 5");
 //		System.out.println("Up: " + panel.hasBorder(Direction.UP));
@@ -133,12 +133,12 @@ public class TestClass {
 //		System.out.println("Right: " + panel.hasBorder(Direction.RIGHT));
 //		System.out.println("Down: " + panel.hasBorder(Direction.DOWN));
 //		System.out.println("Left: " + panel.hasBorder(Direction.LEFT));
-		panel.getPanel(Orientation.SOUTH);
+		panel.getPanel(Orientation.NORTH);
 	//	System.out.println(panel.getBarcode().getValue());
 		System.out.println("");
 		System.out.println("Ga naar volgende paneel");
 		System.out.println("");
-		panel.go(Direction.UP);
+		panel.go(Direction.DOWN);
 		
 		System.out.println("Op Paneel 7");
 //		System.out.println("Up: " + panel.hasBorder(Direction.UP));

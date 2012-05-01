@@ -49,7 +49,6 @@ public class OrientationLayer
 	{
 		for (Direction d : Direction.values())
 			if (o == currentOrientation.addTo(d)) {
-				System.out.println("go direction"+d);
 				layer.go(d);
 				this.currentOrientation = o;
 				return;

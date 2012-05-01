@@ -69,8 +69,8 @@ public class RobotController
 			fixInfoFromOtherRobots();
 			addPacman();
 			plan = strategy.constructRoute();
-//			if(plan == null)
-//				continue;
+			if(plan == null || plan.size()==0)
+				continue;
 			getOwnData().plan(plan);
 			while (getOwnData().getRemainingPlan().size() > 0) {
 				if (!strategy.hasFinishedExploring()) {
@@ -79,7 +79,7 @@ public class RobotController
 				}
 				addPacman();
 				if (strategy.hasToSwitchStrategy()) {
-					System.out.println("has to switch!");
+					System.out.println("Veranderen van strategie...");
 					switchStrategy(strategy.getReplacingStrategy());
 					getOwnData().cancelPlan();
 					break;
@@ -93,7 +93,6 @@ public class RobotController
 																		// gaan
 				System.out.println("Rijden van (" + Message.pointToMessageString(getCurrentPoint()) + ") naar ("+Message.pointToMessageString(destination) + ")");
 				try {
-					System.out.println("go to : "+destination);
 					getPathLayer().goOneStep(getCurrentPoint(), destination);
 				} catch (IllegalDriveException e) {
 					e.printStackTrace();

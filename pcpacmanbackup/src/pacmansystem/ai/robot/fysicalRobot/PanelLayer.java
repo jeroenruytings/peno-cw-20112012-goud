@@ -23,6 +23,7 @@ public class PanelLayer implements PanelLayerInterface
 	private boolean pacmanSeen = false;
 	private int lastSeenIrDistance = 0;
 	private int infraredValue = 100;
+	private int numberOfWallsToCorrect = 1;
 	
 
 	public int getLastSeenIrDistance() {
@@ -163,6 +164,7 @@ public class PanelLayer implements PanelLayerInterface
 			}
 			if (distanceToWall < distanceAllowed){
 					hasToCorrect = true;
+					numberOfWallsToCorrect++;
 				return WallState.WALL;
 			}
 			else {
@@ -338,7 +340,7 @@ public class PanelLayer implements PanelLayerInterface
 			panel.setBarcode(getBarcode(), currentOrientation);
 		}
 		
-		if(hasToCorrect){
+		if(hasToCorrect && numberOfWallsToCorrect%2==0){
 			correctToMiddle();
 			hasToCorrect = false;
 		}

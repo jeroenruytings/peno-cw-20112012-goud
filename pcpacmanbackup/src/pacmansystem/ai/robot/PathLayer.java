@@ -93,7 +93,6 @@ public class PathLayer {
 		try {
 			
 			o = Board.getOrientationBetween(current,next);
-			System.out.println("go orientation:" + o);
 			orientationLayer.go(o);
 			data.position(next);
 			data.setOrientation(o);
