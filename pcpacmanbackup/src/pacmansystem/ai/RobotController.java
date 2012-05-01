@@ -177,7 +177,7 @@ public class RobotController
 	 * @param pacmanSpotted
 	 * 			The direction in which pacman was seen
 	 * @return	pacman's location
-	 * @effect	Adds all panels in between the robot's current position
+	 * @effect	Adds all panels in between the robot's current location
 	 * 			and pacman's location if they do not yet exist
 	 */
 	public Point getPacmanLocation(Direction pacmanSpotted) {
