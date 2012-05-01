@@ -1,10 +1,12 @@
 package pacmansystem.ai.strategy;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import pacmansystem.ai.RobotController;
 import data.board.shortestpathfinder.dijkstra.DijkstraFinder;
@@ -21,8 +23,11 @@ public class Roam implements Strategy {
 
 	private RobotController controller;
 	
+	private Set<Point> visitedPoints;
+	
 	public Roam(RobotController controller) {
 		this.controller = controller;
+		visitedPoints = new TreeSet<Point>();
 	}
 	
 	public RobotController getController() {
@@ -56,10 +61,10 @@ public class Roam implements Strategy {
 	 * Returns a random point from the robot's own board
 	 */
 	private Point getRandomPoint() {
-		Set<Point> allPoints = getController().getMergedBoard().getPanels().keySet();
-		Point[] pointsArray = new Point[allPoints.size()];
+		Set<Point> unVisitedPoints = getUnVisitedPoints();
+		Point[] pointsArray = new Point[unVisitedPoints.size()];
 		int i = 0;
-		for (Point point: allPoints) {
+		for (Point point: unVisitedPoints) {
 			pointsArray[i] = point;
 			i++;
 		}
@@ -75,7 +80,18 @@ public class Roam implements Strategy {
 				}
 			}
 		}
+		visitedPoints.add(randomPoint);
 		return randomPoint;
+	}
+	
+	private Set<Point> getUnVisitedPoints() {
+		Set<Point> allPoints = getController().getMergedBoard().getPanels().keySet();
+		if (visitedPoints.containsAll(allPoints))
+			visitedPoints = new TreeSet<Point>();
+		for (Point point : visitedPoints) {
+			allPoints.remove(point);
+		}
+		return allPoints;
 	}
 
 	@Override
