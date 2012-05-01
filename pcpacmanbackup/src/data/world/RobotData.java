@@ -116,6 +116,8 @@ public class RobotData implements RobotDataView
 	@Override
 	public Point getPacmanLastSighted()
 	{
+		if(pacman == null)
+			return null;
 		return pacman.getPosition();
 	}
 	

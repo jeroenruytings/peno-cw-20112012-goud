@@ -158,4 +158,5 @@ public class Explore implements Strategy {
 	public boolean hasToUpdatePlan() {
 		return false;
 	}
+
 }
