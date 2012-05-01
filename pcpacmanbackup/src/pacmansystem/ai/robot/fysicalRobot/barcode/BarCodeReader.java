@@ -22,8 +22,22 @@ public class BarCodeReader
 		
 		BarcodeFinder finder = new BarcodeFinder(_stack.getColors(), 8);
 		
-		return closestHamming(finder.getCode());
+		Barcode code = null;
+		
+		if(isCode(finder.getCode()))
+			code = new Barcode(finder.getCode());
+		return code;
+		
+	}
 
+	private boolean isCode(int[] code) {
+		for(int [] key : _codes.keySet()){
+			if(hamming(code,key) == 8){
+				return true;
+			}
+			
+		}
+		return false;
 	}
 
 	private Barcode closestHamming(int[] thi)
