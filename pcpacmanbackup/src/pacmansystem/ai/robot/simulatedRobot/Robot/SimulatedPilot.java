@@ -65,7 +65,7 @@ public class SimulatedPilot implements Tickable
 		public void tick(Ticker ticker)
 		{
 			// TODO Auto-generated method stub
-
+			
 		}
 
 	}

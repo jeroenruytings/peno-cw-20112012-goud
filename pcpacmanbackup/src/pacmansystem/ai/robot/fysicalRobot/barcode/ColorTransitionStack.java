@@ -107,7 +107,7 @@ public class ColorTransitionStack
 
 	private int distance(ColorNode one, ColorNode two)
 	{
-		int distance = Math.abs(one.get_dist() - two.get_dist());
+		int distance = one.get_dist() - two.get_dist();
 		return distance ;
 	}
 
