@@ -142,11 +142,11 @@ public class Explore implements Strategy {
 			return new Roam(getController());
 		if(getController().getOwnData().foundMistakes())
 			return new Explore(getController());
-		if(hasFinishedExploring() && getController().somebodyHasSeenPacmanRecently())
+		if(hasFinishedExploring() && getController().pacmanRecentlySeenAndReachable())
 			return new Hunt(getController());
-		if(hasFinishedExploring() && !getController().somebodyHasSeenPacmanRecently())
+		if(hasFinishedExploring() && !getController().pacmanRecentlySeenAndReachable())
 			return new Roam(getController());
-		if(!hasFinishedExploring() && getController().getOwnData().getPacmanLastSighted() != null)
+		if(!hasFinishedExploring() && getController().getOwnData().getPacmanLastSighted() != null) //TODO: willen we mss dat hij ook catch als hij bereikbaar is, maar gezien door iemand anders?
 			return new Catch(getController());
 		return this;
 	}

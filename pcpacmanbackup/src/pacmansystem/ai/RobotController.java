@@ -480,17 +480,19 @@ public class RobotController
 	 * be constructed from this robot's current position to pacman
 	 * @return
 	 */
-	public boolean somebodyHasSeenPacmanRecently() {
-		for (RobotData robot : getWorld().get_robots().values()) {
+	public boolean pacmanRecentlySeenAndReachable() {
+		List<RobotData> allBots = (List<RobotData>) getOtherBots();
+		allBots.add(getOwnData());
+		for (RobotData robot : allBots) {
 			if (robot.getPacman() != null && robot.getPacman().getDate().after(getOwnData().getLastChecked())){
 				DijkstraFinder finder = new DijkstraFinder(getOwnData().getMergedBoard());
 				Iterator<Point> path = null;
 				try {
 					path = finder.shortestPath(getCurrentPoint(), robot.getPacmanLastSighted()).iterator();
+					return true;
 				} catch (PathNotPossibleException e) {
 					continue;
 				}
-				return true;
 			}
 		}
 		return false;

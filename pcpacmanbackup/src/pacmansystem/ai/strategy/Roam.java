@@ -100,7 +100,7 @@ public class Roam implements Strategy {
 	public boolean hasToSwitchStrategy() {
 		if(getController().getOwnData().foundMistakes())
 			return true;
-		if(getController().somebodyHasSeenPacmanRecently())
+		if(getController().pacmanRecentlySeenAndReachable())
 			return true;
 		return false;
 	}
@@ -109,7 +109,7 @@ public class Roam implements Strategy {
 	public Strategy getReplacingStrategy() {
 		if(getController().getOwnData().foundMistakes())
 			return new Explore(getController());
-		if(getController().somebodyHasSeenPacmanRecently())
+		if(getController().pacmanRecentlySeenAndReachable())
 			return new Hunt(getController());
 		return this;
 	}
