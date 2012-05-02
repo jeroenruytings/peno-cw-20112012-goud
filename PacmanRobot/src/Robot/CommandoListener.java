@@ -41,7 +41,7 @@ public class CommandoListener implements Runnable {
 	public CommandoListener(SensorListener listener){
 		
 		communicator = RobotCommunicator.instance();
-		pilot = new DifferentialPilot(54.5f, 54.75f, 148.35f, Motor.A, Motor.B, false);
+		pilot = new DifferentialPilot(54.5f, 54.75f, 150.05f, Motor.A, Motor.B, false);
 		this.listener = listener;
 	}
 	
@@ -143,121 +143,150 @@ public class CommandoListener implements Runnable {
 //	}
 	
 	private void correctToMiddle() {
-		   Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
-           
-           Motor.A.setSpeed(360);
-           Motor.A.setSpeed(360);
+		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
+		
+		Motor.A.setSpeed(360);
+		Motor.A.setSpeed(360);
 
-           correctToMiddleX();
-           correctToMiddleY();
-           
-           
-           communicator.send(message);
+		correctToMiddleX();
+		setHeadZero();
+		correctToMiddleY();
+		
+		
+		communicator.send(message);
+		
+		
+		
+	}
+	
+	private void setHeadZero() {
+	
+		
+			int currentPosition = listener.getHeadTacho();
+			Motor.C.rotate(-currentPosition);
+	}
+		
+		
+	
 
+
+	private void correctToMiddleX(){
+		int firstTacho = Motor.A.getTachoCount();
+		while(!iswhite(listener.getLightValue())){
+			Motor.A.backward();
+			Motor.B.backward();
+//			if(firstTacho - Motor.A.getTachoCount()> 2640){
+//				restore();	
+//				return;
+//			}
+		}
+		pilot.travel(40);
+		pilot.rotate(-180, true);
+		Motor.B.resetTachoCount();
+		interruptToWhite();
+		int tellerL = Motor.B.getTachoCount();
+		
+		Motor.B.resetTachoCount();
+		pilot.rotate(90,true);
+		interruptToBrown();
+		
+		pilot.rotate(180,true);
+		interruptToWhite();
+		int tellerR = Motor.B.getTachoCount();
+		
+		System.out.println("linkerteller: " + tellerL);
+		System.out.println("Rechterteller: " + tellerR);
+		
+		
+		int teller = (int) (0.33*tellerR);
+		pilot.rotate(-360, true);
+		interruptWhenDestinationReached(teller);
+		
+		pilot.travel(200);
+	}
+	
+	private void restore() {
+		// TODO Auto-generated method stub
+		
 	}
 
-    private void correctToMiddleX(){
-        
-        while(!iswhite(listener.getLightValue())){
-                Motor.A.backward();
-                Motor.B.backward();
-        }
-        pilot.travel(40);
-        pilot.rotate(-180, true);
-        Motor.B.resetTachoCount();
-        interruptToWhite();
-        int tellerL = Motor.B.getTachoCount();
-        
-        Motor.B.resetTachoCount();
-        pilot.rotate(90,true);
-        interruptToBrown();
-        
-        pilot.rotate(180,true);
-        interruptToWhite();
-        int tellerR = Motor.B.getTachoCount();
-        
-        System.out.println("linkerteller: " + tellerL);
-        System.out.println("Rechterteller: " + tellerR);
-        
-        
-        int teller = (int) (0.33*tellerR);
-        pilot.rotate(-360, true);
-        interruptWhenDestinationReached(teller);
-        
-        pilot.travel(240);
-    }
-    
-    private void correctToMiddleY(){
-        
-        Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
-        turnHeadLeft(90);
-        int left = listener.getSonarValue();
-        turnHeadRight(90);
-        if(left>27){
-                left(90);
-                pilot.travel(400, true);
-                interruptToWhite();
-                left(185);
-                pilot.travel(155);
-                left(90);
-                return;
-        }
-        turnHeadRight(90);
-        int right = listener.getSonarValue();
-        turnHeadLeft(90);
-        if(right>27){
-                right(90);
-                pilot.travel(400, true);
-                interruptToWhite();
-                right(185);
-                pilot.travel(155);
-                right(90);
-                return;
-        }
-        else{
-        right = right - 6;
-        int diff = (right - left)/2;
-        if(diff<0){
-                left(90);
-                pilot.travel(-diff);
-                right(90);
-        }
-        else if(diff>0){
-                right(90);
-                pilot.travel(diff);
-                left(90);
-        }
-        }
-        
-        communicator.send(message);
-    }
-    
-    private void interruptWhenDestinationReached(int teller) {
-        Motor.B.resetTachoCount();
-        while(pilot.isMoving()){
-                if(Motor.B.getTachoCount()<(-teller)){
-                        pilot.stop();
-                }
-        }
-    }
+	private void correctToMiddleY(){
+		
+		Motor.C.rotate(90);
+		Message headMessage = new Message(Monitor.SensorMonitor, SensorIdentifier.HeadTacho, new SensorValue((byte)listener.getHeadTacho()));
+		communicator.send(headMessage);
+		int left = listener.getSonarValue();
+		Motor.C.rotate(-90);
+		headMessage = new Message(Monitor.SensorMonitor, SensorIdentifier.HeadTacho, new SensorValue((byte)listener.getHeadTacho()));
+		communicator.send(headMessage);
+		
+		if(left>27){
+			left(90);
+			pilot.travel(400, true);
+			interruptToWhite();
+			left(185);
+			pilot.travel(155);
+			left(90);
+			return;
+		}
+		
+		Motor.C.rotate(-90);
+		headMessage = new Message(Monitor.SensorMonitor, SensorIdentifier.HeadTacho, new SensorValue((byte)listener.getHeadTacho()));
+		communicator.send(headMessage);
+		int right = listener.getSonarValue();
+		Motor.C.rotate(90);
+		headMessage = new Message(Monitor.SensorMonitor, SensorIdentifier.HeadTacho, new SensorValue((byte)listener.getHeadTacho()));
+		communicator.send(headMessage);
+		
+		if(right>27){
+			right(90);
+			pilot.travel(400, true);
+			interruptToWhite();
+			right(185);
+			pilot.travel(155);
+			right(90);
+			return;
+		}
+		else{
+			right = right - 6;
+			int diff = (right - left)/2;
+			if(diff<0){
+				left(90);
+				pilot.travel(-diff);
+				right(90);
+			}
+			else if(diff>0){
+				right(90);
+				pilot.travel(diff);
+				left(90);
+			}
+		}
+	}
 
-    private void interruptToBrown() {
-        while(pilot.isMoving()){
-                if(isbrown(listener.getLightValue())){
-                        pilot.stop();
-                }
-        }
-    }
+	private void interruptWhenDestinationReached(int teller) {
+		Motor.B.resetTachoCount();
+		while(pilot.isMoving()){
+			if(Motor.B.getTachoCount()<(-teller)){
+				pilot.stop();
+			}
+		}
+	}
 
-    private void interruptToWhite() {
-        while(pilot.isMoving()){
-                if(iswhite(listener.getLightValue())){
-                        pilot.stop();
-                }
-        }
-    }
+	private void interruptToBrown() {
+		while(pilot.isMoving()){
+			if(isbrown(listener.getLightValue())){
+				pilot.stop();
+			}
+		}
+	}
 
-
+	private void interruptToWhite() {
+		while(pilot.isMoving()){
+			if(iswhite(listener.getLightValue())){
+				pilot.stop();
+			}
+		}
+	}
 
 	private void turnHeadLeft(int argument){
 		
@@ -294,7 +323,13 @@ public class CommandoListener implements Runnable {
 	private void calibrateWhite() {
 		LCD.clear();
 		LCD.drawString("WIT (enter)", 0, 0);
+	//	Button.ENTER.waitForPressAndRelease();
+	//	System.out.println("Wit:" + listener.getLightValue()*4);
+	//	Button.ENTER.waitForPressAndRelease();
+	//	Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.LightSensor, new SensorValue((byte)listener.getLightValue()));
+	//	communicator.send(message);
 		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
+	//	System.out.println("send message enter");
 		lejos.nxt.Button.ENTER.waitForPressAndRelease();
 		setWhite(listener.getLightValue());
 		communicator.send(message);
@@ -305,7 +340,9 @@ public class CommandoListener implements Runnable {
 		LCD.clear();
 		LCD.drawString("BLACK (enter)", 0, 0);
 		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
+		
 		lejos.nxt.Button.ENTER.waitForPressAndRelease();
+		
 		setBlack(listener.getLightValue());
 		communicator.send(message);
 		System.out.println("OK");
@@ -363,42 +400,36 @@ public class CommandoListener implements Runnable {
 	}
 	
 	public void readBarcode(){
-		int speed = 300;
 		Motor.A.resetTachoCount();
+//		Button.ENTER.waitForPressAndRelease();
 		pilot.travel(-160);
 		Motor.A.resetTachoCount();
-		pilot.setSpeed(speed);
+		pilot.setSpeed(180);
+//		Button.ENTER.waitForPressAndRelease();
 		pilot.travel(320);
 		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
 		communicator.send(message);
 		Motor.A.resetTachoCount();
 		pilot.setSpeed(360);
+//		Button.ENTER.waitForPressAndRelease();
 		pilot.travel(-160);
 		Motor.A.resetTachoCount();
-
+//		Button.ENTER.waitForPressAndRelease();
 	}
 	
 private void right(int i) {
-	
-	System.out.println("distance = " + i);
 	pilot.rotate(i);
 }
 
 private void left(int i) {
-	
-	System.out.println("distance = " + i);
 	pilot.rotate(-i);
 }
 
 private void backward(int i) {
-	
-	System.out.println("distance = " + i);
 	pilot.travel(-i);
 }
 
 private void forward(int i) {
-	
-	System.out.println("distance = " + i);
 	pilot.travel(i);
 	
 }

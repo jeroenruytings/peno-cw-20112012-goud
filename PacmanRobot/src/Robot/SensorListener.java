@@ -65,45 +65,44 @@ public class SensorListener implements Runnable {
 		//send light value
 			if(lightValue != getLightValue()){
 				lightValue = getLightValue();
-		sendValue(lightValue, SensorIdentifier.LightSensor);
+				sendValue(lightValue, SensorIdentifier.LightSensor);
 			}
 		Thread.yield();
 		
 		// send sonar value
 			if(sonarValue != getSonarValue()){
 				sonarValue = getSonarValue();
-		sendValue(sonarValue, SensorIdentifier.UltrasonicSensor);
+				sendValue(sonarValue, SensorIdentifier.UltrasonicSensor);
 			}
 		Thread.yield();
 		
-		// send direction ir	
-			if(irDirection != getIrDirection()){
-				irDirection = getIrDirection();
-				System.out.println(irDirection);
-		sendValue(irDirection, SensorIdentifier.DirectionIrSensor);
-			}
-		Thread.yield();
+//		// send direction ir	
+//			if(irDirection != getIrDirection()){
+//				irDirection = getIrDirection();
+//				System.out.println(irDirection);
+//		sendValue(irDirection, SensorIdentifier.DirectionIrSensor);
+//			}
+//		Thread.yield();
 		
 		//send head tacho
 		if(headTacho != getHeadTacho()){
 			headTacho = getHeadTacho();
-			System.out.println(headTacho);
 	sendValue(headTacho, SensorIdentifier.HeadTacho);
 		}
 	Thread.yield();
 		
-//		// send sonar value
-//			if(irValue != getIrValue()){
-//				irValue = getIrValue();
-//		sendValue(irValue, SensorIdentifier.ValueIrSensor);
-//			}
-//		Thread.yield();
+		// send ir value
+			if(irValue != getIrValue()){
+				irValue = getIrValue();
+		sendValue(irValue, SensorIdentifier.ValueIrSensor);
+			}
+		Thread.yield();
 		
 		//sent Tachocount
 			if(tachoCount != getTachoCount() && getTachoCount()>=0){
 				tachoCount = getTachoCount();
-				System.out.println(tachoCount);
 				sendValue(tachoCount, SensorIdentifier.TachoCount);
+
 			}
 		Thread.yield();
 		
@@ -112,7 +111,7 @@ public class SensorListener implements Runnable {
 		
 	}
 
-	private int getHeadTacho() {
+	public int getHeadTacho() {
 		return head.getTachoCount();
 	}
 
@@ -127,22 +126,7 @@ public class SensorListener implements Runnable {
 
 	public int getSonarValue() {
 		sonar.ping();
-		int[] distances = new int[8];
-		int d;
-		int distance = 255;
-		d = sonar.getDistances(distances);
-		while(d == -1){
-			getSonarValue();
-		}
-		
-		if(distances[3] != 255 && distances[4] != 255)
-			distance = (int)((distances[3] + distances[4]) /2);
-		else if(distances[3] == 255)
-			distance = distances[4];
-		else if (distances[4]== 255)
-			distance = distances[3];
-		return distance;
-
+		return sonar.getDistance();
 	}
 
 	public int getLightValue() {
@@ -150,7 +134,7 @@ public class SensorListener implements Runnable {
 	}
 
 	public int getIrValue() {
-		return ir.getSensorValue(getIrDirection());
+		return ir.getSensorValue(3);
 	}
 
 	private void sendValue(int Value, SensorIdentifier sensorID) {
