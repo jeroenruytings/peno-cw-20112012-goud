@@ -24,7 +24,14 @@ public class BarCodeReader
 		
 		Barcode code = null;
 		
-		if(isCode(finder.getCode()))
+		int[] readCode = finder.getCode();
+		
+		String print = "";
+		for (int i : readCode)
+			print += i;
+		System.out.println("Gelezen CODE = " + print);
+		
+		if(isCode(readCode))
 			code = new Barcode(finder.getCode());
 		return code;
 		

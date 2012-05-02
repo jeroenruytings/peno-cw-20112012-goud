@@ -89,7 +89,7 @@ public class Roam implements Strategy {
 	private Set<Point> getUnVisitedPoints() {
 		Set<Point> allPoints = getController().getMergedBoard().getPanels().keySet();
 		if (visitedPoints.size() == allPoints.size())
-			visitedPoints = new TreeSet<Point>();
+			visitedPoints = new HashSet<Point>();
 		for (Point point : visitedPoints) {
 			allPoints.remove(point);
 		}

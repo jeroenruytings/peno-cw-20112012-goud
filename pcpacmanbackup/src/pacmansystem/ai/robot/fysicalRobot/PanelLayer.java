@@ -23,7 +23,7 @@ public class PanelLayer implements PanelLayerInterface
 	private boolean pacmanSeen = false;
 	private int lastSeenIrDistance = 0;
 	private int infraredValue = 50;
-	private int numberOfWallsToCorrect = 1;
+	private int counterCorrect = 1;
 	
 
 	public int getLastSeenIrDistance() {
@@ -61,6 +61,8 @@ public class PanelLayer implements PanelLayerInterface
 	public void 
 	go(Direction d) throws CrashedException
 	{
+		hasToCorrect = true;
+		counterCorrect++;
 		System.out.println(d.name());
 		switch (d.ordinal())
 			{
@@ -70,8 +72,10 @@ public class PanelLayer implements PanelLayerInterface
 				}catch (CrashedException e) {
 					mover.setCrashed(false);
 					try {
-						mover.drive(-16);
+						System.out.println("Case 0: 80 mm achteruit");
+						mover.drive(-80);
 					} catch (CrashedException e1) {
+						System.out.println("case 0: crashed again");
 						//This should never happen
 						e1.printStackTrace();
 					}
@@ -84,6 +88,9 @@ public class PanelLayer implements PanelLayerInterface
 				try {
 					mover.drive(distance);
 				}catch (CrashedException e) {
+					System.out.println("Case 1: 80 mm achteruit");
+
+					mover.setCrashed(false);
 					//This should never happen
 				}
 				break;
@@ -94,8 +101,10 @@ public class PanelLayer implements PanelLayerInterface
 				} catch (CrashedException e) {
 					mover.setCrashed(false);
 					try {
-						mover.drive(-16);
+						System.out.println("Case 2: 80 mm achteruit");
+						mover.drive(-80);
 					} catch (CrashedException e1) {
+						System.out.println("case 2: crashed again");
 						//This should never happen
 						e1.printStackTrace();
 					}
@@ -111,8 +120,10 @@ public class PanelLayer implements PanelLayerInterface
 				} catch (CrashedException e) {
 					mover.setCrashed(false);
 					try {
-						mover.drive(-16);
+						System.out.println("Case 3: 80 mm achteruit");
+						mover.drive(-80);
 					} catch (CrashedException e1) {
+						System.out.println("case 3: crashed again");
 						//This should never happen
 						e1.printStackTrace();
 					}
@@ -165,8 +176,6 @@ public class PanelLayer implements PanelLayerInterface
 				pacmanSeen = false;
 			
 			if (distanceToWall < distanceAllowed){
-					hasToCorrect = true;
-					numberOfWallsToCorrect++;
 				return WallState.WALL;
 			}
 			else {
@@ -345,7 +354,7 @@ public class PanelLayer implements PanelLayerInterface
 			panel.setBarcode(getBarcode(), currentOrientation);
 		}
 		
-		if(hasToCorrect && numberOfWallsToCorrect%5==0){
+		if(hasToCorrect && counterCorrect%5==0){
 			correctToMiddle();
 			hasToCorrect = false;
 		}
