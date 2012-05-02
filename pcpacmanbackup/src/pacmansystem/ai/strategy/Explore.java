@@ -64,7 +64,6 @@ public class Explore implements Strategy {
 		else{
 			finishedExploring = true;
 			return plan;
-			//TODO: plan = null hier!
 		}
 	}
 	
