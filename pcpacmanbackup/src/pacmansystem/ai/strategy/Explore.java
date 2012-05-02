@@ -146,7 +146,7 @@ public class Explore implements Strategy {
 			return new Hunt(getController());
 		if(hasFinishedExploring() && !getController().pacmanRecentlySeenAndReachable())
 			return new Roam(getController());
-		if(!hasFinishedExploring() && getController().getOwnData().getPacmanLastSighted() != null) //TODO: willen we mss dat hij ook catch als hij bereikbaar is, maar gezien door iemand anders?
+		if(!hasFinishedExploring() && getController().getOwnData().getPacmanLastSighted() != null)
 			return new Catch(getController());
 		return this;
 	}

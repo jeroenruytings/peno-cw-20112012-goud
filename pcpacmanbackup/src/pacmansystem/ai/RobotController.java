@@ -486,9 +486,8 @@ public class RobotController
 		for (RobotData robot : allBots) {
 			if (robot.getPacman() != null && robot.getPacman().getDate().after(getOwnData().getLastChecked())){
 				DijkstraFinder finder = new DijkstraFinder(getOwnData().getMergedBoard());
-				Iterator<Point> path = null;
 				try {
-					path = finder.shortestPath(getCurrentPoint(), robot.getPacmanLastSighted()).iterator();
+					finder.shortestPath(getCurrentPoint(), robot.getPacmanLastSighted());
 					return true;
 				} catch (PathNotPossibleException e) {
 					continue;
