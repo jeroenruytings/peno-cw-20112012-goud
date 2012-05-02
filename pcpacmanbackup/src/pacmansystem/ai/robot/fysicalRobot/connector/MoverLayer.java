@@ -354,4 +354,9 @@ public class MoverLayer extends Observable
 		return this.isCrashed;
 	}
 
+	public ColorTransitionStack getTransStack()
+	{
+		return this._colorStack;
+	}
+
 }

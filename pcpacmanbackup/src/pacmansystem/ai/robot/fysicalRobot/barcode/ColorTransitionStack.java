@@ -13,13 +13,16 @@ public class ColorTransitionStack
 	private Map<PanelColor, Integer> _colorCalibration;
 	private Stack<ColorNode> _nodes = new Stack<ColorNode>();
 	private static final int FILTER_OFFSET = 10;
-
+@Deprecated
 	public ColorTransitionStack(MoverLayer layer)
 	{
 		_colorCalibration = new HashMap<PanelColor, Integer>();
 		_nodes.add(new ColorNode(PanelColor.BROWN, 0));
 	}
-
+	public ColorTransitionStack()
+	{
+		this(null);
+	}
 	@SuppressWarnings("unchecked")
 	public Stack<ColorNode> getColors()
 	{
