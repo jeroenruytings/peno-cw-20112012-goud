@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -474,10 +475,21 @@ public class RobotController
 		return false;
 	}
 	
+	/**
+	 * Returns true if a robot has recently seen pacman and a route can
+	 * be constructed from this robot's current position to pacman
+	 * @return
+	 */
 	public boolean somebodyHasSeenPacmanRecently() {
 		for (RobotData robot : getWorld().get_robots().values()) {
 			if (robot.getPacman() != null && robot.getPacman().getDate().after(getOwnData().getLastChecked())){
-				//TODO: FIX THINGZ
+				DijkstraFinder finder = new DijkstraFinder(getOwnData().getMergedBoard());
+				Iterator<Point> path = null;
+				try {
+					path = finder.shortestPath(getCurrentPoint(), robot.getPacmanLastSighted()).iterator();
+				} catch (PathNotPossibleException e) {
+					continue;
+				}
 				return true;
 			}
 		}
