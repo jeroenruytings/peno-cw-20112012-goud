@@ -15,15 +15,6 @@ public class CapturedMessageDecoder extends MessageDecoder<CapturedMessage>
 	}
 
 	@Override
-	public boolean canDecode(String message)
-	{
-		return false;
-//		if (!correctKey(message))
-//			return false;
-//		return true;
-	}
-
-	@Override
 	public CapturedMessage parse(String message) throws ParseException
 	{
 		String msg = stripMessage(message);

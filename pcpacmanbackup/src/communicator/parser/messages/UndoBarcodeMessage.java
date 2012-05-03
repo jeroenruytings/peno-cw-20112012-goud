@@ -2,6 +2,7 @@ package communicator.parser.messages;
 
 import java.awt.Point;
 
+import data.board.Board;
 import data.world.World;
 
 public class UndoBarcodeMessage extends Message {
@@ -30,22 +31,22 @@ public class UndoBarcodeMessage extends Message {
 	void execute(World world) {
 		if(!canExecute(world))
 			throw new MessageExecuteException();
-		// TODO Auto-generated method stub
+		Board robotBoard = world.getRobot(getNameFrom()).getBoard();
+		robotBoard.add(robotBoard.getPanelAt(_coordinate).noBarcode(), _coordinate);
 
-	}
-
-	@Override
-	public boolean equals(Message undoBarcodeMessage) {
-		if (!(undoBarcodeMessage instanceof UndoBarcodeMessage))
-			return false;
-		else
-			return ((UndoBarcodeMessage) undoBarcodeMessage).getNameFrom().equals(this.getNameFrom())
-						&& ((UndoBarcodeMessage) undoBarcodeMessage).getCoordinate().equals(this.getCoordinate());
 	}
 
 	@Override
 	public Message getShowMapMessage() {
 		return new ReUndoBarcodeMessage(getNameFrom(), getCoordinate());
+	}
+
+	@Override
+	protected boolean equalParameters(Message undoBarcodeMessage) {
+		if (!(undoBarcodeMessage instanceof UndoBarcodeMessage))
+			return false;
+		else
+			return ((UndoBarcodeMessage) undoBarcodeMessage).getCoordinate().equals(this.getCoordinate());
 	}
 
 }

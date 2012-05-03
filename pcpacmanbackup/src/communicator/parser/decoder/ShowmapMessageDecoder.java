@@ -7,8 +7,7 @@ import communicator.parser.messages.ShowmapMessage;
 
 public class ShowmapMessageDecoder extends MessageDecoder<ShowmapMessage> {
 
-	protected ShowmapMessageDecoder(MessageDecoder<? extends Message> next,
-			String key) {
+	protected ShowmapMessageDecoder(MessageDecoder<? extends Message> next) {
 		super(next, "SHOWMAP");
 	}
 

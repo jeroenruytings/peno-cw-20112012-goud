@@ -9,7 +9,7 @@ import communicator.parser.messages.ReUndoBarcodeMessage;
 public class ReUndoBarcodeMessageDecoder extends MessageDecoder<ReUndoBarcodeMessage> {
 
 	protected ReUndoBarcodeMessageDecoder(
-			MessageDecoder<? extends Message> next, String key) {
+			MessageDecoder<? extends Message> next) {
 		super(next, "REUNDOBARCODE");
 	}
 

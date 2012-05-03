@@ -46,11 +46,10 @@ public class PlanMessage extends Message
 	}
 
 	@Override
-	public boolean equals(Message planMessage) {
+	protected boolean equalParameters(Message planMessage) {
 		if (planMessage instanceof PlanMessage){
 			PlanMessage cmdPlan = (PlanMessage) planMessage;
-			if ((cmdPlan.getNameFrom() == this.getNameFrom())
-					&& (Arrays.equals(cmdPlan.getPath(), this.getPath())))
+			if (Arrays.equals(cmdPlan.getPath(), this.getPath()))
 				return true;
 		}
 		return false;

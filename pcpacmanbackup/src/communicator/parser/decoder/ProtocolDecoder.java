@@ -24,7 +24,13 @@ public class ProtocolDecoder extends MessageDecoder<Message>
 																		(new CancelPlanMessageDecoder
 																				(new PingMessageDecoder
 																						(new PongMessageDecoder
-																								(new NullMessageDecoder())))))))))));
+																								(new RebarcodeAtMessageDecoder
+																										(new RediscoverMessageDecoder
+																												(new RenameMessageDecoder
+																														(new ReUndoBarcodeMessageDecoder
+																																(new ShowmapMessageDecoder
+																																		(new UndoBarcodeMessageDecoder
+																																				(new NullMessageDecoder())))))))))))))))));
 	}
 
 	public Message parse(String string) throws ParseException

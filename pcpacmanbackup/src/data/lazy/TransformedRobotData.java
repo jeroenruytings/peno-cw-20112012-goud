@@ -66,15 +66,6 @@ public class TransformedRobotData extends RobotData
 	}
 
 	@Override
-	public void clearPlan()
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	
-
-	@Override
 	public Color getRobotColor()
 	{
 		return data_.getRobotColor();

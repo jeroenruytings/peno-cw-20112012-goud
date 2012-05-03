@@ -13,14 +13,6 @@ public class RenameMessageDecoder extends MessageDecoder<RenameMessage> {
 	}
 
 	@Override
-	public boolean canDecode(String message)
-	{
-		if (!correctKey(message))
-			return false;
-		return true;
-	}
-
-	@Override
 	public RenameMessage parse(String message) throws ParseException
 	{
 		if (!canDecode(message))

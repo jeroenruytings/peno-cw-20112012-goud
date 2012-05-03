@@ -25,7 +25,7 @@ public class CancelPlanMessageDecoder extends MessageDecoder<CancelPlanMessage>
 	@Override
 	public CancelPlanMessage parse(String message) throws ParseException
 	{
-		String msg = stripMessage(message);//TODO: we kregen een error hierdoor
+		String msg = stripMessage(message);
 		String[] mes = msg.split(" ");
 		return new CancelPlanMessage(mes[0]);
 	}

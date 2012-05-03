@@ -43,13 +43,12 @@ public class NameMessage extends Message
 	public String getKeyword() {
 		return "NAME";
 	}
-	
+
 	@Override
-	public boolean equals(Message nameMessage) {
+	protected boolean equalParameters(Message nameMessage) {
 		if (nameMessage instanceof NameMessage){
 			NameMessage cmdName = (NameMessage) nameMessage;
-			if ((cmdName.getNameFrom() == this.getNameFrom())
-					&& (cmdName.getVersion().equals(this.getVersion())))
+			if (cmdName.getVersion().equals(this.getVersion()))
 				return true;
 		}
 		return false;

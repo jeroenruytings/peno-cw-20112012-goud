@@ -15,14 +15,6 @@ public class NameMessageDecoder extends MessageDecoder<NameMessage>
 	}
 
 	@Override
-	public boolean canDecode(String message)
-	{
-		if (!correctKey(message))
-			return false;
-		return true;
-	}
-
-	@Override
 	public NameMessage parse(String message) throws ParseException
 	{
 		if (!canDecode(message))

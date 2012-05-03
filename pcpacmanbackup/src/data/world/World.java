@@ -20,7 +20,7 @@ public class World implements Observer
 	private int registeredRobots;
 	private int named=0;
 	private int amountOfRobotsNeeded = 4;
-	private RabbitMQHistory rabbitMQhistory;
+	private RabbitMQHistory _rabbitMQhistory;
 
 	
 	/**
@@ -53,7 +53,7 @@ public class World implements Observer
 			throw new Error("Rabbit mq is down");
 		}
 		rabbitMQReceiver.addObserver(rv);
-		rv.rabbitMQhistory = new RabbitMQHistory(rabbitMQReceiver);
+		rv._rabbitMQhistory = new RabbitMQHistory(rabbitMQReceiver);
 		Thread t = new Thread(rabbitMQReceiver);
 		t.start();
 		return rv;
@@ -181,26 +181,9 @@ public class World implements Observer
 		name();
 
 	}
-	
-	public RabbitMQHistory getHistory(){
-		return rabbitMQhistory;
+
+	public RabbitMQHistory getRabbitMQHistory() {
+		return _rabbitMQhistory;
+		
 	}
 }
-
-// globalBoard = new Board();
-// //TODO: Werk beter uit.
-// // Just trying to make is work.
-// // --> Dus ge moet ni komen klagen tegen mij (Jannes). K zal dit ooit wel is
-// fixen :P
-// boolean first = true;
-// for(RobotData data:this._robots.values()){
-// if (first){
-// for (Point p : data.getBoard().getFilledPoints()){
-// globalBoard.add(data.getBoard().getPanelAt(p), p);
-// }
-// first = false;
-// }
-// else
-// globalBoard = BoardUnifier.unify(globalBoard, data.getBoard());
-// }
-// return globalBoard;

@@ -31,12 +31,11 @@ public class NullMessage extends Message
 	public String getKeyword() {
 		return "UNKNOWN";
 	}
-	
+
 	@Override
-	public boolean equals(Message nullMessage) {
-		if (nullMessage instanceof NullMessage){
-				return true;
-		}
+	protected boolean equalParameters(Message cmd) {
+		if (cmd instanceof NullMessage)
+			return true;
 		return false;
 	}
 

@@ -39,11 +39,10 @@ public class PositionMessage extends Message
 	}
 	
 	@Override
-	public boolean equals(Message positionMessage) {
+	protected boolean equalParameters(Message positionMessage) {
 		if (positionMessage instanceof PositionMessage){
 			PositionMessage cmdBar = (PositionMessage) positionMessage;
-			if ((cmdBar.getNameFrom() == this.getNameFrom())
-					&& (cmdBar.getPosition().equals(this.getPosition())))
+			if (cmdBar.getPosition().equals(this.getPosition()))
 				return true;
 		}
 		return false;

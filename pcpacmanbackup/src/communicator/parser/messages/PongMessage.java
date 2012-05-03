@@ -50,13 +50,12 @@ public class PongMessage extends Message {
 	public String getKeyword() {
 		return "PONG";
 	}
-	
+
 	@Override
-	public boolean equals(Message pongMessage) {
+	protected boolean equalParameters(Message pongMessage) {
 		if (pongMessage instanceof PongMessage){
 			PongMessage cmdBar = (PongMessage) pongMessage;
-			if ((cmdBar.getNameFrom() == this.getNameFrom())
-					&& (cmdBar.getBestemmeling().equals(this.getBestemmeling()))
+			if (cmdBar.getBestemmeling().equals(this.getBestemmeling())
 					&& (cmdBar.getString().equals(this.getString())))
 				return true;
 		}

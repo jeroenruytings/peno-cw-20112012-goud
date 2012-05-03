@@ -90,17 +90,6 @@ public class DiscoverMessage extends Message
 		return "DISCOVER";
 	}
 	
-	@Override
-	public boolean equals(Message cmd) {
-		if (cmd instanceof DiscoverMessage){
-			DiscoverMessage cmdDis = (DiscoverMessage) cmd;
-			if ((cmdDis.getNameFrom() == this.getNameFrom())
-					&& (cmdDis.getCoordinate().equals(this.getCoordinate()))
-					&& (cmdDis.getPanel().equals(this.getPanel())))
-				return true;
-		}
-		return false;
-	}
 	
 	public int getN(){
 		return _north;
@@ -121,6 +110,17 @@ public class DiscoverMessage extends Message
 	@Override
 	public Message getShowMapMessage() {
 		return new RediscoverMessage(getNameFrom(), getCoordinate(), getN(), getE(), getS(), getW());
+	}
+
+	@Override
+	protected boolean equalParameters(Message cmd) {
+		if (cmd instanceof DiscoverMessage){
+			DiscoverMessage cmdDis = (DiscoverMessage) cmd;
+			if ((cmdDis.getCoordinate().equals(this.getCoordinate()))
+					&& (cmdDis.getPanel().equals(this.getPanel())))
+				return true;
+		}
+		return false;
 	}
 	
 	

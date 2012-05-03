@@ -77,20 +77,18 @@ public class BarcodeAtMessage extends Message {
 	}
 
 	@Override
-	public boolean equals(Message cmd) {
-		if (cmd instanceof BarcodeAtMessage){
-			BarcodeAtMessage cmdBar = (BarcodeAtMessage) cmd;
-			if ((cmdBar.getNameFrom() == this.getNameFrom())
-					&& (cmdBar._direction == this._direction)
-					&& (cmdBar.getBarcode() == this.getBarcode())
-					&& (cmdBar.getCoordinate().equals(this.getCoordinate())))
-				return true;
-		}
-		return false;
+	public Message getShowMapMessage() {
+		return new RebarcodeAtMessage(getNameFrom(), getCoordinate(), getBarcode(), _direction);
 	}
 
 	@Override
-	public Message getShowMapMessage() {
-		return new RebarcodeAtMessage(getNameFrom(), getCoordinate(), getBarcode(), _direction);
+	protected boolean equalParameters(Message cmd) {
+		if (cmd instanceof BarcodeAtMessage){
+			BarcodeAtMessage cmdBar = (BarcodeAtMessage) cmd;
+			return (cmdBar._direction == this._direction)
+				&& (cmdBar.getBarcode() == this.getBarcode())
+				&& (cmdBar.getCoordinate().equals(this.getCoordinate()));
+		}
+		return false;
 	}
 }

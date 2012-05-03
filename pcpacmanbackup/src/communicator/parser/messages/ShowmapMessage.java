@@ -1,5 +1,8 @@
 package communicator.parser.messages;
 
+import communicator.be.kuleuven.cs.peno.MessageRePublisher;
+
+import data.world.OwnRobotData;
 import data.world.World;
 
 public class ShowmapMessage extends Message {
@@ -33,16 +36,18 @@ public class ShowmapMessage extends Message {
 	void execute(World world) {
 		if (!canExecute(world))
 			throw new MessageExecuteException();
-		// TODO Auto-generated method stub
-
+		// Niet de properste oplossing, maar kan ermee door.
+		// We moeten enkel iets doorsturen als het onze robot is.
+		if (world.getRobot(_receiver) instanceof OwnRobotData)
+			MessageRePublisher.rePublishMessage(world.getRabbitMQHistory().getSendMessages());
 	}
 
+
 	@Override
-	public boolean equals(Message showmapMessage) {
+	protected boolean equalParameters(Message showmapMessage) {
 		if (showmapMessage instanceof ShowmapMessage){
 			ShowmapMessage cmdShowmap = (ShowmapMessage) showmapMessage;
-			if ((cmdShowmap.getNameFrom() == this.getNameFrom())
-					&& (cmdShowmap.getReceiver().equals(this.getReceiver())))
+			if (cmdShowmap.getReceiver().equals(this.getReceiver()))
 				return true;
 		}
 		return false;

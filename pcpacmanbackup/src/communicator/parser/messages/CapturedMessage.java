@@ -23,14 +23,11 @@ public class CapturedMessage extends Message
 	public String getKeyword() {
 		return "CAPTURED";
 	}
-	
+
 	@Override
-	public boolean equals(Message cmd) {
-		if (cmd instanceof CapturedMessage){
-			CapturedMessage cmdBar = (CapturedMessage) cmd;
-			if ((cmdBar.getNameFrom() == this.getNameFrom()))
-				return true;
-		}
+	protected boolean equalParameters(Message cmd) {
+		if (cmd instanceof CapturedMessage)
+			return true;
 		return false;
 	}
 

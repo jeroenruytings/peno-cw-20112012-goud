@@ -106,7 +106,7 @@ public class RobotData implements RobotDataView
 	 */
 	@Override
 	public Board getBoard()
-	{//TODO: wille we references meegeven?
+	{
 		return this.board;
 	}
 

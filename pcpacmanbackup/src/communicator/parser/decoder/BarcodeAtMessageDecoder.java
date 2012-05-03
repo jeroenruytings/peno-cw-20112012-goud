@@ -14,14 +14,6 @@ public class BarcodeAtMessageDecoder extends MessageDecoder<BarcodeAtMessage> {
 	}
 
 	@Override
-	public boolean canDecode(String message)
-	{
-		if (!correctKey(message))
-			return false;
-		return true;
-	}
-
-	@Override
 	public BarcodeAtMessage parse(String message) throws ParseException
 	{
 		String msg = stripMessage(message);

@@ -19,7 +19,7 @@ public abstract class MessageRePublisher {
 	 * @param 	messages
 	 * 				Messages to republish.
 	 */
-	public void rePublishMessage(List<Message> messages){
+	public static void rePublishMessage(List<Message> messages){
 		PositionMessage lastPosition = null;
 		for(Message msg : messages){
 			if (msg instanceof PositionMessage)
@@ -38,7 +38,7 @@ public abstract class MessageRePublisher {
 	 * @param 	message
 	 * 				The message to resent.
 	 */
-	public void rePublishMessage(Message message){
+	public static void rePublishMessage(Message message){
 		try {
 			MessageSender.getInstance().sendMessage(message.getShowMapMessage());
 		} catch (IOException e) {

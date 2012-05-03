@@ -18,8 +18,6 @@ public class DijkstraFinder implements ShortestPathFinderInterface
 	int v;
 	private Board board;
 
-	//TODO: Misschien is het geen slecht idee om aan dijkstra finder enkel een bord te geven.
-	//		Op die manier is het niet de verantwoordelijkheid van dijkstra-finder om te te kiezen tussen merged/niet-gemerged
 	public DijkstraFinder(Board board)
 	{
 		this.board=board;

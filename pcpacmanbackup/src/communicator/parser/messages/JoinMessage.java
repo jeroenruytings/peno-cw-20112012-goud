@@ -32,11 +32,11 @@ public class JoinMessage extends Message
 	public String getKeyword() {
 		return "JOIN";
 	}
-	
+
 	@Override
-	public boolean equals(Message joinMessage) {
+	protected boolean equalParameters(Message joinMessage) {
 		if (joinMessage instanceof JoinMessage){
-				return true;
+			return true;
 		}
 		return false;
 	}

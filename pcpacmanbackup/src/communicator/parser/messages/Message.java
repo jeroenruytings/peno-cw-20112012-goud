@@ -7,8 +7,10 @@ import data.world.World;
 
 public abstract class Message {
 	
+	public static final String PARAMDELIMITER = " "; 
+	
 	public Message(String nameFrom){
-		if (nameFrom == null)
+		if (nameFrom == null || nameFrom.contains(" "))
 			throw new IllegalArgumentException("Naam van de boodschap is niet geinitialiseerd.");
 		_nameFrom = nameFrom;
 	}
@@ -21,7 +23,7 @@ public abstract class Message {
 
 	public abstract String getKeyword();
 	
-	private ArrayList<ParameterToStringWrapper> parameters = new ArrayList<Message.ParameterToStringWrapper>(4);
+	private ArrayList<ParameterToStringWrapper> parameters = new ArrayList<ParameterToStringWrapper>(4);
 	
 	/**
 	 * This method adds a String parameter to the parameter list of this message.
@@ -78,14 +80,23 @@ public abstract class Message {
 	private String getParameterString(){
 		String result = "";
 		for(ParameterToStringWrapper param : parameters){
-			result.concat(param + " ");
+			result = result.concat(param + " ");
 		}
 		return result.trim();
 	}
 	
 	
 	public String getSentString(){
-		return getNameFrom()+ " " + getKeyword() + " " + getParameterString();
+		String result = "";
+		// Add the name to the message.
+		if (!getNameFrom().equals(""))
+			result = result.concat(getNameFrom() + PARAMDELIMITER);
+		// Add the keyword.
+		result = result.concat(getKeyword());
+		// Add the parameters, if any
+		if (parameters.size() > 0)
+			result = result.concat(PARAMDELIMITER + getParameterString());
+		return result;
 	}
 	
 	/**
@@ -99,7 +110,15 @@ public abstract class Message {
 	
 	abstract void execute(World world) throws MessageExecuteException;
 
-	public abstract boolean equals(Message cmd);
+	public final boolean equals(Message cmd){
+		if (!equalName(cmd.getNameFrom()))
+			return false;
+		if (!equalParameters(cmd))
+			return false;
+		return true;
+	}
+
+	protected abstract boolean equalParameters(Message cmd);
 
 	/**
 	 * This method transforms a given coordinate to a string to be used in ghosst-protocol messages.
@@ -139,6 +158,17 @@ public abstract class Message {
 	
 	public String toString(){
 		return getSentString();
+	}
+	
+	
+	/**
+	 * This method checks if the name of this message is equal to the given name.
+	 * @param 	name
+	 * 				Name to check.
+	 * @return	True is the "name from" of this message is equal to 'name'.
+	 */
+	private boolean equalName(String name){
+		return getNameFrom().equals(name); 
 	}
 
 }

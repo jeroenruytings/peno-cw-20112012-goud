@@ -41,11 +41,10 @@ public class PacmanMessage extends Message
 	}
 
 	@Override
-	public boolean equals(Message pacmanMessage) {
+	protected boolean equalParameters(Message pacmanMessage) {
 		if (pacmanMessage instanceof PacmanMessage){
 			PacmanMessage cmdBar = (PacmanMessage) pacmanMessage;
-			if ((cmdBar.getNameFrom() == this.getNameFrom())
-					&& (cmdBar.getPosition().equals(this.getPosition())))
+			if (cmdBar.getPosition().equals(this.getPosition()))
 				return true;
 		}
 		return false;

@@ -9,8 +9,7 @@ import communicator.parser.messages.RebarcodeAtMessage;
 
 public class RebarcodeAtMessageDecoder extends MessageDecoder<RebarcodeAtMessage> {
 
-	protected RebarcodeAtMessageDecoder(MessageDecoder<? extends Message> next,
-			String key) {
+	protected RebarcodeAtMessageDecoder(MessageDecoder<? extends Message> next) {
 		super(next, "REBARCODEAT");
 	}
 

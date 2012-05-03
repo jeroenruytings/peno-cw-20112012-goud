@@ -44,13 +44,12 @@ public class PingMessage extends Message {
 	public String getKeyword() {
 		return "PING";
 	}
-	
+
 	@Override
-	public boolean equals(Message pingMessage) {
+	protected boolean equalParameters(Message pingMessage) {
 		if (pingMessage instanceof PingMessage){
 			PingMessage cmdBar = (PingMessage) pingMessage;
-			if ((cmdBar.getNameFrom() == this.getNameFrom())
-					&& (cmdBar.getBestemmeling().equals(this.getBestemmeling()))
+			if ((cmdBar.getBestemmeling().equals(this.getBestemmeling()))
 					&& (cmdBar.getString().equals(this.getString())))
 				return true;
 		}

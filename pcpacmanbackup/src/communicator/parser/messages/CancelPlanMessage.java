@@ -28,14 +28,11 @@ public class CancelPlanMessage extends Message
 	public String getKeyword() {
 		return "CANCELPLAN";
 	}
-	
+
 	@Override
-	public boolean equals(Message cmd) {
-		if (cmd instanceof CancelPlanMessage){
-			CancelPlanMessage cmdCnlPl = (CancelPlanMessage) cmd;
-			if ((cmdCnlPl.getNameFrom() == this.getNameFrom()))
-				return true;
-		}
+	protected boolean equalParameters(Message cmd) {
+		if (cmd instanceof CancelPlanMessage)
+			return true;
 		return false;
 	}
 	

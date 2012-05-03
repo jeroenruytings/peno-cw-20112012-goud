@@ -61,7 +61,6 @@ public class BoardPanel extends JPanel {
 //				cnvrobot.getWorld().setRobotColor(JColorChooser.showDialog(RobotPanel.this, "Kies een Kleur", cnvrobot.getRobotColor()));
 //				Mainscreen.playSound("pacman_eatghost.wav");
 //				cnvrobot.repaint();
-				//TODO: Wat als klik?
 			}
 		});
 		this.add(cnvWorld, BorderLayout.CENTER);

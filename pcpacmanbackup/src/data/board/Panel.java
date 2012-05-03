@@ -150,4 +150,15 @@ public class Panel
 			}
 		}
 	}
+	
+	/**
+	 * @return A panel equal to this one but without the barcode.
+	 */
+	public Panel noBarcode()
+	{
+		Panel result = new Panel();
+		for(Orientation dir:Orientation.values())
+			result.setBorder(dir, this.getWallState(dir));
+		return result;
+	}
 }
