@@ -308,10 +308,14 @@ public class MoverLayer extends Observable
 		return _reader;
 	}
 	
-	public void correctToMiddle(){
+	public void correctToMiddle() throws totalCrashException{
 		releaseButton();
+		int firstTacho = getTachoCount();
 		pcc.sendCommando(new Commando(Action.CORRECT, 0, ""));
-		while(!buttonIsPushed());
+		while(!buttonIsPushed()){
+			if(firstTacho - getTachoCount()>2620)
+				throw new totalCrashException();
+		}
 		releaseButton();
 		System.out.println("is released");
 	}

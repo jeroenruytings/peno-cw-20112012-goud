@@ -6,6 +6,7 @@ import pacmansystem.ai.robot.fysicalRobot.connector.Action;
 import pacmansystem.ai.robot.fysicalRobot.connector.Commando;
 import pacmansystem.ai.robot.fysicalRobot.connector.CrashedException;
 import pacmansystem.ai.robot.fysicalRobot.connector.MoverLayer;
+import pacmansystem.ai.robot.fysicalRobot.connector.totalCrashException;
 import data.board.Panel;
 import data.board.Panel.WallState;
 import data.enums.Direction;
@@ -511,9 +512,19 @@ public class PanelLayer implements PanelLayerInterface
 	@Override
 	public void correctToMiddle(){
 		if(!hasBarcode())
-			mover.correctToMiddle();
+			try {
+				mover.correctToMiddle();
+			} catch (totalCrashException e) {
+				restore();
+				throw new totalCrashException();
+			}
 	}
 	
+	private void restore() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public void pushed() {
 		//TODO: implement the crash method
 	}
