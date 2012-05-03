@@ -287,6 +287,7 @@ public class MoverLayer extends Observable
 	public void setLightSensor(Integer value) {
 		this.lightSensor = value;
 		if(_colorStack.sufficientlyCalibrated())
+			
 			_colorStack.pushColor(value, getTachoCount());
 	}
 

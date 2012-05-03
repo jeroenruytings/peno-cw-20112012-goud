@@ -50,7 +50,7 @@ public class BarcodeFinder
 
 	private boolean endOfBarcode(ColorSegment current)
 	{
-		return current.getColor().equals(PanelColor.BROWN);
+		return current.getColor().equals(PanelColor.BROWN)&&current.getLength()>25;
 	}
 
 	public int[] getCode()

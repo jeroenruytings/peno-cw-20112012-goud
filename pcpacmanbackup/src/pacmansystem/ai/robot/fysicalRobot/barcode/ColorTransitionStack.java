@@ -12,7 +12,7 @@ public class ColorTransitionStack
 
 	private Map<PanelColor, Integer> _colorCalibration;
 	private Stack<ColorNode> _nodes = new Stack<ColorNode>();
-	private static final int FILTER_OFFSET = 10;
+	private static final int FILTER_OFFSET = 0;
 
 	@Deprecated
 	public ColorTransitionStack(MoverLayer layer)
