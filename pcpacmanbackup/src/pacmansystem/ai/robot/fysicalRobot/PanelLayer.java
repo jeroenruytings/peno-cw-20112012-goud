@@ -80,7 +80,7 @@ public class PanelLayer implements PanelLayerInterface
 						//This should never happen
 						e1.printStackTrace();
 					}
-					mover.correctToMiddle();
+					correctToMiddle();
 					throw new CrashedException();
 				}
 				break;
@@ -110,7 +110,7 @@ public class PanelLayer implements PanelLayerInterface
 						e1.printStackTrace();
 					}
 					mover.turn(90);
-					mover.correctToMiddle();
+					correctToMiddle();
 					throw new CrashedException();
 				}
 				break;
@@ -129,7 +129,7 @@ public class PanelLayer implements PanelLayerInterface
 						e1.printStackTrace();
 					}
 					mover.turn(-90);
-					mover.correctToMiddle();
+					correctToMiddle();
 					throw new CrashedException();
 				}
 			}

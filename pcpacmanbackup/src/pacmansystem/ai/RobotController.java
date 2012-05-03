@@ -12,6 +12,7 @@ import pacmansystem.ai.robot.Barcode;
 import pacmansystem.ai.robot.OrientationLayer;
 import pacmansystem.ai.robot.PathLayer;
 import pacmansystem.ai.robot.fysicalRobot.connector.CrashedException;
+import pacmansystem.ai.robot.fysicalRobot.connector.totalCrashException;
 import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
 import pacmansystem.ai.strategy.Explore;
 import pacmansystem.ai.strategy.Strategy;
@@ -109,6 +110,9 @@ public class RobotController
 					e.printStackTrace();
 				}catch (CrashedException e) {
 					getOwnData().getBoard().getPanels().remove(getCurrentPoint());
+				}catch (totalCrashException e) {
+					getOwnData().getBoard().clear();
+					//TODO: wordt merged board ook gecleared?
 				}
 			}
 		}
