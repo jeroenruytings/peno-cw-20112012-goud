@@ -364,4 +364,11 @@ public class MoverLayer extends Observable
 		return this._colorStack;
 	}
 
+	public void restore(){
+		releaseButton();
+		pcc.sendCommando(new Commando(Action.RESTORE, 0, ""));
+		while(!buttonIsPushed());
+		releaseButton();
+	}
+
 }

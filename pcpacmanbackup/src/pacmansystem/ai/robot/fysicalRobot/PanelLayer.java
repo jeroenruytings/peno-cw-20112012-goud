@@ -521,7 +521,7 @@ public class PanelLayer implements PanelLayerInterface
 	}
 	
 	private void restore() {
-		// TODO Auto-generated method stub
+		getMover().restore();
 		
 	}
 
