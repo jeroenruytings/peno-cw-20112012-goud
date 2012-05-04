@@ -337,6 +337,7 @@ public class PanelLayer implements PanelLayerInterface
 	public Panel getPanel(Orientation currentOrientation)
 	{
 		pacmanSeen = false;
+		setLastSeenDirectionPacman(null);
 		Panel panel = new Panel();
 		for (Direction direction : Direction.values()) {
 

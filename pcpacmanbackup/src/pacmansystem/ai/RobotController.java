@@ -12,7 +12,6 @@ import pacmansystem.ai.robot.Barcode;
 import pacmansystem.ai.robot.OrientationLayer;
 import pacmansystem.ai.robot.PathLayer;
 import pacmansystem.ai.robot.fysicalRobot.connector.CrashedException;
-import pacmansystem.ai.robot.fysicalRobot.connector.totalCrashException;
 import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
 import pacmansystem.ai.strategy.Explore;
 import pacmansystem.ai.strategy.Strategy;
@@ -110,9 +109,6 @@ public class RobotController
 					e.printStackTrace();
 				}catch (CrashedException e) {
 					getOwnData().getBoard().getPanels().remove(getCurrentPoint());
-				}catch (totalCrashException e) {
-					getOwnData().getBoard().clear();
-					//TODO: wordt merged board ook gecleared?
 				}
 			}
 		}
@@ -184,33 +180,33 @@ public class RobotController
 
 	/**
 	 * Returns the location of pacman given the direction
-	 * @param pacmanSpotted
+	 * @param directionPacmanSpotted
 	 * 			The direction in which pacman was seen
 	 * @return	pacman's location
 	 * @effect	Adds all panels in between the robot's current location
 	 * 			and pacman's location if they do not yet exist
 	 */
-	public Point getPacmanLocation(Direction pacmanSpotted) {
-		Orientation pacmanSpotd = getOwnData().getOrientation().addTo(pacmanSpotted);
+	public Point getPacmanLocation(Direction directionPacmanSpotted) {
+		Orientation orientationPacmanSpotted = getOwnData().getOrientation().addTo(directionPacmanSpotted);
 		Point pacmanLocation = getCurrentPoint();
 		for (int i = 0; i < getPathLayer().getOrientationLayer().getLayer().getPacmanDistance()-1; i++) {
-			pacmanLocation = pacmanSpotd.addTo(pacmanLocation);
+			pacmanLocation = orientationPacmanSpotted.addTo(pacmanLocation);
 			if (!getOwnBoard().hasPanelAt(pacmanLocation)){
-				if (pacmanSpotd.equals(Orientation.NORTH) || pacmanSpotd.equals(Orientation.SOUTH))
+				if (orientationPacmanSpotted.equals(Orientation.NORTH) || orientationPacmanSpotted.equals(Orientation.SOUTH))
 					getOwnData().discover(pacmanLocation, new Panel(0,2,0,2));
 				else
 					getOwnData().discover(pacmanLocation, new Panel(2,0,2,0));
 			}
 		}
-		pacmanLocation = pacmanSpotd.addTo(pacmanLocation);
+		pacmanLocation = orientationPacmanSpotted.addTo(pacmanLocation);
 		if (!getOwnBoard().hasPanelAt(pacmanLocation)){
-			if (pacmanSpotd.equals(Orientation.NORTH))
+			if (orientationPacmanSpotted.equals(Orientation.NORTH))
 				getOwnData().discover(pacmanLocation, new Panel(2,2,0,2));
-			else if (pacmanSpotd.equals(Orientation.SOUTH))
+			else if (orientationPacmanSpotted.equals(Orientation.SOUTH))
 				getOwnData().discover(pacmanLocation, new Panel(0,2,2,2));
-			else if (pacmanSpotd.equals(Orientation.EAST))
+			else if (orientationPacmanSpotted.equals(Orientation.EAST))
 				getOwnData().discover(pacmanLocation, new Panel(2,2,2,0));
-			else if (pacmanSpotd.equals(Orientation.WEST))
+			else if (orientationPacmanSpotted.equals(Orientation.WEST))
 				getOwnData().discover(pacmanLocation, new Panel(2,0,2,2));
 				
 		}
