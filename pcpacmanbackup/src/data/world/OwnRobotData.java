@@ -51,14 +51,6 @@ public class OwnRobotData extends RobotData
 					panel.getWallState(Orientation.EAST),
 					panel.getWallState(Orientation.SOUTH),
 					panel.getWallState(Orientation.WEST)));
-			// TODO: Als het senden werkt mag dit weg :P
-//			MessageSender.getInstance().sendMessage(
-//					getName()
-//					+ " DISCOVER "
-//					+ pointToString(point)
-//					+ ""
-//					+ panel
-//					.bordersToString());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -78,9 +70,6 @@ public class OwnRobotData extends RobotData
 	{
 		try {
 			MessageSender.getInstance().sendMessage(new BarcodeAtMessage(getName(), point, barcode, orientation));
-//			MessageSender.getInstance().sendMessage(
-//					getName() + " BARCODEAT "+pointToString(point)+" " + barcode.getValue() + " "
-//							+ orientationToString(orientation) + "\n");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -143,20 +132,7 @@ public class OwnRobotData extends RobotData
 			}
 		}
 	}
-//	private String orientationToString(Orientation o){
-//		switch (o) {
-//		case NORTH:
-//			return "3";
-//		case SOUTH:
-//			return "1";
-//		case WEST:
-//			return "2";
-//		case EAST:
-//			return "4";
-//
-//		}
-//		return null;
-//	}
+	
 	private Panel noBarcode(Panel panel)
 	{
 		Panel rv = new Panel();
@@ -169,11 +145,6 @@ public class OwnRobotData extends RobotData
 	{
 		try{
 			MessageSender.getInstance().sendMessage(new PacmanMessage(getName(), point));
-//			MessageSender.getInstance().sendMessage(
-//					getName()
-//					+ " PACMAN "
-//					+ pointToString(point)
-//					+ "\n");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -193,13 +164,6 @@ public class OwnRobotData extends RobotData
 	public void pong(String name, String message){
 		try{
 			MessageSender.getInstance().sendMessage(new PongMessage(getName(), name, message));
-//			MessageSender.getInstance().sendMessage(
-//					getName()
-//					+ " PONG "
-//					+ name
-//					+ " "
-//					+ message
-//					+ "\n");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -208,13 +172,6 @@ public class OwnRobotData extends RobotData
 	public void ping(String bestemmeling, String uniekeString){
 		try{
 			MessageSender.getInstance().sendMessage(new PingMessage(getName(), bestemmeling, uniekeString));
-//			MessageSender.getInstance().sendMessage(
-//					getName()
-//					+ " PING "
-//					+ bestemmeling
-//					+ " "
-//					+ uniekeString
-//					+ "\n");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -223,10 +180,6 @@ public class OwnRobotData extends RobotData
 	public void cancelPlan() {
 		try{
 			MessageSender.getInstance().sendMessage(new CancelPlanMessage(getName()));
-//			MessageSender.getInstance().sendMessage(
-//					getName()
-//					+ " CANCELPLAN"
-//					+ "\n");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -156,7 +156,8 @@ public class World implements Observer
 
 			this.notify();
 		
-		}}
+		}
+	}
 
 	// public void addRobot(RobotData robot, String name){
 	// _robots.put(name, robot);

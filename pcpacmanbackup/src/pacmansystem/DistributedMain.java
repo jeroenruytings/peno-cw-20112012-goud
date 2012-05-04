@@ -57,7 +57,7 @@ public class DistributedMain
 		robot.establishConnection();
 		gui.setRobotData(robot.getOwnData());
 		for (RobotData r : robot.getWorld().get_robots().values()){
-			if (r != robot.getOwnData())
+			if (!r.getName().equals(robot.getOwnData().getName()))
 				gui.setRobotData(r);
 		}
 		
