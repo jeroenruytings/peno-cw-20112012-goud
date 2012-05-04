@@ -32,6 +32,10 @@ public class DiscoverMessage extends Message
 		this._south =(byte) s;
 		this._west = (byte) w;
 	}
+	
+	public DiscoverMessage(String nameFrom, Point coordinate, WallState north, WallState east, WallState south, WallState west){
+		this(nameFrom,coordinate,north.toInt(),east.toInt(),south.toInt(),west.toInt());
+	}
 
 	public Point getCoordinate()
 	{

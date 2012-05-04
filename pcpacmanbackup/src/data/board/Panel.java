@@ -134,7 +134,16 @@ public class Panel
 	 * Gekoppeld aan CommandDiscover!
 	 */
 	public enum WallState{
-		PASSAGE,WALL,UNKNOWN;
+		PASSAGE(0),WALL(1),UNKNOWN(2);
+		
+		private int value;
+		private WallState(int value){
+			this.value = value;
+		}
+		
+		public int toInt(){
+			return value;
+		}
 		
 		public static WallState getWallState(int i){
 			switch (i){

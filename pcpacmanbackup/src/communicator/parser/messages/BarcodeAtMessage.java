@@ -25,12 +25,31 @@ public class BarcodeAtMessage extends Message {
 		this._direction = direction;
 	}
 	
+	public BarcodeAtMessage(String nameFrom, Point coordinate,Barcode barcode,Orientation direction){
+		this(nameFrom,coordinate,barcode.getValue(),getOrientationNumber(direction));
+	}
+	
 	public Point getCoordinate(){
 		return _coordinate;
 	}
 	
 	public int getBarcode(){
 		return _barcode;
+	}
+	
+	private static int getOrientationNumber(Orientation orientation){
+		switch (orientation) {
+		case NORTH:
+			return 3;
+		case EAST:
+			return 4;
+		case SOUTH:
+			return 1;
+		case WEST:
+			return 2;
+		default:
+			throw new IllegalStateException("Is er een nieuwe oriëntatie ingevoerd?");
+		}
 	}
 	
 	public Orientation getDirection() throws ParseException{

@@ -1,8 +1,6 @@
 
 package pacmansystem;
 
-import communicator.be.kuleuven.cs.peno.MessageReceiver;
-
 import interfaces.mainscreen.Mainscreen;
 import interfaces.pacmancomponents.RobotOptionPane;
 import pacmansystem.ai.RobotController;
