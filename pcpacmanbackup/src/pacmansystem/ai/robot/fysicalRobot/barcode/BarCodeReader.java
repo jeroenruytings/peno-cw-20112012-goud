@@ -24,15 +24,20 @@ public class BarCodeReader
 		
 		Barcode code = null;
 		
-		int[] readCode = finder.getCode();
 		
-		String print = "";
-		for (int i : readCode)
-			print += i;
-		System.out.println("Gelezen CODE = " + print);
+		try {
+			int[] readCode = finder.getCode();
+			
+			String print = "";
+			for (int i : readCode)
+				print += i;
+			System.out.println("Gelezen CODE = " + print);
+			
+			if(isCode(readCode))
+				code = new Barcode(finder.getCode());
+		} catch (Exception e) {
+		}
 		
-		if(isCode(readCode))
-			code = new Barcode(finder.getCode());
 		return code;
 		
 	}

@@ -1,5 +1,7 @@
 package pacmansystem.ai.robot.fysicalRobot;
 
+import java.io.IOException;
+
 import pacmansystem.ai.robot.Barcode;
 import pacmansystem.ai.robot.PanelLayerInterface;
 import pacmansystem.ai.robot.fysicalRobot.connector.Action;
@@ -62,7 +64,6 @@ public class PanelLayer implements PanelLayerInterface
 	public void 
 	go(Direction d) throws CrashedException
 	{
-		hasToCorrect = true;
 		counterCorrect++;
 		System.out.println(d.name());
 		switch (d.ordinal())
@@ -103,7 +104,19 @@ public class PanelLayer implements PanelLayerInterface
 					mover.setCrashed(false);
 					try {
 						System.out.println("Case 2: 80 mm achteruit");
+						try {
+							System.in.read();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 						mover.drive(-80);
+						try {
+							System.in.read();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					} catch (CrashedException e1) {
 						System.out.println("case 2: crashed again");
 						//This should never happen
@@ -122,7 +135,19 @@ public class PanelLayer implements PanelLayerInterface
 					mover.setCrashed(false);
 					try {
 						System.out.println("Case 3: 80 mm achteruit");
+						try {
+							System.in.read();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 						mover.drive(-80);
+						try {
+							System.in.read();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					} catch (CrashedException e1) {
 						System.out.println("case 3: crashed again");
 						//This should never happen
@@ -143,12 +168,12 @@ public class PanelLayer implements PanelLayerInterface
 	@Override
 	public WallState hasBorder(Direction d)
 	{
+		
 		int distanceAllowed = 40;
 		int distanceToWall;
 		switch (d.ordinal())
 		{
 		case 0:
-			System.out.println(mover.buttonIsPushed());
 			mover.turnHead(0);
 			distanceToWall = mover.getUltrasonic();
 			System.out.println("Hasborder up: " + distanceToWall);
@@ -156,7 +181,7 @@ public class PanelLayer implements PanelLayerInterface
 			if(distanceToWall == 255){	
 			mover.turnHead(0);
 			distanceToWall = mover.getUltrasonic();
-			
+			System.out.println("infraredValueUp: " + mover.getInfraRedSensorValue());
 			if(mover.getInfraRedSensorValue() > infraredValue && mover.getInfraRedSensorValue() > getLastSeenIrDistance()){
 				setLastSeenIrDistance(mover.getInfraRedSensorValue());
 				pacmanSeen = true;
@@ -177,6 +202,7 @@ public class PanelLayer implements PanelLayerInterface
 				pacmanSeen = false;
 			
 			if (distanceToWall < distanceAllowed){
+				hasToCorrect = true;
 				return WallState.WALL;
 			}
 			else {
@@ -200,7 +226,7 @@ public class PanelLayer implements PanelLayerInterface
 				distanceToWall = mover.getUltrasonic();
 				System.out.println("Hasborder left: " + distanceToWall);
 				}
-			
+			System.out.println("infraredValueLeft: " + mover.getInfraRedSensorValue());
 			if(mover.getInfraRedSensorValue() > infraredValue && mover.getInfraRedSensorValue() > getLastSeenIrDistance()){
 				setLastSeenIrDistance(mover.getInfraRedSensorValue());
 				pacmanSeen = true;
@@ -222,8 +248,8 @@ public class PanelLayer implements PanelLayerInterface
 			mover.turnHead(90);
 			
 			if (distanceToWall < distanceAllowed - 7){
-				if(distanceToWall < 10)
-					hasToCorrect = true;
+//				if(distanceToWall < 10)
+//					hasToCorrect = true;
 				return WallState.WALL;
 			}
 			else{
@@ -243,7 +269,7 @@ public class PanelLayer implements PanelLayerInterface
 				distanceToWall = mover.getUltrasonic();
 				System.out.println("Hasborder right: " + distanceToWall);
 				}
-			
+			System.out.println("infraredValueRight: " + mover.getInfraRedSensorValue());
 			if(mover.getInfraRedSensorValue() > infraredValue && mover.getInfraRedSensorValue() > getLastSeenIrDistance()){
 				setLastSeenIrDistance(mover.getInfraRedSensorValue());
 				pacmanSeen = true;
@@ -264,8 +290,8 @@ public class PanelLayer implements PanelLayerInterface
 			
 			mover.turnHead(-90);
 			if (distanceToWall < distanceAllowed){
-				if(distanceToWall < 15)
-					hasToCorrect = true;
+//				if(distanceToWall < 15)
+//					hasToCorrect = true;
 				return WallState.WALL;
 			}
 			else{
@@ -282,7 +308,6 @@ public class PanelLayer implements PanelLayerInterface
 	@Override
 	public boolean hasBarcode()
 	{
-		// verantwoordelijkheid van barcode reader?
 		PanelColor color = mover.getColorStack().getColor(mover.getLightSensor());
 		if (color != PanelColor.BROWN){
 			return true;
@@ -338,6 +363,7 @@ public class PanelLayer implements PanelLayerInterface
 	{
 		pacmanSeen = false;
 		setLastSeenDirectionPacman(null);
+		
 		Panel panel = new Panel();
 		for (Direction direction : Direction.values()) {
 
@@ -357,8 +383,9 @@ public class PanelLayer implements PanelLayerInterface
 			panel.setBarcode(getBarcode(), currentOrientation);
 		}
 		
-		if(hasToCorrect && counterCorrect%5==0){
+		if(hasToCorrect && counterCorrect>3){
 			correctToMiddle();
+			counterCorrect = 0;
 			hasToCorrect = false;
 		}
 		
@@ -511,14 +538,17 @@ public class PanelLayer implements PanelLayerInterface
 	}
 
 	@Override
-	public void correctToMiddle(){
-		if(!hasBarcode())
+	public void correctToMiddle() {
+		System.out.println("In correct to middle");
+		if (!hasBarcode()){
 			try {
+				System.out.println("hasbarcode = " + hasBarcode());
 				mover.correctToMiddle();
 			} catch (totalCrashException e) {
 				restore();
 				throw new totalCrashException();
 			}
+		}
 	}
 	
 	private void restore() {

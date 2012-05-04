@@ -365,6 +365,7 @@ public class MoverLayer extends Observable
 	}
 
 	public void restore(){
+		System.out.println("IN RESTORE");
 		releaseButton();
 		pcc.sendCommando(new Commando(Action.RESTORE, 0, ""));
 		while(!buttonIsPushed());

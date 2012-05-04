@@ -207,7 +207,7 @@ public class RobotData implements RobotDataView
 		while (remainingPlan.size() > 0 && !remainingPlan.get(0).equals(getPosition())) {
 			remainingPlan.remove(0);
 		}
-		if(remainingPlan.get(0).equals(getPosition()))
+		if(remainingPlan.size() > 0 && remainingPlan.get(0).equals(getPosition()))
 			remainingPlan.remove(0);
 		return remainingPlan;
 	}
