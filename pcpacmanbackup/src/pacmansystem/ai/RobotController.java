@@ -160,10 +160,10 @@ public class RobotController
 		// voegt panel toe aan board
 		tryAddingOtherRobots();
 		Panel p1 = getPathLayer().getPanel();
-		Direction pacmanSpotted = getPathLayer().getOrientationLayer()
+		Direction directionPacmanSpotted = getPathLayer().getOrientationLayer()
 				.getLayer().getPacmanDirection();
-		if (pacmanSpotted != null) {
-			Point pacmanLocation = getPacmanLocation(pacmanSpotted);
+		if (directionPacmanSpotted != null) {
+			Point pacmanLocation = getPacmanLocation(directionPacmanSpotted);
 			getOwnData().pacman(pacmanLocation);
 		}
 		if (p1.hasBarcode()) {
