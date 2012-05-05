@@ -9,6 +9,10 @@ import pacmansystem.ai.robot.PanelLayerInterface;
 import pacmansystem.ai.robot.fysicalRobot.PanelLayer;
 import pacmansystem.ai.robot.fysicalRobot.connector.MoverLayer;
 import pacmansystem.ai.robot.simulatedRobot.SimulatedRobot;
+import pacmansystem.ai.robot.simulatedRobot.SimulationConnection;
+import pacmansystem.ai.robot.simulatedRobot.StandardSimulationBuilder;
+import pacmansystem.ai.robot.simulatedRobot.Robot.Simulation;
+import pacmansystem.ai.robot.simulatedRobot.ticking.Ticker;
 import data.enums.Orientation;
 import data.world.RealWorld;
 import data.world.RobotData;
@@ -97,12 +101,18 @@ public class DistributedMain
 			controller = new RobotController(ol, robotName, world);
 			return controller;
 		} else {
-			RealWorld simulatorWorld = RealWorld.getRealWorld();
-			PanelLayerInterface p = new SimulatedRobot(simulatorWorld,
-					simulatorWorld.getStartingPoint(robotNumber),
-					Orientation.random(),1000);
-			OrientationLayer directionlayer = new OrientationLayer(p);
-			controller = new RobotController(directionlayer, robotName, world);
+			Ticker ticker = new Ticker();
+			StandardSimulationBuilder builder = new StandardSimulationBuilder();
+			SimulationConnection conn = new SimulationConnection();
+			builder.setTicker(ticker);
+			builder.setRealWorld(RealWorld.getRealWorld());
+			builder.setSimulationConnection(conn);
+			Simulation sim =builder.build();
+			sim.start();
+			MoverLayer ml = new MoverLayer(conn);
+			PanelLayer pl = new PanelLayer(ml);
+			OrientationLayer ol = new OrientationLayer(pl);
+			controller = new RobotController(ol, robotName, world);
 			return controller;
 		}
 
@@ -117,4 +127,5 @@ public class DistributedMain
 		OrientationLayer directionlayer = new OrientationLayer(p);
 		return new RobotController(directionlayer, robotName, world);
 	}
+	
 }

@@ -95,4 +95,8 @@ public class UltrasonicSensor extends Sensor
 	{
 		return changed;
 	}
+	public double getDirection()
+	{
+		return moving.getDirection();
+	}
 }
