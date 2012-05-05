@@ -48,7 +48,16 @@ public class PointfsTest
 		Pointf four = new Pointf(2, 2);
 		assertTrue(crossing(one, two, three, four));
 	}
-
+	@Test
+	public void crossingTestB2()
+	{
+		Pointf one = new Pointf(0, 0);
+		Pointf two = new Pointf(4, 4);
+		Pointf three = new Pointf(1.1, 1);
+		Pointf four = new Pointf(3.3, 3);
+		assertFalse(crossing(one, two, three, four));
+		
+	}
 	@Test
 	public void inTest0()
 	{

@@ -2,6 +2,7 @@ package pacmansystem.ai.robot.simulatedRobot.point;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import static java.lang.Math.*;
 
 public final class Pointfs
@@ -108,15 +109,13 @@ public final class Pointfs
 		// if point is on the same side of all pairs in points then all is well
 		// :)
 		int sign = 0;
-		int i = 0;
-		Pointf current = points[i];
-		while (++i < points.length) {
-			float prod = dotProduct(translate(point, invert(current)),
-					translate(points[i], invert(current)));
-			if (sign != 0 && sign(prod) != sign)
+		for(Segment segment: new SegmentIterator(points).getIterable())
+		{
+			float prod = dotProduct(translate(point, invert(segment.one)),
+					translate(segment.two, invert(segment.one)));
+			if (sign!=0&&sign(prod) != 0 && sign(prod) != sign)
 				return false;
 			sign = sign(prod);
-			current = points[i];
 		}
 		return true;
 	}
@@ -174,5 +173,14 @@ public final class Pointfs
 		for (Pointf point : points)
 			rv.add(rotate(point, around, degrees));
 		return rv;
+	}
+	public static final float distance(Pointf one,Pointf two)
+	{
+		return (float) Math.sqrt(scalarProd(one,two));
+	}
+
+	public static double scalarProd(Pointf one, Pointf two)
+	{
+		return one.X()*two.X()+one.Y()*two.Y();
 	}
 }

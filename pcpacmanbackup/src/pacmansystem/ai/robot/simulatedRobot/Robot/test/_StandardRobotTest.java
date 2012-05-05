@@ -11,6 +11,7 @@ import data.world.RealWorld;
 import pacmansystem.ai.robot.simulatedRobot.Robot.Robot;
 import pacmansystem.ai.robot.simulatedRobot.Robot.StandardRobotBuilder;
 import pacmansystem.ai.robot.simulatedRobot.point.Pointf;
+import pacmansystem.ai.robot.simulatedRobot.ticking.Ticker;
 
 public class _StandardRobotTest
 {
@@ -24,6 +25,7 @@ public class _StandardRobotTest
 		builder.setOrigin(new Point(0,0));
 		builder.setSpeed(5);
 		builder.setRealWorld(rw);
+		builder.setTicker(new Ticker());
 		robot = builder.build();
 	}
 	@Test

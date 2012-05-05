@@ -39,8 +39,8 @@ public class _SimulatedRobotTest
 		Robot robot = simulation.getRobot();
 		robot.getPilot().setSpeed(360);
 		MoverLayer layer = new MoverLayer(conn);
-		while (true)
-			System.out.println(layer.getLightSensor());
+//		while (true)
+//			System.out.println(layer.getLightSensor());
 	}
 
 	private void sleep(float time)

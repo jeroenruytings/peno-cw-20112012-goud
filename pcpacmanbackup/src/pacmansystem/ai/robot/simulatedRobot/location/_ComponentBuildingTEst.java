@@ -29,7 +29,7 @@ public class _ComponentBuildingTEst
 	@Test
 	public void testNorthBarcode()
 	{
-		List<LocationComponent> comps = builder.genNorthBarcodes(new Point(0,0), new Barcode(1,1,1,0,1,1));
+		List<LocationComponent> comps = builder.genNorthBarcodes(new Point(0,0), new Barcode(1,1,1,1,0,1,1,1));
 		// LINKER ONDERHOEK
 		assertTrue(comps.get(0).getConvexPoints().contains(new Pointf(0,(PANELHEIGHT/2) - (BARCODEHEIGHT * 4))));
 		assertEquals(((OpenComponent) comps.get(0)).getColor(), BLACK);
@@ -46,7 +46,7 @@ public class _ComponentBuildingTEst
 	@Test
 	public void testEastBarcode()
 	{
-		List<LocationComponent> comps = builder.genEastBarcodes(new Point(0,0), new Barcode(1,1,1,0,1,1));
+		List<LocationComponent> comps = builder.genEastBarcodes(new Point(0,0), new Barcode(1,1,1,1,0,1,1,1));
 		// LINKER ONDERHOEK
 		assertTrue(comps.get(0).getConvexPoints().contains(new Pointf((PANELWIDTH/2) - (BARCODEHEIGHT * 4),0)));
 		assertEquals(((OpenComponent) comps.get(0)).getColor(), BLACK);
@@ -63,7 +63,7 @@ public class _ComponentBuildingTEst
 	@Test
 	public void testWestBarcode()
 	{
-		List<LocationComponent> comps = builder.genWestBarcode(new Point(0,0), new Barcode(1,1,1,0,1,1));
+		List<LocationComponent> comps = builder.genWestBarcode(new Point(0,0), new Barcode(1,1,1,1,0,1,1,1));
 		// LINKER ONDERHOEK
 		assertTrue(comps.get(0).getConvexPoints().contains(new Pointf((PANELWIDTH/2) + (BARCODEHEIGHT * 4),0)));
 		assertEquals(((OpenComponent) comps.get(0)).getColor(), BLACK);
@@ -80,7 +80,7 @@ public class _ComponentBuildingTEst
 	@Test
 	public void testSouthBarcode()
 	{
-		List<LocationComponent> comps = builder.genSouthBarcode(new Point(0,0), new Barcode(1,1,1,0,1,1));
+		List<LocationComponent> comps = builder.genSouthBarcode(new Point(0,0), new Barcode(1,1,1,1,0,1,1,1));
 		// LINKER ONDERHOEK
 		assertTrue(comps.get(0).getConvexPoints().contains(new Pointf(0,(PANELHEIGHT/2) + (BARCODEHEIGHT * 4))));
 		assertEquals(((OpenComponent) comps.get(0)).getColor(), BLACK);

@@ -13,8 +13,8 @@ import pacmansystem.ai.robot.simulatedRobot.point.Pointfs;
 public class RealWorldViewNoMoving implements RealWorldView
 {
 	private Collection<LocationComponent> comps_;
-
-	RealWorldViewNoMoving()
+	
+	public RealWorldViewNoMoving()
 	{
 		comps_ = new ArrayList<LocationComponent>();
 	}
@@ -69,8 +69,40 @@ public class RealWorldViewNoMoving implements RealWorldView
 	{
 
 		ArrayList<LocationComponent> rv = new ArrayList<LocationComponent>();
-
+		for(LocationComponent comp : comps_)
+		{
+			//if point0 or point1 is in the component return true
+			if(Pointfs.in(point0, comp.getConvexPoints())||Pointfs.in(point1, comp.getConvexPoints()))
+				{
+					rv.add(comp);
+					continue;
+				}
+			//if the line [point0,point1] crosses one of the lines of the component
+			if(crossesOne(comp.getConvexPoints(),point0,point1))
+			{
+				rv.add(comp);
+			}
+		}
+		//Collections.sort(rv, new ComponentOriginComparator(point0));
 		return rv;
+	}
+
+	private boolean crossesOne(List<Pointf> convexPoints, Pointf point0,
+			Pointf point1)
+	{
+		Pointf last = null;
+		for(Pointf point:convexPoints)
+		{
+			if(last==null)
+			{
+				last = point;
+				continue;
+			}
+			if(Pointfs.crossing(point0, point1, last, point))
+				return true;
+			
+		}
+		return false;
 	}
 
 	/**

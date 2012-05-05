@@ -1,5 +1,7 @@
 package pacmansystem.ai.robot.simulatedRobot.Robot;
 
+import static pacmansystem.ai.robot.simulatedRobot.point.Pointfs.translate;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,9 +9,7 @@ import pacmansystem.ai.robot.simulatedRobot.SIMINFO;
 import pacmansystem.ai.robot.simulatedRobot.location.RealWorldView;
 import pacmansystem.ai.robot.simulatedRobot.point.Pointf;
 import pacmansystem.ai.robot.simulatedRobot.point.Pointfs;
-import pacmansystem.ai.robot.simulatedRobot.ticking.Tickable;
 import pacmansystem.ai.robot.simulatedRobot.ticking.Ticker;
-import static pacmansystem.ai.robot.simulatedRobot.point.Pointfs.*;
 
 //TODO: implement
 public class Robot implements MovingComponent
