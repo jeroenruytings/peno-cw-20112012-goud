@@ -174,4 +174,14 @@ public class _QueuedStreamTest
 		
 		
 	}
+	@Test
+	public void dataStreams() throws IOException
+	{
+		DataInputStream in = new DataInputStream(stream.getIn());
+		DataOutputStream out = new DataOutputStream(stream.getOut());
+		out.write(10);
+		out.write(6);
+		assertTrue(in.readByte()==10);
+		assertTrue(in.readByte()==6);
+	}
 }

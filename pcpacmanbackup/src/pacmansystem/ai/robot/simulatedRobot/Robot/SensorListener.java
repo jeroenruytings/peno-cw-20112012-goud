@@ -13,14 +13,16 @@ public class SensorListener implements Tickable
 	RobotCommunicator communicator;
 	private boolean forcelight;
 	private int lightValue;
+	private Robot robot;
 
-	public SensorListener(RobotCommunicator comm,UltrasonicSensor sensor,LightSensor lights,TouchSensor touch,IRSeekerV2 irseekr)
+	public SensorListener(RobotCommunicator comm,UltrasonicSensor sensor,LightSensor lights,TouchSensor touch,IRSeekerV2 irseekr,Robot robot)
 	{
 		this.communicator = comm;
 		this.sonar=sensor;
 		this.light=lights;
 		this.push=touch;
 		this.ir=irseekr;
+		this.robot=robot;
 	}
 	
 	
@@ -66,11 +68,8 @@ public class SensorListener implements Tickable
 
 	private void sendHeadTacho()
 	{
-//		if (headTacho != getHeadTacho()) {
-//			headTacho = getHeadTacho();
-//			System.out.println(headTacho);
-//			sendValue(headTacho, SensorIdentifier.HeadTacho);
-//		}
+		sendValue(robot.getHead().getTacho(), SensorIdentifier.HeadTacho);
+		
 	}
 
 	private void sendIR()
@@ -84,10 +83,9 @@ public class SensorListener implements Tickable
 
 	private void sendSonar()
 	{
-//		if (sonarValue != getSonarValue()) {
-//			sonarValue = getSonarValue();
-//			sendValue(sonarValue, SensorIdentifier.UltrasonicSensor);
-//		}
+		if (sonar.hasChanged()) {
+			sendValue(sonar.getDistance(), SensorIdentifier.UltrasonicSensor);
+		}
 	}
 
 	private void sendLight()

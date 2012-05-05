@@ -11,6 +11,7 @@ import pacmansystem.ai.robot.simulatedRobot.Robot.SensorFacade;
 import pacmansystem.ai.robot.simulatedRobot.Robot.SensorListener;
 import pacmansystem.ai.robot.simulatedRobot.Robot.Simulation;
 import pacmansystem.ai.robot.simulatedRobot.Robot.StandardRobotBuilder;
+import pacmansystem.ai.robot.simulatedRobot.point.Pointf;
 import pacmansystem.ai.robot.simulatedRobot.ticking.Ticker;
 import data.world.RealWorld;
 
@@ -21,6 +22,7 @@ public class StandardSimulationBuilder implements SimulationBuilder
 	private SensorListener sensorlistener;
 	private SimulationConnection conn;
 	private Ticker ticker;
+	private Point point;
 
 	/**
 	 * 
@@ -30,18 +32,17 @@ public class StandardSimulationBuilder implements SimulationBuilder
 	{
 		StandardRobotBuilder robotBuilder = new StandardRobotBuilder();
 		robotBuilder.setDegrees(0);
-		robotBuilder.setOrigin(new Point(0, 0));
+		robotBuilder.setOrigin(point);
 		robotBuilder.setRealWorld(realworld);
 		robotBuilder.setSpeed(5);
 		robotBuilder.setTicker(ticker);
 		Robot robot = robotBuilder.build();
 		SensorFacade s = robot.getSensors();
-		
 		RobotCommunicator comm = new RobotCommunicator(new DataInputStream(
 				conn.getRobotIN()), new DataOutputStream(conn.getRobotOut()));
 		 sensorlistener = new SensorListener(comm,
 				s.getUltraSonicSensor(), s.getLightSensor(),
-				s.getTouchSensor(), s.getInfraRedSensor());
+				s.getTouchSensor(), s.getInfraRedSensor(),robot);
 		
 		CommandoListener l = new CommandoListener(sensorlistener, comm, robot);
 		new Thread(l).start();
@@ -64,5 +65,8 @@ public class StandardSimulationBuilder implements SimulationBuilder
 	{
 		this.conn = conn;
 	}
-
+	public void setStartLocation(Point point)
+	{
+		this.point=point;
+	}
 }

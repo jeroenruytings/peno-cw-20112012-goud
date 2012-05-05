@@ -12,7 +12,7 @@ import java.util.List;
  * 
  */
 public class QueuedStream
-{
+{ 
 	private OutputStream out_;
 	private InputStream in_;
 	private List<Integer> queue;

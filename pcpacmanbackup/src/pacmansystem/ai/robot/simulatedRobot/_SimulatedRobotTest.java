@@ -1,5 +1,7 @@
 package pacmansystem.ai.robot.simulatedRobot;
 
+import java.awt.Point;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,6 +19,7 @@ public class _SimulatedRobotTest
 	private Simulation simulation;
 	private SimulationConnection conn;
 	private float speedmmps = 171;
+	private MoverLayer layer;
 
 	@Before
 	public void simulationTest1()
@@ -29,18 +32,17 @@ public class _SimulatedRobotTest
 		builder.setRealWorld(rw);
 		builder.setSimulationConnection(conn);
 		builder.setTicker(ticker);
+		builder.setStartLocation(new Point(0,0));
 		simulation = builder.build();
 		ticker.start();
+		layer = new MoverLayer(conn);
 	}
 
 	@Test
 	public void test()
 	{
-		Robot robot = simulation.getRobot();
-		robot.getPilot().setSpeed(360);
-		MoverLayer layer = new MoverLayer(conn);
-//		while (true)
-//			System.out.println(layer.getLightSensor());
+		layer.turnHead(90);
+		System.out.println("Abra.");
 	}
 
 	private void sleep(float time)

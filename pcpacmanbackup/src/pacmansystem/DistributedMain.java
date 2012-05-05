@@ -101,12 +101,20 @@ public class DistributedMain
 			controller = new RobotController(ol, robotName, world);
 			return controller;
 		} else {
+//			RealWorld simulatorWorld = RealWorld.getRealWorld();
+//			PanelLayerInterface p = new SimulatedRobot(simulatorWorld,
+//					simulatorWorld.getStartingPoint(robotNumber),
+//					Orientation.random(),1000);
+//			OrientationLayer directionlayer = new OrientationLayer(p);
+//			controller = new RobotController(directionlayer, robotName, world);
 			Ticker ticker = new Ticker();
 			StandardSimulationBuilder builder = new StandardSimulationBuilder();
 			SimulationConnection conn = new SimulationConnection();
 			builder.setTicker(ticker);
-			builder.setRealWorld(RealWorld.getRealWorld());
+			RealWorld realworld = RealWorld.getRealWorld();
+			builder.setRealWorld(realworld);
 			builder.setSimulationConnection(conn);
+			builder.setStartLocation(realworld.getStartingPoint(robotNumber));
 			Simulation sim =builder.build();
 			sim.start();
 			MoverLayer ml = new MoverLayer(conn);

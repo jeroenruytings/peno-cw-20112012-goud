@@ -335,13 +335,13 @@ public class MoverLayer extends Observable
 		int currentPosition = getHeadTacho();
 		if (currentPosition<128){
 			int degrees = currentPosition - i;
-//			System.out.println("post i " + i + degrees  );
+			System.out.println("post i " + i + degrees  );
 			turnHead(degrees);
 		}
 		else{
 			currentPosition = currentPosition - 256;
 			int degrees = currentPosition - i;
-//			System.out.println("neg i " + i + degrees  );
+			System.out.println("neg i " + i + degrees  );
 			turnHead(degrees);
 		}
 	}

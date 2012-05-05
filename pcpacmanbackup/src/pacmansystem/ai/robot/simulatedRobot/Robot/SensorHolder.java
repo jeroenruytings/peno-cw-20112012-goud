@@ -143,4 +143,9 @@ public class SensorHolder implements MovingComponent
 		}
 	}
 
+	public int getTacho()
+	{
+		return angle;
+	}
+
 }
