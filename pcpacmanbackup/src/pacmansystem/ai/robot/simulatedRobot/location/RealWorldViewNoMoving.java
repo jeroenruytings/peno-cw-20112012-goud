@@ -49,17 +49,7 @@ public class RealWorldViewNoMoving implements RealWorldView
 		return rv.get(0);
 	}
 
-	/* (non-Javadoc)
-	 * @see pacmansystem.ai.robot.simulatedRobot.location.RealWorldView#get(pacmansystem.ai.robot.simulatedRobot.location.Pointf, pacmansystem.ai.robot.simulatedRobot.location.Pointf)
-	 */
-	@Override
-	public List<LocationComponent> get(Pointf point, Pointf vector)
-	{
 
-		ArrayList<LocationComponent> rv = new ArrayList<LocationComponent>();
-
-		return rv;
-	}
 
 	/* (non-Javadoc)
 	 * @see pacmansystem.ai.robot.simulatedRobot.location.RealWorldView#getIn(pacmansystem.ai.robot.simulatedRobot.location.Pointf, pacmansystem.ai.robot.simulatedRobot.location.Pointf)
@@ -83,7 +73,7 @@ public class RealWorldViewNoMoving implements RealWorldView
 				rv.add(comp);
 			}
 		}
-		//Collections.sort(rv, new ComponentOriginComparator(point0));
+		Collections.sort(rv, new ComponentOriginComparator(point0,point1));
 		return rv;
 	}
 

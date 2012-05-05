@@ -174,9 +174,16 @@ public final class Pointfs
 			rv.add(rotate(point, around, degrees));
 		return rv;
 	}
+	/**
+	 * Returns the distance between two points
+	 * @param one
+	 * @param two
+	 * @return
+	 */
 	public static final float distance(Pointf one,Pointf two)
 	{
-		return (float) Math.sqrt(scalarProd(one,two));
+		Pointf vector = translate(one, invert(two));
+		return (float) Math.sqrt(scalarProd(vector,vector));
 	}
 
 	public static double scalarProd(Pointf one, Pointf two)

@@ -20,11 +20,6 @@ public interface RealWorldView
 	public abstract LocationComponent get(Pointf point);
 
 	/**
-	 * Gets all the components that are in the direction of pointf vector
-	 */
-	public abstract List<LocationComponent> get(Pointf point, Pointf vector);
-
-	/**
 	 * Gets the LocationComponents that are in the range [point0->point1]
 	 */
 	public abstract List<LocationComponent> getIn(Pointf point0, Pointf point1);

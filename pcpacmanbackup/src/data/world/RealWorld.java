@@ -57,7 +57,7 @@ public class RealWorld implements Observer
 	}
 
 	/**
-	 * @return The global board, with absolute coordinates.
+	 * @return The global board, with absolute coordinates. Not a copy
 	 */
 	public Board getGlobalBoard()
 	{

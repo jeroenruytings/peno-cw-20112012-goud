@@ -50,7 +50,7 @@ public class ComponentOriginComparator implements Comparator<LocationComponent>
 	 * 
 	 * @return Float.MAX_VALUE if there is no such value
 	 */
-	 float distance(LocationComponent arg0)
+	public float distance(LocationComponent arg0)
 	{
 		float min = Float.MAX_VALUE;
 		for (Segment segment : new SegmentIterator(arg0.getConvexPoints())
@@ -60,7 +60,7 @@ public class ComponentOriginComparator implements Comparator<LocationComponent>
 		return min;
 	}
 
-	 float distance(Segment segment)
+	public float distance(Segment segment)
 	{
 		if (!finder.hasInterSection(segment.one, segment.two))
 			return Float.MAX_VALUE;
