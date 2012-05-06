@@ -17,6 +17,7 @@ public class SensorListener implements Runnable {
 	Motor motor = new Motor(MotorPort.A);
 	Motor head = new Motor(MotorPort.C);
 	RobotCommunicator communicator;
+//	Button crashButton = new Button();
 	
 	public SensorListener(){
 		
@@ -31,6 +32,7 @@ public class SensorListener implements Runnable {
 	private int irDirection;
 	private int tachoCount;
 	private int headTacho;
+	private boolean totalCrash;
 
 	
 
@@ -56,7 +58,7 @@ public class SensorListener implements Runnable {
 		while (true){
 			
 		//send push value
-			if(pushValue != getPushValue()){
+			if(pushValue != getPushValue() && !getTotalCrash()){
 				pushValue = getPushValue();
 		sendValue(pushValue, SensorIdentifier.PushSensor);
 			}
@@ -111,12 +113,16 @@ public class SensorListener implements Runnable {
 		
 	}
 
+	private boolean getTotalCrash() {
+		return totalCrash;
+	}
+
 	public int getHeadTacho() {
 		return head.getTachoCount();
 	}
 
 	public int getTachoCount() {
-		return motor.getTachoCount()/4;
+		return (motor.getTachoCount()/4);
 	}
 
 	public int getIrDirection() {
@@ -150,6 +156,10 @@ public class SensorListener implements Runnable {
 		else {
 			return 0;
 		}
+	}
+
+	public void setTotalCrash(boolean b) {
+		totalCrash = true;
 	}
 
 }

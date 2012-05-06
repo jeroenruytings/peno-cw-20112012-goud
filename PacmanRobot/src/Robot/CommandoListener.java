@@ -1,6 +1,5 @@
 package Robot;
 
-import lejos.nxt.Button;
 import lejos.nxt.LCD;
 import lejos.nxt.Motor;
 import lejos.robotics.proposal.DifferentialPilot;
@@ -37,11 +36,12 @@ public class CommandoListener implements Runnable {
 	int Black;
 	int White;
 	int Brown;
+	private boolean totalCrash;
 	
 	public CommandoListener(SensorListener listener){
 		
 		communicator = RobotCommunicator.instance();
-		pilot = new DifferentialPilot(54.5f, 54.75f, 150.05f, Motor.A, Motor.B, false);
+		pilot = new DifferentialPilot(54.5f, 54.75f, 153.3f, Motor.A, Motor.B, false);
 		this.listener = listener;
 	}
 	
@@ -104,6 +104,8 @@ public class CommandoListener implements Runnable {
 				case 11:
 					correctToMiddle();
 					break;
+				case 12:
+					restore();
 				default:;
 			}
 		}
@@ -175,10 +177,10 @@ public class CommandoListener implements Runnable {
 		while(!iswhite(listener.getLightValue())){
 			Motor.A.backward();
 			Motor.B.backward();
-//			if(firstTacho - Motor.A.getTachoCount()> 2640){
-//				restore();	
-//				return;
-//			}
+			if(firstTacho - Motor.A.getTachoCount()> 2640){
+				setTotalCrash(true);
+				return;
+			}
 		}
 		pilot.travel(40);
 		pilot.rotate(-180, true);
@@ -205,9 +207,34 @@ public class CommandoListener implements Runnable {
 		pilot.travel(200);
 	}
 	
+	
+	//TODO kijk waarden na voor sonar, rotate en travel
 	private void restore() {
-		// TODO Auto-generated method stub
-		
+		setHeadZero();
+		while(!iswhite(listener.getLightValue())){
+			Motor.A.forward();
+			Motor.B.forward();
+			if((listener.getPushValue()==1) || (listener.getSonarValue()<20)){
+				pilot.rotate(20);
+				setHeadZero();
+			}
+		}
+		setHeadZero();
+		while(iswhite(listener.getLightValue())){
+			Motor.A.forward();
+			Motor.B.forward();
+		}
+		pilot.travel(10);
+		correctToMiddle();
+	}
+
+	private void setTotalCrash(boolean b) {
+		listener.setTotalCrash(b);
+		totalCrash = b;
+	}
+	
+	private boolean getTotalCrash(){
+		return totalCrash;
 	}
 
 	private void correctToMiddleY(){
@@ -402,17 +429,17 @@ public class CommandoListener implements Runnable {
 	public void readBarcode(){
 		Motor.A.resetTachoCount();
 //		Button.ENTER.waitForPressAndRelease();
-		pilot.travel(-160);
+		pilot.travel(-150);
 		Motor.A.resetTachoCount();
 		pilot.setSpeed(180);
 //		Button.ENTER.waitForPressAndRelease();
-		pilot.travel(320);
+		pilot.travel(280);
 		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
 		communicator.send(message);
 		Motor.A.resetTachoCount();
 		pilot.setSpeed(360);
 //		Button.ENTER.waitForPressAndRelease();
-		pilot.travel(-160);
+		pilot.travel(-130);
 		Motor.A.resetTachoCount();
 //		Button.ENTER.waitForPressAndRelease();
 	}
