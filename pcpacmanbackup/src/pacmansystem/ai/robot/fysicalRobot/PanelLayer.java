@@ -370,6 +370,7 @@ public class PanelLayer implements PanelLayerInterface
 	{
 		pacmanSeen = false;
 		setLastSeenDirectionPacman(null);
+		setLastSeenIrDistance(0);
 		
 		Panel panel = new Panel();
 		for (Direction direction : Direction.values()) {
