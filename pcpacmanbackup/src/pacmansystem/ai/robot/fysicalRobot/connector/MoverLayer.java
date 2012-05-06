@@ -308,11 +308,11 @@ public class MoverLayer extends Observable
 		releaseButton();
 		pcc.sendCommando(new Commando(Action.CORRECT, 0, ""));
 		Date d = new Date();
-		while(!buttonIsPushed()){
-			Date e = new Date();
-			if(e.getTime()-d.getTime()>5000){
-				throw new totalCrashException();			
-			}
+		while(!buttonIsPushed()){	
+		}
+		Date e = new Date();
+		if(e.getTime()-d.getTime()>5000){
+			throw new totalCrashException();			
 		}
 		releaseButton();
 	}

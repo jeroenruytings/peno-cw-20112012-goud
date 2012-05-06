@@ -27,7 +27,7 @@ public class Command
 			_myMessage.execute(world);
 		}catch (MessageExecuteException e) {
 			System.err.println("De volgende Message is niet uitgevoerd: " + _myMessage);
-			System.err.println("Waarscheinlijk omdat de naam van de zendende robot niet gekent is.");
+			System.err.println("Waarschijnlijk omdat de naam van de zendende robot niet gekent is.");
 			System.err.println("Kijk in de 'canExecute(world)' methode van de corresponderende message-klasse voor meer info.");
 		}
 	}

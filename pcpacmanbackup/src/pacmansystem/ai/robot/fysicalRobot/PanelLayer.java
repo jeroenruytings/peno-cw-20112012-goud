@@ -2,8 +2,6 @@ package pacmansystem.ai.robot.fysicalRobot;
 
 import java.io.IOException;
 
-import lejos.util.Stopwatch;
-
 import pacmansystem.ai.robot.Barcode;
 import pacmansystem.ai.robot.PanelLayerInterface;
 import pacmansystem.ai.robot.fysicalRobot.connector.Action;
@@ -391,7 +389,7 @@ public class PanelLayer implements PanelLayerInterface
 			panel.setBarcode(getBarcode(), currentOrientation);
 		}
 		
-		if(!hasBarcode() && counterCorrect>1){
+		if(!hasBarcode() && counterCorrect>3){
 			correctToMiddle();
 			counterCorrect = 0;
 			hasToCorrect = false;
