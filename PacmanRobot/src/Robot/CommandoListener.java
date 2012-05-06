@@ -2,7 +2,9 @@ package Robot;
 
 import lejos.nxt.LCD;
 import lejos.nxt.Motor;
+import lejos.nxt.Sound;
 import lejos.robotics.proposal.DifferentialPilot;
+import lejos.util.Stopwatch;
 
 public class CommandoListener implements Runnable {
 	
@@ -41,7 +43,7 @@ public class CommandoListener implements Runnable {
 	public CommandoListener(SensorListener listener){
 		
 		communicator = RobotCommunicator.instance();
-		pilot = new DifferentialPilot(54.5f, 54.75f, 153.3f, Motor.A, Motor.B, false);
+		pilot = new DifferentialPilot(54.5f, 54.75f, 156f, Motor.A, Motor.B, false);
 		this.listener = listener;
 	}
 	
@@ -105,7 +107,9 @@ public class CommandoListener implements Runnable {
 					correctToMiddle();
 					break;
 				case 12:
+					Sound.twoBeeps();
 					restore();
+					break;
 				default:;
 			}
 		}
@@ -152,13 +156,9 @@ public class CommandoListener implements Runnable {
 
 		correctToMiddleX();
 		setHeadZero();
-		correctToMiddleY();
-		
-		
+		if(!getTotalCrash())
+			correctToMiddleY();
 		communicator.send(message);
-		
-		
-		
 	}
 	
 	private void setHeadZero() {
@@ -173,11 +173,12 @@ public class CommandoListener implements Runnable {
 
 
 	private void correctToMiddleX(){
-		int firstTacho = Motor.A.getTachoCount();
+		Stopwatch sw = new Stopwatch();
+		sw.reset();
 		while(!iswhite(listener.getLightValue())){
 			Motor.A.backward();
 			Motor.B.backward();
-			if(firstTacho - Motor.A.getTachoCount()> 2640){
+			if(sw.elapsed() > 5000){
 				setTotalCrash(true);
 				return;
 			}
@@ -210,22 +211,46 @@ public class CommandoListener implements Runnable {
 	
 	//TODO kijk waarden na voor sonar, rotate en travel
 	private void restore() {
+		Message message = new Message(Monitor.SensorMonitor, SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
+
+		Sound.twoBeeps();
 		setHeadZero();
-		while(!iswhite(listener.getLightValue())){
-			Motor.A.forward();
-			Motor.B.forward();
-			if((listener.getPushValue()==1) || (listener.getSonarValue()<20)){
+		pilot.travel(10);
+		while (true) {
+			if (listener.getSonarValue() < 20) {
 				pilot.rotate(20);
 				setHeadZero();
 			}
+			if (listener.getPushValue() == 1){
+				pilot.travel(-10);
+			}
+			else{
+				correctToMiddle();
+				communicator.send(message);
+				return;
+			}
 		}
-		setHeadZero();
-		while(iswhite(listener.getLightValue())){
-			Motor.A.forward();
-			Motor.B.forward();
-		}
-		pilot.travel(10);
-		correctToMiddle();
+		
+		
+		
+//		
+//		setHeadZero();
+//		while(!iswhite(listener.getLightValue())){
+//			Motor.A.forward();
+//			Motor.B.forward();
+//			if((listener.getPushValue()==1) || (listener.getSonarValue()<20)){
+//				
+//				pilot.rotate(20);
+//				setHeadZero();
+//			}
+//		}
+//		setHeadZero();
+//		while(iswhite(listener.getLightValue())){
+//			Motor.A.forward();
+//			Motor.B.forward();
+//		}
+//		pilot.travel(10);
+//		correctToMiddle();
 	}
 
 	private void setTotalCrash(boolean b) {

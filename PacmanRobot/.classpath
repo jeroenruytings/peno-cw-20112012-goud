@@ -10,5 +10,9 @@
 	<classpathentry kind="lib" path="C:/Users/Api/Dropbox/P&amp;O Computerwetenschappen/Semester 1/Lejos library/lib/nxt/pccomm.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Api/Dropbox/P&amp;O Computerwetenschappen/Semester 1/Lejos library/lib/nxt/pctools.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Thibault/Dropbox/P&amp;O Computerwetenschappen/Semester 1/Lejos library/lib/nxt/classes.jar"/>
+	<classpathentry kind="lib" path="/home/jannes/Dropbox/P&amp;O Computerwetenschappen/Semester 1/Lejos library/lib/classes.jar"/>
+	<classpathentry kind="lib" path="/home/jannes/Dropbox/P&amp;O Computerwetenschappen/Semester 1/Lejos library/lib/jtools.jar"/>
+	<classpathentry kind="lib" path="/home/jannes/Dropbox/P&amp;O Computerwetenschappen/Semester 1/Lejos library/lib/pccomm.jar"/>
+	<classpathentry kind="lib" path="/home/jannes/Dropbox/P&amp;O Computerwetenschappen/Semester 1/Lejos library/lib/pctools.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
