@@ -52,6 +52,7 @@ public class MoverLayer extends Observable
 
 
 	private CrashListener crashListener;
+	public boolean barocde = false;
 	
 	public MoverLayer()
 	{
@@ -158,15 +159,24 @@ public class MoverLayer extends Observable
 		releaseButton();
 		if (degrees>=0){
 			pcc.sendCommando(new Commando(Action.HEADRIGHT,degrees,""));
-			while(!buttonIsPushed()){
-			}
+			waitForButton();
 			releaseButton();
+			
 		}
 		else{
 			pcc.sendCommando(new Commando(Action.HEADLEFT, (-1*degrees), ""));
-			while(!buttonIsPushed()){
-			}
+			waitForButton();
 			releaseButton();
+		}
+	}
+
+	private void waitForButton()
+	{
+		while(!buttonIsPushed()){
+		}
+		try {
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
 		}
 	}
 
@@ -220,13 +230,7 @@ public class MoverLayer extends Observable
 		System.out.println("Sending to calibrate BLACK");
 		releaseButton();
 		pcc.sendCommando(new Commando(Action.CALIBRATEBLACK,0, "Calibrate black"));
-		while(!buttonIsPushed()){
-//			try {
-//				Thread.sleep(100);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
-		}
+		waitForButton();
 		this._colorStack.calibrate(PanelColor.BLACK, getLightSensor());
 		releaseButton();
 	}
@@ -238,13 +242,7 @@ public class MoverLayer extends Observable
 	public void calibrateWhite() {
 		releaseButton();
 		pcc.sendCommando(new Commando(Action.CALIBRATEWHITE,0, "Calibrate white"));
-		while(!buttonIsPushed()){
-//			try {
-//				Thread.sleep(100);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
-		}
+		waitForButton();
 		this._colorStack.calibrate(PanelColor.WHITE, getLightSensor());
 		releaseButton();
 		
@@ -253,13 +251,7 @@ public class MoverLayer extends Observable
 	public void calibrateBrown() {
 		releaseButton();
 		pcc.sendCommando(new Commando(Action.CALIBRATEBROWN,0, "Calibrate brown"));
-		while(!buttonIsPushed()){
-//			try {
-//				Thread.sleep(100);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
-		}
+		waitForButton();
 		this._colorStack.calibrate(PanelColor.BROWN, getLightSensor());
 		releaseButton();
 	}
@@ -290,7 +282,8 @@ public class MoverLayer extends Observable
 	public void setLightSensor(Integer value) {
 		this.lightSensor = value;
 		if(_colorStack.sufficientlyCalibrated())
-		{	//System.out.println("value"+value+" tacho"+getTachoCount());
+		{
+			
 			_colorStack.pushColor(value, getTachoCount());
 	}}
 

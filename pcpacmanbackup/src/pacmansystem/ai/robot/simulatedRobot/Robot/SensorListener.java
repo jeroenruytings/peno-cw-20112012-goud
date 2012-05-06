@@ -59,7 +59,7 @@ public class SensorListener implements Tickable
 
 	private void sendTacho()
 	{
-		sendValue(robot.getPilot().getTachoCount(), SensorIdentifier.TachoCount);
+		sendValue(robot.getPilot().getTachoCount()/4, SensorIdentifier.TachoCount);
 
 	}
 
@@ -88,6 +88,11 @@ public class SensorListener implements Tickable
 
 	private void sendLight()
 	{
+		if(forcelight)
+			{
+				sendValue(lightValue, SensorIdentifier.LightSensor);
+			return;
+			}
 		sendValue(light.getLightValue(), SensorIdentifier.LightSensor);
 		
 	}

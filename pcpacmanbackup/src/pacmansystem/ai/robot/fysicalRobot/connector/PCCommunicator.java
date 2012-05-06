@@ -14,6 +14,8 @@ public class PCCommunicator implements Runnable
 	private DataOutputStream streamOut;
 	private DataInputStream streamIn;
 	private MoverLayer virtu;
+	private boolean inputlock;
+	private Object INPUTLOCK = new String();
 
 	public PCCommunicator(MoverLayer virtu)
 	{
@@ -60,6 +62,7 @@ public class PCCommunicator implements Runnable
 
 	public void receiveValues() throws IOException
 	{
+		
 		byte[] input = new byte[2];
 		input[0] = streamIn.readByte();
 		input[1] = streamIn.readByte();
@@ -89,5 +92,6 @@ public class PCCommunicator implements Runnable
 	public MoverLayer getVirtu() {
 		return this.virtu;
 	}
+
 
 }

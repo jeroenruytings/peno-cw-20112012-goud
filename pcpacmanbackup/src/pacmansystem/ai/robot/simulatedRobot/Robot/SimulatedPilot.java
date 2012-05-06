@@ -137,12 +137,12 @@ public class SimulatedPilot implements Tickable
 		int degreesLeft;
 		// degrees/second
 		double degreesdone = 0;
-		double rotationSpeed = 8*(SimulatedPilot.this.speed() / mmDeg(robot.widht / 2));
+		double rotationSpeed = (SimulatedPilot.this.speed() / mmDeg(robot.widht / 2));
 		private boolean min = false;
 
 		Rotate(int degrees)
 		{
-			this.degreesLeft = degrees;
+			this.degreesLeft = -degrees;
 			if(degreesLeft<0)
 			{
 				degreesLeft= - degreesLeft;
@@ -204,9 +204,11 @@ public class SimulatedPilot implements Tickable
 	 */
 	public void travel(int i)
 	{
+		System.out.println("moving from "+robot.getLocation());
 		Movement forward = new Forward(i);
 		setNextMove(forward);
 		waitForCompletion(forward);
+		System.out.println("moved to"+robot.getLocation());
 	}
 
 	private void waitForCompletion(Movement movement)

@@ -16,6 +16,7 @@ public class LightSensor  extends Sensor
 {
 	private int value;
 	private boolean changed =false;
+	private boolean first=true;
 	public LightSensor(Robot pilot)
 	{
 		super(pilot);
@@ -36,14 +37,13 @@ public class LightSensor  extends Sensor
 
 	public boolean hasChanged()
 	{
-		return changed;
+		return true;
 	}
 
 	@Override
 	public void tick(Ticker ticker)
 	{
 		readValue();
-		System.out.println(this.value);
 	}
 	private class ColorChecker implements LocationComponentVisitor{
 		boolean colored = false;

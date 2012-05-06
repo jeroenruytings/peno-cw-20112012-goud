@@ -8,6 +8,7 @@ import org.junit.Test;
 import pacmansystem.ai.robot.fysicalRobot.PanelLayer;
 import pacmansystem.ai.robot.fysicalRobot.connector.CrashedException;
 import pacmansystem.ai.robot.fysicalRobot.connector.MoverLayer;
+import pacmansystem.ai.robot.simulatedRobot.Robot.Robot;
 import pacmansystem.ai.robot.simulatedRobot.Robot.Simulation;
 import pacmansystem.ai.robot.simulatedRobot.ticking.Ticker;
 import data.enums.Direction;
@@ -45,12 +46,17 @@ public class _SimulatedRobotTest
 	@Test
 	public void test() throws CrashedException
 	{
-//		panellayer.go(Direction.UP);
-//		layer.turnHead(0);
-		//synced :D
-	System.out.println(simulation.getRobot().getSensors().getLightSensor().getLightValue());
-	System.out.println(panellayer.getBarcode());
-	System.out.println("done");
+		Robot r = simulation.getRobot();
+		r.getPilot().rotate(180);
+		r.getPilot().travel(10);
+		r.getPilot().rotate(180);
+		r.getPilot().travel(10);
+		r.getPilot().rotate(180);
+		r.getPilot().travel(10);
+		r.getPilot().rotate(180);
+		r.getPilot().travel(10);
+		r.getPilot().rotate(90);
+		
 	}
 
 	private void sleep(float time)

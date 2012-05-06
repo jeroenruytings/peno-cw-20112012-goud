@@ -2,6 +2,8 @@ package pacmansystem.ai.robot.fysicalRobot;
 
 import java.io.IOException;
 
+import lejos.util.Stopwatch;
+
 import pacmansystem.ai.robot.Barcode;
 import pacmansystem.ai.robot.PanelLayerInterface;
 import pacmansystem.ai.robot.fysicalRobot.connector.Action;
@@ -171,13 +173,15 @@ public class PanelLayer implements PanelLayerInterface
 		
 		int distanceAllowed = 40;
 		int distanceToWall;
+
 		switch (d.ordinal())
 		{
 		case 0:
 			mover.turnHead(0);
 			distanceToWall = mover.getUltrasonic();
-			System.out.println("Hasborder up: " + distanceToWall);
 			
+			System.out.println("Hasborder up: " + distanceToWall);
+
 			if(distanceToWall == 255){	
 			mover.turnHead(0);
 			distanceToWall = mover.getUltrasonic();
@@ -328,14 +332,17 @@ public class PanelLayer implements PanelLayerInterface
 	{
 		if(hasBarcode()){
 			mover.getTransStack().clear();
+			this.mover.barocde=true;
 			mover.getPcc().sendCommando(new Commando(Action.READBARCODE, 0, ""));
 			while(!mover.buttonIsPushed());
 			mover.releaseButton();
 			Barcode code = mover.getBarcodeReader().searchForCode();
+			this.mover.barocde=false;
 			if(code!=null)
 				System.out.println("CODE " + code);
 			else
 				System.out.println("barcode niet kunnen lezen");
+		
 			return code;
 		}
 		else{

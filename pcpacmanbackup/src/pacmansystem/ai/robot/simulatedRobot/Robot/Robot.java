@@ -63,14 +63,11 @@ public class Robot implements MovingComponent
 		return degrees;
 	}
 
-	/**
-	 * Sets the degree value % 360
-	 * 
-	 * @param degrees
-	 */
-	private void setDegrees(int degrees)
+	private void setDegrees(double degrees)
 	{
-		this.degrees = degrees % 360;
+//		while(degrees>360)
+//			degrees-=360;
+		this.degrees=degrees;
 	}
 
 	public RealWorldView getView()
@@ -191,5 +188,9 @@ public class Robot implements MovingComponent
 	{
 		this.degrees=d;
 		
+	}
+	public static void main(String[] args)
+	{
+	System.out.println(	Pointfs.fromDegrees(360+90+360));
 	}
 }

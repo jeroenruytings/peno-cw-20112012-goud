@@ -46,9 +46,9 @@ public class UltrasonicSensor extends Sensor
 	public void tick(Ticker ticker)
 	{
 		Pointf origin = getLocation();
-		Pointf to = translate(origin, multiply(fromDegrees(moving.getDirection()), sensorRange));
+		Pointf to = translate(origin, multiply(fromDegrees(getDirection()), sensorRange));
 		List<LocationComponent> components = robot.getView().getIn(origin, to);
-
+		
 		for(LocationComponent component:components)
 		{
 			PassabilityChecker p = new PassabilityChecker();
@@ -58,6 +58,8 @@ public class UltrasonicSensor extends Sensor
 			else
 			{
 				int newD =(int) new ComponentOriginComparator(origin, to).distance(component);
+				if(newD<10)
+					System.out.println("wutwut");
 				if(newD==distance)
 					break;
 				distance=newD;

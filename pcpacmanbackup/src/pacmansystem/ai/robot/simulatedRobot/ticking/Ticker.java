@@ -32,7 +32,7 @@ public class Ticker
 				
 			}
 		};
-		this.timer = new Timer(50,listener);
+		this.timer = new Timer(10,listener);
 	}
 	protected void tickAll()
 	{

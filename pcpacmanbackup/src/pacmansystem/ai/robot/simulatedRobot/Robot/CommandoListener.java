@@ -153,7 +153,7 @@ public class CommandoListener implements Runnable
 		communicator.send(message);
 	}
 
-	private void turnHeadRight(int argument)
+	public void turnHeadRight(int argument)
 	{
 
 		System.out.println("turning head right");
@@ -175,6 +175,10 @@ public class CommandoListener implements Runnable
 		 SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
 		listener.forceLight(SIMINFO.BROWN/4);
 		 setBlack(listener.getLightValue());
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+			}
 		communicator.send(message);
 		try {
 			Thread.sleep(1000);
@@ -190,6 +194,10 @@ public class CommandoListener implements Runnable
 		 SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
 		listener.forceLight(SIMINFO.WHITE/4);
 		 setBlack(listener.getLightValue());
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+			}
 		communicator.send(message);
 		try {
 			Thread.sleep(1000);
@@ -204,9 +212,9 @@ public class CommandoListener implements Runnable
 	
 		 Message message = new Message(Monitor.SensorMonitor,
 		 SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
-		listener.forceLight(SIMINFO.BLACK/4);
+		 listener.forceLight(SIMINFO.BLACK/4);
 		 setBlack(listener.getLightValue());
-		 try {
+			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 			}
@@ -278,6 +286,10 @@ public class CommandoListener implements Runnable
 		Message message = new Message(Monitor.SensorMonitor,
 				SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
 		communicator.send(message);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+		}
 		robot.getPilot().resetTachoCount();
 		robot.getPilot().travel(-160);
 		robot.getPilot().resetTachoCount();
@@ -285,6 +297,7 @@ public class CommandoListener implements Runnable
 
 	private void right(int i)
 	{
+		System.out.println("turn "+i);
 		robot.getPilot().rotate(i);
 	}
 
@@ -302,7 +315,6 @@ public class CommandoListener implements Runnable
 
 	private void forward(int i)
 	{
-
 		robot.getPilot().travel(i);
 
 	}

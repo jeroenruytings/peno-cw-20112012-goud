@@ -58,8 +58,8 @@ public class SensorHolder implements MovingComponent
 	@Override
 	public Pointf getLocation()
 	{
-		return Pointfs.translate(moving.getLocation(), Pointfs.multiply(
-				Pointfs.fromDegrees(moving.getDirection()), 50));
+		return moving.getLocation();//Pointfs.translate(moving.getLocation(), Pointfs.multiply(
+				//Pointfs.fromDegrees(moving.getDirection()), 50));
 	}
 
 	public UltrasonicSensor getUltraSonicSensor()

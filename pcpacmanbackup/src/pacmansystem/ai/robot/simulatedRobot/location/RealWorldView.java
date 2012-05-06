@@ -21,6 +21,7 @@ public interface RealWorldView
 
 	/**
 	 * Gets the LocationComponents that are in the range [point0->point1]
+	 * sorted, closest one first
 	 */
 	public abstract List<LocationComponent> getIn(Pointf point0, Pointf point1);
 	/**

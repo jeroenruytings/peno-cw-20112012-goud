@@ -60,7 +60,6 @@ public class ColorTransitionStack
 
 	private void addColorNode(PanelColor color, int distance)
 	{
-
 		if (!_nodes.isEmpty() && distance < _nodes.peek().get_dist())
 			return;
 		_nodes.push(new ColorNode(color, distance));
@@ -101,11 +100,11 @@ public class ColorTransitionStack
 		if (current.get_color().equals(nodes.peek().get_color())) {
 			return cleanHeap(nodes);
 		}
-		if (distance(current, nodes.peek()) < FILTER_OFFSET) {
-			nodes.pop();
-			nodes.push(current);
-			return cleanHeap(nodes);
-		}
+//		if (distance(current, nodes.peek()) < FILTER_OFFSET) {
+//			nodes.pop();
+//			nodes.push(current);
+//			return cleanHeap(nodes);
+//		}
 		nodes.push(current);
 		return nodes;
 
