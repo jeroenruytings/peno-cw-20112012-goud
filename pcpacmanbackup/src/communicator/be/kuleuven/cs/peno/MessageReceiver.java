@@ -9,6 +9,8 @@ import java.util.Observable;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.ConnectionParameters;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 import communicator.parser.decoder.ProtocolDecoder;
@@ -35,11 +37,27 @@ public class MessageReceiver extends Observable implements Runnable{
 	}
 	
 	public MessageReceiver() throws IOException{
+		this(Config.HOST_NAME,Config.EXCHANGE_NAME);
+//		decoder = new ProtocolDecoder();
+//		conn = MQ.createConnection();
+//		channel = MQ.createChannel(conn);
+//		queue = channel.queueDeclare();
+//		channel.queueBind(queue.getQueue(), Config.EXCHANGE_NAME, MONITOR_KEY);
+	}
+	
+	public MessageReceiver(String host, String exchangeName) throws IOException{
 		decoder = new ProtocolDecoder();
-		conn = MQ.createConnection();
+		ConnectionParameters params = new ConnectionParameters();
+		//params.setUsername(Config.USER_NAME);
+		//params.setPassword(Config.PASSWORD);
+		//params.setVirtualHost(Config.VIRTUAL_HOST);
+		//params.setRequestedHeartbeat(0);
+		ConnectionFactory factory = new ConnectionFactory(params);
+		Connection conn1 = factory.newConnection(host, Config.PORT);
+		conn = conn1;
 		channel = MQ.createChannel(conn);
 		queue = channel.queueDeclare();
-		channel.queueBind(queue.getQueue(), Config.EXCHANGE_NAME, MONITOR_KEY);
+		channel.queueBind(queue.getQueue(), exchangeName, MONITOR_KEY);
 	}
 
 	@Override

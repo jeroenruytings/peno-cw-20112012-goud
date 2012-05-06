@@ -49,6 +49,9 @@ public class ProtocolDecoder extends MessageDecoder<Message>
 			System.err.println("\n" + string + "\n");
 			e.printStackTrace();
 		}
+		catch(Exception e){
+			System.err.println("Wat moet ik hiermee doen: \n" + string + "\n");
+		}
 		// If an error occurred, then quit the program.
 		System.exit(0);
 		return null;

@@ -11,6 +11,7 @@ import communicator.be.kuleuven.cs.peno.MessageSender;
 import communicator.be.kuleuven.cs.peno.RabbitMQHistory;
 import communicator.parser.messages.Command;
 import communicator.parser.messages.Message;
+import communicator.parser.messages.RenameMessage;
 
 import data.board.Board;
 
@@ -120,8 +121,23 @@ public class World implements Observer
 	public synchronized void register()
 	{
 		registeredRobots++;
-		if (registeredRobots >= amountOfRobotsNeeded)
+		if (registeredRobots == amountOfRobotsNeeded)
 			this.notify();
+		else if (registeredRobots > amountOfRobotsNeeded)
+			try {
+				MessageSender.getInstance().sendMessage(new RenameMessage(getOwnRobotData().getName(),"2.2"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	}
+	
+	public OwnRobotData getOwnRobotData(){
+		OwnRobotData result = null;
+		for (RobotData robot : get_robots().values()){
+			if (robot instanceof OwnRobotData)
+				result = (OwnRobotData) robot;
+		}
+		return result;
 	}
 
 	/**

@@ -68,6 +68,7 @@ public class BarcodeAtMessage extends Message {
 	
 	@Override
 	void execute(World world) {
+		try{
 		if (!canExecute(world))
 			throw new MessageExecuteException();
 		Panel p;
@@ -86,6 +87,12 @@ public class BarcodeAtMessage extends Message {
 		world.getRobot(getNameFrom()).getBarcodes().put(new Barcode(_barcode), getCoordinate());
 		synchronized (world.getRobot(getNameFrom())) {
 			world.getRobot(getNameFrom()).notify();
+		}
+		}
+		catch (IllegalArgumentException e){
+			// Zou enkel mogen voorvallen als er een verkeerde barcode wordt doorgestuurd.
+			
+			// Doe niets!
 		}
 
 	}

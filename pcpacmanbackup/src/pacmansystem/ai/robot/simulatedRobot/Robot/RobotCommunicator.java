@@ -39,7 +39,6 @@ public class RobotCommunicator {
 			commando = CommandoListener.decodeCommando(i);
 			return commando;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.out.println("fout gegaan in het lezen van de inputstream");
 		}
 		return commando;
