@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
 
 import pacmansystem.ai.robot.Barcode;
 import pacmansystem.ai.robot.OrientationLayer;
@@ -103,8 +104,21 @@ public class RobotController
 				
 				destination = getOwnData().getRemainingPlan().get(0); // zoekt volgend punt om naartoe te
 																		// gaan
-				System.out.println("Rijden van (" + Message.pointToMessageString(getCurrentPoint()) + ") naar ("+Message.pointToMessageString(destination) + ")");
+				if (hasRobotAt(destination)) {
+					try {
+						Thread.sleep(5000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				if (hasRobotAt(destination)) {
+					System.out.println("Lazy robots. Lazy robots everywhere.");
+					getOwnData().cancelPlan();
+					break;
+				}
+					
 				try {
+					System.out.println("Rijden van (" + Message.pointToMessageString(getCurrentPoint()) + ") naar ("+Message.pointToMessageString(destination) + ")");
 					getPathLayer().goOneStep(getCurrentPoint(), destination);
 				} catch (IllegalDriveException e) {
 					e.printStackTrace();
