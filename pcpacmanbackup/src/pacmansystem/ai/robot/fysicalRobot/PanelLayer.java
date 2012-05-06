@@ -104,19 +104,19 @@ public class PanelLayer implements PanelLayerInterface
 					mover.setCrashed(false);
 					try {
 						System.out.println("Case 2: 80 mm achteruit");
-						try {
-							System.in.read();
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+//						try {
+//							System.in.read();
+//						} catch (IOException e1) {
+//							// TODO Auto-generated catch block
+//							e1.printStackTrace();
+//						}
 						mover.drive(-80);
-						try {
-							System.in.read();
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+//						try {
+//							System.in.read();
+//						} catch (IOException e1) {
+//							// TODO Auto-generated catch block
+//							e1.printStackTrace();
+//						}
 					} catch (CrashedException e1) {
 						System.out.println("case 2: crashed again");
 						//This should never happen
@@ -135,19 +135,19 @@ public class PanelLayer implements PanelLayerInterface
 					mover.setCrashed(false);
 					try {
 						System.out.println("Case 3: 80 mm achteruit");
-						try {
-							System.in.read();
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+//						try {
+//							System.in.read();
+//						} catch (IOException e1) {
+//							// TODO Auto-generated catch block
+//							e1.printStackTrace();
+//						}
 						mover.drive(-80);
-						try {
-							System.in.read();
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+//						try {
+//							System.in.read();
+//						} catch (IOException e1) {
+//							// TODO Auto-generated catch block
+//							e1.printStackTrace();
+//						}
 					} catch (CrashedException e1) {
 						System.out.println("case 3: crashed again");
 						//This should never happen
