@@ -311,9 +311,10 @@ public class MoverLayer extends Observable
 		while(!buttonIsPushed()){	
 		}
 		Date e = new Date();
-		if(e.getTime()-d.getTime()>5000){
-			throw new totalCrashException();			
-		}
+		//TODO
+//		if(e.getTime()-d.getTime()>5000){
+//			throw new totalCrashException();			
+//		}
 		releaseButton();
 	}
 
