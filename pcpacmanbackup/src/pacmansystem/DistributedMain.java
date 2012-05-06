@@ -15,6 +15,7 @@ import pacmansystem.ai.robot.simulatedRobot.StandardSimulationBuilder;
 import pacmansystem.ai.robot.simulatedRobot.Robot.Simulation;
 import pacmansystem.ai.robot.simulatedRobot.ticking.Ticker;
 import data.enums.Orientation;
+import data.world.OwnRobotData;
 import data.world.RealWorld;
 import data.world.RobotData;
 import data.world.World;
@@ -72,9 +73,10 @@ public class DistributedMain
 				robot.start();
 			}catch(totalCrashException e){
 				System.err.println("ROBUUUSTNESSS!!!");
-				PanelLayerInterface layer = robot.getPathLayer().getOrientationLayer().getLayer();
-				OrientationLayer orlayer = new OrientationLayer(layer);
-				robot = new RobotController(orlayer, robotName, world);
+				((OwnRobotData) robot.getWorld().getRobot(robot.getName())).resetAfterCrash();
+//				PanelLayerInterface layer = robot.getPathLayer().getOrientationLayer().getLayer();
+//				OrientationLayer orlayer = new OrientationLayer(layer);
+//				robot = new RobotController(orlayer, robotName, world);
 			}
 		}
 	}

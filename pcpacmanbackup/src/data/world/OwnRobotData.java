@@ -215,4 +215,9 @@ public class OwnRobotData extends RobotData
 	public void setLastChecked(Date lastChecked) {
 		this.lastChecked = lastChecked;
 	}
+	
+	public void resetAfterCrash() {
+		setMergedBoard(new Board());
+		setBoard(new Board());
+	}
 }
