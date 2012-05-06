@@ -8,17 +8,20 @@ public class Simulation implements Runnable
 	private Ticker ticker;
 	private Robot robot;
 	private RobotCommunicator comm;
+	private CommandoListener l;
 	/**
 	 * 
 	 * @param robot
 	 * @param ticker
 	 * @param comm
+	 * @param l 
 	 */
-	public Simulation(Robot robot,Ticker ticker,RobotCommunicator comm)
+	public Simulation(Robot robot,Ticker ticker,RobotCommunicator comm, CommandoListener l)
 	{
 		this.comm = comm;
 		this.robot=robot;
 		this.ticker=ticker;
+		this.l=l;
 	}
 	@Override
 	public void run()
@@ -34,6 +37,10 @@ public class Simulation implements Runnable
 	public Ticker getTicker()
 	{
 		return ticker;
+	}
+	public CommandoListener getCl()
+	{
+		return l;
 	}
 	public void start()
 	{

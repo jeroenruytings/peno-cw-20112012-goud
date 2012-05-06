@@ -24,6 +24,7 @@ public class RobotCommunicator {
 	}
 
 	private void send(byte mes) {
+
 		try {
 			out.writeByte(mes);
 		} catch (IOException e) {
@@ -31,6 +32,7 @@ public class RobotCommunicator {
 		}
 
 	}
+
 
 	public Commando receiveCommando() {
 		Commando commando = null;

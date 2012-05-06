@@ -52,13 +52,24 @@ public class QueuedStream
 		out_ = new OutputStream()
 		{
 
+			private int mask = 255;
+
 			@Override
 			public void write(int b) throws IOException
+			{
+				writeInternal(mask &b);
+			}
+			private void writeInternal(int b)
 			{
 				queue.add(b);
 				synchronized (lock) {
 					lock.notify();
 				}
+			}
+			@Override
+			public void close()
+			{
+				writeInternal(-1);
 			}
 		};
 	}
@@ -72,5 +83,5 @@ public class QueuedStream
 	{
 		return in_;
 	}
-
+	
 }

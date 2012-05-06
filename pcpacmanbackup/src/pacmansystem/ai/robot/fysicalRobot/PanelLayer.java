@@ -433,6 +433,7 @@ public class PanelLayer implements PanelLayerInterface
 			
 			if (distanceToWall < distanceAllowed){
 				System.out.println("true");
+				
 				return WallState.WALL;
 			}
 			else {

@@ -47,7 +47,7 @@ public class StandardSimulationBuilder implements SimulationBuilder
 		CommandoListener l = new CommandoListener(sensorlistener, comm, robot);
 		new Thread(l).start();
 		ticker.add(sensorlistener);
-		Simulation sim = new Simulation(robot, ticker, comm);
+		Simulation sim = new Simulation(robot, ticker, comm,l);
 		return sim;
 	}
 

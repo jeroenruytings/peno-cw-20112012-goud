@@ -1,0 +1,10 @@
+maze NAME maze-protocol-0.3
+maze DISCOVER 0,0 0 1 1 1
+maze DISCOVER 0,1 0 1 0 1
+maze DISCOVER 0,2 1 1 0 1
+maze BARCODEAT 0,1 25 3
+maze POSITION 0,0
+maze POSITION 0,1
+maze POSITION 0,1
+maze POSITION 0,1
+

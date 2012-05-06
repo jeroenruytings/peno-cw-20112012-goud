@@ -22,6 +22,10 @@ public class SimulatedPilot implements Tickable
 	private Robot robot;
 	private double speed;
 
+	private Movement currentMovement = new Idle();
+	private Movement nextMove;
+	private double tachoCount=0;
+
 	/**
 	 * gets the speed in mm/s
 	 */
@@ -74,10 +78,17 @@ public class SimulatedPilot implements Tickable
 	{
 		private double toTravel = 0;
 		private double traveled = 0;
-
+		private boolean min;
+		
 		public Forward(float i)
 		{
 			this.toTravel = i;
+			if(toTravel<0)
+				{
+				min=true;
+				toTravel=-toTravel;
+				}
+				
 		}
 
 		@Override
@@ -94,10 +105,21 @@ public class SimulatedPilot implements Tickable
 				travelDistance =(toTravel-traveled);
 			traveled  += travelDistance;
 			Pointf here = robot.getLocation();
-			Pointf there = translate(
+			if(min)
+				tachoCount-=travelDistance;
+			else
+				tachoCount+=travelDistance;
+			Pointf there;
+			if(min)
+				 there= translate(
 					here,
 					multiply(Pointfs.fromDegrees(robot.getDirection()),
-							(float) travelDistance));
+							-(float) travelDistance));
+			else
+				 there= translate(
+							here,
+							multiply(Pointfs.fromDegrees(robot.getDirection()),
+									(float) travelDistance));
 			// now we must check if hte robot can be placed in the new position
 			if (robot.getView().conflicting(
 					Robot.convexAround(there, robot.getDirection()))) {
@@ -115,11 +137,17 @@ public class SimulatedPilot implements Tickable
 		int degreesLeft;
 		// degrees/second
 		double degreesdone = 0;
-		double rotationSpeed = (SimulatedPilot.this.speed() / mmDeg(robot.widht / 2));
+		double rotationSpeed = 8*(SimulatedPilot.this.speed() / mmDeg(robot.widht / 2));
+		private boolean min = false;
 
 		Rotate(int degrees)
 		{
 			this.degreesLeft = degrees;
+			if(degreesLeft<0)
+			{
+				degreesLeft= - degreesLeft;
+				min =true;
+			}
 		}
 
 		private double mmDeg(float width)
@@ -148,14 +176,13 @@ public class SimulatedPilot implements Tickable
 				// do nothing
 				return;
 			}
-			robot.setDirection(robotD + degrees);
-
+			if(!min)
+				robot.setDirection(robotD + degrees);
+			else
+				robot.setDirection(robotD-degrees);
 		}
 
 	}
-
-	private Movement currentMovement = new Idle();
-	private Movement nextMove;
 
 	public void stop()
 	{
@@ -171,13 +198,13 @@ public class SimulatedPilot implements Tickable
 	}
 
 	/**
-	 * Moves i in cm. will not return untill movement is complete
+	 * Moves i in mm. will not return untill movement is complete
 	 * 
 	 * @param i
 	 */
 	public void travel(int i)
 	{
-		Movement forward = new Forward(i*10);
+		Movement forward = new Forward(i);
 		setNextMove(forward);
 		waitForCompletion(forward);
 	}
@@ -225,14 +252,23 @@ public class SimulatedPilot implements Tickable
 
 	public void resetTachoCount()
 	{
-		// TODO Auto-generated method stub
+		tachoCount=0;
 
 	}
-
+	/**
+	 * 
+	 * @return
+	 */
 	public int getTachoCount()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		if(tachoCount<0)
+			return 0;
+		return (int) (360d*tachoCount/wheelCircumfrence());
+	}
+
+	private double wheelCircumfrence()
+	{
+		return wheelbase*Math.PI;
 	}
 
 	@Override

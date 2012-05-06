@@ -114,6 +114,7 @@ public class DistributedMain
 			RealWorld realworld = RealWorld.getRealWorld();
 			builder.setRealWorld(realworld);
 			builder.setSimulationConnection(conn);
+			System.out.println(realworld.getStartingPoint(robotNumber));
 			builder.setStartLocation(realworld.getStartingPoint(robotNumber));
 			Simulation sim =builder.build();
 			sim.start();

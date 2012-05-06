@@ -17,8 +17,7 @@ public class Robot implements MovingComponent
 	public static final float widht = 150;
 	public static final float height = 250;
 	private final RealWorldView view;
-	private Pointf origin = new Pointf(SIMINFO.PANELWIDTH / 2,
-			SIMINFO.PANELHEIGHT / 2);
+	private Pointf origin ;
 	private double degrees = 0; // The direction the robot is facing aka North at
 								// start
 	private LightSensor lightSensor = null;
@@ -50,6 +49,7 @@ public class Robot implements MovingComponent
 		this.view = view;
 		setDegrees(degrees + 90);// hack to make sure 0 is north.
 		this.pilot = new SimulatedPilot(this,speed);
+		this.origin=origin;
 	}
 
 	/**

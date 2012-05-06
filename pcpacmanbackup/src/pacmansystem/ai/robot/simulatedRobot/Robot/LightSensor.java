@@ -3,6 +3,8 @@ package pacmansystem.ai.robot.simulatedRobot.Robot;
 import static pacmansystem.ai.robot.simulatedRobot.point.Pointfs.fromDegrees;
 import static pacmansystem.ai.robot.simulatedRobot.point.Pointfs.multiply;
 import static pacmansystem.ai.robot.simulatedRobot.point.Pointfs.translate;
+import com.sun.jndi.url.corbaname.corbanameURLContextFactory;
+
 import pacmansystem.ai.robot.simulatedRobot.SIMINFO;
 import pacmansystem.ai.robot.simulatedRobot.location.components.LocationComponent;
 import pacmansystem.ai.robot.simulatedRobot.location.components.LocationComponentVisitor;
@@ -41,6 +43,7 @@ public class LightSensor  extends Sensor
 	public void tick(Ticker ticker)
 	{
 		readValue();
+		System.out.println(this.value);
 	}
 	private class ColorChecker implements LocationComponentVisitor{
 		boolean colored = false;
@@ -61,6 +64,8 @@ public class LightSensor  extends Sensor
 	private void readValue()
 	{
 		LocationComponent component= robot.getView().get(getLocation());
+		if(component==null)
+			return;
 		ColorChecker c = new ColorChecker();
 		component.visit(c);
 		if(!c.colored)
@@ -75,7 +80,8 @@ public class LightSensor  extends Sensor
 	{
 		double degrees = robot.getDirection()-SIMINFO.LIGHTSENSORPOSITION;
 		Pointf direction =new Pointf(Math.cos(degrees),Math.sin(degrees));
-		return translate(robot.getLocation(),multiply(fromDegrees(degrees),SIMINFO.LIGHTSENSORDISTANCE));
+		;
+		return robot.getLocation();//translate(robot.getLocation(),multiply(fromDegrees(degrees),SIMINFO.LIGHTSENSORDISTANCE));
 	}
 
 

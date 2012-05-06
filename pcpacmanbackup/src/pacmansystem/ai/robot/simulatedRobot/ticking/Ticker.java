@@ -32,7 +32,7 @@ public class Ticker
 				
 			}
 		};
-		this.timer = new Timer(1000/_tickspersecond,listener);
+		this.timer = new Timer(50,listener);
 	}
 	protected void tickAll()
 	{
@@ -59,7 +59,7 @@ public class Ticker
 	}
 	public int getTicksPerSecond()
 	{
-		return _tickspersecond;
+		return 1;
 	}
 	public void setTicksPerSecond(int t)
 	{

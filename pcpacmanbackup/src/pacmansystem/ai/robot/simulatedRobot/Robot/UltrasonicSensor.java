@@ -15,9 +15,9 @@ public class UltrasonicSensor extends Sensor
 	/**
 	 * Sensor range in mm
 	 */
-	private static final long sensorRange=2000;
+	private static final long sensorRange=2550;
 	private MovingComponent moving;
-	private int distance;
+	private int distance=255;
 	private boolean changed;
 
 	public UltrasonicSensor(Robot robot,MovingComponent moving)
@@ -32,7 +32,7 @@ public class UltrasonicSensor extends Sensor
 	public int getDistance()
 	{
 
-		return distance;
+		return distance/10;
 	}
 
 
@@ -61,6 +61,7 @@ public class UltrasonicSensor extends Sensor
 				if(newD==distance)
 					break;
 				distance=newD;
+				//System.out.println(distance);
 				this.changed =true;
 				break;
 				
@@ -93,7 +94,7 @@ public class UltrasonicSensor extends Sensor
 	@Override
 	public boolean hasChanged()
 	{
-		return changed;
+		return true;
 	}
 	public double getDirection()
 	{

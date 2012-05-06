@@ -390,6 +390,6 @@ public class RealWorldViewFromRealWorldObject implements RealWorldViewBuilder
 		points.add(translate(origin, vectorUp));
 		points.add(translate(translate(origin, vectorUp), vectorRight));
 		points.add(translate(origin, vectorRight));
-		return new OpenComponent(points, NORMALBOARD,SIMINFO.BROWN);
+		return new OpenComponent(points, SIMINFO.PANELZ,SIMINFO.BROWN);
 	}
 }

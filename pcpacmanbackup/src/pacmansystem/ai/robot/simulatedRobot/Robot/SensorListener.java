@@ -59,11 +59,8 @@ public class SensorListener implements Tickable
 
 	private void sendTacho()
 	{
-		
-//		if (tachoCount != getTachoCount() && getTachoCount() >= 0) {
-//			tachoCount = getTachoCount();
-//			sendValue(tachoCount, SensorIdentifier.TachoCount);
-//		}
+		sendValue(robot.getPilot().getTachoCount(), SensorIdentifier.TachoCount);
+
 	}
 
 	private void sendHeadTacho()
@@ -84,6 +81,7 @@ public class SensorListener implements Tickable
 	private void sendSonar()
 	{
 		if (sonar.hasChanged()) {
+			//System.out.println("send"+sonar.getDistance());
 			sendValue(sonar.getDistance(), SensorIdentifier.UltrasonicSensor);
 		}
 	}

@@ -35,6 +35,7 @@ public class StandardRobotBuilder implements RobotBuilder
 			throw new Error("Build can only be called once");
 		build=true;
 		Robot r = new Robot(speed, view, origin, degrees);
+	
 		LightSensor lightSensor = new LightSensor(r);
 		SensorHolder holder = new SensorHolder(r);
 		UltrasonicSensor ultraSonicSensor = new UltrasonicSensor(r, holder);
@@ -48,6 +49,7 @@ public class StandardRobotBuilder implements RobotBuilder
 		ticker.add(holder);
 		ticker.add(seeker);
 		ticker.add(touch);
+		ticker.add(ultraSonicSensor);
 		return r;
 	}
 	public void setRealWorld(RealWorld realworld)
@@ -62,7 +64,7 @@ public class StandardRobotBuilder implements RobotBuilder
 
 	public void setOrigin(Point point)
 	{
-		this.origin = new Pointf(point.x*SIMINFO.PANELWIDTH/2,point.y*SIMINFO.PANELHEIGHT/2);
+		this.origin = new Pointf(point.x*SIMINFO.PANELWIDTH+SIMINFO.PANELWIDTH/2,point.y*SIMINFO.PANELHEIGHT+SIMINFO.PANELHEIGHT/2);
 	}
 
 	public void setDegrees(int degrees)

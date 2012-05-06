@@ -109,7 +109,7 @@ public class RealWorld implements Observer
 			tmp.add(command);
 		}
 		RealWorld result = null;
-		String[] commands = new String[10];
+		String[] commands = new String[0];
 		try {
 			result = BoardCreator.createBoard(tmp.toArray(commands));
 		} catch (ParseException e) {
@@ -161,7 +161,7 @@ public class RealWorld implements Observer
 			tmp.add(command);
 		}
 		RealWorld result = null;
-		String[] commands = new String[10];
+		String[] commands = new String[0];
 		try {
 			result = BoardCreator.createBoard(tmp.toArray(commands));
 		} catch (ParseException e) {

@@ -24,14 +24,14 @@ public class _QueuedStreamTest
 	@Test
 	public void simpleints() throws IOException
 	{
-		int num = 1000;
+		int num = 255;
 		for (int i = 0; i < num; i++)
 			stream.getOut().write(i);
 		for (int i = 0; i < num; i++)
 			assertTrue(stream.getIn().read() == i);
 	}
 
-	public final static int terminator = -10001;
+	public final static int terminator = -1;
 
 	class WritingRunnable implements Runnable
 	{
@@ -45,14 +45,14 @@ public class _QueuedStreamTest
 		@Override
 		public void run()
 		{
-			for (int i = 0; i < 100000; i++)
+			for (int i = 0; i < 254; i++)
 				try {
 					out.write(i);
 				} catch (Exception e) {
 
 				}
 			try {
-				out.write(terminator);
+				out.close();
 			} catch (IOException e) {
 			}
 		}
@@ -179,9 +179,14 @@ public class _QueuedStreamTest
 	{
 		DataInputStream in = new DataInputStream(stream.getIn());
 		DataOutputStream out = new DataOutputStream(stream.getOut());
-		out.write(10);
-		out.write(6);
-		assertTrue(in.readByte()==10);
-		assertTrue(in.readByte()==6);
+		out.write(0);
+		out.write(0);
+		out.writeByte(-1);
+		out.write(0);
+		assertTrue(in.readByte()==0);
+		assertTrue(in.readByte()==0);
+		assertTrue(in.readByte()==-1);
+		assertTrue(in.readByte()==0);
+		
 	}
 }

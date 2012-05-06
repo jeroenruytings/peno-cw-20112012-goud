@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import pacmansystem.ai.robot.simulatedRobot.SimulationConnection;
 
-public class PCCommunicator implements Runnable,Communicator
+public class PCCommunicator implements Runnable
 {
 
 	private LeoMonitor startOfChain;

@@ -153,6 +153,7 @@ public class MoverLayer extends Observable
 	 */
 	public void turnHead(int degrees)
 	{
+		releaseButton();
 		if (degrees>=0){
 			pcc.sendCommando(new Commando(Action.HEADRIGHT,degrees,""));
 			while(!buttonIsPushed()){
@@ -287,9 +288,9 @@ public class MoverLayer extends Observable
 	public void setLightSensor(Integer value) {
 		this.lightSensor = value;
 		if(_colorStack.sufficientlyCalibrated())
-			
+		{	//System.out.println("value"+value+" tacho"+getTachoCount());
 			_colorStack.pushColor(value, getTachoCount());
-	}
+	}}
 
 
 	public PCCommunicator getPcc() {

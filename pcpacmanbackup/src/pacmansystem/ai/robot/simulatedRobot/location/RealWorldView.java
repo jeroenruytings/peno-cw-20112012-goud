@@ -15,7 +15,7 @@ public interface RealWorldView
 	 * 
 	 * @param point
 	 *            the point in the 2d plane.
-	 * @return the collection of components that are on this point.
+	 * @return the component with the highest z-value
 	 */
 	public abstract LocationComponent get(Pointf point);
 

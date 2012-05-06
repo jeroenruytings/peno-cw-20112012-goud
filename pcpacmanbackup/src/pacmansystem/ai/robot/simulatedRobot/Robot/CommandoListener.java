@@ -69,8 +69,10 @@ public class CommandoListener implements Runnable
 
 			return;
 		} else {
+			System.out.println(receivedCommando.getAction().name());
 			switch (receivedCommando.getAction())
 			{
+			
 			case STOP:
 				stop();
 				break;
@@ -118,30 +120,29 @@ public class CommandoListener implements Runnable
 	{
 		Message message = new Message(Monitor.SensorMonitor,
 				SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
-		robot.getPilot().rotate(180);
-		robot.getPilot().setSpeed(360);
-
-		while (!iswhite(listener.getLightValue())) {
-			robot.getPilot().forward();
-		}
-
-		robot.getPilot().stop();
-		robot.getPilot().setSpeed(60);
-		robot.getPilot().resetTachoCount();
-
-		while (iswhite(listener.getLightValue())) {
-			robot.getPilot().forward();
-		}
-
-		robot.getPilot().stop();
-		robot.waitForPress();
+//		robot.getPilot().rotate(180);
+//		robot.getPilot().setSpeed(360);
+//
+//		while (!iswhite(listener.getLightValue())) {
+//			robot.getPilot().forward();
+//		}
+//
+//		robot.getPilot().stop();
+//		robot.getPilot().setSpeed(60);
+//		robot.getPilot().resetTachoCount();
+//
+//		while (iswhite(listener.getLightValue())) {
+//			robot.getPilot().forward();
+//		}
+//
+//		robot.getPilot().stop();
+//		robot.waitForPress();
 		communicator.send(message);
 
 	}
 
 	private void turnHeadLeft(int argument)
 	{
-
 		robot.getHead().rotate(argument);
 		Message message = new Message(Monitor.SensorMonitor,
 				SensorIdentifier.UltrasonicSensor, new SensorValue(
@@ -155,6 +156,7 @@ public class CommandoListener implements Runnable
 	private void turnHeadRight(int argument)
 	{
 
+		System.out.println("turning head right");
 		robot.getHead().rotate(-argument);
 		Message message = new Message(Monitor.SensorMonitor,
 				SensorIdentifier.UltrasonicSensor, new SensorValue(
