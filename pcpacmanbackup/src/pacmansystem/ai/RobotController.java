@@ -321,17 +321,7 @@ public class RobotController
 
 	public void start()
 	{
-		new Thread(new Runnable()
-		{
-
-			@Override
-			public void run()
-			{
-
-				drive();
-
-			}
-		}).start();
+		drive();
 	}
 
 	private int dist(Point position, Point point)

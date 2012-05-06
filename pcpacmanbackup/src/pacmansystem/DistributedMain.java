@@ -8,6 +8,7 @@ import pacmansystem.ai.robot.OrientationLayer;
 import pacmansystem.ai.robot.PanelLayerInterface;
 import pacmansystem.ai.robot.fysicalRobot.PanelLayer;
 import pacmansystem.ai.robot.fysicalRobot.connector.MoverLayer;
+import pacmansystem.ai.robot.fysicalRobot.connector.totalCrashException;
 import pacmansystem.ai.robot.simulatedRobot.SimulatedRobot;
 import pacmansystem.ai.robot.simulatedRobot.SimulationConnection;
 import pacmansystem.ai.robot.simulatedRobot.StandardSimulationBuilder;
@@ -65,8 +66,17 @@ public class DistributedMain
 				gui.setRobotData(r);
 		}
 		
-		//gui.setWorld(robot.getWorld());
-		robot.start();
+		while(true){
+			try{
+				//gui.setWorld(robot.getWorld());
+				robot.start();
+			}catch(totalCrashException e){
+				System.err.println("ROBUUUSTNESSS!!!");
+				PanelLayerInterface layer = robot.getPathLayer().getOrientationLayer().getLayer();
+				OrientationLayer orlayer = new OrientationLayer(layer);
+				robot = new RobotController(orlayer, robotName, world);
+			}
+		}
 	}
 
 	/**

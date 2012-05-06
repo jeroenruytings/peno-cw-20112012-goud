@@ -383,7 +383,7 @@ public class PanelLayer implements PanelLayerInterface
 			panel.setBarcode(getBarcode(), currentOrientation);
 		}
 		
-		if(hasToCorrect && counterCorrect>3){
+		if(!hasBarcode() && counterCorrect>1){
 			correctToMiddle();
 			counterCorrect = 0;
 			hasToCorrect = false;

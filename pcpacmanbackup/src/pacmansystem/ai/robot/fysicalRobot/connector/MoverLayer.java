@@ -1,9 +1,11 @@
 package pacmansystem.ai.robot.fysicalRobot.connector;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
+
 
 import pacmansystem.ai.robot.Barcode;
 import pacmansystem.ai.robot.BarcodeReader;
@@ -311,14 +313,15 @@ public class MoverLayer extends Observable
 	
 	public void correctToMiddle() throws totalCrashException{
 		releaseButton();
-		int firstTacho = getTachoCount();
 		pcc.sendCommando(new Commando(Action.CORRECT, 0, ""));
+		Date d = new Date();
 		while(!buttonIsPushed()){
-			if(firstTacho - getTachoCount()>2620)
-				throw new totalCrashException();
+			Date e = new Date();
+			if(e.getTime()-d.getTime()>5000){
+				throw new totalCrashException();			
+			}
 		}
 		releaseButton();
-		System.out.println("is released");
 	}
 
 
