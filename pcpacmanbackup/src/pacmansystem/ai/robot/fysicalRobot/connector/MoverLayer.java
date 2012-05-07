@@ -170,7 +170,7 @@ public class MoverLayer extends Observable
 		}
 	}
 
-	private void waitForButton()
+	public void waitForButton()
 	{
 		while(!buttonIsPushed()){
 		}

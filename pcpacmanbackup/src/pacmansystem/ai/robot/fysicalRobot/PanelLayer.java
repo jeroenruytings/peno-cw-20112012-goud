@@ -332,7 +332,7 @@ public class PanelLayer implements PanelLayerInterface
 			mover.getTransStack().clear();
 			this.mover.barocde=true;
 			mover.getPcc().sendCommando(new Commando(Action.READBARCODE, 0, ""));
-			while(!mover.buttonIsPushed());
+			mover.waitForButton();
 			mover.releaseButton();
 			Barcode code = mover.getBarcodeReader().searchForCode();
 			this.mover.barocde=false;
