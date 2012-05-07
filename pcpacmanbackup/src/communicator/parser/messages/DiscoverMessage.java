@@ -71,6 +71,8 @@ public class DiscoverMessage extends Message
 			for(Orientation d : Orientation.values()){
 				if(e.getWallState(d) == WallState.UNKNOWN)
 					e.setBorder(d, p.getWallState(d));
+				if(p.getWallState(d) == WallState.UNKNOWN)
+					continue;
 				if(e.getWallState(d) != p.getWallState(d)){
 					e.setBorder(d, p.getWallState(d));
 				}
