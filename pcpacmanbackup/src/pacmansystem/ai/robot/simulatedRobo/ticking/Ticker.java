@@ -45,19 +45,7 @@ public class Ticker
 	}
 	private Collection<Tickable> sort(List<Tickable> tickables_2)
 	{
-		Collections.sort(tickables_2,new Comparator<Tickable>()
-		{
-
-			@Override
-			public int compare(Tickable o1, Tickable o2)
-			{
-				if(o1.importance()<o2.importance())
-					return -1;
-				if(o1.importance()>o2.importance())
-					return 1;
-				return 0;
-			}
-		});
+		
 		return tickables_2;
 	}
 	public void add(Tickable tick)
