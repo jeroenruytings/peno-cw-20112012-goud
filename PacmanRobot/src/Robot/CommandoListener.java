@@ -43,7 +43,7 @@ public class CommandoListener implements Runnable {
 	public CommandoListener(SensorListener listener){
 		
 		communicator = RobotCommunicator.instance();
-		pilot = new DifferentialPilot(54.5f, 54.75f, 156f, Motor.A, Motor.B, false);
+		pilot = new DifferentialPilot(54.5f, 54.75f, 153.5f, Motor.A, Motor.B, false);
 		this.listener = listener;
 	}
 	
@@ -184,6 +184,7 @@ public class CommandoListener implements Runnable {
 			}
 		}
 		pilot.travel(40);
+		pilot.setSpeed(180);
 		pilot.rotate(-180, true);
 		Motor.B.resetTachoCount();
 		interruptToWhite();
@@ -205,6 +206,7 @@ public class CommandoListener implements Runnable {
 		pilot.rotate(-360, true);
 		interruptWhenDestinationReached(teller);
 		
+		pilot.setSpeed(360);
 		pilot.travel(200);
 	}
 	
@@ -470,11 +472,15 @@ public class CommandoListener implements Runnable {
 	}
 	
 private void right(int i) {
+	pilot.setSpeed(180);
 	pilot.rotate(i);
+	pilot.setSpeed(360);
 }
 
 private void left(int i) {
+	pilot.setSpeed(180);
 	pilot.rotate(-i);
+	pilot.setSpeed(360);
 }
 
 private void backward(int i) {
