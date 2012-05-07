@@ -1,5 +1,8 @@
 package pacmansystem.ai.robot.simulatedRobot.Robot;
 
+import java.awt.Point;
+import java.util.Timer;
+
 import pacmansystem.ai.robot.simulatedRobot.SIMINFO;
 
 public class CommandoListener implements Runnable
@@ -279,6 +282,7 @@ public class CommandoListener implements Runnable
 
 	public void readBarcode()
 	{
+		System.out.println(new Point((int)((robot.getLocation().X()-SIMINFO.PANELWIDTH/2)/SIMINFO.PANELWIDTH),(int)((robot.getLocation().Y()-SIMINFO.PANELWIDTH/2)/SIMINFO.PANELWIDTH)));
 		robot.getPilot().resetTachoCount();
 		robot.getPilot().travel(-160);
 		robot.getPilot().resetTachoCount();

@@ -17,7 +17,7 @@ public class UltrasonicSensor extends Sensor
 	 */
 	private static final long sensorRange=2550;
 	private MovingComponent moving;
-	private int distance=255;
+	private int distance=254;
 	private boolean changed;
 
 	public UltrasonicSensor(Robot robot,MovingComponent moving)
@@ -62,13 +62,14 @@ public class UltrasonicSensor extends Sensor
 					System.out.println("wutwut");
 				if(newD==distance)
 					break;
+				
 				distance=newD;
 				//System.out.println(distance);
 				this.changed =true;
-				break;
-				
-			}
-		}
+				return;
+			}}
+		this.distance=(int) sensorRange;
+		
 	}
 	private class PassabilityChecker implements LocationComponentVisitor
 	{
