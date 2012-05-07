@@ -8,7 +8,7 @@ import pacmansystem.ai.robot.OrientationLayer;
 import pacmansystem.ai.robot.PanelLayerInterface;
 import pacmansystem.ai.robot.fysicalRobot.PanelLayer;
 import pacmansystem.ai.robot.fysicalRobot.connector.MoverLayer;
-import pacmansystem.ai.robot.simulatedRobot.SimulatedRobot;
+import pacmansystem.ai.robot.simulatedRobo.SimulatedRobot;
 import data.enums.Orientation;
 import data.world.RealWorld;
 import data.world.World;

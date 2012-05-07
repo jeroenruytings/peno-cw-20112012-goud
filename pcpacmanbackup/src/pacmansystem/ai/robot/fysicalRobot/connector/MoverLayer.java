@@ -12,7 +12,7 @@ import pacmansystem.ai.robot.BarcodeReader;
 import pacmansystem.ai.robot.fysicalRobot.PanelColor;
 import pacmansystem.ai.robot.fysicalRobot.barcode.BarCodeReader;
 import pacmansystem.ai.robot.fysicalRobot.barcode.ColorTransitionStack;
-import pacmansystem.ai.robot.simulatedRobot.SimulationConnection;
+import pacmansystem.ai.robot.simulatedRobo.SimulationConnection;
 
 public class MoverLayer extends Observable
 {

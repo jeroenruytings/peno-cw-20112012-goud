@@ -14,7 +14,7 @@ import pacmansystem.ai.robot.OrientationLayer;
 import pacmansystem.ai.robot.PathLayer;
 import pacmansystem.ai.robot.fysicalRobot.connector.CrashedException;
 import pacmansystem.ai.robot.fysicalRobot.connector.totalCrashException;
-import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
+import pacmansystem.ai.robot.simulatedRobo.IllegalDriveException;
 import pacmansystem.ai.strategy.Explore;
 import pacmansystem.ai.strategy.Strategy;
 

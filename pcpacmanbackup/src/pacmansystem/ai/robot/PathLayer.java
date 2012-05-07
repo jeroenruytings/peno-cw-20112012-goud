@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import pacmansystem.ai.robot.fysicalRobot.connector.CrashedException;
-import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
+import pacmansystem.ai.robot.simulatedRobo.IllegalDriveException;
 import data.board.Board;
 import data.board.Panel;
 import data.board.shortestpathfinder.dijkstra.DijkstraFinder;

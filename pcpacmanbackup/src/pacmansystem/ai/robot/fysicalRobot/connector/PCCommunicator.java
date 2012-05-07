@@ -4,7 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import pacmansystem.ai.robot.simulatedRobot.SimulationConnection;
+import pacmansystem.ai.robot.simulatedRobo.SimulationConnection;
 
 public class PCCommunicator implements Runnable
 {

@@ -1,7 +1,7 @@
 package pacmansystem.ai.robot;
 
 import pacmansystem.ai.robot.fysicalRobot.connector.CrashedException;
-import pacmansystem.ai.robot.simulatedRobot.IllegalDriveException;
+import pacmansystem.ai.robot.simulatedRobo.IllegalDriveException;
 import data.board.Panel;
 import data.enums.Direction;
 import data.enums.Orientation;
