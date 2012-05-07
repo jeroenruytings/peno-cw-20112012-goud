@@ -14,6 +14,8 @@ public class SensorListener implements Tickable
 	private boolean forcelight;
 	private int lightValue;
 	private Robot robot;
+	private boolean tf;
+	private int tacho;
 
 	public SensorListener(RobotCommunicator comm,UltrasonicSensor sensor,LightSensor lights,TouchSensor touch,IRSeekerV2 irseekr,Robot robot)
 	{
@@ -59,6 +61,11 @@ public class SensorListener implements Tickable
 
 	private void sendTacho()
 	{
+		if(tf)
+		{
+			sendValue(tacho, SensorIdentifier.TachoCount);
+			return;
+		}
 		sendValue(robot.getPilot().getTachoCount()/4, SensorIdentifier.TachoCount);
 
 	}
@@ -140,6 +147,20 @@ public class SensorListener implements Tickable
 	{
 		// TODO Auto-generated method stub
 		return 9;
+	}
+
+
+	public void forcetacho(int i)
+	{
+		tacho=i;
+		tf=true;
+	}
+
+
+	public void unforcetacho()
+	{
+
+		tf=false;
 	}
 
 }

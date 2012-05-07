@@ -65,10 +65,11 @@ public class UltrasonicSensor extends Sensor
 				distance=newD;
 				//System.out.println(distance);
 				this.changed =true;
-				break;
+				return;
 				
 			}
 		}
+		this.distance=(int) sensorRange;
 	}
 	private class PassabilityChecker implements LocationComponentVisitor
 	{

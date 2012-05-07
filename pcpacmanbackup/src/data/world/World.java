@@ -20,7 +20,7 @@ public class World implements Observer
 	private Map<String, RobotData> _robots;
 	private int registeredRobots;
 	private int named=0;
-	private int amountOfRobotsNeeded = 4;
+	private int amountOfRobotsNeeded = 1;
 	private RabbitMQHistory _rabbitMQhistory;
 
 	

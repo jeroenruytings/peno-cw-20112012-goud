@@ -279,9 +279,13 @@ public class CommandoListener implements Runnable
 
 	public void readBarcode()
 	{
-		robot.getPilot().resetTachoCount();
+		listener.forcetacho(0);
+		listener.forceLight(Brown);
 		robot.getPilot().travel(-160);
+		listener.unforcetacho();
 		robot.getPilot().resetTachoCount();
+		listener.unforceLight();
+		listener.tick(null);
 		robot.getPilot().travel(320);
 		Message message = new Message(Monitor.SensorMonitor,
 				SensorIdentifier.ButtonPressed, new SensorValue((byte) 1));
