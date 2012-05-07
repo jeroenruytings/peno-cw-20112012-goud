@@ -102,4 +102,10 @@ public class UltrasonicSensor extends Sensor
 	{
 		return moving.getDirection();
 	}
+	@Override
+	public int importance()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

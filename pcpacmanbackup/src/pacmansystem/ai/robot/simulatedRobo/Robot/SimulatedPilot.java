@@ -72,6 +72,13 @@ public class SimulatedPilot implements Tickable
 			
 		}
 
+		@Override
+		public int importance()
+		{
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
 	}
 
 	private class Forward implements Movement
@@ -130,6 +137,13 @@ public class SimulatedPilot implements Tickable
 
 		}
 
+		@Override
+		public int importance()
+		{
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
 	}
 
 	private class Rotate implements Movement
@@ -180,6 +194,13 @@ public class SimulatedPilot implements Tickable
 				robot.setDirection(robotD + degrees);
 			else
 				robot.setDirection(robotD-degrees);
+		}
+
+		@Override
+		public int importance()
+		{
+			// TODO Auto-generated method stub
+			return 0;
 		}
 
 	}
@@ -284,6 +305,12 @@ public class SimulatedPilot implements Tickable
 			notifyCurrentMethod(currentMovement);
 			currentMovement = new Idle();
 		}
+	}
+
+	@Override
+	public int importance()
+	{
+		return 10;
 	}
 
 }

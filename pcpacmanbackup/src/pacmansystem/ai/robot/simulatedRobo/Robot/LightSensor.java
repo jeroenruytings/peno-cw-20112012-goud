@@ -78,6 +78,12 @@ public class LightSensor  extends Sensor
 		;
 		return robot.getLocation();//translate(robot.getLocation(),multiply(fromDegrees(degrees),SIMINFO.LIGHTSENSORDISTANCE));
 	}
+	@Override
+	public int importance()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 
 }

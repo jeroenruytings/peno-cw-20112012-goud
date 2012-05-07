@@ -117,6 +117,13 @@ public class SensorHolder implements MovingComponent
 				SensorHolder.this.angle += degrees;
 		}
 
+		@Override
+		public int importance()
+		{
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
 	}
 
 	private class Idle implements Movement
@@ -132,6 +139,13 @@ public class SensorHolder implements MovingComponent
 		public void tick(Ticker ticker)
 		{
 
+		}
+
+		@Override
+		public int importance()
+		{
+			// TODO Auto-generated method stub
+			return 0;
 		}
 
 	}
@@ -164,6 +178,12 @@ public class SensorHolder implements MovingComponent
 	public int getTacho()
 	{
 		return (int) angle;
+	}
+
+	@Override
+	public int importance()
+	{
+		return 8;
 	}
 
 }

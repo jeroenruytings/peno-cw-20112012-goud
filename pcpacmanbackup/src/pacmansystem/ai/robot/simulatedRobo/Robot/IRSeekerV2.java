@@ -50,4 +50,10 @@ public class IRSeekerV2 extends Sensor
 		return false;
 	}
 
+	@Override
+	public int importance()
+	{
+		return 0;
+	}
+
 }

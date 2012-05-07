@@ -33,4 +33,11 @@ public class TouchSensor extends Sensor
 		return false;
 	}
 
+	@Override
+	public int importance()
+	{
+		// TODO Auto-generated method stub
+		return 8;
+	}
+
 }

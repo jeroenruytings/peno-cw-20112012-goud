@@ -134,4 +134,12 @@ public class SensorListener implements Tickable
 		
 	}
 
+
+	@Override
+	public int importance()
+	{
+		// TODO Auto-generated method stub
+		return 9;
+	}
+
 }

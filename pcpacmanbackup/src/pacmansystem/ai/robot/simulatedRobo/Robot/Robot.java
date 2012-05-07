@@ -193,4 +193,11 @@ public class Robot implements MovingComponent
 	{
 	System.out.println(	Pointfs.fromDegrees(360+90+360));
 	}
+
+	@Override
+	public int importance()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

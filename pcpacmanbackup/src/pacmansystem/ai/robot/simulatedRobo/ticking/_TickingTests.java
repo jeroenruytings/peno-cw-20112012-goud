@@ -17,6 +17,13 @@ public class _TickingTests
 		{
 			ticks++;
 		}
+
+		@Override
+		public int importance()
+		{
+			return 0;
+		}
+
 		
 	}
 	@Test
