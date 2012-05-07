@@ -207,22 +207,44 @@ public class RobotController
 		for (int i = 0; i < getPathLayer().getOrientationLayer().getLayer().getPacmanDistance()-1; i++) {
 			pacmanLocation = orientationPacmanSpotted.addTo(pacmanLocation);
 			if (!getOwnBoard().hasPanelAt(pacmanLocation)){
-				if (orientationPacmanSpotted.equals(Orientation.NORTH) || orientationPacmanSpotted.equals(Orientation.SOUTH))
-					getOwnData().discover(pacmanLocation, new Panel(0,2,0,2));
-				else
-					getOwnData().discover(pacmanLocation, new Panel(2,0,2,0));
+				if (orientationPacmanSpotted.equals(Orientation.NORTH) || orientationPacmanSpotted.equals(Orientation.SOUTH)){
+					Panel p = new Panel(0,2,0,2);
+					getOwnData().discover(pacmanLocation, p);
+					addToBothBoards(p, pacmanLocation);
+				}
+				else{
+					Panel p = new Panel(2,0,2,0);
+					getOwnData().discover(pacmanLocation, p);
+					addToBothBoards(p, pacmanLocation);
+				}
 			}
 		}
 		pacmanLocation = orientationPacmanSpotted.addTo(pacmanLocation);
 		if (!getOwnBoard().hasPanelAt(pacmanLocation)){
-			if (orientationPacmanSpotted.equals(Orientation.NORTH))
-				getOwnData().discover(pacmanLocation, new Panel(2,2,0,2));
-			else if (orientationPacmanSpotted.equals(Orientation.SOUTH))
-				getOwnData().discover(pacmanLocation, new Panel(0,2,2,2));
-			else if (orientationPacmanSpotted.equals(Orientation.EAST))
-				getOwnData().discover(pacmanLocation, new Panel(2,2,2,0));
-			else if (orientationPacmanSpotted.equals(Orientation.WEST))
-				getOwnData().discover(pacmanLocation, new Panel(2,0,2,2));
+			if (orientationPacmanSpotted.equals(Orientation.NORTH)){
+				Panel p = new Panel(2,2,0,2);
+				getOwnData().discover(pacmanLocation, p);
+				addToBothBoards(p, pacmanLocation);
+
+			}
+			else if (orientationPacmanSpotted.equals(Orientation.SOUTH)){
+				Panel p = new Panel(0,2,2,2);
+				getOwnData().discover(pacmanLocation, p);
+				addToBothBoards(p, pacmanLocation);
+
+			}
+			else if (orientationPacmanSpotted.equals(Orientation.EAST)){
+				Panel p = new Panel(2,2,2,0);
+				getOwnData().discover(pacmanLocation, p);
+				addToBothBoards(p, pacmanLocation);
+
+			}
+			else if (orientationPacmanSpotted.equals(Orientation.WEST)){
+				Panel p = new Panel(2,0,2,2);
+				getOwnData().discover(pacmanLocation,p );
+				addToBothBoards(p, pacmanLocation);
+
+			}
 				
 		}
 		return pacmanLocation;

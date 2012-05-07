@@ -205,6 +205,7 @@ public class PanelLayer implements PanelLayerInterface
 			
 			if (distanceToWall < distanceAllowed){
 				hasToCorrect = true;
+				counterCorrect++;
 				return WallState.WALL;
 			}
 			else {
@@ -389,7 +390,7 @@ public class PanelLayer implements PanelLayerInterface
 			panel.setBarcode(getBarcode(), currentOrientation);
 		}
 		
-		if(!hasBarcode() && counterCorrect>3){
+		if(hasToCorrect && counterCorrect > 2){
 			correctToMiddle();
 			counterCorrect = 0;
 			hasToCorrect = false;
