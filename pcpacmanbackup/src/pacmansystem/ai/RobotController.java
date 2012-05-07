@@ -206,7 +206,7 @@ public class RobotController
 		Point pacmanLocation = getCurrentPoint();
 		for (int i = 0; i < getPathLayer().getOrientationLayer().getLayer().getPacmanDistance()-1; i++) {
 			pacmanLocation = orientationPacmanSpotted.addTo(pacmanLocation);
-			if (!getOwnBoard().hasPanelAt(pacmanLocation)){
+			if (!getOwnData().getMergedBoard().hasPanelAt(pacmanLocation)){
 				if (orientationPacmanSpotted.equals(Orientation.NORTH) || orientationPacmanSpotted.equals(Orientation.SOUTH)){
 					Panel p = new Panel(0,2,0,2);
 					getOwnData().discover(pacmanLocation, p);
@@ -220,7 +220,7 @@ public class RobotController
 			}
 		}
 		pacmanLocation = orientationPacmanSpotted.addTo(pacmanLocation);
-		if (!getOwnBoard().hasPanelAt(pacmanLocation)){
+		if (!getOwnData().getMergedBoard().hasPanelAt(pacmanLocation)){
 			if (orientationPacmanSpotted.equals(Orientation.NORTH)){
 				Panel p = new Panel(2,2,0,2);
 				getOwnData().discover(pacmanLocation, p);

@@ -92,6 +92,7 @@ public class Board
 	{
 		if (conflicting(p, panel)){
 			System.out.println("Paneel conflicting");
+			conflicting(p, panel);
 			throw new IllegalArgumentException("Paneel fout: " + p);
 		}
 		if(panel==null){
@@ -361,6 +362,10 @@ public class Board
 		if(hasPanelAt(p)){
 			Panel old = getPanelAt(p);
 			for(Orientation d : Orientation.values()){
+				if(old.getWallState(d).equals(WallState.UNKNOWN))
+					continue;
+				if(panel.getWallState(d).equals(WallState.UNKNOWN))
+					continue;
 				if(!old.getWallState(d).equals(panel.getWallState(d))){
 					return true;
 				}
